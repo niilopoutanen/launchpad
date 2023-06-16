@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="LaunchPadConfigurator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LaunchPadConfigurator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#212121">
+        <NavigationView
+            Name="settingsMenu"
+            Header="LaunchPad Settings"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False">
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="#242424" />
+            </NavigationView.Resources>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home" Content="Home" Tag="Home"></NavigationViewItem>
+                <NavigationViewItem Icon="Home" Content="General" Tag="General"></NavigationViewItem>
+                <NavigationViewItem Icon="Home" Content="Apps" Tag="Apps"></NavigationViewItem>
+            </NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{StaticResource PageBackground}">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </NavigationView>
+
+    </Grid>
+
+</Window>

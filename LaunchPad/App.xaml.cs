@@ -37,9 +37,9 @@ namespace LaunchPad
 
         private void HotKey_HotKeyPressed(object sender, HotKeyEventArgs e)
         {
-            if (launchPadWindow != null && launchPadWindow.IsActive)
+            if (launchPadWindow != null && launchPadWindow.IsVisible)
             {
-                launchPadWindow.Close();
+                launchPadWindow.CloseWithAnim();
                 return;
             }
 

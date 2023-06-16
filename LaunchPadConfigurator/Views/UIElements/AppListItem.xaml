@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="LaunchPadConfigurator.Views.UIElements.AppListItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Height="60" HorizontalAlignment="Stretch" Margin="0,0,0,10">
+        <Border CornerRadius="20" Background="{StaticResource ElementBackground}" Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <Image x:Name="appIcon" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="appName" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" />
+                    <Button Content="Remove" HorizontalAlignment="Right" Margin="0,0,10,0" Click="RemoveButtonClick"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>

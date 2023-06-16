@@ -10,15 +10,22 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Deactivated="Window_Deactivated">
-    <Border CornerRadius="25" Background="#292929" Padding="10">
-        <StackPanel Orientation="Horizontal">
+        Deactivated="Window_Deactivated"
+        Topmost="True">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard Storyboard="{StaticResource WindowLaunchAnimation}" />
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.RenderTransform>
+        <ScaleTransform ScaleX="1" ScaleY="1" />
+    </Window.RenderTransform>
+    <Window.RenderTransformOrigin>
+        <Point>0.5, 0.5</Point>
+    </Window.RenderTransformOrigin>
+    <Border CornerRadius="25" Background="#212121" Padding="10" MinWidth="100" MinHeight="100">
+        <StackPanel Orientation="Horizontal" Name="appContainer">
 
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
-            <Border Width="10"/>
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
-            <Border Width="10"/>
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
         </StackPanel>
     </Border>
 

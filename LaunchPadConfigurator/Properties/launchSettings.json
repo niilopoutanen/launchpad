@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LaunchPadConfigurator (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LaunchPadConfigurator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
