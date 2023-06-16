@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LaunchPadClassLibrary;
+using LaunchPadConfigurator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,23 +22,31 @@ namespace LaunchPad
         public LaunchPadWindow()
         {
             InitializeComponent();
+            LoadApps();
 
-            AddApp("C:/Windows/system32/notepad.exe");
-            AddApp("C:/Program Files/Google/Chrome/Application/chrome.exe");
-            AddApp("C:/Users/niilo/AppData/Roaming/Spotify/Spotify.exe");
-
-            //Remove last exess gap
-            appContainer.Children.RemoveAt(appContainer.Children.Count - 1);
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
             window.Topmost = true;
         }
-
-        private void AddApp(string appURI)
+        private void LoadApps()
         {
-            var icon = new Icon(appURI, CloseWithAnim);
+            List<AppShortcut> apps = SaveSystem.LoadApps();
+            foreach (AppShortcut app in apps)
+            {
+                AddApp(app.ExeUri, app.IconFileName);
+            }
+            if(apps.Count > 0)
+            {
+                //Remove last exess gap
+                appContainer.Children.RemoveAt(appContainer.Children.Count - 1);
+            }
+
+        }
+        private void AddApp(string appURI, string iconFile)
+        {
+            var icon = new Icon(appURI, iconFile, CloseWithAnim);
             var gap = new Border();
             gap.Width = 10;
             appContainer.Children.Add(icon);

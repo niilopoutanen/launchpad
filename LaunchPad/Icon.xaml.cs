@@ -26,11 +26,13 @@ namespace LaunchPad
     public partial class Icon : UserControl
     {
         private string appURI = "";
+        private string iconFile = "";
         private Action handler;
 
-        public Icon(string appURI, Action handler)
+        public Icon(string appURI, string iconFile, Action handler)
         {
             this.appURI = appURI;
+            this.iconFile = iconFile;
             this.handler = handler;
             InitializeComponent();
 
@@ -40,21 +42,30 @@ namespace LaunchPad
 
         private void InitializeIcon()
         {
-            System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(appURI);
-
-            if (appIcon != null)
+            if(iconFile == null)
             {
-                ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                    appIcon.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()
-                );
+                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(appURI);
 
-                // Set the Source property of the Image control
-                iconBitmap.Source = imageSource;
+                if (appIcon != null)
+                {
+                    ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                        appIcon.Handle,
+                        Int32Rect.Empty,
+                        BitmapSizeOptions.FromEmptyOptions()
+                    );
 
-                // Dispose the icon to free resources
-                appIcon.Dispose();
+                    // Set the Source property of the Image control
+                    iconBitmap.Source = imageSource;
+                    appIcon.Dispose();
+                }
+            }
+            else
+            {
+                if (Uri.TryCreate(iconFile, UriKind.Absolute, out Uri validUri))
+                {
+                    BitmapImage bitmapImage = new BitmapImage(validUri);
+                    iconBitmap.Source = bitmapImage;
+                }
             }
         }
         private async void IconClick(object sender, MouseButtonEventArgs e)
