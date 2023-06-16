@@ -42,6 +42,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="AppsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

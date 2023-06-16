@@ -29,6 +29,8 @@ namespace LaunchPadConfigurator
         {
             this.InitializeComponent();
             settingsMenu.SelectionChanged += SettingsMenu_SelectionChanged;
+
+            SaveSystem.SaveApps(new List<LaunchPadClassLibrary.AppShortcut>());
         }
 
         private void SettingsMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
