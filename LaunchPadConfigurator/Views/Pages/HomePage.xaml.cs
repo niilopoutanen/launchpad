@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +27,35 @@ namespace LaunchPadConfigurator.Views.Pages
         public HomePage()
         {
             this.InitializeComponent();
+            GetLaunchPadStatus();
+        }
+
+        private void GetLaunchPadStatus()
+        {
+            string appName = "LaunchPad";
+            string publisher = "Niilo Poutanen";
+
+            Process[] processes = Process.GetProcessesByName(appName);
+
+            bool isRunning = false;
+
+            foreach (Process process in processes)
+            {
+                if (process.MainModule.FileVersionInfo.CompanyName == publisher)
+                {
+                    isRunning = true;
+                    break;
+                }
+            }
+
+            if (isRunning)
+            {
+                launchPadStatus.Text = "LaunchPad is currently running.";
+            }
+            else
+            {
+                launchPadStatus.Text = "LaunchPad is not currently running.";
+            }
         }
     }
 }
