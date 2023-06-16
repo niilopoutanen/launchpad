@@ -1,3 +1,4 @@
+using LaunchPadConfigurator.Views.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Display.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -26,11 +28,36 @@ namespace LaunchPadConfigurator
         public MainWindow()
         {
             this.InitializeComponent();
+            settingsMenu.SelectionChanged += SettingsMenu_SelectionChanged;
+            ContentFrame.Navigate(typeof(HomePage));
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void SettingsMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            myButton.Content = "Clicked";
+            var item = args.SelectedItemContainer as NavigationViewItem;
+            if (item == null)
+            {
+                return;
+            }
+
+            if (item.Tag == null)
+            {
+                return;
+            }
+            switch (item.Content.ToString())
+            {
+                case "General":
+                    ContentFrame.Navigate(typeof(GeneralPage));
+                    break;
+                case "Apps":
+                    ContentFrame.Navigate(typeof(AppsPage));
+                    break;
+                case "Home":
+                    ContentFrame.Navigate(typeof(HomePage));
+                    break;
+            }
+            settingsMenu.Header = item.Content;
+            settingsMenu.SelectedItem = item;
         }
     }
 }
