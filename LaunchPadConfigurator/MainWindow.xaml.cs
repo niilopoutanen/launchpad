@@ -29,7 +29,6 @@ namespace LaunchPadConfigurator
         {
             this.InitializeComponent();
             settingsMenu.SelectionChanged += SettingsMenu_SelectionChanged;
-            ContentFrame.Navigate(typeof(HomePage));
         }
 
         private void SettingsMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
