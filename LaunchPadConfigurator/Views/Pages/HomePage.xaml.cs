@@ -56,28 +56,28 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 launchPadStatus.Text = "LaunchPad is currently running.";
                 launchPadManageButton.Content = "Close Launchpad";
-                launchPadManageButton.Click += async (s, e) =>
+                launchPadManageButton.Click += (s, e) =>
                 {
-                    await TryCloseLaunchPad();
+                    TryCloseLaunchPad();
                 };
             }
             else
             {
                 launchPadStatus.Text = "LaunchPad is not currently running.";
                 launchPadManageButton.Content = "Start Launchpad";
-                launchPadManageButton.Click += async (s, e) =>
+                launchPadManageButton.Click += (s, e) =>
                 {
-                    await TryStartLaunchPad();
+                    TryStartLaunchPad();
                     GetLaunchPadStatus();   
                 };
             }
         }
-        private static async Task TryStartLaunchPad()
+        private static void TryStartLaunchPad()
         {
             try
             {
                 Process process = Process.Start(SaveSystem.LaunchPadExecutable);
-                if(process == null)
+                if (process == null)
                 {
                     throw new Exception("Process did not start");
                 }
@@ -87,11 +87,11 @@ namespace LaunchPadConfigurator.Views.Pages
 
             }
         }
-        private async Task TryCloseLaunchPad()
+        private void TryCloseLaunchPad()
         {
             try
             {
-                if(launchPadProcess != null)
+                if (launchPadProcess != null)
                 {
                     launchPadProcess.Kill();
                     launchPadProcess.WaitForExit();
