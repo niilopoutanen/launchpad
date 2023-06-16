@@ -12,13 +12,8 @@
         Background="Transparent"
         Deactivated="Window_Deactivated">
     <Border CornerRadius="25" Background="#292929" Padding="10">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Name="appContainer">
 
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
-            <Border Width="10"/>
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
-            <Border Width="10"/>
-            <Border Background="#444444" CornerRadius="15" Width="80" Height="80"/>
         </StackPanel>
     </Border>
 

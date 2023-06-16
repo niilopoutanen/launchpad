@@ -19,11 +19,31 @@ namespace LaunchPad
         public LaunchPadWindow()
         {
             InitializeComponent();
+
+            AddApp();
+            AddApp();
+            AddApp();
+            AddApp();
+            RemoveExessGap();
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
             window.Topmost = true;
         }
+
+        private void AddApp()
+        {
+            var icon = new Icon();
+            var gap = new Border();
+            gap.Width = 10;
+            appContainer.Children.Add(icon);
+            appContainer.Children.Add(gap);
+        }
+        private void RemoveExessGap()
+        {
+            appContainer.Children.RemoveAt(appContainer.Children.Count  - 1);
+        }
+
     }
 }
