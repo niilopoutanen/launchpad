@@ -39,7 +39,7 @@ namespace LaunchPad
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
             {
-                launchPadWindow.Close();
+                launchPadWindow.CloseWithAnim();
                 return;
             }
 

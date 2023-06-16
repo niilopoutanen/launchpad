@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -35,11 +36,23 @@ namespace LaunchPad
 
         private void AddApp(string appURI)
         {
-            var icon = new Icon(appURI, this.Close);
+            var icon = new Icon(appURI, CloseWithAnim);
             var gap = new Border();
             gap.Width = 10;
             appContainer.Children.Add(icon);
             appContainer.Children.Add(gap);
+        }
+
+        public void CloseWithAnim()
+        {
+            Storyboard launchPadClose = ((Storyboard)this.FindResource("WindowExitAnimation")).Clone();
+            launchPadClose.Completed += (s, e) =>
+            {
+                this.Close();
+                
+            };
+            launchPadClose.Begin(this);
+           
         }
 
     }

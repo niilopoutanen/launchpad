@@ -59,7 +59,7 @@ namespace LaunchPad
         }
         private async void IconClick(object sender, MouseButtonEventArgs e)
         {
-            await Task.Delay(300); //Wait for the animation
+            await Task.Delay(200); //Wait for the animation
 
             Process process = new Process();
             process.StartInfo.FileName = appURI;
