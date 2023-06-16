@@ -20,6 +20,29 @@ namespace LaunchPadConfigurator
             EnsureSaveFolderExists();
             File.WriteAllText(appsList, jsonString);
         }
+        public static void SaveApp(AppShortcut app)
+        {
+            EnsureSaveFolderExists();
+            List<AppShortcut> existingApps = LoadApps();
+
+            AppShortcut? existingApp = existingApps.FirstOrDefault(a => a.Name == app.Name);
+
+            if (existingApp != null)
+            {
+                existingApps.Remove(existingApp);
+                existingApp.Name = app.Name;
+                existingApp.IconFileName = app.IconFileName;
+                existingApp.ExeUri = app.ExeUri;
+                existingApps.Add(existingApp);
+            }
+            else
+            {
+                existingApps.Add(app);
+            }
+
+            // Save the updated list back to storage
+            SaveApps(existingApps);
+        }
 
         public static List<AppShortcut> LoadApps()
         {

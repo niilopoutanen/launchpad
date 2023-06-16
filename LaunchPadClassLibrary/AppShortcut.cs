@@ -8,9 +8,9 @@ namespace LaunchPadClassLibrary
 {
     public class AppShortcut
     {
-        private string Name {  get; set; }
-        private string ExeUri { get; set; }
-        private string? IconFileName { get; set; }
+        public string Name {  get; set; }
+        public string ExeUri { get; set; }
+        public string? IconFileName { get; set; }
 
         public AppShortcut(string name, string exeUri)
         {
@@ -23,5 +23,6 @@ namespace LaunchPadClassLibrary
             ExeUri = exeUri;
             IconFileName = iconFileName;
         }
+        public AppShortcut() { }
     }
 }

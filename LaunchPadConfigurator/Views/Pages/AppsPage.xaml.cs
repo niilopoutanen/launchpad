@@ -1,3 +1,5 @@
+using LaunchPadClassLibrary;
+using LaunchPadConfigurator.Views.UIElements;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,18 @@ namespace LaunchPadConfigurator
         public AppsPage()
         {
             this.InitializeComponent();
+            LoadAppsIntoUI();
+        }
+
+        private void LoadAppsIntoUI()
+        {
+            List<AppShortcut> apps = SaveSystem.LoadApps();
+
+            foreach (AppShortcut app in apps)
+            {
+                AppListItem listItem = new AppListItem(app.Name, app.IconFileName);
+                appsList.Children.Add(listItem);
+            }
         }
     }
 }

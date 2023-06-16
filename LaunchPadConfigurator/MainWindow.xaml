@@ -15,14 +15,14 @@
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False">
             <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource PageBackground}" />
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="#242424" />
             </NavigationView.Resources>
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Home"></NavigationViewItem>
                 <NavigationViewItem Icon="Home" Content="General" Tag="General"></NavigationViewItem>
                 <NavigationViewItem Icon="Home" Content="Apps" Tag="Apps"></NavigationViewItem>
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Padding="56,20,0,0" Background="{StaticResource PageBackground}">
+            <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{StaticResource PageBackground}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

@@ -30,7 +30,9 @@ namespace LaunchPadConfigurator
             this.InitializeComponent();
             settingsMenu.SelectionChanged += SettingsMenu_SelectionChanged;
 
-            SaveSystem.SaveApps(new List<LaunchPadClassLibrary.AppShortcut>());
+            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Illustrator", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Illustrator.ico"));
+            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Photoshop", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Photoshop.ico"));
+            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Premiere Pro", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Premiere Pro.ico"));
         }
 
         private void SettingsMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

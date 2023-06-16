@@ -15,6 +15,7 @@
     <None Remove="AppsPage.xaml" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
+    <None Remove="Views\UIElements\AppListItem.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UIElements\AppListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
