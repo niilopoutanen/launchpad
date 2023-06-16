@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-    <Border Background="#444444" CornerRadius="15" Width="80" Height="80">
+    <Border Background="#444444" CornerRadius="15" Width="80" Height="80" Name="iconContainer">
         
         
     </Border>

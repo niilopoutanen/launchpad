@@ -20,10 +20,10 @@ namespace LaunchPad
         {
             InitializeComponent();
 
-            AddApp();
-            AddApp();
-            AddApp();
-            AddApp();
+            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
+            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
+            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
+            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
             RemoveExessGap();
         }
         private void Window_Deactivated(object sender, EventArgs e)
@@ -32,9 +32,9 @@ namespace LaunchPad
             window.Topmost = true;
         }
 
-        private void AddApp()
+        private void AddApp(string appURI)
         {
-            var icon = new Icon();
+            var icon = new Icon(appURI, this.Close);
             var gap = new Border();
             gap.Width = 10;
             appContainer.Children.Add(icon);
@@ -44,6 +44,5 @@ namespace LaunchPad
         {
             appContainer.Children.RemoveAt(appContainer.Children.Count  - 1);
         }
-
     }
 }
