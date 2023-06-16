@@ -14,6 +14,8 @@ namespace LaunchPadConfigurator
         private static string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static string appsList = Path.Combine(saveFileLocation, "apps.json");
 
+        public static string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "LaunchPad.exe");
+
         public static void SaveApps(List<AppShortcut> apps)
         {
             string jsonString = JsonSerializer.Serialize(apps);

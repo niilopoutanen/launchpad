@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <StackPanel x:Name="HomePageContainer" Orientation="Vertical">
         <TextBlock x:Name="launchPadStatus"></TextBlock>
-    </Grid>
+        <Button x:Name="launchPadManageButton"/>
+    </StackPanel>
 </Page>
