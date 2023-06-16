@@ -1,5 +1,6 @@
 ﻿using LaunchPadClassLibrary;
 using LaunchPadConfigurator;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace LaunchPad
         {
             InitializeComponent();
             LoadApps();
+
+            SetTheme();
 
         }
         private void Window_Deactivated(object sender, EventArgs e)
@@ -65,5 +68,28 @@ namespace LaunchPad
            
         }
 
+
+
+        private void SetTheme()
+        {
+            Application.Current.Resources.MergedDictionaries.Clear();
+
+            if (IsLightTheme())
+            {
+                var lightModeDictionary = new ResourceDictionary { Source = new Uri("Resources/LightMode.xaml", UriKind.Relative) };
+                Application.Current.Resources.MergedDictionaries.Add(lightModeDictionary);
+            }
+            else
+            {
+                var darkModeDictionary = new ResourceDictionary { Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative) };
+                Application.Current.Resources.MergedDictionaries.Add(darkModeDictionary);
+            }
+        }
+        private static bool IsLightTheme()
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            var value = key?.GetValue("AppsUseLightTheme");
+            return value is int i && i > 0;
+        }
     }
 }

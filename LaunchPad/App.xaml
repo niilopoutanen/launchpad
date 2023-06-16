@@ -4,8 +4,12 @@
              xmlns:local="clr-namespace:LaunchPad"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/DarkMode.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <Storyboard x:Key="MouseDownAnimation">
+            <Storyboard x:Key="MouseDownAnimation">
             <DoubleAnimation To="0.95" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
                 <DoubleAnimation.EasingFunction>
                     <SineEase EasingMode="EaseInOut" />
@@ -68,6 +72,6 @@
             </DoubleAnimation>
         </Storyboard>
 
-
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
