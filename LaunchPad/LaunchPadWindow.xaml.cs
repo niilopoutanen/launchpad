@@ -21,8 +21,8 @@ namespace LaunchPad
             InitializeComponent();
 
             AddApp("C:/Windows/system32/notepad.exe");
-            AddApp("C:/Windows/system32/notepad.exe");
-            AddApp("C:/Windows/system32/notepad.exe");
+            AddApp("C:/Program Files/Google/Chrome/Application/chrome.exe");
+            AddApp("C:/Users/niilo/AppData/Roaming/Spotify/Spotify.exe");
 
             RemoveExessGap();
         }
