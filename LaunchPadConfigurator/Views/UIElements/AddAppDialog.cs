@@ -38,12 +38,12 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             var appNameLabel = new TextBlock()
             {
-                Text = "App Name:"
+                Text = "App Name:",
+                Margin = new Thickness(0,10,0,5)
             };
 
             var appNameTextBox = new TextBox()
             {
-                Width = 200,
                 PlaceholderText = "Enter the app name"
             };
 
@@ -52,7 +52,8 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             var executableFileLabel = new TextBlock()
             {
-                Text = "App executable / shortcut:"
+                Text = "App executable / shortcut:",
+                Margin = new Thickness(0, 10, 0, 5)
             };
 
             var executableFilePicker = new FileOpenPicker();
@@ -61,7 +62,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             var executableFileButton = new Button()
             {
-                Content = "Select File 1"
+                Content = "Select app"
             };
 
             executableFileButton.Click += async (s, args) =>
@@ -86,7 +87,8 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             var appIconLabel = new TextBlock()
             {
-                Text = "App icon. Leave empty for autofill"
+                Text = "App icon. Leave empty for autofill",
+                Margin = new Thickness(0, 10, 0, 5)
             };
 
             var appIconPicker = new FileOpenPicker();
@@ -95,7 +97,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             var appIconButton = new Button()
             {
-                Content = "Select File 2"
+                Content = "Select icon"
             };
 
             appIconButton.Click += async (s, args) =>
