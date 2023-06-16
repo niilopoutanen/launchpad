@@ -70,11 +70,6 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             executableFileButton.Click += async (s, args) =>
             {
-                // Retrieve the window handle (HWND) of the current WinUI 3 window.
-                var window = (Application.Current as App)?.Window;
-                var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-
-                // Initialize the file picker with the window handle (HWND).
                 WinRT.Interop.InitializeWithWindow.Initialize(executableFilePicker, hWnd);
 
                 var file = await executableFilePicker.PickSingleFileAsync();
@@ -105,10 +100,6 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             appIconButton.Click += async (s, args) =>
             {
-                // Retrieve the window handle (HWND) of the current WinUI 3 window.
-
-
-                // Initialize the file picker with the window handle (HWND).
                 WinRT.Interop.InitializeWithWindow.Initialize(appIconPicker, hWnd);
 
                 var file = await appIconPicker.PickSingleFileAsync();
