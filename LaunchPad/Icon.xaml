@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-    <Border  CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="#3D3D3D" Padding="10">
+    <Border CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="#3D3D3D" Padding="10">
         <Border.RenderTransform>
             <ScaleTransform />
         </Border.RenderTransform>
@@ -23,16 +23,7 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <Border CornerRadius="10" Width="auto" Height="auto">
-            <Border.Background>
-                <VisualBrush>
-                    <VisualBrush.Visual>
-                        <Grid>
-                            <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" />
-                        </Grid>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Border.Background>
-        </Border>
+        <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" />
     </Border>
+
 </UserControl>

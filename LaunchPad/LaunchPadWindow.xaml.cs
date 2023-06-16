@@ -24,7 +24,8 @@ namespace LaunchPad
             AddApp("C:/Program Files/Google/Chrome/Application/chrome.exe");
             AddApp("C:/Users/niilo/AppData/Roaming/Spotify/Spotify.exe");
 
-            RemoveExessGap();
+            //Remove last exess gap
+            appContainer.Children.RemoveAt(appContainer.Children.Count - 1);
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
@@ -40,9 +41,6 @@ namespace LaunchPad
             appContainer.Children.Add(icon);
             appContainer.Children.Add(gap);
         }
-        private void RemoveExessGap()
-        {
-            appContainer.Children.RemoveAt(appContainer.Children.Count  - 1);
-        }
+
     }
 }
