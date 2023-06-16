@@ -26,6 +26,9 @@ namespace LaunchPadConfigurator.Views.UIElements
 
         public async Task Show()
         {
+            var window = (Application.Current as App)?.Window;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
             var dialog = new ContentDialog();
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
             dialog.Title = "Add a new app";
@@ -103,8 +106,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             appIconButton.Click += async (s, args) =>
             {
                 // Retrieve the window handle (HWND) of the current WinUI 3 window.
-                var window = (Application.Current as App)?.Window;
-                var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
 
                 // Initialize the file picker with the window handle (HWND).
                 WinRT.Interop.InitializeWithWindow.Initialize(appIconPicker, hWnd);
