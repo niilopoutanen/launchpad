@@ -4,6 +4,31 @@
              xmlns:local="clr-namespace:LaunchPad"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
-         
+
+        <Storyboard x:Key="MouseDownAnimation">
+            <DoubleAnimation To="0.95" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="0.95" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="MouseUpAnimation">
+            <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </Application.Resources>
 </Application>

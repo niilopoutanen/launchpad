@@ -57,13 +57,17 @@ namespace LaunchPad
                 appIcon.Dispose();
             }
         }
-        private void IconClick(object sender, MouseButtonEventArgs e)
+        private async void IconClick(object sender, MouseButtonEventArgs e)
         {
-            Process process = new();
+            await Task.Delay(300);
+
+            Process process = new Process();
             process.StartInfo.FileName = appURI;
             process.StartInfo.UseShellExecute = true;
             process.Start();
+
             handler.Invoke();
         }
+
     }
 }

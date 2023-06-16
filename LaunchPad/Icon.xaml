@@ -6,7 +6,23 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-    <Border  CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="#444444" Padding="10">
+    <Border  CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="#3D3D3D" Padding="10">
+        <Border.RenderTransform>
+            <ScaleTransform />
+        </Border.RenderTransform>
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseDown">
+                        <BeginStoryboard Storyboard="{StaticResource MouseDownAnimation}" />
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseUp">
+                        <BeginStoryboard Storyboard="{StaticResource MouseUpAnimation}" />
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Border CornerRadius="10" Width="auto" Height="auto">
             <Border.Background>
                 <VisualBrush>
@@ -19,6 +35,4 @@
             </Border.Background>
         </Border>
     </Border>
-
-
 </UserControl>
