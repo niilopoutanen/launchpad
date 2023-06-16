@@ -20,10 +20,10 @@ namespace LaunchPad
         {
             InitializeComponent();
 
-            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
-            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
-            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
-            AddApp("C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Accessories/Notepad.lnk");
+            AddApp("C:/Windows/system32/notepad.exe");
+            AddApp("C:/Windows/system32/notepad.exe");
+            AddApp("C:/Windows/system32/notepad.exe");
+
             RemoveExessGap();
         }
         private void Window_Deactivated(object sender, EventArgs e)

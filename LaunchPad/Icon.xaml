@@ -6,8 +6,19 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-    <Border Background="#444444" CornerRadius="15" Width="80" Height="80" Name="iconContainer">
-        
-        
+    <Border  CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="#444444" Padding="5">
+        <Border CornerRadius="10" Width="auto" Height="auto">
+            <Border.Background>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Grid>
+                            <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" />
+                        </Grid>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Border.Background>
+        </Border>
     </Border>
+
+
 </UserControl>
