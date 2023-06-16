@@ -28,26 +28,21 @@ namespace LaunchPadConfigurator
         public MainWindow()
         {
             this.InitializeComponent();
-            settingsMenu.SelectionChanged += SettingsMenu_SelectionChanged;
-
-            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Illustrator", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Illustrator.ico"));
-            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Photoshop", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Photoshop.ico"));
-            SaveSystem.SaveApp(new LaunchPadClassLibrary.AppShortcut("Adobe Premiere Pro", "exe", "C:/Users/niilo/AppData/Local/NiiloPoutanen/LaunchPad/Icons/Adobe Premiere Pro.ico"));
+            settingsMenu.SelectionChanged += (s,e) =>
+            {
+                ChangeSelection(e.SelectedItem as NavigationViewItem);
+            };
+            
+            ChangeSelection(settingsMenu.MenuItems.FirstOrDefault() as NavigationViewItem);
         }
 
-        private void SettingsMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void ChangeSelection(NavigationViewItem itemSelected)
         {
-            var item = args.SelectedItemContainer as NavigationViewItem;
-            if (item == null)
+            if (itemSelected == null | itemSelected.Tag == null)
             {
                 return;
             }
-
-            if (item.Tag == null)
-            {
-                return;
-            }
-            switch (item.Content.ToString())
+            switch (itemSelected.Content.ToString())
             {
                 case "General":
                     ContentFrame.Navigate(typeof(GeneralPage));
@@ -59,8 +54,8 @@ namespace LaunchPadConfigurator
                     ContentFrame.Navigate(typeof(HomePage));
                     break;
             }
-            settingsMenu.Header = item.Content;
-            settingsMenu.SelectedItem = item;
+            settingsMenu.Header = itemSelected.Content;
+            settingsMenu.SelectedItem = itemSelected;
         }
     }
 }

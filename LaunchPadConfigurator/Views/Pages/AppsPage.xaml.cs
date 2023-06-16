@@ -29,22 +29,23 @@ namespace LaunchPadConfigurator
         public AppsPage()
         {
             this.InitializeComponent();
-            LoadAppsIntoUI();
+            RefreshAppList();
 
             addAppButton.Click += async (s, e) =>
             {
-                AddAppDialog dialog = new((Application.Current as App)?.Window.Content.XamlRoot);
+                AddAppDialog dialog = new((Application.Current as App)?.Window.Content.XamlRoot, RefreshAppList);
                 await dialog.Show();
             };
         }
 
-        private void LoadAppsIntoUI()
+        private void RefreshAppList()
         {
+            appsList.Children.Clear();
             List<AppShortcut> apps = SaveSystem.LoadApps();
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new(app.Name, app.IconFileName);
+                AppListItem listItem = new(app.Name, app.IconFileName, RefreshAppList);
                 appsList.Children.Add(listItem);
             }
         }

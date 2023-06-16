@@ -23,7 +23,9 @@ namespace LaunchPadConfigurator.Views.UIElements
         public string Name { get; }
         public string IconFileName { get; }
 
-        public AppListItem(string name, string iconUri)
+        private Action updateHandler;
+
+        public AppListItem(string name, string iconUri, Action updateHandler)
         {
             this.InitializeComponent();
             appName.Text = name;
@@ -35,6 +37,8 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             Name = name;
             IconFileName = iconUri;
+
+            this.updateHandler = updateHandler;
         }
 
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
@@ -50,6 +54,7 @@ namespace LaunchPadConfigurator.Views.UIElements
                 }
             }
             SaveSystem.SaveApps(existingApps);
+            updateHandler.Invoke();
         }
     }
 

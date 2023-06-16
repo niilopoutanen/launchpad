@@ -17,9 +17,11 @@ namespace LaunchPadConfigurator.Views.UIElements
         public string Name { get; set; }
 
         private XamlRoot xamlRoot;
-        public AddAppDialog(XamlRoot xamlRoot) 
+        private Action updateHandler;
+        public AddAppDialog(XamlRoot xamlRoot, Action updateHandler) 
         {
             this.xamlRoot = xamlRoot;
+            this.updateHandler = updateHandler;
         }
 
         public async Task Show()
@@ -124,6 +126,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
                 AppShortcut app = new AppShortcut(Name, ExePath, IconPath);
                 SaveSystem.SaveApp(app);
+                updateHandler.Invoke();
             };
 
             await dialog.ShowAsync();
