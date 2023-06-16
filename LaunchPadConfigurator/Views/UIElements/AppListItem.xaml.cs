@@ -1,3 +1,4 @@
+using LaunchPadClassLibrary;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -19,6 +20,9 @@ namespace LaunchPadConfigurator.Views.UIElements
 {
     public sealed partial class AppListItem : UserControl
     {
+        public string Name { get; }
+        public string IconFileName { get; }
+
         public AppListItem(string name, string iconUri)
         {
             this.InitializeComponent();
@@ -28,6 +32,25 @@ namespace LaunchPadConfigurator.Views.UIElements
                 BitmapImage bitmapImage = new BitmapImage(validUri);
                 appIcon.Source = bitmapImage;
             }
+
+            Name = name;
+            IconFileName = iconUri;
+        }
+
+        private void RemoveButtonClick(object sender, RoutedEventArgs e)
+        {
+            List<AppShortcut> existingApps = SaveSystem.LoadApps();
+
+            foreach (AppShortcut app in existingApps)
+            {
+                if (app.Name == Name && app.IconFileName == IconFileName)
+                {
+                    existingApps.Remove(app);
+                    break;
+                }
+            }
+            SaveSystem.SaveApps(existingApps);
         }
     }
+
 }

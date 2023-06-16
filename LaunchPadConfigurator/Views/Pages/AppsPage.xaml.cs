@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Pickers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,6 +30,12 @@ namespace LaunchPadConfigurator
         {
             this.InitializeComponent();
             LoadAppsIntoUI();
+
+            addAppButton.Click += async (s, e) =>
+            {
+                AddAppDialog dialog = new((Application.Current as App)?.Window.Content.XamlRoot);
+                await dialog.Show();
+            };
         }
 
         private void LoadAppsIntoUI()
@@ -37,7 +44,7 @@ namespace LaunchPadConfigurator
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new AppListItem(app.Name, app.IconFileName);
+                AppListItem listItem = new(app.Name, app.IconFileName);
                 appsList.Children.Add(listItem);
             }
         }
