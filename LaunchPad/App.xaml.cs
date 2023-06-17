@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 
@@ -13,7 +15,7 @@ namespace LaunchPad
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private LaunchPadWindow launchPadWindow;
 
@@ -21,21 +23,22 @@ namespace LaunchPad
         {
             base.OnStartup(e);
 
-            // Create an instance of HwndSource for the main window
             var hwndSource = new HwndSource(0, 0, 0, 0, 0, "LaunchPadClass", IntPtr.Zero);
-
-            // Create an instance of CustomHotKey and register the Shift + Tab hotkey
             var hotKey = new HotKey(hwndSource)
             {
                 Key = Key.Tab,
                 ModifierKeys = HotKey.Modifiers.Shift
             };
 
-            hotKey.HotKeyPressed += HotKey_HotKeyPressed;
+            hotKey.HotKeyPressed += (s,e) =>
+            {
+                ToggleLaunchpad();
+            };
             hotKey.Enabled = true;
+            StartSystemTrayApp();
         }
 
-        private void HotKey_HotKeyPressed(object sender, HotKeyEventArgs e)
+        private void ToggleLaunchpad()
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
             {
@@ -47,6 +50,30 @@ namespace LaunchPad
             launchPadWindow.Show();
             launchPadWindow.Activate();
         }
+        private void StartSystemTrayApp()
+        {
+            NotifyIcon notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = new System.Drawing.Icon("Resources/SystemTray.ico");
+            notifyIcon.Visible = true;
 
+            notifyIcon.MouseClick += (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    ToggleLaunchpad();
+                }
+            };
+
+
+            notifyIcon.ContextMenuStrip = new ContextMenuStrip();
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s,e) =>
+            {
+
+            });
+            notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>
+            {
+                Current.Shutdown();
+            });
+        }
     }
 }
