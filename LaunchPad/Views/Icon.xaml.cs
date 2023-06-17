@@ -27,6 +27,10 @@ namespace LaunchPad
         public bool Pressed { get; set; }
         public bool Focused { get; set; }
 
+        private const float SIZE_FOCUS = 1.05f;
+        private const float SIZE_STATIC = 1f;
+        private const float SIZE_PRESSED = 0.9f;
+
         private Action closeHandler;
         public Icon(AppShortcut app, Action handler)
         {
@@ -103,12 +107,12 @@ namespace LaunchPad
                 return;
             }
             Focused = true;
-            ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
             iconContainer.RenderTransform = scaleTransform;
 
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
-                To = 1.1,
+                To = SIZE_FOCUS,
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
@@ -125,12 +129,12 @@ namespace LaunchPad
             }
             Focused = false;
 
-            ScaleTransform scaleTransform = new ScaleTransform(1.1, 1.1);
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
 
             iconContainer.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
-                To = 1,
+                To = SIZE_STATIC,
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
@@ -156,12 +160,12 @@ namespace LaunchPad
                 return;
             }
             Pressed = true;
-            ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
 
             iconContainer.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
-                To = 0.9,
+                To = SIZE_PRESSED,
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
@@ -176,13 +180,13 @@ namespace LaunchPad
             {
                 return;
             }
-            float finalValue = 1f;
+            float finalValue = SIZE_STATIC;
             if (Focused)
             {
-                finalValue = 1.1f;
+                finalValue = SIZE_FOCUS;
             }
             Pressed = false;
-            ScaleTransform scaleTransform = new ScaleTransform(0.9, 0.9);
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
 
             iconContainer.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
@@ -198,7 +202,7 @@ namespace LaunchPad
                 if (!animationCompleted)
                 {
                     animationCompleted = true;
-                    //OnClick(closeHandler);
+                    OnClick(closeHandler);
                 }
             };
 
