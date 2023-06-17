@@ -14,26 +14,44 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LaunchPad
 {
-    public partial class Icon : UserControl
+    public partial class Icon : UserControl, ILaunchPadItem
     {
-        public AppShortcut app;
-        public Icon(AppShortcut app, Action<string> handler)
+        public AppShortcut App { get; set; }
+        public bool Pressed { get; set; }
+        public bool Focused { get; set; }
+
+        private Action closeHandler;
+        public Icon(AppShortcut app, Action handler)
         {
-            this.app = app;
+            this.App = app;
+            this.closeHandler = handler;
             InitializeComponent();
 
-            iconContainer.MouseLeftButtonUp += async (s,e) =>
+            iconContainer.MouseLeftButtonDown += (s, e) =>
             {
-                await Task.Delay(200); //Wait for the animation
-                handler(app.ExeUri);
+                OnPress();
+            };
+            iconContainer.MouseLeftButtonUp += (s, e) =>
+            {
+                OnRelease();
+            };
+            iconContainer.MouseEnter += (s, e) =>
+            {
+                OnFocusEnter();
+            };
+            iconContainer.MouseLeave += (s, e) =>
+            {
+                OnFocusLeave();
             };
             InitializeIcon();
+            
         }
 
 
@@ -44,9 +62,9 @@ namespace LaunchPad
         /// <param name="appURI">If no app icon is present, falling back to executable icon</param>
         private void InitializeIcon()
         {
-            if(app.IconFileName == null)
+            if(App.IconFileName == null)
             {
-                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(app.ExeUri);
+                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(App.ExeUri);
 
                 if (appIcon != null)
                 {
@@ -63,7 +81,7 @@ namespace LaunchPad
             }
             else
             {
-                if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
+                if (Uri.TryCreate(App.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
                 {
                     BitmapImage bitmapImage = new BitmapImage(validUri);
                     iconBitmap.Source = bitmapImage;
@@ -71,11 +89,122 @@ namespace LaunchPad
             }
 
 
-            if(app.IconSize == AppShortcut.SIZE_FULL)
+            if(App.IconSize == AppShortcut.SIZE_FULL)
             {
                 iconContainer.Padding = new Thickness(0);
                 iconContainer.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
             }
         }
+
+        public void OnFocusEnter()
+        {
+            if (Pressed || Focused)
+            {
+                return;
+            }
+            Focused = true;
+            ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+            iconContainer.RenderTransform = scaleTransform;
+
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = 1.1,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
+            // Start the animation
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
+        public void OnFocusLeave()
+        {
+            if (!Focused || Pressed)
+            {
+                return;
+            }
+            Focused = false;
+
+            ScaleTransform scaleTransform = new ScaleTransform(1.1, 1.1);
+
+            iconContainer.RenderTransform = scaleTransform;
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
+            // Start the animation
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
+        public void OnClick(Action closeHandler)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = App.ExeUri;
+            process.StartInfo.UseShellExecute = true;
+
+            process.Start();
+            closeHandler.Invoke();
+        }
+
+        public void OnPress()
+        {
+            if (Pressed)
+            {
+                return;
+            }
+            Pressed = true;
+            ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+
+            iconContainer.RenderTransform = scaleTransform;
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = 0.9,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
+
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
+        public void OnRelease()
+        {
+            if (!Pressed)
+            {
+                return;
+            }
+            float finalValue = 1f;
+            if (Focused)
+            {
+                finalValue = 1.1f;
+            }
+            Pressed = false;
+            ScaleTransform scaleTransform = new ScaleTransform(0.9, 0.9);
+
+            iconContainer.RenderTransform = scaleTransform;
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = finalValue,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
+            bool animationCompleted = false;
+
+            scaleAnimation.Completed += (s, e) =>
+            {
+                if (!animationCompleted)
+                {
+                    animationCompleted = true;
+                    //OnClick(closeHandler);
+                }
+            };
+
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
     }
 }

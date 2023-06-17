@@ -21,7 +21,7 @@ namespace LaunchPad
 {
     public partial class LaunchPadWindow : Window
     {
-        List<AppShortcut> apps = new();
+        List<ILaunchPadItem> items = new();
         public LaunchPadWindow()
         {
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace LaunchPad
             {
                 SetTheme();
             };
-            HandleClicks(this);
+            HandleKeyboard(this);
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
@@ -41,7 +41,7 @@ namespace LaunchPad
         }
         private void LoadApps()
         {
-            apps = SaveSystem.LoadApps();
+            List<AppShortcut> apps = SaveSystem.LoadApps();
             foreach (AppShortcut app in apps)
             {
                 AddApp(app);
@@ -55,11 +55,12 @@ namespace LaunchPad
         }
         private void AddApp(AppShortcut app)
         {
-            var icon = new Icon(app, OpenApp);
+            var icon = new Icon(app, CloseWithAnim);
             var gap = new Border
             {
                 Width = 10
             };
+            items.Add(icon);
             appContainer.Children.Add(icon);
             appContainer.Children.Add(gap);
         }
@@ -112,7 +113,7 @@ namespace LaunchPad
                 try
                 {
                     Icon app = (Icon)item;
-                    if(app.app.IconSize != AppShortcut.SIZE_FULL)
+                    if(app.App.IconSize != AppShortcut.SIZE_FULL)
                     {
                         app.iconContainer.Background = itemBackgroundColor;
                     }
@@ -130,32 +131,36 @@ namespace LaunchPad
             return value is int i && i > 0;
         }
 
-
-        private void HandleClicks(Window window)
+        private void HandleKeyboard(Window window)
         {
+            window.KeyDown += (s, e) =>
+            {
+                int keyNumber = IsNumberKey(e.Key);
+
+                if (keyNumber >= 0 && keyNumber < items.Count)
+                {
+                    items[keyNumber].OnPress();
+                }
+            };
             window.KeyUp += (s, e) =>
             {
-                bool isNumberKey = (e.Key >= Key.D1 && e.Key <= Key.D9) || (e.Key >= Key.NumPad1 && e.Key <= Key.NumPad9);
-                if (isNumberKey)
-                {
-                    int keyNumber = e.Key - Key.D1;
+                int keyNumber = IsNumberKey(e.Key);
 
-                    if (keyNumber >= 0 && keyNumber < apps.Count)
-                    {
-                        OpenApp(apps[keyNumber].ExeUri);
-                    }
+                if (keyNumber >= 0 && keyNumber < items.Count)
+                {
+                    items[keyNumber].OnRelease();
                 }
             };
         }
 
-        private void OpenApp(string appURI)
+        private int IsNumberKey(Key keyPressed)
         {
-            Process process = new Process();
-            process.StartInfo.FileName = appURI;
-            process.StartInfo.UseShellExecute = true;
-
-            process.Start();
-            CloseWithAnim();
+            bool isNumberKey = (keyPressed >= Key.D1 && keyPressed <= Key.D9) || (keyPressed >= Key.NumPad1 && keyPressed <= Key.NumPad9);
+            if (isNumberKey)
+            {
+                return keyPressed - Key.D1;
+            }
+            return -1;
         }
     }
 }
