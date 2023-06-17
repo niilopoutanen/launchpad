@@ -44,25 +44,16 @@ namespace LaunchPad
             List<AppShortcut> apps = SaveSystem.LoadApps();
             foreach (AppShortcut app in apps)
             {
-                AddApp(app);
+                var icon = new Icon(app, CloseWithAnim);
+                icon.Margin = new Thickness(5);
+                items.Add(icon);
+                appContainer.Children.Add(icon);
             }
-            if(apps.Count > 0)
-            {
-                //Remove last exess gap
-                appContainer.Children.RemoveAt(appContainer.Children.Count - 1);
-            }
+            int itemCount = appContainer.Children.Count;
+            int maxColumns = 6;
+            int columns = Math.Min(itemCount, maxColumns);
 
-        }
-        private void AddApp(AppShortcut app)
-        {
-            var icon = new Icon(app, CloseWithAnim);
-            var gap = new Border
-            {
-                Width = 10
-            };
-            items.Add(icon);
-            appContainer.Children.Add(icon);
-            appContainer.Children.Add(gap);
+            appContainer.Columns = columns;
         }
 
         public void CloseWithAnim()
