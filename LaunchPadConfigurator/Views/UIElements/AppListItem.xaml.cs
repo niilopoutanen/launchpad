@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,7 +25,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
         private readonly Action updateHandler;
 
-        public AppListItem(AppShortcut app, Action updateHandler)
+        public AppListItem(AppShortcut app, Action updateHandler, Func<AppShortcut, Task> editCallBack)
         {
             this.InitializeComponent();
             this.App = app;
@@ -36,6 +37,10 @@ namespace LaunchPadConfigurator.Views.UIElements
             }
             
             this.updateHandler = updateHandler;
+            editButton.Click += (s, e) =>
+            {
+                editCallBack(App);
+            };
         }
 
         private void RemoveButtonClick(object sender, RoutedEventArgs e)

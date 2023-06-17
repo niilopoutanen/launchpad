@@ -21,7 +21,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" />
+                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" Name="editButton"/>
                     <Button Content="Remove" HorizontalAlignment="Right" Margin="0,0,10,0" Click="RemoveButtonClick"/>
                 </StackPanel>
 

@@ -28,7 +28,7 @@ namespace LaunchPadConfigurator
 
             addAppButton.Click += async (s, e) =>
             {
-                await ShowDialog();
+                await ShowDialog(null);
             };
         }
 
@@ -39,16 +39,16 @@ namespace LaunchPadConfigurator
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new(app, RefreshAppList);
+                AppListItem listItem = new(app, RefreshAppList, ShowDialog);
                 appsList.Children.Add(listItem);
             }
         }
 
-        private async Task ShowDialog()
+        private async Task ShowDialog(AppShortcut existingApp)
         {
             var window = (Application.Current as App)?.Window;
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-            AddAppDialog dialogContent = new(hWnd);
+            
 
             var dialog = new ContentDialog
             {
@@ -59,24 +59,54 @@ namespace LaunchPadConfigurator
                 CloseButtonText = "Cancel",
                 DefaultButton = ContentDialogButton.Primary,
 
-                Content = dialogContent
+                
             };
-
-            dialog.PrimaryButtonClick += (s, e) =>
+            if (existingApp == null)
             {
-                string name = dialogContent.AppName;
-                string exepath = dialogContent.ExePath;
-                string iconpath = dialogContent.IconPath;
-                int iconSize = dialogContent.FullSizeIcon ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
-                if (name == null || exepath == null)
+                AddAppDialog dialogContent = new(hWnd);
+                dialog.Content = dialogContent;
+                dialog.PrimaryButtonClick += (s, e) =>
                 {
-                    throw new Exception("invalid inputs");
-                }
+                    string name = dialogContent.AppName;
+                    string exepath = dialogContent.ExePath;
+                    string iconpath = dialogContent.IconPath;
+                    int iconSize = dialogContent.FullSizeIcon ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
+                    if (name == null || exepath == null)
+                    {
+                        throw new Exception("invalid inputs");
+                    }
 
-                AppShortcut app = new(name, exepath, iconpath, iconSize);
-                SaveSystem.SaveApp(app);
-                RefreshAppList();
-            };
+                    AppShortcut app = new(name, exepath, iconpath, iconSize);
+                    SaveSystem.SaveApp(app);
+                    RefreshAppList();
+                };
+            }
+            else
+            {
+                AddAppDialog updateDialogContent = new(hWnd, existingApp);
+                dialog.Title = "Update app details";
+                dialog.Content = updateDialogContent;
+                dialog.PrimaryButtonClick += (s, e) =>
+                {
+                    string name = updateDialogContent.AppName;
+                    string exepath = updateDialogContent.ExePath;
+                    string iconpath = updateDialogContent.IconPath;
+                    int iconSize = updateDialogContent.FullSizeIcon ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
+                    if (name == null || exepath == null)
+                    {
+                        throw new Exception("invalid inputs");
+                    }
+
+                    List<AppShortcut> existingApps = new List<AppShortcut>();
+                    existingApps.Remove(existingApp);
+                    AppShortcut app = new(name, exepath, iconpath, iconSize);
+                    existingApps.Add(app);
+                    SaveSystem.SaveApps(existingApps);
+
+                    RefreshAppList();
+                };
+            }
+
             await dialog.ShowAsync();
         }
     }

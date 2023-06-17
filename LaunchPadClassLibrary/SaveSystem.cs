@@ -25,13 +25,24 @@ namespace LaunchPadConfigurator
                 if (app.IconFileName != filename)
                 {
                     // Icon has not yet been moved
-                    CopyIconToAppData(app.IconFileName);
-                    app.IconFileName = filename;
+                    if (File.Exists(app.IconFileName))
+                    {
+                        CopyIconToAppData(app.IconFileName);
+                        app.IconFileName = filename;
+                    }
+                    else
+                    {
+                        //Icon lost
+                        app.IconFileName = null;
+                    }
                 }
             }
             string jsonString = JsonSerializer.Serialize(apps);
             EnsureSaveFolderExists();
-            File.WriteAllText(appsList, jsonString);
+            using (StreamWriter streamWriter = new StreamWriter(appsList))
+            {
+                streamWriter.Write(jsonString);
+            }
         }
         public static void SaveApp(AppShortcut app)
         {
@@ -56,10 +67,14 @@ namespace LaunchPadConfigurator
             // Save the updated list back to storage
             SaveApps(existingApps);
         }
-        private static void CopyIconToAppData(string imagePath)
+        private static void CopyIconToAppData(string currentPath)
         {
-            string filename = Path.GetFileName(imagePath);
-            File.Copy(imagePath, Path.Combine(iconsDirectory, filename), true);
+            string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
+            if(finalPath != currentPath)
+            {
+                File.Copy(currentPath, finalPath, true);
+            }
+            
         }
         public static List<AppShortcut> LoadApps()
         {
