@@ -20,18 +20,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace LaunchPad
 {
-    /// <summary>
-    /// Interaction logic for Icon.xaml
-    /// </summary>
     public partial class Icon : UserControl
     {
-        private string appURI = "";
-        private string iconFile = "";
-
-        public Icon(string appURI, string iconFile, Action<string> handler)
+        public Icon(string appURI, string iconPath, Action<string> handler)
         {
-            this.appURI = appURI;
-            this.iconFile = iconFile;
             InitializeComponent();
 
             iconContainer.MouseLeftButtonUp += async (s,e) =>
@@ -39,12 +31,18 @@ namespace LaunchPad
                 await Task.Delay(200); //Wait for the animation
                 handler(appURI);
             };
-            InitializeIcon();
+            InitializeIcon(iconPath, appURI);
         }
 
-        private void InitializeIcon()
+
+        /// <summary>
+        /// Displays the app icon based on the values provided
+        /// </summary>
+        /// <param name="iconPath">Path to the app icon</param>
+        /// <param name="appURI">If no app icon is present, falling back to executable icon</param>
+        private void InitializeIcon(string iconPath, string appURI)
         {
-            if(iconFile == null)
+            if(iconPath == null)
             {
                 System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(appURI);
 
@@ -63,7 +61,7 @@ namespace LaunchPad
             }
             else
             {
-                if (Uri.TryCreate(iconFile, UriKind.Absolute, out Uri validUri))
+                if (Uri.TryCreate(iconPath, UriKind.Absolute, out Uri validUri))
                 {
                     BitmapImage bitmapImage = new BitmapImage(validUri);
                     iconBitmap.Source = bitmapImage;
