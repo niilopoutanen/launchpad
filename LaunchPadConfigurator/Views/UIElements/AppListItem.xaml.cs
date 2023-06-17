@@ -57,6 +57,8 @@ namespace LaunchPadConfigurator.Views.UIElements
             }
             SaveSystem.SaveApps(existingApps);
             updateHandler.Invoke();
+
+            SaveSystem.DeleteUnusedIcons();
         }
     }
 

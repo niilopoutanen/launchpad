@@ -102,5 +102,29 @@ namespace LaunchPadConfigurator
                 Directory.CreateDirectory(iconsDirectory);
             }
         }
+
+        public static void DeleteUnusedIcons()
+        {
+            List<AppShortcut> apps = LoadApps();
+            string[] files = Directory.GetFiles(iconsDirectory);
+
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                bool isUsed = apps.Any(app => !string.IsNullOrEmpty(app.IconFileName) && Path.GetFileName(app.IconFileName) == fileName);
+
+                if (!isUsed)
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch (Exception)
+                    {
+                        //Could not delete file.
+                    }
+                }
+            }
+        }
     }
 }
