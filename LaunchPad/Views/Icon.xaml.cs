@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaunchPadClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -16,22 +17,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LaunchPad
 {
     public partial class Icon : UserControl
     {
-        public Icon(string appURI, string iconPath, Action<string> handler)
+        public AppShortcut app;
+        public Icon(AppShortcut app, Action<string> handler)
         {
+            this.app = app;
             InitializeComponent();
 
             iconContainer.MouseLeftButtonUp += async (s,e) =>
             {
                 await Task.Delay(200); //Wait for the animation
-                handler(appURI);
+                handler(app.ExeUri);
             };
-            InitializeIcon(iconPath, appURI);
+            InitializeIcon();
         }
 
 
@@ -40,11 +42,11 @@ namespace LaunchPad
         /// </summary>
         /// <param name="iconPath">Path to the app icon</param>
         /// <param name="appURI">If no app icon is present, falling back to executable icon</param>
-        private void InitializeIcon(string iconPath, string appURI)
+        private void InitializeIcon()
         {
-            if(iconPath == null)
+            if(app.IconFileName == null)
             {
-                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(appURI);
+                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(app.ExeUri);
 
                 if (appIcon != null)
                 {
@@ -61,11 +63,18 @@ namespace LaunchPad
             }
             else
             {
-                if (Uri.TryCreate(iconPath, UriKind.Absolute, out Uri validUri))
+                if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
                 {
                     BitmapImage bitmapImage = new BitmapImage(validUri);
                     iconBitmap.Source = bitmapImage;
                 }
+            }
+
+
+            if(app.IconSize == AppShortcut.SIZE_FULL)
+            {
+                iconContainer.Padding = new Thickness(0);
+                iconContainer.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
             }
         }
     }

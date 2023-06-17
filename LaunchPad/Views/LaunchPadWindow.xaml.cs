@@ -44,7 +44,7 @@ namespace LaunchPad
             apps = SaveSystem.LoadApps();
             foreach (AppShortcut app in apps)
             {
-                AddApp(app.ExeUri, app.IconFileName);
+                AddApp(app);
             }
             if(apps.Count > 0)
             {
@@ -53,9 +53,9 @@ namespace LaunchPad
             }
 
         }
-        private void AddApp(string appURI, string iconFile)
+        private void AddApp(AppShortcut app)
         {
-            var icon = new Icon(appURI, iconFile, OpenApp);
+            var icon = new Icon(app, OpenApp);
             var gap = new Border
             {
                 Width = 10
@@ -111,7 +111,12 @@ namespace LaunchPad
             {
                 try
                 {
-                    ((Icon)item).iconContainer.Background = itemBackgroundColor;
+                    Icon app = (Icon)item;
+                    if(app.app.IconSize != AppShortcut.SIZE_FULL)
+                    {
+                        app.iconContainer.Background = itemBackgroundColor;
+                    }
+                    
                 }
                 catch (Exception) { }
             }

@@ -10,14 +10,25 @@ namespace LaunchPadConfigurator
 {
     public class SaveSystem
     {
-        private static string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
-        private static string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
-        private static string appsList = Path.Combine(saveFileLocation, "apps.json");
+        private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
+        public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
+        private static readonly string appsList = Path.Combine(saveFileLocation, "apps.json");
 
-        public static string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "LaunchPad.exe");
+        public static readonly string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "LaunchPad.exe");
 
         public static void SaveApps(List<AppShortcut> apps)
         {
+            foreach (AppShortcut app in apps)
+            {
+                if(string.IsNullOrEmpty(app.IconFileName)) { continue; }
+                string filename = Path.GetFileName(app.IconFileName);
+                if (app.IconFileName != filename)
+                {
+                    // Icon has not yet been moved
+                    CopyIconToAppData(app.IconFileName);
+                    app.IconFileName = filename;
+                }
+            }
             string jsonString = JsonSerializer.Serialize(apps);
             EnsureSaveFolderExists();
             File.WriteAllText(appsList, jsonString);
@@ -45,7 +56,11 @@ namespace LaunchPadConfigurator
             // Save the updated list back to storage
             SaveApps(existingApps);
         }
-
+        private static void CopyIconToAppData(string imagePath)
+        {
+            string filename = Path.GetFileName(imagePath);
+            File.Copy(imagePath, Path.Combine(iconsDirectory, filename), true);
+        }
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();

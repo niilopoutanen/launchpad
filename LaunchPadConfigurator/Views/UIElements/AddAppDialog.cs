@@ -42,7 +42,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             var appNameLabel = new TextBlock()
             {
                 Text = "App Name:",
-                Margin = new Thickness(0,10,0,5)
+                Margin = new Thickness(0, 10, 0, 5)
             };
 
             var appNameTextBox = new TextBox()
@@ -59,8 +59,10 @@ namespace LaunchPadConfigurator.Views.UIElements
                 Margin = new Thickness(0, 10, 0, 5)
             };
 
-            var executableFilePicker = new FileOpenPicker();
-            executableFilePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var executableFilePicker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
             executableFilePicker.FileTypeFilter.Add("*");
 
             var executableFileButton = new Button()
@@ -89,8 +91,10 @@ namespace LaunchPadConfigurator.Views.UIElements
                 Margin = new Thickness(0, 10, 0, 5)
             };
 
-            var appIconPicker = new FileOpenPicker();
-            appIconPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var appIconPicker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
             appIconPicker.FileTypeFilter.Add("*");
 
             var appIconButton = new Button()
@@ -113,13 +117,23 @@ namespace LaunchPadConfigurator.Views.UIElements
             stackPanel.Children.Add(appIconLabel);
             stackPanel.Children.Add(appIconButton);
 
+            var fullSizeIconToggle = new ToggleSwitch()
+            {
+                Header = "Full size app icon",
+                IsOn = false
+            };
+
+            stackPanel.Children.Add(fullSizeIconToggle);
+
             dialog.Content = stackPanel;
 
             dialog.PrimaryButtonClick += (_s, _e) =>
             {
                 Name = appNameTextBox.Text;
 
-                AppShortcut app = new AppShortcut(Name, ExePath, IconPath);
+                int iconSize = fullSizeIconToggle.IsOn ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
+
+                AppShortcut app = new(Name, ExePath, IconPath, iconSize);
                 SaveSystem.SaveApp(app);
                 updateHandler.Invoke();
             };

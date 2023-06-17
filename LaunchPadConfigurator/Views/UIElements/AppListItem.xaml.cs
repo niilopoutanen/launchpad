@@ -20,24 +20,21 @@ namespace LaunchPadConfigurator.Views.UIElements
 {
     public sealed partial class AppListItem : UserControl
     {
-        public string Name { get; }
-        public string IconFileName { get; }
+        public AppShortcut App {  get; set; }
 
-        private Action updateHandler;
+        private readonly Action updateHandler;
 
-        public AppListItem(string name, string iconUri, Action updateHandler)
+        public AppListItem(AppShortcut app, Action updateHandler)
         {
             this.InitializeComponent();
-            appName.Text = name;
-            if (Uri.TryCreate(iconUri, UriKind.Absolute, out Uri validUri))
+            this.App = app;
+            appName.Text = App.Name;
+            if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
             {
                 BitmapImage bitmapImage = new BitmapImage(validUri);
                 appIcon.Source = bitmapImage;
             }
-
-            Name = name;
-            IconFileName = iconUri;
-
+            
             this.updateHandler = updateHandler;
         }
 
@@ -47,7 +44,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             foreach (AppShortcut app in existingApps)
             {
-                if (app.Name == Name && app.IconFileName == IconFileName)
+                if (app.Name == App.Name && app.IconFileName == App.IconFileName)
                 {
                     existingApps.Remove(app);
                     break;

@@ -45,7 +45,7 @@ namespace LaunchPadConfigurator
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new(app.Name, app.IconFileName, RefreshAppList);
+                AppListItem listItem = new(app, RefreshAppList);
                 appsList.Children.Add(listItem);
             }
         }
