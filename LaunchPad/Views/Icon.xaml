@@ -15,7 +15,7 @@
                 <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
             </Style>
         </Border.Style>
-        <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" />
+        <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
     </Border>
 
 </UserControl>

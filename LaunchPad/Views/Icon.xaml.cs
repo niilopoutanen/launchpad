@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -66,31 +67,7 @@ namespace LaunchPad
         /// <param name="appURI">If no app icon is present, falling back to executable icon</param>
         private void InitializeIcon()
         {
-            if(App.IconFileName == null)
-            {
-                System.Drawing.Icon appIcon = System.Drawing.Icon.ExtractAssociatedIcon(App.ExeUri);
-
-                if (appIcon != null)
-                {
-                    ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                        appIcon.Handle,
-                        Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions()
-                    );
-
-                    // Set the Source property of the Image control
-                    iconBitmap.Source = imageSource;
-                    appIcon.Dispose();
-                }
-            }
-            else
-            {
-                if (Uri.TryCreate(App.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
-                {
-                    BitmapImage bitmapImage = new BitmapImage(validUri);
-                    iconBitmap.Source = bitmapImage;
-                }
-            }
+            iconBitmap.Source = AppShortcut.GetIcon(App);
 
 
             if(App.IconSize == AppShortcut.SIZE_FULL)
