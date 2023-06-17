@@ -15,6 +15,7 @@
     <None Remove="AppsPage.xaml" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
+    <None Remove="Views\UIElements\AddAppDialog.xaml" />
     <None Remove="Views\UIElements\AppListItem.xaml" />
   </ItemGroup>
 
@@ -31,6 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -44,6 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UIElements\AddAppDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AppsPage.xaml">
