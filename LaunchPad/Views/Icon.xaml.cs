@@ -27,16 +27,18 @@ namespace LaunchPad
     {
         private string appURI = "";
         private string iconFile = "";
-        private Action handler;
 
-        public Icon(string appURI, string iconFile, Action handler)
+        public Icon(string appURI, string iconFile, Action<string> handler)
         {
             this.appURI = appURI;
             this.iconFile = iconFile;
-            this.handler = handler;
             InitializeComponent();
 
-            iconContainer.MouseLeftButtonUp += IconClick;
+            iconContainer.MouseLeftButtonUp += async (s,e) =>
+            {
+                await Task.Delay(200); //Wait for the animation
+                handler(appURI);
+            };
             InitializeIcon();
         }
 
@@ -68,17 +70,5 @@ namespace LaunchPad
                 }
             }
         }
-        private async void IconClick(object sender, MouseButtonEventArgs e)
-        {
-            await Task.Delay(200); //Wait for the animation
-
-            Process process = new Process();
-            process.StartInfo.FileName = appURI;
-            process.StartInfo.UseShellExecute = true;
-
-            process.Start();
-            handler.Invoke();
-        }
-
     }
 }

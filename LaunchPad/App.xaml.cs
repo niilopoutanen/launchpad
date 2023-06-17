@@ -45,6 +45,7 @@ namespace LaunchPad
 
             launchPadWindow = new LaunchPadWindow();
             launchPadWindow.Show();
+            launchPadWindow.Activate();
         }
 
     }
