@@ -28,6 +28,10 @@ namespace LaunchPad
             LoadApps();
 
             SetTheme();
+            SystemEvents.UserPreferenceChanged += (s, e) =>
+            {
+                SetTheme();
+            };
             HandleClicks(this);
         }
         private void Window_Deactivated(object sender, EventArgs e)
@@ -70,21 +74,49 @@ namespace LaunchPad
             launchPadClose.Begin(this);
         }
 
-        private static void SetTheme()
+        private void SetTheme()
         {
-            Application.Current.Resources.MergedDictionaries.Clear();
+            SolidColorBrush? backgroundColor;
+            SolidColorBrush? itemBackgroundColor;
 
             if (IsLightTheme())
             {
-                var lightModeDictionary = new ResourceDictionary { Source = new Uri("Resources/LightMode.xaml", UriKind.Relative) };
-                Application.Current.Resources.MergedDictionaries.Add(lightModeDictionary);
+                var lightModeDictionary = new ResourceDictionary
+                {
+                    Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
+                };
+
+                backgroundColor = lightModeDictionary["LaunchPadBackground"] as SolidColorBrush;
+                itemBackgroundColor = lightModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+
             }
             else
             {
-                var darkModeDictionary = new ResourceDictionary { Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative) };
-                Application.Current.Resources.MergedDictionaries.Add(darkModeDictionary);
+                var darkModeDictionary = new ResourceDictionary
+                {
+                    Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
+                };
+
+                backgroundColor = darkModeDictionary["LaunchPadBackground"] as SolidColorBrush;
+                itemBackgroundColor = darkModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            }
+
+
+            if(backgroundColor == null || itemBackgroundColor == null)
+            {
+                return;
+            }
+            launchPadRoot.Background = backgroundColor;
+            foreach(UIElement item in appContainer.Children)
+            {
+                try
+                {
+                    ((Icon)item).iconContainer.Background = itemBackgroundColor;
+                }
+                catch (Exception) { }
             }
         }
+
 
         private static bool IsLightTheme()
         {

@@ -23,7 +23,7 @@
     <Window.RenderTransformOrigin>
         <Point>0.5, 0.5</Point>
     </Window.RenderTransformOrigin>
-    <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="10" MinWidth="100" MinHeight="100">
+    <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="10" MinWidth="100" MinHeight="100" x:Name="launchPadRoot">
         <StackPanel Orientation="Horizontal" Name="appContainer">
 
         </StackPanel>
