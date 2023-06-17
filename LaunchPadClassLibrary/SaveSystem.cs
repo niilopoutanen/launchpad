@@ -67,6 +67,8 @@ namespace LaunchPadConfigurator
             // Save the updated list back to storage
             SaveApps(existingApps);
         }
+
+
         private static void CopyIconToAppData(string currentPath)
         {
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));

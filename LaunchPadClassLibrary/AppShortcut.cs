@@ -16,6 +16,7 @@ namespace LaunchPadClassLibrary
         public string Name {  get; set; }
         public string ExeUri { get; set; }
         public string? IconFileName { get; set; }
+        public int ID { get; set; }
 
         public int IconSize { get; set; }
 
@@ -28,6 +29,7 @@ namespace LaunchPadClassLibrary
                 IconFileName = iconFileName;
             }
             IconSize = iconSize;
+            ID = GetId();
         }
         public AppShortcut() { }
 
@@ -44,6 +46,23 @@ namespace LaunchPadClassLibrary
                 return IconFileName;
             }
             return Path.Combine(SaveSystem.iconsDirectory, IconFileName);
+        }
+
+        private static int GetId()
+        {
+            var usedValues = new List<int>();
+            foreach (AppShortcut app in SaveSystem.LoadApps())
+            {
+                usedValues.Add(app.ID);
+            }
+
+            if (usedValues.Count == 0)
+            {
+                return 1;
+            }
+
+            usedValues.Sort();
+            return usedValues.Last() + 1;
         }
     }
 }

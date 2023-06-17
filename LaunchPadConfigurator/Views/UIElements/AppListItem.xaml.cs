@@ -49,7 +49,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             foreach (AppShortcut app in existingApps)
             {
-                if (app.Name == App.Name && app.IconFileName == App.IconFileName)
+                if (app.ID == App.ID)
                 {
                     existingApps.Remove(app);
                     break;

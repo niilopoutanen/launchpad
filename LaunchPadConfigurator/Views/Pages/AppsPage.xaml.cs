@@ -97,8 +97,15 @@ namespace LaunchPadConfigurator
                         throw new Exception("invalid inputs");
                     }
 
-                    List<AppShortcut> existingApps = new List<AppShortcut>();
-                    existingApps.Remove(existingApp);
+                    List<AppShortcut> existingApps = SaveSystem.LoadApps();
+                    foreach (AppShortcut appToCheck in existingApps)
+                    {
+                        if(appToCheck.ID == existingApp.ID)
+                        {
+                            existingApps.Remove(appToCheck);
+                            break;
+                        }
+                    }
                     AppShortcut app = new(name, exepath, iconpath, iconSize);
                     existingApps.Add(app);
                     SaveSystem.SaveApps(existingApps);
