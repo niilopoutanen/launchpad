@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace System.Windows.Input
 {
-    internal class HotKeyEventArgs : EventArgs
+    public class HotKeyEventArgs : EventArgs
     {
         public HotKey Hotkey { get; private set; }
 
@@ -20,7 +20,7 @@ namespace System.Windows.Input
         }
     }
 
-    internal class HotKey
+    public class HotKey
     {
         private const int WM_HOTKEY = 786;
 
