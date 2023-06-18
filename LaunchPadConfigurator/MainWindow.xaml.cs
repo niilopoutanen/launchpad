@@ -14,6 +14,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Display.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,7 +34,8 @@ namespace LaunchPadConfigurator
             {
                 ChangeSelection(e.SelectedItem as NavigationViewItem);
             };
-            
+            Title = "LaunchPad settings";
+
             ChangeSelection(settingsMenu.MenuItems.FirstOrDefault() as NavigationViewItem);
         }
 
