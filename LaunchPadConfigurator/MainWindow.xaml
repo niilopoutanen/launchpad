@@ -8,21 +8,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="#212121">
+    <Grid Background="{ThemeResource SolidBackgroundFillColorBase}">
         <NavigationView
             Name="settingsMenu"
             Header="LaunchPad Settings"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False">
             <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="#242424" />
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SolidBackgroundFillColorBase}" />
             </NavigationView.Resources>
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Home"></NavigationViewItem>
                 <NavigationViewItem Icon="Home" Content="General" Tag="General"></NavigationViewItem>
                 <NavigationViewItem Icon="Home" Content="Apps" Tag="Apps"></NavigationViewItem>
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{StaticResource PageBackground}">
+            <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{ThemeResource SolidBackgroundFillColorBase}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

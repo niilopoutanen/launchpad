@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Height="60" HorizontalAlignment="Stretch" Margin="0,0,0,10">
-        <Border CornerRadius="8" Background="{StaticResource ElementBackground}" Padding="5" BorderBrush="#393939" BorderThickness="1">
+        <Border CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Padding="5" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
