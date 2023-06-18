@@ -8,7 +8,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock>General</TextBlock>
-    </Grid>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Padding="15" CornerRadius="8" BorderThickness="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad column count</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Amount of items per row</TextBlock>
+                </StackPanel>
+                
+                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="1" Maximum="10" Width="100" x:Name="ColumnCountSlider"></Slider>
+            </Grid>
+            
+        </StackPanel>
+    </ScrollViewer>
 </Page>

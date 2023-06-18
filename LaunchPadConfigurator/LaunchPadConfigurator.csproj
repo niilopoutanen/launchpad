@@ -13,6 +13,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AppsPage.xaml" />
+    <None Remove="Assets\Icons\icon_apps.png" />
+    <None Remove="Assets\Icons\icon_general.png" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\UIElements\AddAppDialog.xaml" />
@@ -46,6 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\Icons\icon_apps.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Icons\icon_general.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\UIElements\AddAppDialog.xaml">

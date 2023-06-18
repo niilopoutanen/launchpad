@@ -21,9 +21,11 @@ namespace LaunchPad
 {
     public partial class LaunchPadWindow : Window
     {
+        UserPreferences preferences;
         List<ILaunchPadItem> items = new();
         public LaunchPadWindow()
         {
+            preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
             LoadApps();
 
@@ -50,7 +52,7 @@ namespace LaunchPad
                 appContainer.Children.Add(icon);
             }
             int itemCount = appContainer.Children.Count;
-            int maxColumns = 6;
+            int maxColumns = preferences.ColumnCount;
             int columns = Math.Min(itemCount, maxColumns);
 
             appContainer.Columns = columns;

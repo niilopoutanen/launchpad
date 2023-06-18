@@ -8,6 +8,7 @@
     <Company>Niilo Poutanen</Company>
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

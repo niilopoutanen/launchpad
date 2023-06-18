@@ -13,7 +13,8 @@ namespace LaunchPadConfigurator
     {
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
-        private static readonly string appsList = Path.Combine(saveFileLocation, "apps.json");
+        private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
+        private static readonly string preferences = Path.Combine(saveFileLocation, "LaunchPad.prefs");
 
         public static readonly string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "LaunchPad.exe");
 
@@ -40,7 +41,7 @@ namespace LaunchPadConfigurator
             }
             string jsonString = JsonSerializer.Serialize(apps);
             EnsureSaveFolderExists();
-            using (StreamWriter streamWriter = new StreamWriter(appsList))
+            using (StreamWriter streamWriter = new StreamWriter(SaveSystem.apps))
             {
                 streamWriter.Write(jsonString);
             }
@@ -83,9 +84,9 @@ namespace LaunchPadConfigurator
         {
             List<AppShortcut> apps = new();
             EnsureSaveFolderExists();
-            if (File.Exists(appsList))
+            if (File.Exists(SaveSystem.apps))
             {
-                string jsonString = File.ReadAllText(appsList) ?? throw new FileLoadException("File is empty");
+                string jsonString = File.ReadAllText(SaveSystem.apps) ?? throw new FileLoadException("File is empty");
                 apps = JsonSerializer.Deserialize<List<AppShortcut>>(jsonString);
             }
 
@@ -125,6 +126,36 @@ namespace LaunchPadConfigurator
                     }
                 }
             }
+        }
+
+
+        public static void SavePreferences(UserPreferences prefs)
+        {
+            string jsonString = JsonSerializer.Serialize(prefs);
+            EnsureSaveFolderExists();
+            using (StreamWriter streamWriter = new(preferences))
+            {
+                streamWriter.Write(jsonString);
+            }
+        }
+        public static UserPreferences LoadPreferences()
+        {
+            UserPreferences prefs = new();
+            EnsureSaveFolderExists();
+            if (File.Exists(preferences))
+            {
+                string jsonString = File.ReadAllText(preferences) ?? throw new FileLoadException("File is empty");
+                prefs = JsonSerializer.Deserialize<UserPreferences>(jsonString);
+            }
+            if(prefs != null)
+            {
+                return prefs;
+            }
+            else
+            {
+                return new UserPreferences();
+            }
+            
         }
     }
 }

@@ -1,3 +1,4 @@
+using LaunchPadClassLibrary;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -18,14 +19,29 @@ using Windows.Foundation.Collections;
 
 namespace LaunchPadConfigurator
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class GeneralPage : Page
     {
+        UserPreferences preferences;
         public GeneralPage()
         {
+            preferences = SaveSystem.LoadPreferences();
+
             this.InitializeComponent();
+            this.InitializeElements();
+        }
+        private void InitializeElements()
+        {
+            ColumnCountSlider.Value = preferences.ColumnCount;
+            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.ColumnCount;
+
+            ColumnCountSlider.ValueChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.ColumnCount = (int)e.NewValue;
+                SaveSystem.SavePreferences(preferences);
+
+                ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
+            };
         }
     }
 }
