@@ -59,19 +59,23 @@ namespace LaunchPadConfigurator.Views.UIElements
         {
             List<AppShortcut> existingApps = SaveSystem.LoadApps();
 
-            foreach (AppShortcut app in existingApps)
-            {
-                if (app.ID == App.ID)
-                {
-                    existingApps.Remove(app);
-                    break;
-                }
-            }
-            SaveSystem.SaveApps(existingApps);
-            updateHandler.Invoke();
+            int indexToRemove = existingApps.FindIndex(app => app.ID == App.ID);
 
-            SaveSystem.DeleteUnusedIcons();
+            if (indexToRemove != -1)
+            {
+                existingApps.RemoveAt(indexToRemove);
+
+                for (int i = indexToRemove; i < existingApps.Count; i++)
+                {
+                    existingApps[i].Position--;
+                }
+
+                SaveSystem.SaveApps(existingApps);
+                updateHandler.Invoke();
+                SaveSystem.DeleteUnusedIcons();
+            }
         }
+
 
     }
 

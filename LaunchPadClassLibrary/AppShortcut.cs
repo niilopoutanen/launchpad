@@ -23,7 +23,7 @@ namespace LaunchPadClassLibrary
         public string ExeUri { get; set; }
         public string? IconFileName { get; set; }
         public int ID { get; set; }
-        public int Order { get; set; }
+        public int Position { get; set; }
 
         public int IconSize { get; set; }
 
@@ -37,7 +37,7 @@ namespace LaunchPadClassLibrary
             }
             IconSize = iconSize;
             ID = GetId();
-            Order = GetPosition();
+            Position = GetPosition();
         }
         public AppShortcut() { }
 
@@ -174,8 +174,8 @@ namespace LaunchPadClassLibrary
             apps[index2] = temp;
 
             // Update the Order property of the swapped AppShortcuts
-            apps[index1].Order = index1;
-            apps[index2].Order = index2;
+            apps[index1].Position = index1;
+            apps[index2].Position = index2;
         }
 
         public static int GetPosition()
@@ -184,13 +184,13 @@ namespace LaunchPadClassLibrary
             List<AppShortcut> appShortcuts = SaveSystem.LoadApps();
 
             // Sort the list based on the Order property
-            appShortcuts.Sort((a1, a2) => a1.Order.CompareTo(a2.Order));
+            appShortcuts.Sort((a1, a2) => a1.Position.CompareTo(a2.Position));
 
             // Find the next available position
             int position = 0;
             foreach (AppShortcut appShortcut in appShortcuts)
             {
-                if (appShortcut.Order == position)
+                if (appShortcut.Position == position)
                     position++;
                 else
                     break;

@@ -89,7 +89,7 @@ namespace LaunchPadConfigurator
             {
                 string jsonString = File.ReadAllText(SaveSystem.apps) ?? throw new FileLoadException("File is empty");
                 apps = JsonSerializer.Deserialize<List<AppShortcut>>(jsonString);
-                apps.Sort((app1, app2) => app1.Order.CompareTo(app2.Order));
+                apps.Sort((app1, app2) => app1.Position.CompareTo(app2.Position));
             }
 
             return apps;
