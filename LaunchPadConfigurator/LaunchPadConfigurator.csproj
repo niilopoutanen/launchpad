@@ -15,6 +15,7 @@
     <None Remove="AppsPage.xaml" />
     <None Remove="Assets\Icons\icon_apps.png" />
     <None Remove="Assets\Icons\icon_general.png" />
+    <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\UIElements\AddAppDialog.xaml" />
@@ -54,6 +55,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Icons\icon_general.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Icons\LaunchPad.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
