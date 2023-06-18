@@ -8,8 +8,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel x:Name="HomePageContainer" Orientation="Vertical">
-        <TextBlock x:Name="launchPadStatus"></TextBlock>
-        <Button x:Name="launchPadManageButton"/>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+
+                <StackPanel Style="{StaticResource StackPanelCardStyle}" Margin="0,0,10,0" Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad:</TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           x:Name="versionNumber">v0.5.0</TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource StackPanelCardStyle}" Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad settings:</TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           x:Name="settingsVersionNumber">v0.5.0</TextBlock>
+                </StackPanel>
+            </StackPanel>
+            
+            
+            <Grid Style="{StaticResource GridCardStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Column="0">
+                    <TextBlock>Status:</TextBlock>
+                    <TextBlock x:Name="launchPadStatus" Foreground="{ThemeResource TextFillColorSecondaryBrush}"></TextBlock>
+                </StackPanel>
+                
+                <Button Grid.Column="1" x:Name="launchPadManageButton">Start LaunchPad</Button>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+
 </Page>
