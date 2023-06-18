@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,42 +21,62 @@ namespace LaunchPadConfigurator.Views.UIElements
 {
     public sealed partial class AppListItem : UserControl
     {
-        public string Name { get; }
-        public string IconFileName { get; }
+        public AppShortcut App {  get; set; }
 
-        private Action updateHandler;
+        private readonly Action updateHandler;
 
-        public AppListItem(string name, string iconUri, Action updateHandler)
+        public AppListItem(AppShortcut app, Action updateHandler, Func<AppShortcut, Task> editCallBack)
         {
             this.InitializeComponent();
-            appName.Text = name;
-            if (Uri.TryCreate(iconUri, UriKind.Absolute, out Uri validUri))
+            this.App = app;
+            appName.Text = App.Name;
+            if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
             {
                 BitmapImage bitmapImage = new BitmapImage(validUri);
                 appIcon.Source = bitmapImage;
             }
-
-            Name = name;
-            IconFileName = iconUri;
-
+            
             this.updateHandler = updateHandler;
+            editButton.Click += (s, e) =>
+            {
+                editCallBack(App);
+            };
+
+
+            posUp.Click += (s, e) =>
+            {
+                App.IncreasePos();
+                updateHandler.Invoke();
+            };
+            posDown.Click += (s, e) =>
+            {
+                App.DecreasePos();
+                updateHandler.Invoke();
+            };
         }
 
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
             List<AppShortcut> existingApps = SaveSystem.LoadApps();
 
-            foreach (AppShortcut app in existingApps)
+            int indexToRemove = existingApps.FindIndex(app => app.ID == App.ID);
+
+            if (indexToRemove != -1)
             {
-                if (app.Name == Name && app.IconFileName == IconFileName)
+                existingApps.RemoveAt(indexToRemove);
+
+                for (int i = indexToRemove; i < existingApps.Count; i++)
                 {
-                    existingApps.Remove(app);
-                    break;
+                    existingApps[i].Position--;
                 }
+
+                SaveSystem.SaveApps(existingApps);
+                updateHandler.Invoke();
+                SaveSystem.DeleteUnusedIcons();
             }
-            SaveSystem.SaveApps(existingApps);
-            updateHandler.Invoke();
         }
+
+
     }
 
 }

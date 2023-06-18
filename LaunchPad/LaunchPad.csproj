@@ -7,14 +7,48 @@
     <UseWPF>true</UseWPF>
     <Company>Niilo Poutanen</Company>
     <Authors>Niilo Poutanen</Authors>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\icon.ico" />
+    <None Remove="Resources\SystemTray.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SystemTray.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

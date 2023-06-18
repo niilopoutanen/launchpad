@@ -23,10 +23,12 @@
     <Window.RenderTransformOrigin>
         <Point>0.5, 0.5</Point>
     </Window.RenderTransformOrigin>
-    <Border CornerRadius="25" Background="#212121" Padding="10" MinWidth="100" MinHeight="100">
-        <StackPanel Orientation="Horizontal" Name="appContainer">
+    <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="5" MinWidth="100" MinHeight="100" x:Name="launchPadRoot">
 
-        </StackPanel>
+        <UniformGrid Columns="6" Name="appContainer">
+
+        </UniformGrid>
+
     </Border>
 
 </Window>

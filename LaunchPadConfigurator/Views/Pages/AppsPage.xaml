@@ -13,7 +13,7 @@
             <Button x:Name="addAppButton" Content="Add new app"/>
 
 
-            <TextBlock Margin="0,10,0,10" Foreground="#e6e6e6">Existing apps</TextBlock>
+            <TextBlock Margin="0,10,0,10" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Existing apps</TextBlock>
             <StackPanel x:Name="appsList" Orientation="Vertical">
 
             </StackPanel>

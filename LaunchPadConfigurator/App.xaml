@@ -8,9 +8,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Name="PageBackground" Color="#242424"/>
-            <SolidColorBrush x:Name="WindowBackground" Color="#202020"/>
-            <SolidColorBrush x:Name="ElementBackground" Color="#333333"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

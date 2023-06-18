@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Height="60" HorizontalAlignment="Stretch" Margin="0,0,0,10">
-        <Border CornerRadius="20" Background="{StaticResource ElementBackground}" Padding="5">
+        <Border CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Padding="5" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -21,7 +21,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" />
+                    <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posUp">
+                        <FontIcon Glyph="&#xE70D;" />
+                    </Button>
+                    <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posDown">
+                        <FontIcon Glyph="&#xE70E;" />
+                    </Button>
+                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" Name="editButton"/>
                     <Button Content="Remove" HorizontalAlignment="Right" Margin="0,0,10,0" Click="RemoveButtonClick"/>
                 </StackPanel>
 

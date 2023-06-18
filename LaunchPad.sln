@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchPad", "LaunchPad\LaunchPad.csproj", "{0ED016BF-B2C5-49C6-94DB-2AB60E01DF93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadConfigurator", "LaunchPadConfigurator\LaunchPadConfigurator.csproj", "{66E707E7-0FE5-4D21-BC5F-C0E7CCEC91B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchPadConfigurator", "LaunchPadConfigurator\LaunchPadConfigurator.csproj", "{66E707E7-0FE5-4D21-BC5F-C0E7CCEC91B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadClassLibrary", "LaunchPadClassLibrary\LaunchPadClassLibrary.csproj", "{F46F85F7-ECFF-4A10-ADEF-0019528C3051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchPadCore", "LaunchPadClassLibrary\LaunchPadCore.csproj", "{F46F85F7-ECFF-4A10-ADEF-0019528C3051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

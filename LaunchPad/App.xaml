@@ -4,70 +4,50 @@
              xmlns:local="clr-namespace:LaunchPad"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/DarkMode.xaml" />
+                <ResourceDictionary Source="Resources/LightMode.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <Storyboard x:Key="MouseDownAnimation">
-            <DoubleAnimation To="0.95" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseInOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation To="0.95" Duration="0:0:0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseInOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="MouseUpAnimation">
-            <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseInOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseInOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
+            <Storyboard x:Key="WindowLaunchAnimation">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="0.5" To="1" Duration="0:0:0.3">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="0.5" To="1" Duration="0:0:0.3">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
 
 
-        <Storyboard x:Key="WindowLaunchAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3">
+
+            <Storyboard x:Key="WindowExitAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
                 <DoubleAnimation.EasingFunction>
                     <QuadraticEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="0.5" To="1" Duration="0:0:0.3">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="0.9" Duration="0:0:0.2">
                 <DoubleAnimation.EasingFunction>
                     <QuadraticEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="0.5" To="1" Duration="0:0:0.3">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="WindowExitAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="1" To="0.9" Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="1" To="0.9" Duration="0:0:0.2">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="0.9" Duration="0:0:0.2">
                 <DoubleAnimation.EasingFunction>
                     <QuadraticEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
 
-
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
