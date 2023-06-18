@@ -83,11 +83,13 @@ namespace LaunchPadConfigurator
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();
+            
             EnsureSaveFolderExists();
             if (File.Exists(SaveSystem.apps))
             {
                 string jsonString = File.ReadAllText(SaveSystem.apps) ?? throw new FileLoadException("File is empty");
                 apps = JsonSerializer.Deserialize<List<AppShortcut>>(jsonString);
+                apps.Sort((app1, app2) => app1.Order.CompareTo(app2.Order));
             }
 
             return apps;

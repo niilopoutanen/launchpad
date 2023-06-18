@@ -41,6 +41,18 @@ namespace LaunchPadConfigurator.Views.UIElements
             {
                 editCallBack(App);
             };
+
+
+            posUp.Click += (s, e) =>
+            {
+                App.IncreasePos();
+                updateHandler.Invoke();
+            };
+            posDown.Click += (s, e) =>
+            {
+                App.DecreasePos();
+                updateHandler.Invoke();
+            };
         }
 
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
@@ -60,6 +72,7 @@ namespace LaunchPadConfigurator.Views.UIElements
 
             SaveSystem.DeleteUnusedIcons();
         }
+
     }
 
 }
