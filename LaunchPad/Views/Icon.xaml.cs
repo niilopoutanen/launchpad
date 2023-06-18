@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -22,7 +23,7 @@ using System.Windows.Shapes;
 
 namespace LaunchPad
 {
-    public partial class Icon : UserControl, ILaunchPadItem
+    public partial class Icon : System.Windows.Controls.UserControl, ILaunchPadItem
     {
         public AppShortcut App { get; set; }
         public bool Pressed { get; set; }
@@ -122,12 +123,19 @@ namespace LaunchPad
 
         public void OnClick(Action closeHandler)
         {
-            Process process = new Process();
-            process.StartInfo.FileName = App.ExeUri;
-            process.StartInfo.UseShellExecute = true;
+            try
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = App.ExeUri;
+                process.StartInfo.UseShellExecute = true;
 
-            process.Start();
-            closeHandler.Invoke();
+                process.Start();
+                closeHandler.Invoke();
+            }
+            catch(Exception)
+            {
+                System.Windows.MessageBox.Show("LaunchPad could not open the app. Verify that the app exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         public void OnPress()

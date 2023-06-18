@@ -47,7 +47,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Icons\icon_apps.png">

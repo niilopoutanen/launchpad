@@ -12,7 +12,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadClassLibrary.csproj" />
+    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

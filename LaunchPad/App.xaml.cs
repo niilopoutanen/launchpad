@@ -52,9 +52,11 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
-            NotifyIcon notifyIcon = new NotifyIcon();
-            notifyIcon.Icon = new System.Drawing.Icon("Resources/SystemTray.ico");
-            notifyIcon.Visible = true;
+            NotifyIcon notifyIcon = new()
+            {
+                Icon = new System.Drawing.Icon("Resources/icon.ico"),
+                Visible = true
+            };
 
             notifyIcon.MouseClick += (sender, e) =>
             {
@@ -72,8 +74,11 @@ namespace LaunchPad
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>
             {
+                notifyIcon.Visible = false;
+                notifyIcon.Dispose();
                 Current.Shutdown();
             });
+            notifyIcon.ShowBalloonTip(2000, "LaunchPad active", "Press shift + tab to open", ToolTipIcon.Info);
         }
     }
 }
