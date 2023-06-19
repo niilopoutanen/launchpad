@@ -10,6 +10,10 @@
                 <ResourceDictionary Source="Resources/LightMode.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <FontFamily x:Key="Inter">/Resources/Fonts/#Inter</FontFamily>
+
+
+
             <Storyboard x:Key="WindowLaunchAnimation">
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3">
                     <DoubleAnimation.EasingFunction>
