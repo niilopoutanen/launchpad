@@ -1,4 +1,5 @@
-﻿using LaunchPadCore;
+﻿using LaunchPadConfigurator;
+using LaunchPadCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,25 +35,27 @@ namespace LaunchPad
         private const float SIZE_PRESSED = 0.9f;
 
         private Action closeHandler;
+        private UserPreferences preferences;
         public Icon(AppShortcut app, Action handler)
         {
             this.App = app;
             this.closeHandler = handler;
+            preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
 
-            iconContainer.MouseLeftButtonDown += (s, e) =>
+            appIcon.MouseLeftButtonDown += (s, e) =>
             {
                 OnPress();
             };
-            iconContainer.MouseLeftButtonUp += (s, e) =>
+            appIcon.MouseLeftButtonUp += (s, e) =>
             {
                 OnRelease();
             };
-            iconContainer.MouseEnter += (s, e) =>
+            appIcon.MouseEnter += (s, e) =>
             {
                 OnFocusEnter();
             };
-            iconContainer.MouseLeave += (s, e) =>
+            appIcon.MouseLeave += (s, e) =>
             {
                 OnFocusLeave();
             };
@@ -61,11 +64,6 @@ namespace LaunchPad
         }
 
 
-        /// <summary>
-        /// Displays the app icon based on the values provided
-        /// </summary>
-        /// <param name="iconPath">Path to the app icon</param>
-        /// <param name="appURI">If no app icon is present, falling back to executable icon</param>
         private void InitializeIcon()
         {
             iconBitmap.Source = AppShortcut.GetIcon(App);
@@ -73,9 +71,29 @@ namespace LaunchPad
 
             if(App.IconSize == AppShortcut.SIZE_FULL)
             {
-                iconContainer.Padding = new Thickness(0);
-                iconContainer.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
+                appIcon.Padding = new Thickness(0);
+                appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
             }
+
+            if (preferences.NameVisible)
+            {
+                appName.Visibility = Visibility.Visible;
+                appIcon.Width = 70;
+                appIcon.Height = 70;
+
+
+                if (App.Name.Length > 13)
+                {
+                    appName.Text = App.Name[..13] + "..";
+                }
+
+                else
+                {
+                    appName.Text = App.Name;
+                }
+            }
+
+                
         }
 
         public void OnFocusEnter()
@@ -86,7 +104,7 @@ namespace LaunchPad
             }
             Focused = true;
             ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
-            iconContainer.RenderTransform = scaleTransform;
+            appIcon.RenderTransform = scaleTransform;
 
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
@@ -109,7 +127,7 @@ namespace LaunchPad
 
             ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
 
-            iconContainer.RenderTransform = scaleTransform;
+            appIcon.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
                 To = SIZE_STATIC,
@@ -147,7 +165,7 @@ namespace LaunchPad
             Pressed = true;
             ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
 
-            iconContainer.RenderTransform = scaleTransform;
+            appIcon.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
                 To = SIZE_PRESSED,
@@ -173,7 +191,7 @@ namespace LaunchPad
             Pressed = false;
             ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
 
-            iconContainer.RenderTransform = scaleTransform;
+            appIcon.RenderTransform = scaleTransform;
             DoubleAnimation scaleAnimation = new DoubleAnimation
             {
                 To = finalValue,

@@ -108,7 +108,7 @@ namespace LaunchPad
                     Icon app = (Icon)item;
                     if(app.App.IconSize != AppShortcut.SIZE_FULL)
                     {
-                        app.iconContainer.Background = itemBackgroundColor;
+                        app.appIcon.Background = itemBackgroundColor;
                     }
                     
                 }

@@ -42,6 +42,14 @@ namespace LaunchPadConfigurator
 
                 ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
             };
+
+            NameVisibleToggle.IsOn = preferences.NameVisible;
+            NameVisibleToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.NameVisible = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
         }
     }
 }

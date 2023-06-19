@@ -15,5 +15,13 @@ namespace LaunchPadCore
             get { return columnCount; }
             set { columnCount = (value >= 1 && value <= 10) ? value : columnCount; }
         }
+
+
+        private bool nameVisible = false;
+        public bool NameVisible 
+        { 
+            get { return nameVisible; }
+            set { nameVisible = value; }
+        }
     }
 }

@@ -6,16 +6,20 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-    <Border CornerRadius="15" Width="80" Height="80" Name="iconContainer" Background="{StaticResource LaunchPadItemBackground}" Padding="5">
-        <Border.RenderTransform>
-            <ScaleTransform />
-        </Border.RenderTransform>
-        <Border.Style>
-            <Style TargetType="Border">
-                <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
-            </Style>
-        </Border.Style>
-        <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
-    </Border>
+    <StackPanel MaxWidth="90">
+        <Border CornerRadius="18" Width="80" Height="80" Name="appIcon" Background="{StaticResource LaunchPadItemBackground}" Padding="3">
+            <Border.RenderTransform>
+                <ScaleTransform />
+            </Border.RenderTransform>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Style>
+            </Border.Style>
+            <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Border>
+        <TextBlock Visibility="Collapsed" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="13"  Foreground="White" x:Name="appName">App</TextBlock>
+    </StackPanel>
+
 
 </UserControl>
