@@ -4,4 +4,5 @@
 
     <SolidColorBrush x:Key="LaunchPadBackground" Color="#66EEEEEE"/>
     <SolidColorBrush x:Key="LaunchPadItemBackground" Color="#66FFFFFF"/>
+    <SolidColorBrush x:Key="LaunchPadTextColor" Color="#121212"/>
 </ResourceDictionary>

@@ -18,7 +18,7 @@
             </Border.Style>
             <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
         </Border>
-        <TextBlock Visibility="Collapsed" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="13"  Foreground="White" x:Name="appName">App</TextBlock>
+        <TextBlock Foreground="{StaticResource LaunchPadTextColor}" Visibility="Collapsed" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="13" x:Name="appName">App</TextBlock>
     </StackPanel>
 
 

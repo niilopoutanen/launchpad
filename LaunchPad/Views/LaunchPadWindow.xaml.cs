@@ -101,7 +101,7 @@ namespace LaunchPad
 
             SolidColorBrush backgroundColor = themeDictionary["LaunchPadBackground"] as SolidColorBrush;
             SolidColorBrush itemBackgroundColor = themeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
-
+            SolidColorBrush textColor = themeDictionary["LaunchPadTextColor"] as SolidColorBrush;
 
 
 
@@ -119,6 +119,7 @@ namespace LaunchPad
                     {
                         app.appIcon.Background = itemBackgroundColor;
                     }
+                    app.appName.Foreground = textColor;
                     
                 }
                 catch (Exception) { }
