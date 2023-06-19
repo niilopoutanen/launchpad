@@ -8,6 +8,12 @@ namespace LaunchPadClassLibrary
 {
     public class UserPreferences
     {
-        public int ColumnCount { get; set; }
+        private int columnCount = 6;
+
+        public int ColumnCount
+        {
+            get { return columnCount; }
+            set { columnCount = (value >= 1 && value <= 10) ? value : columnCount; }
+        }
     }
 }
