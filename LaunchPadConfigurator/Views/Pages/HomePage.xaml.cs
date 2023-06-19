@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -30,9 +31,15 @@ namespace LaunchPadConfigurator.Views.Pages
         public HomePage()
         {
             this.InitializeComponent();
-            GetLaunchPadStatus();
+            this.InitializeElements();
+            
         }
-
+        private void InitializeElements()
+        {
+            GetLaunchPadStatus();
+            versionNumber.Text = SaveSystem.launchPadVersion;
+            settingsVersionNumber.Text = SaveSystem.launchPadSettingsVersion;
+        }
         private void GetLaunchPadStatus()
         {
             string appName = "LaunchPad";

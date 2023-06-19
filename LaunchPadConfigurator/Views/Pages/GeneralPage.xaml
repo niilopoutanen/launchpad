@@ -10,9 +10,7 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    Padding="15" CornerRadius="8" BorderThickness="1">
+            <Grid Style="{StaticResource GridCardStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />

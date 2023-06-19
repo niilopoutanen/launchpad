@@ -7,32 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Height="60" HorizontalAlignment="Stretch" Margin="0,0,0,10">
-        <Border CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Padding="5" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+    <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10" Padding="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="0">
-                    <Image x:Name="appIcon" Margin="0,0,10,0"/>
-                    <TextBlock x:Name="appName" VerticalAlignment="Center"/>
-                </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0">
+            <Image x:Name="appIcon" Margin="0,0,10,0" Width="60"/>
+            <TextBlock x:Name="appName" VerticalAlignment="Center"/>
+        </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posUp">
-                        <FontIcon Glyph="&#xE70D;" />
-                    </Button>
-                    <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posDown">
-                        <FontIcon Glyph="&#xE70E;" />
-                    </Button>
-                    <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" Name="editButton"/>
-                    <Button Content="Remove" HorizontalAlignment="Right" Margin="0,0,10,0" Click="RemoveButtonClick"/>
-                </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posUp">
+                <FontIcon Glyph="&#xE70D;" />
+            </Button>
+            <Button HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posDown">
+                <FontIcon Glyph="&#xE70E;" />
+            </Button>
+            <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,10,0" Name="editButton"/>
+            <Button Content="Remove" HorizontalAlignment="Right" Margin="0,0,10,0" Click="RemoveButtonClick"/>
+        </StackPanel>
 
-            </Grid>
-
-        </Border>
     </Grid>
+
 </UserControl>

@@ -8,7 +8,7 @@
     <Company>Niilo Poutanen</Company>
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,15 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\icon.ico">
+    <Content Include="Resources\Assets\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\SystemTray.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadCore.csproj" />
+    <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

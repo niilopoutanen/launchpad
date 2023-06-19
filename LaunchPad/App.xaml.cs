@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 
+
 namespace LaunchPad
 {
     /// <summary>
@@ -54,7 +55,7 @@ namespace LaunchPad
         {
             NotifyIcon notifyIcon = new()
             {
-                Icon = new System.Drawing.Icon("Resources/icon.ico"),
+                Icon = new System.Drawing.Icon("Resources/Assets/icon.ico"),
                 Visible = true
             };
 
@@ -78,7 +79,6 @@ namespace LaunchPad
                 notifyIcon.Dispose();
                 Current.Shutdown();
             });
-            notifyIcon.ShowBalloonTip(2000, "LaunchPad active", "Press shift + tab to open", ToolTipIcon.Info);
         }
     }
 }

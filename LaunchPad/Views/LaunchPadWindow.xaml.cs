@@ -1,4 +1,4 @@
-﻿using LaunchPadClassLibrary;
+﻿using LaunchPadCore;
 using LaunchPadConfigurator;
 using Microsoft.Win32;
 using System;

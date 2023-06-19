@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 
-namespace LaunchPadClassLibrary
+namespace LaunchPadCore
 {
     public class AppShortcut
     {

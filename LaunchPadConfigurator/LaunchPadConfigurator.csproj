@@ -15,6 +15,7 @@
     <None Remove="AppsPage.xaml" />
     <None Remove="Assets\Icons\icon_apps.png" />
     <None Remove="Assets\Icons\icon_general.png" />
+    <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\UIElements\AddAppDialog.xaml" />
@@ -47,13 +48,16 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadClassLibrary\LaunchPadCore.csproj" />
+    <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Icons\icon_apps.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Icons\icon_general.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Icons\LaunchPad.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

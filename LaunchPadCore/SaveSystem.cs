@@ -1,4 +1,4 @@
-﻿using LaunchPadClassLibrary;
+﻿using LaunchPadCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +11,9 @@ namespace LaunchPadConfigurator
 {
     public class SaveSystem
     {
+        public const string launchPadVersion = "v0.5.0";
+        public const string launchPadSettingsVersion = "v0.5.0";
+
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");

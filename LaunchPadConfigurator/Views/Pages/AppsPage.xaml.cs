@@ -1,4 +1,4 @@
-using LaunchPadClassLibrary;
+using LaunchPadCore;
 using LaunchPadConfigurator.Views.UIElements;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
