@@ -10,7 +10,7 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <Grid Style="{StaticResource GridCardStyle}">
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -22,7 +22,17 @@
                 
                 <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="1" Maximum="10" Width="100" x:Name="ColumnCountSlider"></Slider>
             </Grid>
-            
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
+
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="NameVisibleToggle"></ToggleSwitch>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>
