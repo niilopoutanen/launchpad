@@ -50,6 +50,18 @@ namespace LaunchPadConfigurator
                 preferences.NameVisible = ((ToggleSwitch)s).IsOn;
                 SaveSystem.SavePreferences(preferences);
             };
+
+            ThemeComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.LaunchPadTheme));
+            ThemeComboBox.SelectedItem = preferences.SelectedTheme;
+            ThemeComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                if (Enum.TryParse(ThemeComboBox.SelectedValue.ToString(), out UserPreferences.LaunchPadTheme selectedTheme))
+                {
+                    preferences.SelectedTheme = selectedTheme;
+                    SaveSystem.SavePreferences(preferences);
+                }
+            };
         }
     }
 }

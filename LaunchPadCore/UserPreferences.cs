@@ -23,5 +23,19 @@ namespace LaunchPadCore
             get { return nameVisible; }
             set { nameVisible = value; }
         }
+
+        public enum LaunchPadTheme
+        {
+            Dark,
+            Light,
+            Transparent,
+            FollowSystem
+        }
+        private LaunchPadTheme selectedTheme = LaunchPadTheme.Transparent;
+        public LaunchPadTheme SelectedTheme
+        {
+            get { return selectedTheme; }
+            set { selectedTheme = value; }
+        }
     }
 }

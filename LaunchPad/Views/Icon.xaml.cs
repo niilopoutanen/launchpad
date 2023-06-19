@@ -112,7 +112,6 @@ namespace LaunchPad
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
-            // Start the animation
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
@@ -134,20 +133,21 @@ namespace LaunchPad
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
-            // Start the animation
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public void OnClick(Action closeHandler)
+        public async Task OnClick(Action closeHandler)
         {
             try
             {
-                Process process = new Process();
-                process.StartInfo.FileName = App.ExeUri;
-                process.StartInfo.UseShellExecute = true;
-
-                process.Start();
+                await Task.Run(() =>
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = App.ExeUri;
+                    process.StartInfo.UseShellExecute = true;
+                    process.Start();
+                });
                 closeHandler.Invoke();
             }
             catch(Exception)
@@ -200,12 +200,12 @@ namespace LaunchPad
 
             bool animationCompleted = false;
 
-            scaleAnimation.Completed += (s, e) =>
+            scaleAnimation.Completed += async (s, e) =>
             {
                 if (!animationCompleted)
                 {
                     animationCompleted = true;
-                    OnClick(closeHandler);
+                    await OnClick(closeHandler);
                 }
             };
 

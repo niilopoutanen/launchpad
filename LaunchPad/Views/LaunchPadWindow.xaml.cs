@@ -70,33 +70,42 @@ namespace LaunchPad
 
         private void SetTheme()
         {
-            SolidColorBrush? backgroundColor;
-            SolidColorBrush? itemBackgroundColor;
+            ResourceDictionary themeDictionary;
 
-            if (IsLightTheme())
+            switch (preferences.SelectedTheme)
             {
-                var lightModeDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
-                };
-
-                backgroundColor = lightModeDictionary["LaunchPadBackground"] as SolidColorBrush;
-                itemBackgroundColor = lightModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
-
+                case UserPreferences.LaunchPadTheme.Dark:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
+                    };
+                    break;
+                case UserPreferences.LaunchPadTheme.Light:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
+                    };
+                    break;
+                default:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/Transparent.xaml", UriKind.Relative)
+                    };
+                    break;
+                case UserPreferences.LaunchPadTheme.FollowSystem:
+                    themeDictionary = IsLightTheme()
+                        ? new ResourceDictionary { Source = new Uri("Resources/LightMode.xaml", UriKind.Relative) }
+                        : new ResourceDictionary { Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative) };
+                    break;
             }
-            else
-            {
-                var darkModeDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
-                };
 
-                backgroundColor = darkModeDictionary["LaunchPadBackground"] as SolidColorBrush;
-                itemBackgroundColor = darkModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
-            }
+            SolidColorBrush backgroundColor = themeDictionary["LaunchPadBackground"] as SolidColorBrush;
+            SolidColorBrush itemBackgroundColor = themeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
 
 
-            if(backgroundColor == null || itemBackgroundColor == null)
+
+
+            if (backgroundColor == null || itemBackgroundColor == null)
             {
                 return;
             }

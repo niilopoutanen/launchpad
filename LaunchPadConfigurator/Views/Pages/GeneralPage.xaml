@@ -33,6 +33,17 @@
 
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="NameVisibleToggle"></ToggleSwitch>
             </Grid>
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad theme</TextBlock>
+
+
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="ThemeComboBox"></ComboBox>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>

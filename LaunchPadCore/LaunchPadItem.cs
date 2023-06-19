@@ -18,6 +18,6 @@ namespace LaunchPadCore
         public abstract void OnPress();
         public abstract void OnRelease();
 
-        public abstract void OnClick(Action closeHandler);
+        public abstract Task OnClick(Action closeHandler);
     }
 }
