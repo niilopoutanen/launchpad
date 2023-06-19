@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -34,6 +35,7 @@ namespace LaunchPadConfigurator
             {
                 ChangeSelection(e.SelectedItem as NavigationViewItem);
             };
+
             Title = "LaunchPad settings";
 
             ChangeSelection(settingsMenu.MenuItems.FirstOrDefault() as NavigationViewItem);
@@ -59,6 +61,17 @@ namespace LaunchPadConfigurator
             }
             settingsMenu.Header = itemSelected.Content;
             settingsMenu.SelectedItem = itemSelected;
+        }
+
+
+        private void OpenGithub(object sender, TappedRoutedEventArgs e)
+        {
+            ProcessStartInfo git = new()
+            {
+                UseShellExecute = true,
+                FileName = "https://github.com/niilopoutanen/LaunchPad"
+            };
+            Process.Start(git);
         }
     }
 }

@@ -30,6 +30,13 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <NavigationViewItem Content="Github" Tag="Github" Tapped="OpenGithub">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/Icons/icon_github.png" ShowAsMonochrome="False" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.PaneFooter>
             <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{ThemeResource SolidBackgroundFillColorBase}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
