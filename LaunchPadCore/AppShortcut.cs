@@ -130,60 +130,40 @@ namespace LaunchPadCore
 
         public void IncreasePos()
         {
-            // Load the list of AppShortcuts from JSON
             List<AppShortcut> appShortcuts = SaveSystem.LoadApps();
-
-            // Find the current position of the AppShortcut
             int currentIndex = appShortcuts.FindIndex(a => a.ID == ID);
 
-            // If the current position is the last item, no need to increase the position
             if (currentIndex == appShortcuts.Count - 1)
                 return;
 
-            // Swap the AppShortcut with the next one
             SwapPositions(appShortcuts, currentIndex, currentIndex + 1);
-
-            // Save the updated list of AppShortcuts to JSON
             SaveSystem.SaveApps(appShortcuts);
         }
 
         public void DecreasePos()
         {
-            // Load the list of AppShortcuts from JSON
             List<AppShortcut> appShortcuts = SaveSystem.LoadApps();
-
-            // Find the current position of the AppShortcut
             int currentIndex = appShortcuts.FindIndex(a => a.ID == ID);
 
-            // If the current position is the first item, no need to decrease the position
             if (currentIndex == 0)
                 return;
 
-            // Swap the AppShortcut with the previous one
             SwapPositions(appShortcuts, currentIndex, currentIndex - 1);
-
-            // Save the updated list of AppShortcuts to JSON
             SaveSystem.SaveApps(appShortcuts);
         }
 
         private static void SwapPositions(List<AppShortcut> apps, int index1, int index2)
         {
-            // Swap the positions of the AppShortcuts in the list
-            AppShortcut temp = apps[index1];
-            apps[index1] = apps[index2];
-            apps[index2] = temp;
+            (apps[index2], apps[index1]) = (apps[index1], apps[index2]);
 
-            // Update the Order property of the swapped AppShortcuts
             apps[index1].Position = index1;
             apps[index2].Position = index2;
         }
 
         public static int GetPosition()
         {
-            // Load the list of AppShortcuts from JSON
             List<AppShortcut> appShortcuts = SaveSystem.LoadApps();
 
-            // Sort the list based on the Order property
             appShortcuts.Sort((a1, a2) => a1.Position.CompareTo(a2.Position));
 
             // Find the next available position
