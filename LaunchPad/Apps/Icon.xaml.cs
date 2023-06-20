@@ -139,7 +139,10 @@ namespace LaunchPad
                 }
                 catch (Exception)
                 {
-                    System.Windows.MessageBox.Show("LaunchPad could not open the app. Verify that the app exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    if (System.Windows.Application.Current is App hostApp)
+                    {
+                        hostApp.DisplayMessage("Error", "LaunchPad could not open the app you selected. Verify that the app/file exists.", ToolTipIcon.Error);
+                    }
                 }
             });
             closeHandler.Invoke();

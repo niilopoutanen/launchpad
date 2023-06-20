@@ -19,6 +19,7 @@ namespace LaunchPad
     public partial class App : System.Windows.Application
     {
         private LaunchPadWindow launchPadWindow;
+        private NotifyIcon notifyIcon;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -53,7 +54,7 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
-            NotifyIcon notifyIcon = new()
+            notifyIcon = new()
             {
                 Icon = new System.Drawing.Icon("Resources/Assets/icon.ico"),
                 Visible = true
@@ -79,6 +80,10 @@ namespace LaunchPad
                 notifyIcon.Dispose();
                 Current.Shutdown();
             });
+        }
+        public void DisplayMessage(string title, string msg, ToolTipIcon icon)
+        {
+            notifyIcon.ShowBalloonTip(3000, title, msg, icon);
         }
     }
 }
