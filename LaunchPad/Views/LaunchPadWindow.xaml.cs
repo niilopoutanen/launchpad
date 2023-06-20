@@ -58,12 +58,8 @@ namespace LaunchPad
             var suggestion = new Suggestion("No apps added. Open configurator to add some.", CloseWithAnim);
             items.Add(suggestion);
             appContainer.Children.Add(suggestion);
-            
-            int itemCount = appContainer.Children.Count;
-            int maxColumns = preferences.ColumnCount;
-            int columns = Math.Min(itemCount, maxColumns);
 
-            appContainer.Columns = columns;
+            appContainer.MaxWidth = preferences.PreferredWidth;
         }
 
         public void CloseWithAnim()

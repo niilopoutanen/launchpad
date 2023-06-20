@@ -16,11 +16,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad column count</TextBlock>
-                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Amount of items per row</TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad max width</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Defines how many items can fit in one row.</TextBlock>
                 </StackPanel>
                 
-                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="1" Maximum="10" Width="100" x:Name="ColumnCountSlider"></Slider>
+                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" StepFrequency="10" x:Name="ColumnCountSlider"></Slider>
             </Grid>
 
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">

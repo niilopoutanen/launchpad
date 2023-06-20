@@ -25,9 +25,9 @@
     </Window.RenderTransformOrigin>
     <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="5" MinWidth="100" MinHeight="100" x:Name="launchPadRoot">
 
-        <UniformGrid Columns="6" Name="appContainer">
+        <WrapPanel Name="appContainer" MaxWidth="500">
 
-        </UniformGrid>
+        </WrapPanel>
 
     </Border>
 

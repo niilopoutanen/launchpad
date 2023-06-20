@@ -8,12 +8,12 @@ namespace LaunchPadCore
 {
     public class UserPreferences
     {
-        private int columnCount = 6;
+        private int preferredWidth = 600;
 
-        public int ColumnCount
+        public int PreferredWidth
         {
-            get { return columnCount; }
-            set { columnCount = (value >= 1 && value <= 10) ? value : columnCount; }
+            get { return preferredWidth; }
+            set { preferredWidth = value; }
         }
 
 

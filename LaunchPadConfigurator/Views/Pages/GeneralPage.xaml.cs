@@ -31,13 +31,13 @@ namespace LaunchPadConfigurator
         }
         private void InitializeElements()
         {
-            ColumnCountSlider.Value = preferences.ColumnCount;
-            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.ColumnCount;
+            ColumnCountSlider.Value = preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.PreferredWidth;
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
                 preferences = SaveSystem.LoadPreferences();
-                preferences.ColumnCount = (int)e.NewValue;
+                preferences.PreferredWidth = (int)e.NewValue;
                 SaveSystem.SavePreferences(preferences);
 
                 ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
