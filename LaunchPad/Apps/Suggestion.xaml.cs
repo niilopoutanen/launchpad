@@ -27,20 +27,35 @@ namespace LaunchPad.Apps
         public bool Pressed { get; set; }
         public bool Focused { get; set; }
 
-        private const float SIZE_FOCUS = 1.05f;
-        private const float SIZE_STATIC = 1f;
-        private const float SIZE_PRESSED = 0.9f;
-
         private Action closeHandler;
 
         public Suggestion(string text, Action closeHandler)
         {
             InitializeComponent();
+            InitializeSuggestion();
             SuggestionText.Text = text;
             this.closeHandler = closeHandler;
         }
 
-
+        private void InitializeSuggestion()
+        {
+            Container.MouseLeftButtonDown += (s, e) =>
+            {
+                OnPress();
+            };
+            Container.MouseLeftButtonUp += (s, e) =>
+            {
+                OnRelease();
+            };
+            Container.MouseEnter += (s, e) =>
+            {
+                OnFocusEnter();
+            };
+            Container.MouseLeave += (s, e) =>
+            {
+                OnFocusLeave();
+            };
+        }
         public Task OnClick(Action closeHandler)
         {
 
@@ -54,14 +69,10 @@ namespace LaunchPad.Apps
                 return;
             }
             Focused = true;
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            var scaleTransformAndAnimation = GlobalAppActions.GetFocusEnterAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
             Container.RenderTransform = scaleTransform;
-
-            DoubleAnimation scaleAnimation = new DoubleAnimation
-            {
-                To = SIZE_FOCUS,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -75,14 +86,10 @@ namespace LaunchPad.Apps
             }
             Focused = false;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
-
+            var scaleTransformAndAnimation = GlobalAppActions.GetFocusLeaveAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
             Container.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new DoubleAnimation
-            {
-                To = SIZE_STATIC,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -95,15 +102,11 @@ namespace LaunchPad.Apps
                 return;
             }
             Pressed = true;
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            var scaleTransformAndAnimation = GlobalAppActions.GetPressAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
 
             Container.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new()
-            {
-                To = SIZE_PRESSED,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
-
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -115,28 +118,21 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            float finalValue = SIZE_STATIC;
-            if (Focused)
-            {
-                finalValue = SIZE_FOCUS;
-            }
+
             Pressed = false;
-            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
+            var scaleTransformAndAnimation = GlobalAppActions.GetReleaseAnim(Focused);
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
 
             Container.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new()
-            {
-                To = finalValue,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             bool animationCompleted = false;
-
             scaleAnimation.Completed += async (s, e) =>
             {
                 if (!animationCompleted)
                 {
                     animationCompleted = true;
+                    //await OnClick(closeHandler);
                 }
             };
 

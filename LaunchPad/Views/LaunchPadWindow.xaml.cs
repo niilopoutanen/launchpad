@@ -38,6 +38,7 @@ namespace LaunchPad
             };
             HandleKeyboard(this);
         }
+
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
