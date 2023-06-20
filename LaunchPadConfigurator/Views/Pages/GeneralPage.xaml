@@ -10,19 +10,40 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <Grid Style="{StaticResource GridCardStyle}">
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad column count</TextBlock>
-                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Amount of items per row</TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad max width</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Defines how many items can fit in one row.</TextBlock>
                 </StackPanel>
                 
-                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="1" Maximum="10" Width="100" x:Name="ColumnCountSlider"></Slider>
+                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" StepFrequency="10" x:Name="ColumnCountSlider"></Slider>
             </Grid>
-            
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
+
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="NameVisibleToggle"></ToggleSwitch>
+            </Grid>
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad theme</TextBlock>
+
+
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="ThemeComboBox"></ComboBox>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>

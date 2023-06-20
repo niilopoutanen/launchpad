@@ -31,16 +31,36 @@ namespace LaunchPadConfigurator
         }
         private void InitializeElements()
         {
-            ColumnCountSlider.Value = preferences.ColumnCount;
-            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.ColumnCount;
+            ColumnCountSlider.Value = preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.PreferredWidth;
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
                 preferences = SaveSystem.LoadPreferences();
-                preferences.ColumnCount = (int)e.NewValue;
+                preferences.PreferredWidth = (int)e.NewValue;
                 SaveSystem.SavePreferences(preferences);
 
                 ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
+            };
+
+            NameVisibleToggle.IsOn = preferences.NameVisible;
+            NameVisibleToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.NameVisible = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
+
+            ThemeComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.LaunchPadTheme));
+            ThemeComboBox.SelectedItem = preferences.SelectedTheme;
+            ThemeComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                if (Enum.TryParse(ThemeComboBox.SelectedValue.ToString(), out UserPreferences.LaunchPadTheme selectedTheme))
+                {
+                    preferences.SelectedTheme = selectedTheme;
+                    SaveSystem.SavePreferences(preferences);
+                }
             };
         }
     }

@@ -8,12 +8,34 @@ namespace LaunchPadCore
 {
     public class UserPreferences
     {
-        private int columnCount = 6;
+        private int preferredWidth = 600;
 
-        public int ColumnCount
+        public int PreferredWidth
         {
-            get { return columnCount; }
-            set { columnCount = (value >= 1 && value <= 10) ? value : columnCount; }
+            get { return preferredWidth; }
+            set { preferredWidth = value; }
+        }
+
+
+        private bool nameVisible = false;
+        public bool NameVisible 
+        { 
+            get { return nameVisible; }
+            set { nameVisible = value; }
+        }
+
+        public enum LaunchPadTheme
+        {
+            Dark,
+            Light,
+            Transparent,
+            FollowSystem
+        }
+        private LaunchPadTheme selectedTheme = LaunchPadTheme.Transparent;
+        public LaunchPadTheme SelectedTheme
+        {
+            get { return selectedTheme; }
+            set { selectedTheme = value; }
         }
     }
 }

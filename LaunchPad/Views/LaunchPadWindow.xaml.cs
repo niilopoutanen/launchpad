@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LaunchPad.Apps;
 
 namespace LaunchPad
 {
@@ -26,16 +27,18 @@ namespace LaunchPad
         public LaunchPadWindow()
         {
             preferences = SaveSystem.LoadPreferences();
+            ResourceDictionary activeTheme = SaveSystem.LoadTheme();
             InitializeComponent();
             LoadApps();
 
-            SetTheme();
+            SetTheme(activeTheme);
             SystemEvents.UserPreferenceChanged += (s, e) =>
             {
-                SetTheme();
+                SetTheme(activeTheme);
             };
             HandleKeyboard(this);
         }
+
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
@@ -43,19 +46,24 @@ namespace LaunchPad
         }
         private void LoadApps()
         {
+            
             List<AppShortcut> apps = SaveSystem.LoadApps();
+            appContainer.MaxWidth = preferences.PreferredWidth;
+
+            if (apps.Count == 0)
+            {
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", CloseWithAnim);
+                items.Add(suggestion);
+                appContainer.Children.Add(suggestion);
+                return;
+            }
             foreach (AppShortcut app in apps)
             {
                 var icon = new Icon(app, CloseWithAnim);
-                icon.Margin = new Thickness(5);
                 items.Add(icon);
                 appContainer.Children.Add(icon);
             }
-            int itemCount = appContainer.Children.Count;
-            int maxColumns = preferences.ColumnCount;
-            int columns = Math.Min(itemCount, maxColumns);
 
-            appContainer.Columns = columns;
         }
 
         public void CloseWithAnim()
@@ -68,61 +76,20 @@ namespace LaunchPad
             launchPadClose.Begin(this);
         }
 
-        private void SetTheme()
+
+        private void SetTheme(ResourceDictionary resourceDictionary)
         {
-            SolidColorBrush? backgroundColor;
-            SolidColorBrush? itemBackgroundColor;
+            SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
-            if (IsLightTheme())
-            {
-                var lightModeDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
-                };
-
-                backgroundColor = lightModeDictionary["LaunchPadBackground"] as SolidColorBrush;
-                itemBackgroundColor = lightModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
-
-            }
-            else
-            {
-                var darkModeDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
-                };
-
-                backgroundColor = darkModeDictionary["LaunchPadBackground"] as SolidColorBrush;
-                itemBackgroundColor = darkModeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
-            }
-
-
-            if(backgroundColor == null || itemBackgroundColor == null)
-            {
-                return;
-            }
             launchPadRoot.Background = backgroundColor;
-            foreach(UIElement item in appContainer.Children)
+            foreach(ILaunchPadItem item in appContainer.Children)
             {
-                try
-                {
-                    Icon app = (Icon)item;
-                    if(app.App.IconSize != AppShortcut.SIZE_FULL)
-                    {
-                        app.iconContainer.Background = itemBackgroundColor;
-                    }
-                    
-                }
-                catch (Exception) { }
+                item.SetTheme(resourceDictionary);
             }
         }
 
 
-        private static bool IsLightTheme()
-        {
-            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
-            var value = key?.GetValue("AppsUseLightTheme");
-            return value is int i && i > 0;
-        }
+        
 
         private void HandleKeyboard(Window window)
         {

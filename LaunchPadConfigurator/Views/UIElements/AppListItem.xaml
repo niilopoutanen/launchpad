@@ -7,14 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10" Padding="5">
+    <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0">
-            <Image x:Name="appIcon" Margin="0,0,10,0" Width="60"/>
+            <Image x:Name="appIcon" Margin="0,0,10,0" Width="30"/>
             <TextBlock x:Name="appName" VerticalAlignment="Center"/>
         </StackPanel>
 

@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <SolidColorBrush x:Key="LaunchPadBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="LaunchPadItemBackground" Color="#E6E6E6"/>
+    <SolidColorBrush x:Key="LaunchPadBackground" Color="#66EEEEEE"/>
+    <SolidColorBrush x:Key="LaunchPadItemBackground" Color="#66FFFFFF"/>
     <SolidColorBrush x:Key="LaunchPadTextColor" Color="#121212"/>
 </ResourceDictionary>

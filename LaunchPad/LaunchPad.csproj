@@ -12,11 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Assets\dashed_border.png" />
+    <None Remove="Resources\Fonts\Inter-Bold.ttf" />
+    <None Remove="Resources\Fonts\Inter-Medium.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Assets\dashed_border.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Assets\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -28,6 +34,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\Inter-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Resource Include="Resources\Fonts\Inter-Medium.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

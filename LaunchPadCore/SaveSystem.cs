@@ -1,4 +1,5 @@
 ﻿using LaunchPadCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LaunchPadConfigurator
 {
@@ -133,7 +135,45 @@ namespace LaunchPadConfigurator
             }
         }
 
+        public static ResourceDictionary LoadTheme()
+        {
+            ResourceDictionary themeDictionary;
 
+            switch (LoadPreferences().SelectedTheme)
+            {
+                case UserPreferences.LaunchPadTheme.Dark:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
+                    };
+                    break;
+                case UserPreferences.LaunchPadTheme.Light:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
+                    };
+                    break;
+                default:
+                    themeDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("Resources/Transparent.xaml", UriKind.Relative)
+                    };
+                    break;
+                case UserPreferences.LaunchPadTheme.FollowSystem:
+                    themeDictionary = IsLightTheme()
+                        ? new ResourceDictionary { Source = new Uri("Resources/LightMode.xaml", UriKind.Relative) }
+                        : new ResourceDictionary { Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative) };
+                    break;
+            }
+
+            return themeDictionary;
+        }
+        private static bool IsLightTheme()
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            var value = key?.GetValue("AppsUseLightTheme");
+            return value is int i && i > 0;
+        }
         public static void SavePreferences(UserPreferences prefs)
         {
             string jsonString = JsonSerializer.Serialize(prefs);

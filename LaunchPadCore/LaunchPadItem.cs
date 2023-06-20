@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LaunchPadCore
 {
@@ -18,6 +19,8 @@ namespace LaunchPadCore
         public abstract void OnPress();
         public abstract void OnRelease();
 
-        public abstract void OnClick(Action closeHandler);
+        public abstract Task OnClick(Action closeHandler);
+
+        public abstract void SetTheme(ResourceDictionary activeDictionary);
     }
 }
