@@ -22,8 +22,8 @@ namespace LaunchPad
 {
     public partial class LaunchPadWindow : Window
     {
-        UserPreferences preferences;
-        List<ILaunchPadItem> items = new();
+        readonly UserPreferences preferences;
+        readonly List<ILaunchPadItem> items = new();
         public LaunchPadWindow()
         {
             preferences = SaveSystem.LoadPreferences();
@@ -113,7 +113,7 @@ namespace LaunchPad
             };
         }
 
-        private int IsNumberKey(Key keyPressed)
+        private static int IsNumberKey(Key keyPressed)
         {
             bool isNumberKey = (keyPressed >= Key.D1 && keyPressed <= Key.D9) || (keyPressed >= Key.NumPad1 && keyPressed <= Key.NumPad9);
             if (isNumberKey)

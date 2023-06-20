@@ -32,7 +32,7 @@ namespace LaunchPadConfigurator
         private void InitializeElements()
         {
             ColumnCountSlider.Value = preferences.PreferredWidth;
-            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth;
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
@@ -40,7 +40,7 @@ namespace LaunchPadConfigurator
                 preferences.PreferredWidth = (int)e.NewValue;
                 SaveSystem.SavePreferences(preferences);
 
-                ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
+                ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
             };
 
             NameVisibleToggle.IsOn = preferences.NameVisible;
