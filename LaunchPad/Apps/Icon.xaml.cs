@@ -166,7 +166,7 @@ namespace LaunchPad
             ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
 
             appIcon.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_PRESSED,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -189,10 +189,10 @@ namespace LaunchPad
                 finalValue = SIZE_FOCUS;
             }
             Pressed = false;
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
+            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
 
             appIcon.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = finalValue,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -213,5 +213,22 @@ namespace LaunchPad
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
+        public void SetTheme(ResourceDictionary activeDictionary)
+        {
+            SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
+
+
+            if (itemBackgroundColor == null || textColor == null)
+            {
+                return;
+            }
+            if (App.IconSize != AppShortcut.SIZE_FULL)
+            {
+                appIcon.Background = itemBackgroundColor;
+            }
+            appName.Foreground = textColor;
+
+        }
     }
 }
