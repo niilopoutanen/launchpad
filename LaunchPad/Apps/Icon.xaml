@@ -10,7 +10,7 @@
     <StackPanel MaxWidth="100">
         <Border Width="80" Height="80" Name="appIcon" Padding="3"
                 Background="{StaticResource LaunchPadItemBackground}"
-                CornerRadius="18">
+                CornerRadius="18" Margin="5">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>

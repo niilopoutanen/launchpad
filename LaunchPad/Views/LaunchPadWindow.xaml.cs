@@ -48,18 +48,22 @@ namespace LaunchPad
         {
             
             List<AppShortcut> apps = SaveSystem.LoadApps();
+            appContainer.MaxWidth = preferences.PreferredWidth;
+
+            if (apps.Count == 0)
+            {
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", CloseWithAnim);
+                items.Add(suggestion);
+                appContainer.Children.Add(suggestion);
+                return;
+            }
             foreach (AppShortcut app in apps)
             {
                 var icon = new Icon(app, CloseWithAnim);
-                icon.Margin = new Thickness(5);
                 items.Add(icon);
                 appContainer.Children.Add(icon);
             }
-            var suggestion = new Suggestion("No apps added. Open configurator to add some.", CloseWithAnim);
-            items.Add(suggestion);
-            appContainer.Children.Add(suggestion);
 
-            appContainer.MaxWidth = preferences.PreferredWidth;
         }
 
         public void CloseWithAnim()

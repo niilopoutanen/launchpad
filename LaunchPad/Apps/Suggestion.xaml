@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LaunchPad.Apps"
              mc:Ignorable="d">
     <Border Width="150" Height="80" Name="Container" Padding="3"
-                CornerRadius="18" BorderThickness="2">
+                CornerRadius="18" BorderThickness="2" Margin="5">
         <Border.RenderTransform>
             <ScaleTransform />
         </Border.RenderTransform>
