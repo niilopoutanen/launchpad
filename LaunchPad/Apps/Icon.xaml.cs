@@ -30,9 +30,6 @@ namespace LaunchPad
         public bool Pressed { get; set; }
         public bool Focused { get; set; }
 
-        private const float SIZE_FOCUS = 1.05f;
-        private const float SIZE_STATIC = 1f;
-        private const float SIZE_PRESSED = 0.9f;
 
         private Action closeHandler;
         private UserPreferences preferences;
@@ -103,14 +100,10 @@ namespace LaunchPad
                 return;
             }
             Focused = true;
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            var scaleTransformAndAnimation = GlobalAppActions.GetFocusEnterAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2; 
             appIcon.RenderTransform = scaleTransform;
-
-            DoubleAnimation scaleAnimation = new DoubleAnimation
-            {
-                To = SIZE_FOCUS,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -124,14 +117,10 @@ namespace LaunchPad
             }
             Focused = false;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
-
+            var scaleTransformAndAnimation = GlobalAppActions.GetFocusLeaveAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
             appIcon.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new DoubleAnimation
-            {
-                To = SIZE_STATIC,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -139,21 +128,22 @@ namespace LaunchPad
 
         public async Task OnClick(Action closeHandler)
         {
-            try
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
+                try
                 {
                     Process process = new Process();
                     process.StartInfo.FileName = App.ExeUri;
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
-                });
-                closeHandler.Invoke();
-            }
-            catch(Exception)
-            {
-                System.Windows.MessageBox.Show("LaunchPad could not open the app. Verify that the app exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("LaunchPad could not open the app. Verify that the app exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            });
+            closeHandler.Invoke();
+
         }
 
         public void OnPress()
@@ -163,15 +153,11 @@ namespace LaunchPad
                 return;
             }
             Pressed = true;
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            var scaleTransformAndAnimation = GlobalAppActions.GetPressAnim();
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
 
             appIcon.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new()
-            {
-                To = SIZE_PRESSED,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
-
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -183,23 +169,15 @@ namespace LaunchPad
             {
                 return;
             }
-            float finalValue = SIZE_STATIC;
-            if (Focused)
-            {
-                finalValue = SIZE_FOCUS;
-            }
+
             Pressed = false;
-            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
+            var scaleTransformAndAnimation = GlobalAppActions.GetReleaseAnim(Focused);
+            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
 
             appIcon.RenderTransform = scaleTransform;
-            DoubleAnimation scaleAnimation = new()
-            {
-                To = finalValue,
-                Duration = TimeSpan.FromSeconds(0.1)
-            };
 
             bool animationCompleted = false;
-
             scaleAnimation.Completed += async (s, e) =>
             {
                 if (!animationCompleted)
