@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:LaunchPad"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
+
     <StackPanel MaxWidth="100">
-        <Border CornerRadius="18" Width="80" Height="80" Name="appIcon" Background="{StaticResource LaunchPadItemBackground}" Padding="3">
+        <Border Width="80" Height="80" Name="appIcon" Padding="3"
+                Background="{StaticResource LaunchPadItemBackground}"
+                CornerRadius="18">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>
@@ -16,14 +19,24 @@
                     <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
                 </Style>
             </Border.Style>
-            <Image Name="iconBitmap" Width="auto" Height="auto" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Border CornerRadius="17">
+                <Border.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Grid>
+                                <Image Name="iconBitmap" Stretch="UniformToFill"
+                                       Width="auto" Height="auto"
+                                       RenderOptions.BitmapScalingMode="HighQuality" />
+                            </Grid>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.Background>
+            </Border>
         </Border>
-        <TextBlock Foreground="{StaticResource LaunchPadTextColor}"
-                   Visibility="Collapsed" Margin="0,5,0,0"
+
+        <TextBlock x:Name="appName" Visibility="Collapsed" Margin="0,5,0,0"
                    HorizontalAlignment="Center"
-                   FontSize="13" x:Name="appName"
-                   FontFamily="{StaticResource Inter}">App</TextBlock>
+                   FontSize="13" FontFamily="{StaticResource Inter}"
+                   Foreground="{StaticResource LaunchPadTextColor}">App</TextBlock>
     </StackPanel>
-
-
 </UserControl>
