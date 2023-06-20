@@ -37,7 +37,7 @@ namespace LaunchPadCore
             DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_PRESSED,
-                Duration = TimeSpan.FromSeconds(0.1)
+                Duration = TimeSpan.FromSeconds(0.05)
             };
 
             return Tuple.Create(scaleTransform, scaleAnimation);
