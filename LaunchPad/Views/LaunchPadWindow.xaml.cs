@@ -5,9 +5,11 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using static LaunchPadCore.UserPreferences;
 
 namespace LaunchPad
 {
@@ -30,11 +32,51 @@ namespace LaunchPad
             HandleKeyboard(this);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var screenWorkingArea = SystemParameters.WorkArea;
+
+            switch (preferences.SelectedAnimation)
+            {
+                case AnimationTypes.Center:
+                    Storyboard fade = ((Storyboard)this.FindResource("LaunchPadCenterIn")).Clone();
+                    fade.Begin(launchPadRoot);
+                    break;
+
+                case AnimationTypes.SlideBottom:
+                    WindowStartupLocation = WindowStartupLocation.Manual;
+
+                    Left = (screenWorkingArea.Width - Width) / 2;
+                    Top = screenWorkingArea.Height - Height;
+
+                    ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
+                    slideAnimation.From = new Thickness(0, launchPadRoot.ActualHeight, 0, 0);
+
+                    launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
+                    break;
+
+                case AnimationTypes.SlideTop:
+                    WindowStartupLocation = WindowStartupLocation.Manual;
+
+                    Left = (screenWorkingArea.Width - Width) / 2;
+                    Top = 0;
+
+                    ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
+                    slideTopAnimation.From = new Thickness(0, -launchPadRoot.ActualHeight, 0, 0);
+
+                    launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
+                    break;
+
+            }
+
+        }
+
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
             window.Topmost = true;
         }
+        
         private void LoadApps()
         {
 
@@ -59,12 +101,52 @@ namespace LaunchPad
 
         public void CloseWithAnim()
         {
-            Storyboard launchPadClose = ((Storyboard)this.FindResource("WindowExitAnimation")).Clone();
-            launchPadClose.Completed += (s, e) =>
+            var screenWorkingArea = System.Windows.SystemParameters.WorkArea;
+
+            switch (preferences.SelectedAnimation)
             {
-                this.Close();
-            };
-            launchPadClose.Begin(this);
+                case AnimationTypes.Center:
+                    Storyboard launchPadClose = ((Storyboard)this.FindResource("LaunchPadCenterOut")).Clone();
+                    launchPadClose.Completed += (s, e) =>
+                    {
+                        this.Close();
+                    };
+                    launchPadClose.Begin(launchPadRoot);
+                    break;
+
+                case AnimationTypes.SlideBottom:
+
+                    Left = (screenWorkingArea.Width - Width) / 2;
+                    Top = screenWorkingArea.Height - Height;
+
+                    ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
+                    slideAnimation.To = new Thickness(0, launchPadRoot.ActualHeight + 20, 0, 0);
+                    slideAnimation.Completed += (sender, e) =>
+                    {
+                        this.Close();
+                    };
+
+                    launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
+
+                    break;
+
+                case AnimationTypes.SlideTop:
+
+                    Left = (screenWorkingArea.Width - Width) / 2;
+                    Top = 0;
+
+                    ThicknessAnimation slideAnimationTop = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
+                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 20, 0, 0);
+                    slideAnimationTop.Completed += (sender, e) =>
+                    {
+                        this.Close();
+                    };
+
+                    launchPadRoot.BeginAnimation(MarginProperty, slideAnimationTop);
+
+                    break;
+            }
+
         }
 
 
@@ -113,5 +195,6 @@ namespace LaunchPad
             }
             return -1;
         }
+
     }
 }

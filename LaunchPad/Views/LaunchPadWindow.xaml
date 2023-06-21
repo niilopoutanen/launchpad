@@ -5,26 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchPad"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight"
+        SizeToContent="Width"
+        Height="130"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         Deactivated="Window_Deactivated"
-        Topmost="True">
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard Storyboard="{StaticResource WindowLaunchAnimation}" />
-        </EventTrigger>
-    </Window.Triggers>
-    <Window.RenderTransform>
-        <ScaleTransform ScaleX="1" ScaleY="1" />
-    </Window.RenderTransform>
-    <Window.RenderTransformOrigin>
-        <Point>0.5, 0.5</Point>
-    </Window.RenderTransformOrigin>
-    <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="5" MinWidth="100" MinHeight="100" x:Name="launchPadRoot">
-
+        Topmost="True"
+        Loaded="Window_Loaded">
+    <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="5" MinWidth="100" MinHeight="100" x:Name="launchPadRoot" Height="100">
+        <Border.RenderTransform>
+            <ScaleTransform ScaleX="1" ScaleY="1" />
+        </Border.RenderTransform>
+        <Border.RenderTransformOrigin>
+            <Point>0.5, 0.5</Point>
+        </Border.RenderTransformOrigin>
         <WrapPanel Name="appContainer" MaxWidth="500">
 
         </WrapPanel>
