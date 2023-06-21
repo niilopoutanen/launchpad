@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Name="Container">
         <TextBlock Margin="0,10,0,5">Preview</TextBlock>
         <StackPanel Height="100" Orientation="Horizontal">
             <Border Background="#3a3a3a" Width="100" Height="100" CornerRadius="25" x:Name="previewIconBg" Padding="5">
@@ -23,10 +23,13 @@
         
         <TextBlock Margin="0,10,0,5">App name</TextBlock>
         <TextBox x:Name="appNameInput"></TextBox>
-
+        <TextBlock Name="appNameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
+        
+        
         <TextBlock Margin="0,10,0,5">App executable / shortcut</TextBlock>
         <Button x:Name="appExeButton" Content="Executable file" Click="ExePathProvided"></Button>
-
+        <TextBlock Name="appExeInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App path cannot be empty.</TextBlock>
+            
         <TextBlock Margin="0,10,0,5">App icon (Leave empty for autofill)</TextBlock>
         <Button x:Name="appIconButton" Content="Icon file" Click="IconPathProvided"></Button>
     </StackPanel>

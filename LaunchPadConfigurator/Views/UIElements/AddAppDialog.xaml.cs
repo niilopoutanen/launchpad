@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.IO;
+using System.Linq;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
@@ -120,6 +121,30 @@ namespace LaunchPadConfigurator.Views.UIElements
                 }
 
             }
+        }
+
+        public bool InputsAreValid()
+        {
+            //Clear existing messages
+            appNameInputError.Visibility = Visibility.Collapsed;
+            appExeInputError.Visibility = Visibility.Collapsed;
+
+            if (AppName != null && ExePath != null)
+            {
+                return true;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(AppName))
+                {
+                    appNameInputError.Visibility = Visibility.Visible;
+                }
+                if (string.IsNullOrEmpty(ExePath))
+                {
+                    appExeInputError.Visibility = Visibility.Visible;
+                }
+            }
+            return false;
         }
     }
 }

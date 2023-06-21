@@ -67,17 +67,21 @@ namespace LaunchPadConfigurator
                 dialog.Content = dialogContent;
                 dialog.PrimaryButtonClick += (s, e) =>
                 {
-                    string name = dialogContent.AppName;
-                    string exepath = dialogContent.ExePath;
-                    string iconpath = dialogContent.IconPath;
-                    if (name == null || exepath == null)
+                    if (dialogContent.InputsAreValid())
                     {
-                        throw new Exception("invalid inputs");
+                        string name = dialogContent.AppName;
+                        string exepath = dialogContent.ExePath;
+                        string iconpath = dialogContent.IconPath;
+
+                        AppShortcut app = new(name, exepath, iconpath);
+                        SaveSystem.SaveApp(app);
+                        RefreshAppList();
+                    }
+                    else
+                    {
+                        e.Cancel = true; // Prevent dialog from closing
                     }
 
-                    AppShortcut app = new(name, exepath, iconpath);
-                    SaveSystem.SaveApp(app);
-                    RefreshAppList();
                 };
             }
             else
@@ -87,31 +91,33 @@ namespace LaunchPadConfigurator
                 dialog.Content = updateDialogContent;
                 dialog.PrimaryButtonClick += (s, e) =>
                 {
-                    string name = updateDialogContent.AppName;
-                    string exepath = updateDialogContent.ExePath;
-                    string iconpath = updateDialogContent.IconPath;
-
-                    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(exepath))
+                    if (updateDialogContent.InputsAreValid())
                     {
-                        throw new Exception("invalid inputs");
-                    }
+                        string name = updateDialogContent.AppName;
+                        string exepath = updateDialogContent.ExePath;
+                        string iconpath = updateDialogContent.IconPath;
 
-                    List<AppShortcut> existingApps = SaveSystem.LoadApps();
-                    foreach (AppShortcut appToCheck in existingApps)
-                    {
-                        if(appToCheck.ID == existingApp.ID)
+                        List<AppShortcut> existingApps = SaveSystem.LoadApps();
+                        foreach (AppShortcut appToCheck in existingApps)
                         {
-                            existingApps.Remove(appToCheck);
-                            break;
+                            if (appToCheck.ID == existingApp.ID)
+                            {
+                                existingApps.Remove(appToCheck);
+                                break;
+                            }
                         }
-                    }
-                    AppShortcut app = new(name, exepath, iconpath);
-                    app.Position = existingApp.Position;
-                    app.ID = existingApp.ID;
-                    existingApps.Add(app);
-                    SaveSystem.SaveApps(existingApps);
+                        AppShortcut app = new(name, exepath, iconpath);
+                        app.Position = existingApp.Position;
+                        app.ID = existingApp.ID;
+                        existingApps.Add(app);
+                        SaveSystem.SaveApps(existingApps);
 
-                    RefreshAppList();
+                        RefreshAppList();
+                    }
+                    else
+                    {
+                        e.Cancel = true; // Prevent dialog from closing
+                    }
                 };
             }
 
