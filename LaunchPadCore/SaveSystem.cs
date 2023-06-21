@@ -1,12 +1,7 @@
 ﻿using LaunchPadCore;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace LaunchPadConfigurator
@@ -27,7 +22,7 @@ namespace LaunchPadConfigurator
         {
             foreach (AppShortcut app in apps)
             {
-                if(string.IsNullOrEmpty(app.IconFileName)) { continue; }
+                if (string.IsNullOrEmpty(app.IconFileName)) { continue; }
                 string filename = Path.GetFileName(app.IconFileName);
                 if (app.IconFileName != filename)
                 {
@@ -79,16 +74,16 @@ namespace LaunchPadConfigurator
         private static void CopyIconToAppData(string currentPath)
         {
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
-            if(finalPath != currentPath)
+            if (finalPath != currentPath)
             {
                 File.Copy(currentPath, finalPath, true);
             }
-            
+
         }
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();
-            
+
             EnsureSaveFolderExists();
             if (File.Exists(SaveSystem.apps))
             {
@@ -185,7 +180,7 @@ namespace LaunchPadConfigurator
                 string jsonString = File.ReadAllText(preferences) ?? throw new FileLoadException("File is empty");
                 prefs = JsonSerializer.Deserialize<UserPreferences>(jsonString);
             }
-            if(prefs != null)
+            if (prefs != null)
             {
                 return prefs;
             }
@@ -193,7 +188,7 @@ namespace LaunchPadConfigurator
             {
                 return new UserPreferences();
             }
-            
+
         }
     }
 }

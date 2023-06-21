@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LaunchPadCore
+﻿namespace LaunchPadCore
 {
     public class UserPreferences
     {
@@ -18,8 +12,8 @@ namespace LaunchPadCore
 
 
         private bool nameVisible = false;
-        public bool NameVisible 
-        { 
+        public bool NameVisible
+        {
             get { return nameVisible; }
             set { nameVisible = value; }
         }

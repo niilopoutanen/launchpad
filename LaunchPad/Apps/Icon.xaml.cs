@@ -1,26 +1,12 @@
 ﻿using LaunchPadConfigurator;
 using LaunchPadCore;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LaunchPad
 {
@@ -57,7 +43,7 @@ namespace LaunchPad
                 OnFocusLeave();
             };
             InitializeIcon();
-            
+
         }
 
 
@@ -66,10 +52,10 @@ namespace LaunchPad
             iconBitmap.Source = AppShortcut.GetIcon(App);
 
 
-            if(preferences.FullSizeIcon)
+            if (preferences.FullSizeIcon)
             {
                 appIcon.Padding = new Thickness(0);
-                appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
+                appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
             }
 
             if (preferences.NameVisible)
@@ -90,7 +76,7 @@ namespace LaunchPad
                 }
             }
 
-                
+
         }
 
         public void OnFocusEnter()
@@ -102,7 +88,7 @@ namespace LaunchPad
             Focused = true;
             var scaleTransformAndAnimation = GlobalAppActions.GetFocusEnterAnim();
             ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2; 
+            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
             appIcon.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);

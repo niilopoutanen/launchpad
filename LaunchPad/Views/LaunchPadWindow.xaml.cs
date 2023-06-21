@@ -1,22 +1,13 @@
-﻿using LaunchPadCore;
+﻿using LaunchPad.Apps;
 using LaunchPadConfigurator;
+using LaunchPadCore;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using LaunchPad.Apps;
 
 namespace LaunchPad
 {
@@ -46,7 +37,7 @@ namespace LaunchPad
         }
         private void LoadApps()
         {
-            
+
             List<AppShortcut> apps = SaveSystem.LoadApps();
             appContainer.MaxWidth = preferences.PreferredWidth;
 
@@ -82,14 +73,14 @@ namespace LaunchPad
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
             launchPadRoot.Background = backgroundColor;
-            foreach(ILaunchPadItem item in appContainer.Children)
+            foreach (ILaunchPadItem item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }
         }
 
 
-        
+
 
         private void HandleKeyboard(Window window)
         {

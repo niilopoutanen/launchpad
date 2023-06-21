@@ -1,21 +1,10 @@
-using LaunchPadCore;
 using LaunchPadConfigurator.Views.UIElements;
+using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage.Pickers;
 
 namespace LaunchPadConfigurator
 {
@@ -48,7 +37,7 @@ namespace LaunchPadConfigurator
         {
             var window = (Application.Current as App)?.Window;
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-            
+
 
             var dialog = new ContentDialog
             {
@@ -84,7 +73,7 @@ namespace LaunchPadConfigurator
 
 
             //User is updating an app
-            if(existingApp != null)
+            if (existingApp != null)
             {
                 dialogContent.UpdateApp(existingApp);
                 dialog.Title = "Update app details";
