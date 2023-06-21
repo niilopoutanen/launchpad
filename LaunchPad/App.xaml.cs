@@ -73,6 +73,11 @@ namespace LaunchPad
         }
         public void DisplayMessage(string title, string msg, ToolTipIcon icon)
         {
+            if(notifyIcon == null)
+            {
+                System.Windows.MessageBox.Show(title, msg);
+                return;
+            }
             notifyIcon.ShowBalloonTip(3000, title, msg, icon);
         }
     }
