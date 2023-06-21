@@ -9,28 +9,17 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <TextBlock Margin="0,10,0,5">Preview</TextBlock>
-        <StackPanel Height="100" Orientation="Horizontal">
-            <Border Background="#3a3a3a" Width="100" Height="100" CornerRadius="25" x:Name="previewIconBg" Padding="5">
-                <Image x:Name="previewIcon"></Image>
-            </Border>
-            <StackPanel Orientation="Vertical" Padding="10">
-                <TextBlock x:Name="previewName">App name</TextBlock>
-                <TextBlock x:Name="previewPath">app.exe</TextBlock>
-            </StackPanel>
-        </StackPanel>
-        
         
         <TextBlock Margin="0,10,0,5">App name</TextBlock>
-        <TextBox x:Name="appNameInput"></TextBox>
-
+        <TextBox x:Name="appNameInput"/>
+        <TextBlock Name="appNameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
+        
         <TextBlock Margin="0,10,0,5">App executable / shortcut</TextBlock>
-        <Button x:Name="appExeButton" Content="Executable file" Click="ExePathProvided"></Button>
-
+        <Button x:Name="appExeButton" Content="Executable file" Click="ExePathProvided"/>
+        <TextBlock Name="appExeInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App path cannot be empty.</TextBlock>
+            
         <TextBlock Margin="0,10,0,5">App icon (Leave empty for autofill)</TextBlock>
-        <Button x:Name="appIconButton" Content="Icon file" Click="IconPathProvided"></Button>
+        <Button x:Name="appIconButton" Content="Icon file" Click="IconPathProvided"/>
 
-        <TextBlock Margin="0,10,0,5">Full sized icon</TextBlock>
-        <ToggleSwitch x:Name="appIconSizeToggle"></ToggleSwitch>
     </StackPanel>
 </UserControl>

@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
 
-    <StackPanel MaxWidth="100">
-        <Border Width="80" Height="80" Name="appIcon" Padding="3"
+    <StackPanel MaxWidth="100" Margin="5">
+        <Border Width="80" Height="80" Name="appIcon" Padding="4"
                 Background="{StaticResource LaunchPadItemBackground}"
-                CornerRadius="18" Margin="5">
+                CornerRadius="17">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>
@@ -19,7 +19,7 @@
                     <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
                 </Style>
             </Border.Style>
-            <Border CornerRadius="17">
+            <Border CornerRadius="13">
                 <Border.Background>
                     <VisualBrush>
                         <VisualBrush.Visual>

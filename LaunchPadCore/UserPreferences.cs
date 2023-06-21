@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LaunchPadCore
+﻿namespace LaunchPadCore
 {
     public class UserPreferences
     {
@@ -18,8 +12,8 @@ namespace LaunchPadCore
 
 
         private bool nameVisible = false;
-        public bool NameVisible 
-        { 
+        public bool NameVisible
+        {
             get { return nameVisible; }
             set { nameVisible = value; }
         }
@@ -28,14 +22,28 @@ namespace LaunchPadCore
         {
             Dark,
             Light,
-            Transparent,
-            FollowSystem
+            System
         }
-        private LaunchPadTheme selectedTheme = LaunchPadTheme.Transparent;
+        private LaunchPadTheme selectedTheme = LaunchPadTheme.System;
         public LaunchPadTheme SelectedTheme
         {
             get { return selectedTheme; }
             set { selectedTheme = value; }
+        }
+
+
+        private bool transparentTheme = true;
+        public bool TransparentTheme
+        {
+            get { return transparentTheme; }
+            set { transparentTheme = value; }
+        }
+
+        private bool fullSizeIcon = false;
+        public bool FullSizeIcon
+        {
+            get { return fullSizeIcon; }
+            set { fullSizeIcon = value; }
         }
     }
 }

@@ -11,24 +11,28 @@ namespace LaunchPadCore
         public const float SIZE_PRESSED = 0.9f;
 
 
-        public static Tuple<ScaleTransform, DoubleAnimation> GetReleaseAnim(bool isFocused)
+        public static Tuple<ScaleTransform, DoubleAnimationUsingKeyFrames> GetReleaseAnim(bool isFocused)
         {
             float finalValue = SIZE_STATIC;
             if (isFocused)
             {
                 finalValue = SIZE_FOCUS;
             }
-            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
 
-            DoubleAnimation scaleAnimation = new()
+            DoubleAnimationUsingKeyFrames scaleAnimation = new DoubleAnimationUsingKeyFrames
             {
-                To = finalValue,
-                Duration = TimeSpan.FromSeconds(0.1)
+                Duration = TimeSpan.FromSeconds(0.5)
             };
 
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(SIZE_PRESSED, TimeSpan.Zero));
+
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue * 1.05, TimeSpan.FromSeconds(0.1)));
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue, TimeSpan.FromSeconds(0.25)));
 
             return Tuple.Create(scaleTransform, scaleAnimation);
         }
+
 
         public static Tuple<ScaleTransform, DoubleAnimation> GetPressAnim()
         {
@@ -37,7 +41,7 @@ namespace LaunchPadCore
             DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_PRESSED,
-                Duration = TimeSpan.FromSeconds(0.1)
+                Duration = TimeSpan.FromSeconds(0.05)
             };
 
             return Tuple.Create(scaleTransform, scaleAnimation);

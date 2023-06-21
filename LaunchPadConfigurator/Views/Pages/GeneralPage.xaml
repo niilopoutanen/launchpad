@@ -44,6 +44,30 @@
 
                 <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="ThemeComboBox"></ComboBox>
             </Grid>
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Transparent theme</TextBlock>
+
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="transparentThemeToggle"></ToggleSwitch>
+            </Grid>
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Full sized icons</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">If on, icons will have no border and take full size of the area.</TextBlock>
+                </StackPanel>
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="fullSizeIconToggle"></ToggleSwitch>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>

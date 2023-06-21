@@ -1,12 +1,7 @@
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.IO;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 
 namespace LaunchPadConfigurator.Views.UIElements
@@ -16,80 +11,27 @@ namespace LaunchPadConfigurator.Views.UIElements
         public string AppName { get; set; }
         public string IconPath { get; set; }
         public string ExePath { get; set; }
-        public bool FullSizeIcon { get; set; }
 
         private readonly IntPtr hWnd;
         public AddAppDialog(IntPtr hwnd)
         {
             this.InitializeComponent();
             this.hWnd = hwnd;
-            InitializeEvents();
 
-        }
-        public AddAppDialog(IntPtr hwnd, AppShortcut appToUpdate)
-        {
-            this.InitializeComponent();
-            this.hWnd = hwnd;
-            InitializeEvents();
-            AppName = appToUpdate.Name;
-            IconPath = appToUpdate.GetIconFullPath();
-            ExePath = appToUpdate.ExeUri;
-            FullSizeIcon = (appToUpdate.IconSize == AppShortcut.SIZE_FULL);
-
-            SetFields();
-        }
-        private async void SetFields()
-        {
-            appNameInput.Text = AppName;
-            previewName.Text = AppName;
-
-            previewPath.Text = Path.GetFileName(ExePath);
-            appIconSizeToggle.IsOn = FullSizeIcon;
-            if(IconPath != null)
-            {
-                if (Uri.TryCreate(IconPath, UriKind.Absolute, out Uri validUri))
-                {
-                    BitmapImage bitmapImage = new(validUri);
-                    previewIcon.Source = bitmapImage;
-                }
-            }
-            else
-            {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(ExePath);
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
-
-                BitmapImage imageSource = new();
-                imageSource.SetSource(thumbnail);
-
-                previewIcon.Source = imageSource;
-            }
-
-        }
-        private void InitializeEvents()
-        {
             appNameInput.TextChanged += (s, e) =>
             {
                 AppName = ((TextBox)s).Text;
-                previewName.Text = AppName;
-            };
-
-            appIconSizeToggle.Toggled += (s, e) =>
-            {
-                ToggleSwitch toggle = (ToggleSwitch)s;
-                FullSizeIcon = toggle.IsOn;
-                switch (toggle.IsOn)
-                {
-                    case true:
-                        previewIconBg.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0, 0, 0, 0));
-                        previewIconBg.Padding = new Thickness(0);
-                        break;
-                    case false:
-                        previewIconBg.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 61, 61, 61));
-                        previewIconBg.Padding = new Thickness(5);
-                        break;
-                }
             };
         }
+
+        public void UpdateApp(AppShortcut app)
+        {
+            AppName = app.Name;
+            IconPath = app.GetIconFullPath();
+            ExePath = app.ExeUri;
+            appNameInput.Text = AppName;
+        }
+
         private async void IconPathProvided(object sender, RoutedEventArgs e)
         {
             var appIconPicker = new FileOpenPicker
@@ -107,11 +49,6 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 IconPath = file.Path;
-                if (Uri.TryCreate(file.Path, UriKind.Absolute, out Uri validUri))
-                {
-                    BitmapImage bitmapImage = new(validUri);
-                    previewIcon.Source = bitmapImage;
-                }
             }
         }
         private async void ExePathProvided(object sender, RoutedEventArgs e)
@@ -128,18 +65,31 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 ExePath = file.Path;
-                previewPath.Text = Path.GetFileName(file.Path);
-                if(IconPath == null)
-                {
-                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
-
-                    BitmapImage imageSource = new();
-                    imageSource.SetSource(thumbnail);
-
-                    previewIcon.Source = imageSource;
-                }
-
             }
+        }
+
+        public bool InputsAreValid()
+        {
+            //Clear existing messages
+            appNameInputError.Visibility = Visibility.Collapsed;
+            appExeInputError.Visibility = Visibility.Collapsed;
+
+            if (AppName != null && ExePath != null)
+            {
+                return true;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(AppName))
+                {
+                    appNameInputError.Visibility = Visibility.Visible;
+                }
+                if (string.IsNullOrEmpty(ExePath))
+                {
+                    appExeInputError.Visibility = Visibility.Visible;
+                }
+            }
+            return false;
         }
     }
 }

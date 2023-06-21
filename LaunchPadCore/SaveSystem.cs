@@ -1,12 +1,7 @@
 ﻿using LaunchPadCore;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace LaunchPadConfigurator
@@ -27,7 +22,7 @@ namespace LaunchPadConfigurator
         {
             foreach (AppShortcut app in apps)
             {
-                if(string.IsNullOrEmpty(app.IconFileName)) { continue; }
+                if (string.IsNullOrEmpty(app.IconFileName)) { continue; }
                 string filename = Path.GetFileName(app.IconFileName);
                 if (app.IconFileName != filename)
                 {
@@ -79,16 +74,16 @@ namespace LaunchPadConfigurator
         private static void CopyIconToAppData(string currentPath)
         {
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
-            if(finalPath != currentPath)
+            if (finalPath != currentPath)
             {
                 File.Copy(currentPath, finalPath, true);
             }
-            
+
         }
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();
-            
+
             EnsureSaveFolderExists();
             if (File.Exists(SaveSystem.apps))
             {
@@ -137,37 +132,30 @@ namespace LaunchPadConfigurator
 
         public static ResourceDictionary LoadTheme()
         {
-            ResourceDictionary themeDictionary;
+            UserPreferences preferences = LoadPreferences();
+            string themePath;
 
-            switch (LoadPreferences().SelectedTheme)
+            switch (preferences.SelectedTheme)
             {
                 case UserPreferences.LaunchPadTheme.Dark:
-                    themeDictionary = new ResourceDictionary
-                    {
-                        Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative)
-                    };
+                    themePath = preferences.TransparentTheme ? "Resources/TransparentDark.xaml" : "Resources/DarkMode.xaml";
                     break;
+
                 case UserPreferences.LaunchPadTheme.Light:
-                    themeDictionary = new ResourceDictionary
-                    {
-                        Source = new Uri("Resources/LightMode.xaml", UriKind.Relative)
-                    };
+                    themePath = preferences.TransparentTheme ? "Resources/TransparentLight.xaml" : "Resources/LightMode.xaml";
                     break;
+
                 default:
-                    themeDictionary = new ResourceDictionary
-                    {
-                        Source = new Uri("Resources/Transparent.xaml", UriKind.Relative)
-                    };
-                    break;
-                case UserPreferences.LaunchPadTheme.FollowSystem:
-                    themeDictionary = IsLightTheme()
-                        ? new ResourceDictionary { Source = new Uri("Resources/LightMode.xaml", UriKind.Relative) }
-                        : new ResourceDictionary { Source = new Uri("Resources/DarkMode.xaml", UriKind.Relative) };
+                    themePath = preferences.TransparentTheme
+                        ? (IsLightTheme() ? "Resources/TransparentLight.xaml" : "Resources/TransparentDark.xaml")
+                        : (IsLightTheme() ? "Resources/LightMode.xaml" : "Resources/DarkMode.xaml");
                     break;
             }
 
-            return themeDictionary;
+            return new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
         }
+
+
         private static bool IsLightTheme()
         {
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
@@ -192,7 +180,7 @@ namespace LaunchPadConfigurator
                 string jsonString = File.ReadAllText(preferences) ?? throw new FileLoadException("File is empty");
                 prefs = JsonSerializer.Deserialize<UserPreferences>(jsonString);
             }
-            if(prefs != null)
+            if (prefs != null)
             {
                 return prefs;
             }
@@ -200,7 +188,7 @@ namespace LaunchPadConfigurator
             {
                 return new UserPreferences();
             }
-            
+
         }
     }
 }

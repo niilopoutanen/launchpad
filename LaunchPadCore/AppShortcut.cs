@@ -1,33 +1,22 @@
 ﻿using LaunchPadConfigurator;
-using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Interop;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Drawing;
 
 namespace LaunchPadCore
 {
     public class AppShortcut
     {
-        public const int SIZE_FULL = 1;
-        public const int SIZE_CROPPED = 0;
-
-
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public string ExeUri { get; set; }
         public string? IconFileName { get; set; }
         public int ID { get; set; }
         public int Position { get; set; }
 
-        public int IconSize { get; set; }
-
-        public AppShortcut(string name, string exeUri, string? iconFileName, int iconSize)
+        public AppShortcut(string name, string exeUri, string? iconFileName)
         {
             Name = name;
             ExeUri = exeUri;
@@ -35,7 +24,6 @@ namespace LaunchPadCore
             {
                 IconFileName = iconFileName;
             }
-            IconSize = iconSize;
             ID = GetId();
             Position = GetPosition();
         }
@@ -44,7 +32,7 @@ namespace LaunchPadCore
 
         public string GetIconFullPath()
         {
-            if(IconFileName == null)
+            if (IconFileName == null)
             {
                 return ExeUri;
             }

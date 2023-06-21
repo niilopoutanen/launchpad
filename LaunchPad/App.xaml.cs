@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-
 namespace LaunchPad
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : System.Windows.Application
     {
-        private LaunchPadWindow launchPadWindow;
+        private LaunchPadWindow? launchPadWindow;
+        private NotifyIcon? notifyIcon;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -31,7 +22,7 @@ namespace LaunchPad
                 ModifierKeys = HotKey.Modifiers.Shift
             };
 
-            hotKey.HotKeyPressed += (s,e) =>
+            hotKey.HotKeyPressed += (s, e) =>
             {
                 ToggleLaunchpad();
             };
@@ -53,7 +44,7 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
-            NotifyIcon notifyIcon = new()
+            notifyIcon = new()
             {
                 Icon = new System.Drawing.Icon("Resources/Assets/icon.ico"),
                 Visible = true
@@ -69,7 +60,7 @@ namespace LaunchPad
 
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s,e) =>
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
             {
 
             });
@@ -79,6 +70,10 @@ namespace LaunchPad
                 notifyIcon.Dispose();
                 Current.Shutdown();
             });
+        }
+        public void DisplayMessage(string title, string msg, ToolTipIcon icon)
+        {
+            notifyIcon.ShowBalloonTip(3000, title, msg, icon);
         }
     }
 }

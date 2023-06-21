@@ -1,21 +1,6 @@
 using LaunchPadCore;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace LaunchPadConfigurator
 {
@@ -32,7 +17,7 @@ namespace LaunchPadConfigurator
         private void InitializeElements()
         {
             ColumnCountSlider.Value = preferences.PreferredWidth;
-            ColumnCountHeader.Text = "LaunchPad column count: " + preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth;
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
@@ -40,7 +25,7 @@ namespace LaunchPadConfigurator
                 preferences.PreferredWidth = (int)e.NewValue;
                 SaveSystem.SavePreferences(preferences);
 
-                ColumnCountHeader.Text = "LaunchPad column count: " + ColumnCountSlider.Value;
+                ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
             };
 
             NameVisibleToggle.IsOn = preferences.NameVisible;
@@ -61,6 +46,23 @@ namespace LaunchPadConfigurator
                     preferences.SelectedTheme = selectedTheme;
                     SaveSystem.SavePreferences(preferences);
                 }
+            };
+
+            transparentThemeToggle.IsOn = preferences.TransparentTheme;
+            transparentThemeToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.TransparentTheme = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
+
+
+            fullSizeIconToggle.IsOn = preferences.FullSizeIcon;
+            fullSizeIconToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.FullSizeIcon = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
             };
         }
     }
