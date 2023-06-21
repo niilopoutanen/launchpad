@@ -62,6 +62,14 @@ namespace LaunchPadConfigurator
                     SaveSystem.SavePreferences(preferences);
                 }
             };
+
+            transparentThemeToggle.IsOn = preferences.TransparentTheme;
+            transparentThemeToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.TransparentTheme = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
         }
     }
 }

@@ -28,14 +28,21 @@ namespace LaunchPadCore
         {
             Dark,
             Light,
-            Transparent,
-            FollowSystem
+            System
         }
-        private LaunchPadTheme selectedTheme = LaunchPadTheme.Transparent;
+        private LaunchPadTheme selectedTheme = LaunchPadTheme.System;
         public LaunchPadTheme SelectedTheme
         {
             get { return selectedTheme; }
             set { selectedTheme = value; }
+        }
+
+
+        private bool transparentTheme = true;
+        public bool TransparentTheme
+        {
+            get { return transparentTheme; }
+            set { transparentTheme = value; }
         }
     }
 }
