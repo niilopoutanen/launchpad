@@ -58,13 +58,36 @@ namespace LaunchPadConfigurator
                 PrimaryButtonText = "Save",
                 CloseButtonText = "Cancel",
                 DefaultButton = ContentDialogButton.Primary,
-
-                
             };
-            if (existingApp == null)
+
+
+            AddAppDialog dialogContent = new(hWnd);
+            dialog.Content = dialogContent;
+            dialog.PrimaryButtonClick += (s, e) =>
             {
-                AddAppDialog dialogContent = new(hWnd);
-                dialog.Content = dialogContent;
+                if (dialogContent.InputsAreValid())
+                {
+                    string name = dialogContent.AppName;
+                    string exepath = dialogContent.ExePath;
+                    string iconpath = dialogContent.IconPath;
+
+                    AppShortcut app = new(name, exepath, iconpath);
+                    SaveSystem.SaveApp(app);
+                    RefreshAppList();
+                }
+                else
+                {
+                    e.Cancel = true; // Prevent dialog from closing
+                }
+
+            };
+
+
+            //User is updating an app
+            if(existingApp != null)
+            {
+                dialogContent.UpdateApp(existingApp);
+                dialog.Title = "Update app details";
                 dialog.PrimaryButtonClick += (s, e) =>
                 {
                     if (dialogContent.InputsAreValid())
@@ -72,30 +95,6 @@ namespace LaunchPadConfigurator
                         string name = dialogContent.AppName;
                         string exepath = dialogContent.ExePath;
                         string iconpath = dialogContent.IconPath;
-
-                        AppShortcut app = new(name, exepath, iconpath);
-                        SaveSystem.SaveApp(app);
-                        RefreshAppList();
-                    }
-                    else
-                    {
-                        e.Cancel = true; // Prevent dialog from closing
-                    }
-
-                };
-            }
-            else
-            {
-                AddAppDialog updateDialogContent = new(hWnd, existingApp);
-                dialog.Title = "Update app details";
-                dialog.Content = updateDialogContent;
-                dialog.PrimaryButtonClick += (s, e) =>
-                {
-                    if (updateDialogContent.InputsAreValid())
-                    {
-                        string name = updateDialogContent.AppName;
-                        string exepath = updateDialogContent.ExePath;
-                        string iconpath = updateDialogContent.IconPath;
 
                         List<AppShortcut> existingApps = SaveSystem.LoadApps();
                         foreach (AppShortcut appToCheck in existingApps)

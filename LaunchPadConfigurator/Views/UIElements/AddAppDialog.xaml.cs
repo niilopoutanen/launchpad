@@ -23,54 +23,21 @@ namespace LaunchPadConfigurator.Views.UIElements
         {
             this.InitializeComponent();
             this.hWnd = hwnd;
-            InitializeEvents();
 
-        }
-        public AddAppDialog(IntPtr hwnd, AppShortcut appToUpdate)
-        {
-            this.InitializeComponent();
-            this.hWnd = hwnd;
-            InitializeEvents();
-            AppName = appToUpdate.Name;
-            IconPath = appToUpdate.GetIconFullPath();
-            ExePath = appToUpdate.ExeUri;
-
-            SetFields();
-        }
-        private async void SetFields()
-        {
-            appNameInput.Text = AppName;
-            previewName.Text = AppName;
-
-            previewPath.Text = Path.GetFileName(ExePath);
-            if(IconPath != null)
-            {
-                if (Uri.TryCreate(IconPath, UriKind.Absolute, out Uri validUri))
-                {
-                    BitmapImage bitmapImage = new(validUri);
-                    previewIcon.Source = bitmapImage;
-                }
-            }
-            else
-            {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(ExePath);
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
-
-                BitmapImage imageSource = new();
-                imageSource.SetSource(thumbnail);
-
-                previewIcon.Source = imageSource;
-            }
-
-        }
-        private void InitializeEvents()
-        {
             appNameInput.TextChanged += (s, e) =>
             {
                 AppName = ((TextBox)s).Text;
-                previewName.Text = AppName;
             };
         }
+
+        public void UpdateApp(AppShortcut app)
+        {
+            AppName = app.Name;
+            IconPath = app.GetIconFullPath();
+            ExePath = app.ExeUri;
+            appNameInput.Text = AppName;
+        }
+
         private async void IconPathProvided(object sender, RoutedEventArgs e)
         {
             var appIconPicker = new FileOpenPicker
@@ -88,11 +55,6 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 IconPath = file.Path;
-                if (Uri.TryCreate(file.Path, UriKind.Absolute, out Uri validUri))
-                {
-                    BitmapImage bitmapImage = new(validUri);
-                    previewIcon.Source = bitmapImage;
-                }
             }
         }
         private async void ExePathProvided(object sender, RoutedEventArgs e)
@@ -109,17 +71,6 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 ExePath = file.Path;
-                previewPath.Text = Path.GetFileName(file.Path);
-                if(IconPath == null)
-                {
-                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
-
-                    BitmapImage imageSource = new();
-                    imageSource.SetSource(thumbnail);
-
-                    previewIcon.Source = imageSource;
-                }
-
             }
         }
 
