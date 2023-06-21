@@ -66,7 +66,7 @@ namespace LaunchPad
             iconBitmap.Source = AppShortcut.GetIcon(App);
 
 
-            if(App.IconSize == AppShortcut.SIZE_FULL)
+            if(preferences.FullSizeIcon)
             {
                 appIcon.Padding = new Thickness(0);
                 appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,0,0,0));
@@ -204,7 +204,7 @@ namespace LaunchPad
             {
                 return;
             }
-            if (App.IconSize != AppShortcut.SIZE_FULL)
+            if (!preferences.FullSizeIcon)
             {
                 appIcon.Background = itemBackgroundColor;
             }

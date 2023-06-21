@@ -29,8 +29,5 @@
 
         <TextBlock Margin="0,10,0,5">App icon (Leave empty for autofill)</TextBlock>
         <Button x:Name="appIconButton" Content="Icon file" Click="IconPathProvided"></Button>
-
-        <TextBlock Margin="0,10,0,5">Full sized icon</TextBlock>
-        <ToggleSwitch x:Name="appIconSizeToggle"></ToggleSwitch>
     </StackPanel>
 </UserControl>

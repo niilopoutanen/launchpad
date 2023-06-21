@@ -70,13 +70,12 @@ namespace LaunchPadConfigurator
                     string name = dialogContent.AppName;
                     string exepath = dialogContent.ExePath;
                     string iconpath = dialogContent.IconPath;
-                    int iconSize = dialogContent.FullSizeIcon ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
                     if (name == null || exepath == null)
                     {
                         throw new Exception("invalid inputs");
                     }
 
-                    AppShortcut app = new(name, exepath, iconpath, iconSize);
+                    AppShortcut app = new(name, exepath, iconpath);
                     SaveSystem.SaveApp(app);
                     RefreshAppList();
                 };
@@ -91,7 +90,6 @@ namespace LaunchPadConfigurator
                     string name = updateDialogContent.AppName;
                     string exepath = updateDialogContent.ExePath;
                     string iconpath = updateDialogContent.IconPath;
-                    int iconSize = updateDialogContent.FullSizeIcon ? AppShortcut.SIZE_FULL : AppShortcut.SIZE_CROPPED;
 
                     if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(exepath))
                     {
@@ -107,7 +105,7 @@ namespace LaunchPadConfigurator
                             break;
                         }
                     }
-                    AppShortcut app = new(name, exepath, iconpath, iconSize);
+                    AppShortcut app = new(name, exepath, iconpath);
                     app.Position = existingApp.Position;
                     app.ID = existingApp.ID;
                     existingApps.Add(app);

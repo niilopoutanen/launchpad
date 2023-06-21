@@ -70,6 +70,15 @@ namespace LaunchPadConfigurator
                 preferences.TransparentTheme = ((ToggleSwitch)s).IsOn;
                 SaveSystem.SavePreferences(preferences);
             };
+
+
+            fullSizeIconToggle.IsOn = preferences.FullSizeIcon;
+            fullSizeIconToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.FullSizeIcon = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
         }
     }
 }

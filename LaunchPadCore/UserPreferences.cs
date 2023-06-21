@@ -44,5 +44,12 @@ namespace LaunchPadCore
             get { return transparentTheme; }
             set { transparentTheme = value; }
         }
+
+        private bool fullSizeIcon = false;
+        public bool FullSizeIcon
+        {
+            get { return fullSizeIcon; }
+            set { fullSizeIcon = value; }
+        }
     }
 }
