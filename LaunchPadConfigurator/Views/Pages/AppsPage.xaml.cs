@@ -105,9 +105,11 @@ namespace LaunchPadConfigurator
                                 break;
                             }
                         }
-                        AppShortcut app = new(name, exepath, iconpath);
-                        app.Position = existingApp.Position;
-                        app.ID = existingApp.ID;
+                        AppShortcut app = new(name, exepath, iconpath)
+                        {
+                            Position = existingApp.Position,
+                            ID = existingApp.ID
+                        };
                         existingApps.Add(app);
                         SaveSystem.SaveApps(existingApps);
 

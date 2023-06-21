@@ -176,7 +176,7 @@ namespace LaunchPad
             Pressed = false;
             var scaleTransformAndAnimation = GlobalAppActions.GetReleaseAnim(Focused);
             ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
+            var scaleAnimation = scaleTransformAndAnimation.Item2;
 
             appIcon.RenderTransform = scaleTransform;
 

@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LaunchPad.Apps"
+
              mc:Ignorable="d">
-    <Border Width="150" Height="80" Name="Container" Padding="3"
+    <Border Width="150" Height="80" Name="Container" Padding="8"
                 CornerRadius="18" BorderThickness="2" Margin="5">
         <Border.RenderTransform>
             <ScaleTransform />
@@ -18,7 +19,10 @@
         <Border.Background>
             <ImageBrush ImageSource="/Resources/Assets/dashed_border.png"/>
         </Border.Background>
-        <TextBlock Name="SuggestionText" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="{StaticResource LaunchPadTextColor}" FontFamily="{StaticResource Inter}"></TextBlock>
+        <TextBlock Name="SuggestionText" TextWrapping="Wrap"
+                   TextAlignment="Center" VerticalAlignment="Center"
+                   FontSize="14" Foreground="{StaticResource LaunchPadTextColor}"
+                   FontFamily="{StaticResource Inter}"/>
 
     </Border>
 </UserControl>
