@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 namespace LaunchPad.Apps
 {
 
-    public partial class Suggestion : LaunchPadControl
+    public partial class Suggestion : LaunchPadItem
     {
         public override AppShortcut App { get; set; }
         public override bool Pressed { get; set; }

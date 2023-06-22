@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPadCore
 {
-    public abstract class LaunchPadControl : System.Windows.Controls.UserControl
+    public abstract class LaunchPadItem : System.Windows.Controls.UserControl
     {
         public abstract AppShortcut App { get; set; }
         public abstract bool Pressed { get; set; }

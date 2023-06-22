@@ -1,4 +1,4 @@
-﻿<LaunchPadCore:LaunchPadControl  
+﻿<LaunchPadCore:LaunchPadItem  
             xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
             x:Class="LaunchPad.Icon"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -41,4 +41,4 @@
                    FontSize="13" FontFamily="{StaticResource Inter}"
                    Foreground="{StaticResource LaunchPadTextColor}">App</TextBlock>
     </StackPanel>
-</LaunchPadCore:LaunchPadControl>
+</LaunchPadCore:LaunchPadItem>
