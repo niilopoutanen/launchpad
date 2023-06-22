@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPad
 {
-    public partial class Icon : System.Windows.Controls.UserControl, ILaunchPadItem
+    public partial class Icon : LaunchPadControl
     {
         public AppShortcut App { get; set; }
         public bool Pressed { get; set; }
@@ -79,7 +79,7 @@ namespace LaunchPad
 
         }
 
-        public void OnFocusEnter()
+        public override void OnFocusEnter()
         {
             if (Pressed || Focused)
             {
@@ -95,7 +95,7 @@ namespace LaunchPad
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public void OnFocusLeave()
+        public override void OnFocusLeave()
         {
             if (!Focused || Pressed)
             {
@@ -112,7 +112,7 @@ namespace LaunchPad
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public async Task OnClick(Action closeHandler)
+        public override async Task OnClick(Action closeHandler)
         {
             await Task.Run(() =>
             {
@@ -135,7 +135,7 @@ namespace LaunchPad
 
         }
 
-        public void OnPress()
+        public override void OnPress()
         {
             if (Pressed)
             {
@@ -152,7 +152,7 @@ namespace LaunchPad
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public void OnRelease()
+        public override void OnRelease()
         {
             if (!Pressed)
             {
@@ -180,7 +180,7 @@ namespace LaunchPad
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public void SetTheme(ResourceDictionary activeDictionary)
+        public override void SetTheme(ResourceDictionary activeDictionary)
         {
             SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;

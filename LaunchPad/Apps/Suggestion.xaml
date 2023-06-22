@@ -1,11 +1,12 @@
-﻿<UserControl x:Class="LaunchPad.Apps.Suggestion"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LaunchPad.Apps"
-
-             mc:Ignorable="d">
+﻿<LaunchPadCore:LaunchPadControl  
+            xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+            x:Class="LaunchPad.Apps.Suggestion"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:LaunchPad.Apps"
+            mc:Ignorable="d">
     <Border Width="150" Height="80" Name="Container" Padding="8"
                 CornerRadius="18" BorderThickness="2" Margin="5">
         <Border.RenderTransform>
@@ -25,4 +26,4 @@
                    FontFamily="{StaticResource Inter}"/>
 
     </Border>
-</UserControl>
+</LaunchPadCore:LaunchPadControl>

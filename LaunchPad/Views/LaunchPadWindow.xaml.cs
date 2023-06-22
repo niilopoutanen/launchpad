@@ -16,7 +16,7 @@ namespace LaunchPad
     public partial class LaunchPadWindow : Window
     {
         readonly UserPreferences preferences;
-        readonly List<ILaunchPadItem> items = new();
+        readonly List<LaunchPadControl> items = new();
         public LaunchPadWindow()
         {
             preferences = SaveSystem.LoadPreferences();
@@ -158,7 +158,7 @@ namespace LaunchPad
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
             launchPadRoot.Background = backgroundColor;
-            foreach (ILaunchPadItem item in appContainer.Children)
+            foreach (LaunchPadControl item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }

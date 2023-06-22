@@ -1,12 +1,19 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace LaunchPadCore
 {
-    public interface ILaunchPadItem
+    public abstract class LaunchPadControl : System.Windows.Controls.UserControl
     {
         public AppShortcut App { get; set; }
         public bool Pressed { get; set; }
         public bool Focused { get; set; }
+
+
         public abstract void OnFocusEnter();
         public abstract void OnFocusLeave();
 
