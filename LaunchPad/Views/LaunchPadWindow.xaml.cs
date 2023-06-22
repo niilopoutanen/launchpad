@@ -45,6 +45,7 @@ namespace LaunchPad
 
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideAnimation.From = new Thickness(0, launchPadRoot.ActualHeight, 0, 0);
+                    slideAnimation.To = new Thickness(0, 0, 0, 20);
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
                     break;
@@ -54,6 +55,7 @@ namespace LaunchPad
 
                     ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideTopAnimation.From = new Thickness(0, -launchPadRoot.ActualHeight, 0, 0);
+                    slideTopAnimation.To = new Thickness(0, 20, 0, 0);
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
                     break;
@@ -77,6 +79,7 @@ namespace LaunchPad
 
                 case AnimationTypes.SlideBottom:
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
+                    slideAnimation.From = new Thickness(0, 0, 0, 20);
                     slideAnimation.To = new Thickness(0, launchPadRoot.ActualHeight + 20, 0, 0);
                     slideAnimation.Completed += (sender, e) =>
                     {
@@ -89,7 +92,8 @@ namespace LaunchPad
 
                 case AnimationTypes.SlideTop:
                     ThicknessAnimation slideAnimationTop = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
-                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 120, 0, 0);
+                    slideAnimationTop.From = new Thickness(0, 20, 0, 0);
+                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 140, 0, 0);
                     slideAnimationTop.Completed += (sender, e) =>
                     {
                         this.Close();
@@ -121,6 +125,7 @@ namespace LaunchPad
                     break;
             }
         }
+
 
 
         private void Window_Deactivated(object sender, EventArgs e)

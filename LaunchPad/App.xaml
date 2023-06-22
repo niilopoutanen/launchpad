@@ -62,7 +62,7 @@
             </ThicknessAnimation>
 
             <ThicknessAnimation x:Key="LaunchPadSlideOut"
-                            From="0, 0, 0, 0"
+                            From="0, 0, 0, 20"
                             To="0, 0, 0, 0"
                             Duration="0:0:0.2">
                 <ThicknessAnimation.EasingFunction>
