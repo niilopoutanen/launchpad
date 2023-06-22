@@ -12,20 +12,14 @@
         Background="Transparent"
         Deactivated="Window_Deactivated"
         Topmost="True">
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard Storyboard="{StaticResource WindowLaunchAnimation}" />
-        </EventTrigger>
-    </Window.Triggers>
-    <Window.RenderTransform>
-        <ScaleTransform ScaleX="1" ScaleY="1" />
-    </Window.RenderTransform>
-    <Window.RenderTransformOrigin>
-        <Point>0.5, 0.5</Point>
-    </Window.RenderTransformOrigin>
     <Border CornerRadius="25" Background="{StaticResource LaunchPadBackground}" Padding="5" MinWidth="100" MinHeight="100" x:Name="launchPadRoot">
-
-        <WrapPanel Name="appContainer" MaxWidth="500">
+        <Border.RenderTransform>
+            <ScaleTransform ScaleX="1" ScaleY="1" />
+        </Border.RenderTransform>
+        <Border.RenderTransformOrigin>
+            <Point>0.5, 0.5</Point>
+        </Border.RenderTransformOrigin>
+        <WrapPanel Name="appContainer" MaxWidth="500" Loaded="Launch">
 
         </WrapPanel>
 

@@ -14,7 +14,7 @@
 
 
 
-            <Storyboard x:Key="WindowLaunchAnimation">
+            <Storyboard x:Key="LaunchPadCenterIn">
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3">
                     <DoubleAnimation.EasingFunction>
                         <QuadraticEase EasingMode="EaseOut" />
@@ -34,23 +34,41 @@
 
 
 
-            <Storyboard x:Key="WindowExitAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="0.9" Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="0.9" Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
+            <Storyboard x:Key="LaunchPadCenterOut">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="0.9" Duration="0:0:0.2">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="0.9" Duration="0:0:0.2">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+
+            <ThicknessAnimation x:Key="LaunchPadSlideIn"
+                            From="0, 0, 0, 0"
+                            To="0, 0, 0, 0"
+                            Duration="0:0:0.2">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+
+            <ThicknessAnimation x:Key="LaunchPadSlideOut"
+                            From="0, 0, 0, 20"
+                            To="0, 0, 0, 0"
+                            Duration="0:0:0.2">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
 
         </ResourceDictionary>
     </Application.Resources>

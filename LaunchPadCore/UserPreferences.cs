@@ -45,5 +45,18 @@
             get { return fullSizeIcon; }
             set { fullSizeIcon = value; }
         }
+
+        public enum AnimationTypes
+        {
+            SlideBottom,
+            SlideTop,
+            Center
+        }
+        private AnimationTypes selectedAnimation = AnimationTypes.SlideTop;
+        public AnimationTypes SelectedAnimation
+        {
+            get { return selectedAnimation; }
+            set { selectedAnimation = value; }
+        }
     }
 }

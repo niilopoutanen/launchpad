@@ -68,6 +68,18 @@
 
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="fullSizeIconToggle"></ToggleSwitch>
             </Grid>
+
+
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Launch animation style</TextBlock>
+
+
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>

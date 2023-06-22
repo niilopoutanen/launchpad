@@ -73,5 +73,7 @@ namespace LaunchPadCore
 
             return Tuple.Create(scaleTransform, scaleAnimation);
         }
+
+
     }
 }
