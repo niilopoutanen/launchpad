@@ -45,7 +45,6 @@ namespace LaunchPad
 
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideAnimation.From = new Thickness(0, launchPadRoot.ActualHeight, 0, 0);
-                    slideAnimation.To = new Thickness(0, 0, 0, 20);
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
                     break;
@@ -56,7 +55,6 @@ namespace LaunchPad
                     ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideTopAnimation.From = new Thickness(0, -launchPadRoot.ActualHeight, 0, 0);
                     slideTopAnimation.To = new Thickness(0, 20, 0, 0);
-
                     launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
                     break;
 
@@ -79,8 +77,7 @@ namespace LaunchPad
 
                 case AnimationTypes.SlideBottom:
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
-                    slideAnimation.From = new Thickness(0, 0, 0, 20);
-                    slideAnimation.To = new Thickness(0, launchPadRoot.ActualHeight + 20, 0, 0);
+                    slideAnimation.To = new Thickness(0, launchPadRoot.ActualHeight * 1.5, 0, 0);
                     slideAnimation.Completed += (sender, e) =>
                     {
                         this.Close();
@@ -91,15 +88,15 @@ namespace LaunchPad
                     break;
 
                 case AnimationTypes.SlideTop:
-                    ThicknessAnimation slideAnimationTop = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
-                    slideAnimationTop.From = new Thickness(0, 20, 0, 0);
-                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 140, 0, 0);
-                    slideAnimationTop.Completed += (sender, e) =>
+                    ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
+                    slideTopAnimation.To = new Thickness(0, -(launchPadRoot.ActualHeight * 1.5), 0, 0);
+                    slideTopAnimation.From = new Thickness(0, 20, 0, 0);
+                    slideTopAnimation.Completed += (sender, e) =>
                     {
                         this.Close();
                     };
 
-                    launchPadRoot.BeginAnimation(MarginProperty, slideAnimationTop);
+                    launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
 
                     break;
             }
@@ -121,7 +118,7 @@ namespace LaunchPad
                     Top = screenWorkingArea.Top / dpiScaleY;
                     break;
                 case AnimationTypes.SlideBottom:
-                    Top = screenWorkingArea.Top / dpiScaleY + (screenWorkingArea.Height / dpiScaleY - Height);
+                    Top = (screenWorkingArea.Bottom - 20) / dpiScaleY - Height;
                     break;
             }
         }

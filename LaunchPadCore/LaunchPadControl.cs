@@ -40,7 +40,7 @@ namespace LaunchPadCore
         }
 
 
-        public void OnFocusEnter()
+        public virtual void OnFocusEnter()
         {
             if (Pressed || Focused)
             {
@@ -55,7 +55,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public void OnFocusLeave() 
+        public virtual void OnFocusLeave() 
         {
             if (!Focused || Pressed)
             {
@@ -72,7 +72,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public void OnPress() 
+        public virtual void OnPress() 
         {
             if (Pressed)
             {
@@ -88,7 +88,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public void OnRelease()
+        public virtual void OnRelease()
         {
             if (!Pressed)
             {
