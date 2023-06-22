@@ -11,122 +11,27 @@ namespace LaunchPad.Apps
 
     public partial class Suggestion : LaunchPadControl
     {
-        public AppShortcut App { get; set; }
-        public bool Pressed { get; set; }
-        public bool Focused { get; set; }
+        public override AppShortcut App { get; set; }
+        public override bool Pressed { get; set; }
+        public override bool Focused { get; set; }
 
-        private Action closeHandler;
+        public override UIElement BaseElement { get => Container; }
+        public override Action CloseHander { get; set; }
 
         public Suggestion(string text, Action closeHandler)
         {
             InitializeComponent();
-            InitializeSuggestion();
             SuggestionText.Text = text;
-            this.closeHandler = closeHandler;
+            this.CloseHander = closeHandler;
+
+            base.InitializeControl();
         }
 
-        private void InitializeSuggestion()
-        {
-            Container.MouseLeftButtonDown += (s, e) =>
-            {
-                OnPress();
-            };
-            Container.MouseLeftButtonUp += (s, e) =>
-            {
-                OnRelease();
-            };
-            Container.MouseEnter += (s, e) =>
-            {
-                OnFocusEnter();
-            };
-            Container.MouseLeave += (s, e) =>
-            {
-                OnFocusLeave();
-            };
-        }
         public override Task OnClick(Action closeHandler)
         {
-
-            return null;
+            return Task.Delay(1);
         }
 
-        public override void OnFocusEnter()
-        {
-            if (Pressed || Focused)
-            {
-                return;
-            }
-            Focused = true;
-            var scaleTransformAndAnimation = GlobalAppActions.GetFocusEnterAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
-            Container.RenderTransform = scaleTransform;
-
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
-        }
-
-        public override void OnFocusLeave()
-        {
-            if (!Focused || Pressed)
-            {
-                return;
-            }
-            Focused = false;
-
-            var scaleTransformAndAnimation = GlobalAppActions.GetFocusLeaveAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
-            Container.RenderTransform = scaleTransform;
-
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
-        }
-
-        public override void OnPress()
-        {
-            if (Pressed)
-            {
-                return;
-            }
-            Pressed = true;
-            var scaleTransformAndAnimation = GlobalAppActions.GetPressAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
-
-            Container.RenderTransform = scaleTransform;
-
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
-        }
-
-        public override void OnRelease()
-        {
-            if (!Pressed)
-            {
-                return;
-            }
-
-            Pressed = false;
-            var scaleTransformAndAnimation = GlobalAppActions.GetReleaseAnim(Focused);
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            var scaleAnimation = scaleTransformAndAnimation.Item2;
-
-            Container.RenderTransform = scaleTransform;
-
-            bool animationCompleted = false;
-            scaleAnimation.Completed += async (s, e) =>
-            {
-                if (!animationCompleted)
-                {
-                    animationCompleted = true;
-                    //await OnClick(closeHandler);
-                }
-            };
-
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
-        }
 
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
