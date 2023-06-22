@@ -11,6 +11,7 @@ namespace LaunchPadConfigurator.Views.UIElements
         public string AppName { get; set; }
         public string IconPath { get; set; }
         public string ExePath { get; set; }
+        public AppShortcut.AppTypes AppType { get; set; }
 
         private readonly IntPtr hWnd;
         public AddAppDialog(IntPtr hwnd)
@@ -18,10 +19,37 @@ namespace LaunchPadConfigurator.Views.UIElements
             this.InitializeComponent();
             this.hWnd = hwnd;
 
-            appNameInput.TextChanged += (s, e) =>
+            NameField.TextChanged += (s, e) =>
             {
                 AppName = ((TextBox)s).Text;
             };
+            URLField.TextChanged += (s, e) =>
+            {
+                ExePath = ((TextBox)s).Text;
+            };
+
+            AppTypeComboBox.SelectionChanged += (s, e) =>
+            {
+                ExePath = null;
+                PathInputError.Visibility = Visibility.Collapsed;
+
+                switch (AppTypeComboBox.SelectedIndex)
+                {
+                    case 0:
+                        URLInput.Visibility = Visibility.Collapsed;
+                        ExeInput.Visibility = Visibility.Visible;
+                        AppType = AppShortcut.AppTypes.EXE;
+                        break;
+
+                    case 1:
+                        URLInput.Visibility = Visibility.Visible;
+                        ExeInput.Visibility = Visibility.Collapsed;
+                        AppType = AppShortcut.AppTypes.URL;
+                        break;
+                }
+            };
+            AppTypeComboBox.SelectedIndex = 0;
+            AppType = AppShortcut.AppTypes.EXE;
         }
 
         public void UpdateApp(AppShortcut app)
@@ -29,7 +57,9 @@ namespace LaunchPadConfigurator.Views.UIElements
             AppName = app.Name;
             IconPath = app.GetIconFullPath();
             ExePath = app.ExeUri;
-            appNameInput.Text = AppName;
+            AppType = app.AppType;
+            NameField.Text = AppName;
+            AppTypeComboBox.SelectedItem = AppType;
         }
 
         private async void IconPathProvided(object sender, RoutedEventArgs e)
@@ -49,10 +79,12 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 IconPath = file.Path;
+               
             }
         }
         private async void ExePathProvided(object sender, RoutedEventArgs e)
         {
+            PathInputError.Visibility = Visibility.Collapsed;
             var appExePicker = new FileOpenPicker
             {
                 SuggestedStartLocation = PickerLocationId.DocumentsLibrary
@@ -71,8 +103,8 @@ namespace LaunchPadConfigurator.Views.UIElements
         public bool InputsAreValid()
         {
             //Clear existing messages
-            appNameInputError.Visibility = Visibility.Collapsed;
-            appExeInputError.Visibility = Visibility.Collapsed;
+            NameInputError.Visibility = Visibility.Collapsed;
+            PathInputError.Visibility = Visibility.Collapsed;
 
             if (AppName != null && ExePath != null)
             {
@@ -82,14 +114,15 @@ namespace LaunchPadConfigurator.Views.UIElements
             {
                 if (string.IsNullOrEmpty(AppName))
                 {
-                    appNameInputError.Visibility = Visibility.Visible;
+                    NameInputError.Visibility = Visibility.Visible;
                 }
                 if (string.IsNullOrEmpty(ExePath))
                 {
-                    appExeInputError.Visibility = Visibility.Visible;
+                    PathInputError.Visibility = Visibility.Visible;
                 }
             }
             return false;
         }
+
     }
 }

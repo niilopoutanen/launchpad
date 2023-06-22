@@ -15,8 +15,15 @@ namespace LaunchPadCore
         public string? IconFileName { get; set; }
         public int ID { get; set; }
         public int Position { get; set; }
+        public AppTypes AppType { get; set; }
 
-        public AppShortcut(string name, string exeUri, string? iconFileName)
+        public enum AppTypes
+        {
+            EXE,
+            URL
+        }
+
+        public AppShortcut(string name, string exeUri, string? iconFileName, AppTypes appType)
         {
             Name = name;
             ExeUri = exeUri;
@@ -26,6 +33,7 @@ namespace LaunchPadCore
             }
             ID = GetId();
             Position = GetPosition();
+            AppType = appType;
         }
         public AppShortcut() { }
 
@@ -64,6 +72,11 @@ namespace LaunchPadCore
 
         public static ImageSource GetIcon(AppShortcut app)
         {
+            if(app.AppType == AppTypes.URL)
+            {
+                //App is a webpage
+                return null;
+            }
             if (app.IconFileName == null)
             {
                 Icon appIcon = Icon.ExtractAssociatedIcon(app.ExeUri);
