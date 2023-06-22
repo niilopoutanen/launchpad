@@ -31,11 +31,8 @@ namespace LaunchPad
             };
             HandleKeyboard(this);
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Launch(object sender, RoutedEventArgs e)
         {
-            var screenWorkingArea = SystemParameters.WorkArea;
-
             switch (preferences.SelectedAnimation)
             {
                 case AnimationTypes.Center:
@@ -44,10 +41,7 @@ namespace LaunchPad
                     break;
 
                 case AnimationTypes.SlideBottom:
-                    WindowStartupLocation = WindowStartupLocation.Manual;
-
-                    Left = (screenWorkingArea.Width - Width) / 2;
-                    Top = screenWorkingArea.Height - Height;
+                    PositionWindow(AnimationTypes.SlideBottom);
 
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideAnimation.From = new Thickness(0, launchPadRoot.ActualHeight, 0, 0);
@@ -56,10 +50,7 @@ namespace LaunchPad
                     break;
 
                 case AnimationTypes.SlideTop:
-                    WindowStartupLocation = WindowStartupLocation.Manual;
-
-                    Left = (screenWorkingArea.Width - Width) / 2;
-                    Top = 0;
+                    PositionWindow(AnimationTypes.SlideTop);
 
                     ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideTopAnimation.From = new Thickness(0, -launchPadRoot.ActualHeight, 0, 0);
@@ -71,38 +62,8 @@ namespace LaunchPad
 
         }
 
-        private void Window_Deactivated(object sender, EventArgs e)
+        public void Terminate()
         {
-            Window window = (Window)sender;
-            window.Topmost = true;
-        }
-        
-        private void LoadApps()
-        {
-
-            List<AppShortcut> apps = SaveSystem.LoadApps();
-            appContainer.MaxWidth = preferences.PreferredWidth;
-
-            if (apps.Count == 0)
-            {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.", CloseWithAnim);
-                items.Add(suggestion);
-                appContainer.Children.Add(suggestion);
-                return;
-            }
-            foreach (AppShortcut app in apps)
-            {
-                var icon = new Icon(app, CloseWithAnim);
-                items.Add(icon);
-                appContainer.Children.Add(icon);
-            }
-
-        }
-
-        public void CloseWithAnim()
-        {
-            var screenWorkingArea = System.Windows.SystemParameters.WorkArea;
-
             switch (preferences.SelectedAnimation)
             {
                 case AnimationTypes.Center:
@@ -115,10 +76,6 @@ namespace LaunchPad
                     break;
 
                 case AnimationTypes.SlideBottom:
-
-                    Left = (screenWorkingArea.Width - Width) / 2;
-                    Top = screenWorkingArea.Height - Height;
-
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
                     slideAnimation.To = new Thickness(0, launchPadRoot.ActualHeight + 20, 0, 0);
                     slideAnimation.Completed += (sender, e) =>
@@ -131,10 +88,6 @@ namespace LaunchPad
                     break;
 
                 case AnimationTypes.SlideTop:
-
-                    Left = (screenWorkingArea.Width - Width) / 2;
-                    Top = 0;
-
                     ThicknessAnimation slideAnimationTop = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
                     slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 120, 0, 0);
                     slideAnimationTop.Completed += (sender, e) =>
@@ -146,8 +99,58 @@ namespace LaunchPad
 
                     break;
             }
+        }
+        private void PositionWindow(AnimationTypes type)
+        {
+            var activeScreen = System.Windows.Forms.Screen.FromPoint(System.Windows.Forms.Cursor.Position);
+            var screenWorkingArea = activeScreen.WorkingArea;
+            var dpiScaleX = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
+            var dpiScaleY = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M22;
+
+
+            WindowStartupLocation = WindowStartupLocation.Manual;
+            Left = screenWorkingArea.Left / dpiScaleX + (screenWorkingArea.Width / dpiScaleX - Width) / 2;
+
+            switch (type)
+            {
+                case AnimationTypes.SlideTop:
+                    Top = screenWorkingArea.Top / dpiScaleY;
+                    break;
+                case AnimationTypes.SlideBottom:
+                    Top = screenWorkingArea.Top / dpiScaleY + (screenWorkingArea.Height / dpiScaleY - Height);
+                    break;
+            }
+        }
+
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+        }
+
+        private void LoadApps()
+        {
+
+            List<AppShortcut> apps = SaveSystem.LoadApps();
+            appContainer.MaxWidth = preferences.PreferredWidth;
+
+            if (apps.Count == 0)
+            {
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", Terminate);
+                items.Add(suggestion);
+                appContainer.Children.Add(suggestion);
+                return;
+            }
+            foreach (AppShortcut app in apps)
+            {
+                var icon = new Icon(app, Terminate);
+                items.Add(icon);
+                appContainer.Children.Add(icon);
+            }
 
         }
+
 
 
         private void SetTheme(ResourceDictionary resourceDictionary)
