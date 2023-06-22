@@ -136,7 +136,7 @@ namespace LaunchPad
                     Top = 0;
 
                     ThicknessAnimation slideAnimationTop = ((ThicknessAnimation)this.FindResource("LaunchPadSlideOut")).Clone();
-                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 100, 0, 0);
+                    slideAnimationTop.To = new Thickness(0, -launchPadRoot.ActualHeight - 120, 0, 0);
                     slideAnimationTop.Completed += (sender, e) =>
                     {
                         this.Close();

@@ -64,6 +64,18 @@ namespace LaunchPadConfigurator
                 preferences.FullSizeIcon = ((ToggleSwitch)s).IsOn;
                 SaveSystem.SavePreferences(preferences);
             };
+
+            AnimationComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.AnimationTypes));
+            AnimationComboBox.SelectedItem = preferences.SelectedAnimation;
+            AnimationComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                if (Enum.TryParse(AnimationComboBox.SelectedValue.ToString(), out UserPreferences.AnimationTypes selectedAnimation))
+                {
+                    preferences.SelectedAnimation = selectedAnimation;
+                    SaveSystem.SavePreferences(preferences);
+                }
+            };
         }
     }
 }
