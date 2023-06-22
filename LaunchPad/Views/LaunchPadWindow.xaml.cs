@@ -139,14 +139,14 @@ namespace LaunchPad
 
             if (apps.Count == 0)
             {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.", Terminate);
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.");
                 items.Add(suggestion);
                 appContainer.Children.Add(suggestion);
                 return;
             }
             foreach (AppShortcut app in apps)
             {
-                var icon = new Icon(app, Terminate);
+                var icon = new Icon(app);
                 items.Add(icon);
                 appContainer.Children.Add(icon);
             }

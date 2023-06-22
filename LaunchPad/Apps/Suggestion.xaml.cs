@@ -16,18 +16,16 @@ namespace LaunchPad.Apps
         public override bool Focused { get; set; }
 
         public override UIElement BaseElement { get => Container; }
-        public override Action CloseHander { get; set; }
 
-        public Suggestion(string text, Action closeHandler)
+        public Suggestion(string text)
         {
             InitializeComponent();
             SuggestionText.Text = text;
-            this.CloseHander = closeHandler;
 
             base.InitializeControl();
         }
 
-        public override Task OnClick(Action closeHandler)
+        public override Task OnClick()
         {
             return Task.Delay(1);
         }

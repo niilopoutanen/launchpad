@@ -16,14 +16,12 @@ namespace LaunchPad
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override UIElement BaseElement { get => appIcon; }
-        public override Action CloseHander { get; set; }
 
         private UserPreferences preferences;
 
-        public Icon(AppShortcut app, Action handler)
+        public Icon(AppShortcut app)
         {
             this.App = app;
-            this.CloseHander = handler;
             preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
             InitializeIcon();
@@ -65,7 +63,7 @@ namespace LaunchPad
 
         }
 
-        public override async Task OnClick(Action closeHandler)
+        public override async Task OnClick()
         {
             await Task.Run(() =>
             {
@@ -84,7 +82,7 @@ namespace LaunchPad
                     }
                 }
             });
-            closeHandler.Invoke();
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
 
         }
 

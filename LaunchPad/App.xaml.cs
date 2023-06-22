@@ -39,7 +39,7 @@ namespace LaunchPad
             
         }
 
-        private void ToggleLaunchpad()
+        public void ToggleLaunchpad()
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
             {

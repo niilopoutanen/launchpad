@@ -16,7 +16,6 @@ namespace LaunchPadCore
         public abstract bool Focused { get; set; }
 
         public abstract UIElement BaseElement { get; }
-        public abstract Action CloseHander { get; set; }
 
 
         public void InitializeControl()
@@ -108,7 +107,7 @@ namespace LaunchPadCore
                 if (!animationCompleted)
                 {
                     animationCompleted = true;
-                    await OnClick(CloseHander);
+                    await OnClick();
                 }
             };
 
@@ -116,7 +115,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public abstract Task OnClick(Action closeHandler);
+        public abstract Task OnClick();
 
         public abstract void SetTheme(ResourceDictionary activeDictionary);
 
