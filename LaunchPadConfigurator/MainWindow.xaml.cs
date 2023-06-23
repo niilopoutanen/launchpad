@@ -18,7 +18,8 @@ namespace LaunchPadConfigurator
             };
 
             Title = "LaunchPad settings";
-
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
             ChangeSelection(settingsMenu.MenuItems.FirstOrDefault() as NavigationViewItem);
         }
 

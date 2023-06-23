@@ -8,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SolidBackgroundFillColorBase}">
+    <StackPanel Orientation="Vertical" Background="{ThemeResource SolidBackgroundFillColorBase}">
+        <Grid x:Name="AppTitleBar" Height="30" Background="Transparent"/>
+        
         <NavigationView
             Name="settingsMenu"
             Header="LaunchPad Settings"
@@ -46,6 +48,7 @@
             </Frame>
         </NavigationView>
 
-    </Grid>
+    </StackPanel>
+
 
 </Window>

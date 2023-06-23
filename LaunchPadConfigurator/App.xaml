@@ -9,6 +9,9 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
+            <StaticResource x:Key="WindowCaptionBackground" ResourceKey="ApplicationPageBackgroundThemeBrush" />
+            <StaticResource x:Key="WindowCaptionBackgroundDisabled" ResourceKey="ApplicationPageBackgroundThemeBrush" />
+            
             <Style x:Key="StackPanelCardStyle" TargetType="StackPanel">
                 <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
