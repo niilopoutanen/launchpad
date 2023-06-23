@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LaunchPadConfigurator;
+using LaunchPadCore;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
@@ -16,18 +18,23 @@ namespace LaunchPad
         {
             base.OnStartup(e);
 
+            EngageHotKey();
+            StartSystemTrayApp();
+        }
+        private void EngageHotKey()
+        {
+            UserPreferences preferences = SaveSystem.LoadPreferences();
             var hwndSource = new HwndSource(0, 0, 0, 0, 0, "LaunchPadCore", IntPtr.Zero);
             var hotKey = new HotKey(hwndSource)
             {
-                Key = Key.Tab,
-                ModifierKeys = HotKey.Modifiers.Shift
+                Key = preferences.Key,
+                ModifierKeys = preferences.Modifier
             };
 
             hotKey.HotKeyPressed += (s, e) =>
             {
                 ToggleLaunchpad();
             };
-            StartSystemTrayApp();
             try
             {
                 hotKey.Enabled = true;
@@ -36,9 +43,7 @@ namespace LaunchPad
             {
                 DisplayMessage("Error", "Could not register the hotkey. Most likely LaunchPad is already running.", ToolTipIcon.Info);
             }
-            
         }
-
         public void ToggleLaunchpad()
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
