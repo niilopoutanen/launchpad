@@ -26,7 +26,6 @@ namespace LaunchPadConfigurator.Views.Pages
         {
             GetLaunchPadStatus();
             versionNumber.Text = SaveSystem.launchPadVersion;
-            settingsVersionNumber.Text = SaveSystem.launchPadSettingsVersion;
 
 
             ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
