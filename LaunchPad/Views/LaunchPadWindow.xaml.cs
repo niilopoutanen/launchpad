@@ -124,8 +124,6 @@ namespace LaunchPad
             }
         }
 
-
-
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
@@ -185,9 +183,6 @@ namespace LaunchPad
             launchPadRoot.Background = backgroundColor;
 
         }
-
-
-
 
         private void HandleKeyboard(Window window)
         {

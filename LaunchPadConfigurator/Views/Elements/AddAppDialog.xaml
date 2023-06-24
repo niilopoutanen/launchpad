@@ -27,7 +27,8 @@
 
         <StackPanel Visibility="Collapsed" Orientation="Vertical" Name="URLInput">
             <TextBlock Margin="0,10,0,5">URL</TextBlock>
-            <TextBox Name="URLField"/>
+            <TextBox Name="URLField" PlaceholderText="www.google.com"/>
+            <TextBlock Margin="0,2,0,2">Use a full URL with www. at the start.</TextBlock>
         </StackPanel>
 
         <TextBlock Name="PathInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">Path cannot be empty.</TextBlock>

@@ -60,6 +60,12 @@ namespace LaunchPadConfigurator.Views.UIElements
             AppType = app.AppType;
             NameField.Text = AppName;
             AppTypeComboBox.SelectedItem = AppType;
+            if(AppType == AppShortcut.AppTypes.URL)
+            {
+                URLInput.Visibility = Visibility.Visible;
+                ExeInput.Visibility = Visibility.Collapsed;
+                URLField.Text = ExePath;
+            }
         }
 
         private async void IconPathProvided(object sender, RoutedEventArgs e)
