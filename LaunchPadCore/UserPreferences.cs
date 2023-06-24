@@ -75,5 +75,13 @@ namespace LaunchPadCore
             get { return key; }
             set { key = value; }
         }
+
+
+        private bool useSystemAccent = false;
+        public bool UseSystemAccent
+        {
+            get { return useSystemAccent; }
+            set { useSystemAccent = value; }
+        }
     }
 }

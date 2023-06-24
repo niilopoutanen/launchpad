@@ -56,6 +56,13 @@ namespace LaunchPadConfigurator
                 SaveSystem.SavePreferences(preferences);
             };
 
+            accentThemeToggle.IsOn = preferences.UseSystemAccent;
+            accentThemeToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.UseSystemAccent = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
 
             fullSizeIconToggle.IsOn = preferences.FullSizeIcon;
             fullSizeIconToggle.Toggled += (s, e) =>

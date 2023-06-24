@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Windows.UI.ViewManagement;
 using static LaunchPadCore.UserPreferences;
 
 namespace LaunchPad
@@ -157,6 +158,22 @@ namespace LaunchPad
 
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
+            if (preferences.UseSystemAccent)
+            {
+                var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
+                SolidColorBrush accentBrush = new SolidColorBrush(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
+                if (preferences.TransparentTheme)
+                {
+                    byte opacity = (byte)(accentColor.A * 0.4);
+                    accentBrush.Color = Color.FromArgb(opacity, accentBrush.Color.R, accentBrush.Color.G, accentBrush.Color.B);
+                }
+                launchPadRoot.Background = accentBrush;
+
+                return;
+            }
+
+
+
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
             launchPadRoot.Background = backgroundColor;

@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Windows.UI.Core;
 using Windows.System;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
