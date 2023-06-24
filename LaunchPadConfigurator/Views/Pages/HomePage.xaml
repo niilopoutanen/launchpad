@@ -42,6 +42,28 @@
                 
                 <Button Grid.Column="1" x:Name="launchPadManageButton">Start LaunchPad</Button>
             </Grid>
+
+            <TextBlock Margin="0,10,0,5" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Activation shortcut</TextBlock>
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <ComboBox>
+                        <ComboBox.Items>
+                            <TextBlock>Shift</TextBlock>
+                            <TextBlock>Ctrl</TextBlock>
+                            <TextBlock>Alt</TextBlock>
+                            <TextBlock>Win</TextBlock>
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="5">+</TextBlock>
+                    <ToggleButton>Tab</ToggleButton>
+                </StackPanel>
+
+                <Button Grid.Column="1">Edit</Button>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 

@@ -8,10 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Background="{ThemeResource SolidBackgroundFillColorBase}">
-        <Grid x:Name="AppTitleBar" Height="30" Background="Transparent"/>
-        
+    <Grid Background="{ThemeResource SolidBackgroundFillColorBase}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Height="30" Background="Transparent" Grid.Row="0" />
+
         <NavigationView
+            Grid.Row="1"
             Name="settingsMenu"
             Header="LaunchPad Settings"
             IsBackButtonVisible="Collapsed"
@@ -48,7 +54,7 @@
             </Frame>
         </NavigationView>
 
-    </StackPanel>
+    </Grid>
 
 
 </Window>
