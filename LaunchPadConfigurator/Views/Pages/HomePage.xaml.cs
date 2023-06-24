@@ -1,6 +1,12 @@
+using LaunchPadCore;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Diagnostics;
+using System.Windows.Input;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Windows.UI.Core;
+using Windows.System;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
@@ -8,8 +14,10 @@ namespace LaunchPadConfigurator.Views.Pages
     public sealed partial class HomePage : Page
     {
         private Process launchPadProcess;
+        private UserPreferences preferences;
         public HomePage()
         {
+            preferences = SaveSystem.LoadPreferences();
             this.InitializeComponent();
             this.InitializeElements();
 
@@ -19,6 +27,49 @@ namespace LaunchPadConfigurator.Views.Pages
             GetLaunchPadStatus();
             versionNumber.Text = SaveSystem.launchPadVersion;
             settingsVersionNumber.Text = SaveSystem.launchPadSettingsVersion;
+
+
+            ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
+            ModifierComboBox.SelectedItem = preferences.Modifier;
+            ModifierComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                if (Enum.TryParse(ModifierComboBox.SelectedValue.ToString(), out HotKey.Modifiers selectedModifier))
+                {
+                    preferences.Modifier = selectedModifier;
+                    SaveSystem.SavePreferences(preferences);
+                    RestartAlert.Visibility = Visibility.Visible;
+                }
+            };
+        }
+        private void ListenForKeyChange(object sender, RoutedEventArgs e)
+        {
+            Key keyPressed = Key.Tab;
+            ToggleButton btn = (ToggleButton)sender;
+
+            btn.KeyDown += (s, e) =>
+            {
+                keyPressed = KeyInterop.KeyFromVirtualKey((int)e.Key);
+
+                preferences.Key = keyPressed;
+                SaveSystem.SavePreferences(preferences);
+
+                btn.IsChecked = false;
+                btn.Content = keyPressed;
+            };
+            if (btn.IsChecked == true)
+            {
+                btn.Content = "Press a key";
+            }
+        }
+        private void RestoreHotkey()
+        {
+            preferences = SaveSystem.LoadPreferences();
+            preferences.Modifier = HotKey.Modifiers.Shift;
+            preferences.Key = Key.Tab;
+            SaveSystem.SavePreferences(preferences);
+            ModifierComboBox.SelectedItem = preferences.Modifier;
+
         }
         private void GetLaunchPadStatus()
         {
@@ -95,5 +146,6 @@ namespace LaunchPadConfigurator.Views.Pages
             {
             }
         }
+
     }
 }

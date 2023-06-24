@@ -50,16 +50,14 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <ComboBox>
-                        <ComboBox.Items>
-                            <TextBlock>Shift</TextBlock>
-                            <TextBlock>Ctrl</TextBlock>
-                            <TextBlock>Alt</TextBlock>
-                            <TextBlock>Win</TextBlock>
-                        </ComboBox.Items>
-                    </ComboBox>
+                    <ComboBox Name="ModifierComboBox"/>
+
                     <TextBlock VerticalAlignment="Center" Margin="5">+</TextBlock>
-                    <ToggleButton>Tab</ToggleButton>
+                    <ToggleButton Name="KeyButton" Margin="0,0,10,0" Click="ListenForKeyChange">Tab</ToggleButton>
+                    <TextBlock Visibility="Collapsed" Name="RestartAlert" VerticalAlignment="Center" 
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Text="Modifying the hotkey requires restarting LaunchPad."/>
+
                 </StackPanel>
 
                 <Button Grid.Column="1">Edit</Button>

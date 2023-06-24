@@ -27,7 +27,7 @@ namespace System.Windows.Input
         public enum Modifiers : int
         {
             Alt = 1,
-            Control = 2,
+            Ctrl = 2,
             Shift = 4,
             Win = 8
         }
