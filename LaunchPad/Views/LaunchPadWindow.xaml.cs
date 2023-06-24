@@ -158,6 +158,12 @@ namespace LaunchPad
 
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
+            foreach (LaunchPadItem item in appContainer.Children)
+            {
+                item.SetTheme(resourceDictionary);
+            }
+
+
             if (preferences.UseSystemAccent)
             {
                 var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
@@ -177,10 +183,7 @@ namespace LaunchPad
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
             launchPadRoot.Background = backgroundColor;
-            foreach (LaunchPadItem item in appContainer.Children)
-            {
-                item.SetTheme(resourceDictionary);
-            }
+
         }
 
 

@@ -47,8 +47,8 @@ namespace LaunchPad
             if (preferences.NameVisible)
             {
                 appName.Visibility = Visibility.Visible;
-                appIcon.Width = 70;
-                appIcon.Height = 70;
+                appIcon.Width = 80;
+                appIcon.Height = 80;
 
 
                 if (App.Name.Length > 13)
