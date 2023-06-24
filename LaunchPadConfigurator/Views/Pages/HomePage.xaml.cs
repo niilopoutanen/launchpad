@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Windows.UI.Core;
 using Windows.System;
+using System.Threading.Tasks;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
@@ -103,21 +104,28 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 launchPadStatus.Text = "LaunchPad is not currently running.";
                 launchPadManageButton.Content = "Start Launchpad";
-                launchPadManageButton.Click += (s, e) =>
+                launchPadManageButton.Click += async (s, e) =>
                 {
-                    TryStartLaunchPad();
+                    await TryStartLaunchPad();
                     GetLaunchPadStatus();
                 };
             }
         }
-        private static void TryStartLaunchPad()
+        private async Task TryStartLaunchPad()
         {
             try
             {
                 Process process = Process.Start(SaveSystem.LaunchPadExecutable);
                 if (process == null)
                 {
-                    throw new Exception("Process did not start");
+                    ContentDialog dialog = new ContentDialog();
+
+                    dialog.XamlRoot = this.XamlRoot;
+                    dialog.Title = "Could not start LaunchPad.";
+                    dialog.PrimaryButtonText = "Ok";
+                    dialog.DefaultButton = ContentDialogButton.Primary;
+
+                    var result = await dialog.ShowAsync();
                 }
             }
             catch (Exception)
