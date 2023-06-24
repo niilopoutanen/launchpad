@@ -11,6 +11,11 @@ namespace LaunchPadCore
 {
     public abstract class LaunchPadItem : System.Windows.Controls.UserControl
     {
+        public const float SIZE_FOCUS = 1.05f;
+        public const float SIZE_STATIC = 1f;
+        public const float SIZE_PRESSED = 0.9f;
+
+
         public abstract AppShortcut App { get; set; }
         public abstract bool Pressed { get; set; }
         public abstract bool Focused { get; set; }
@@ -46,9 +51,15 @@ namespace LaunchPadCore
                 return;
             }
             Focused = true;
-            var scaleTransformAndAnimation = GlobalAppActions.GetFocusEnterAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
+
+            ScaleTransform scaleTransform = new(SIZE_STATIC, SIZE_STATIC);
+
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = SIZE_FOCUS,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
             BaseElement.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
@@ -62,9 +73,14 @@ namespace LaunchPadCore
             }
             Focused = false;
 
-            var scaleTransformAndAnimation = GlobalAppActions.GetFocusLeaveAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
+
+            DoubleAnimation scaleAnimation = new DoubleAnimation
+            {
+                To = SIZE_STATIC,
+                Duration = TimeSpan.FromSeconds(0.1)
+            };
+
             BaseElement.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
@@ -78,9 +94,15 @@ namespace LaunchPadCore
                 return;
             }
             Pressed = true;
-            var scaleTransformAndAnimation = GlobalAppActions.GetPressAnim();
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            DoubleAnimation scaleAnimation = scaleTransformAndAnimation.Item2;
+
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+
+            DoubleAnimation scaleAnimation = new()
+            {
+                To = SIZE_PRESSED,
+                Duration = TimeSpan.FromSeconds(0.05)
+            };
+
 
             BaseElement.RenderTransform = scaleTransform;
 
@@ -95,9 +117,23 @@ namespace LaunchPadCore
             }
 
             Pressed = false;
-            var scaleTransformAndAnimation = GlobalAppActions.GetReleaseAnim(Focused);
-            ScaleTransform scaleTransform = scaleTransformAndAnimation.Item1;
-            var scaleAnimation = scaleTransformAndAnimation.Item2;
+
+            float finalValue = SIZE_STATIC;
+            if (Focused)
+            {
+                finalValue = SIZE_FOCUS;
+            }
+            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
+
+            DoubleAnimationUsingKeyFrames scaleAnimation = new DoubleAnimationUsingKeyFrames
+            {
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(SIZE_PRESSED, TimeSpan.Zero));
+
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue * 1.05, TimeSpan.FromSeconds(0.1)));
+            scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue, TimeSpan.FromSeconds(0.25)));
 
             BaseElement.RenderTransform = scaleTransform;
 
