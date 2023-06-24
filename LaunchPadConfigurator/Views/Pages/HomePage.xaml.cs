@@ -38,9 +38,10 @@ namespace LaunchPadConfigurator.Views.Pages
                 {
                     preferences.Modifier = selectedModifier;
                     SaveSystem.SavePreferences(preferences);
-                    RestartAlert.Visibility = Visibility.Visible;
                 }
             };
+
+            KeyButton.Content = preferences.Key;
         }
         private void ListenForKeyChange(object sender, RoutedEventArgs e)
         {
@@ -62,14 +63,14 @@ namespace LaunchPadConfigurator.Views.Pages
                 btn.Content = "Press a key";
             }
         }
-        private void RestoreHotkey()
+        private void RestoreHotkey(object sender, RoutedEventArgs e)
         {
             preferences = SaveSystem.LoadPreferences();
             preferences.Modifier = HotKey.Modifiers.Shift;
             preferences.Key = Key.Tab;
             SaveSystem.SavePreferences(preferences);
             ModifierComboBox.SelectedItem = preferences.Modifier;
-
+            KeyButton.Content = preferences.Key;
         }
         private void GetLaunchPadStatus()
         {

@@ -25,7 +25,7 @@ namespace LaunchPadConfigurator
 
         private void ChangeSelection(NavigationViewItem itemSelected)
         {
-            if (itemSelected == null | itemSelected.Tag == null)
+            if (itemSelected == null || itemSelected.Tag == null)
             {
                 return;
             }
