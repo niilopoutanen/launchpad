@@ -10,6 +10,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
     <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <Version>0.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
