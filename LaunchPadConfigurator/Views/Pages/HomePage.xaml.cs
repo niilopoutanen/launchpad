@@ -51,6 +51,10 @@ namespace LaunchPadConfigurator.Views.Pages
 
             btn.KeyDown += (s, e) =>
             {
+                if(btn.IsChecked == false)
+                {
+                    return;
+                }
                 keyPressed = KeyInterop.KeyFromVirtualKey((int)e.Key);
 
                 preferences.Key = keyPressed;
