@@ -2,6 +2,7 @@
 using LaunchPadCore;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -78,7 +79,14 @@ namespace LaunchPad
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
             notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
             {
-
+                try
+                {
+                    Process.Start(SaveSystem.LaunchPadConfigExecutable);
+                }
+                catch
+                {
+                    DisplayMessage("Error", "Could not start LaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
+                }
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>
             {
