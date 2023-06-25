@@ -94,7 +94,7 @@ namespace LaunchPadCore
                         {
                             return Browsers.Chrome;
                         }
-                        else if (progId.Contains("AppXq0fevzme2pys62n3e0fbqa7peapykr8v"))
+                        else if (progId.Contains("MSEdgeHTM"))
                         {
                             return Browsers.Edge;
                         }
