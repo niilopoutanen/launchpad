@@ -9,24 +9,38 @@
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
-    <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Assets\browser_brave.png" />
+    <None Remove="Resources\Assets\browser_chrome.png" />
+    <None Remove="Resources\Assets\browser_edge.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
     <None Remove="Resources\Fonts\Inter-Medium.ttf" />
+    <None Remove="Resources\Fonts\Inter-Regular.ttf" />
+    <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Assets\dashed_border.png">
+    <Resource Include="Resources\Assets\browser_brave.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Assets\icon.ico">
+    </Resource>
+    <Resource Include="Resources\Assets\browser_chrome.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_edge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\dashed_border.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -38,12 +52,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\Inter-Bold.ttf">
+    <Resource Include="Resources\Fonts\Inter-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Resource Include="Resources\Fonts\Inter-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
+    <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>

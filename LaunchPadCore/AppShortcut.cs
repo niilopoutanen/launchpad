@@ -1,4 +1,5 @@
 ﻿using LaunchPadConfigurator;
+using Microsoft.Win32;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -21,6 +22,13 @@ namespace LaunchPadCore
         {
             EXE,
             URL
+        }
+        private enum Browsers
+        {
+            Chrome,
+            Edge,
+            Brave,
+            None
         }
 
         public AppShortcut(string name, string exeUri, string? iconFileName, AppTypes appType)
@@ -69,13 +77,60 @@ namespace LaunchPadCore
             return usedValues.Last() + 1;
         }
 
+        static Browsers GetDefaultBrowser()
+        {
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
+            {
+                if (userChoiceKey != null)
+                {
+                    object progIdValue = userChoiceKey.GetValue("Progid");
 
+                    if (progIdValue != null)
+                    {
+                        string progId = progIdValue.ToString();
+
+                        if (progId.Contains("ChromeHTML"))
+                        {
+                            return Browsers.Chrome;
+                        }
+                        else if (progId.Contains("AppXq0fevzme2pys62n3e0fbqa7peapykr8v"))
+                        {
+                            return Browsers.Edge;
+                        }
+                        else if (progId.Contains("BraveHTML"))
+                        {
+                            return Browsers.Brave;
+                        }
+                    }
+                }
+            }
+
+            return Browsers.None; // Default if none found
+        }
         public static ImageSource GetIcon(AppShortcut app)
         {
             if(app.AppType == AppTypes.URL)
             {
-                //App is a webpage
-                return null;
+                string imagePath = string.Empty;
+
+                switch (GetDefaultBrowser())
+                {
+                    case Browsers.Chrome:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_chrome.png";
+                        break;
+
+                    case Browsers.Edge:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_edge.png";
+                        break;
+
+                    case Browsers.Brave:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_brave.png";
+                        break;
+                }
+
+                BitmapImage imageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+
+                return imageSource;
             }
             if (app.IconFileName == null)
             {

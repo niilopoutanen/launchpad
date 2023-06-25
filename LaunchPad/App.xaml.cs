@@ -58,9 +58,12 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
+            Uri iconUri = new Uri("pack://application:,,,/Resources/Assets/icon.ico");
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
+
             notifyIcon = new()
             {
-                Icon = new System.Drawing.Icon("Resources/Assets/icon.ico"),
+                Icon = new System.Drawing.Icon(iconStream),
                 Visible = true
             };
 
