@@ -16,6 +16,8 @@
     <None Remove="Resources\Assets\browser_brave.png" />
     <None Remove="Resources\Assets\browser_chrome.png" />
     <None Remove="Resources\Assets\browser_edge.png" />
+    <None Remove="Resources\Assets\browser_firefox.png" />
+    <None Remove="Resources\Assets\browser_none.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
     <None Remove="Resources\Fonts\Inter-Medium.ttf" />
@@ -33,6 +35,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Assets\browser_edge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_firefox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_none.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Assets\dashed_border.png">

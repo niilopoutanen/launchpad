@@ -28,6 +28,7 @@ namespace LaunchPadCore
             Chrome,
             Edge,
             Brave,
+            Firefox,
             None
         }
 
@@ -101,6 +102,10 @@ namespace LaunchPadCore
                         {
                             return Browsers.Brave;
                         }
+                        else if (progId.Contains("FirefoxHTML"))
+                        {
+                            return Browsers.Firefox;
+                        }
                     }
                 }
             }
@@ -125,6 +130,14 @@ namespace LaunchPadCore
 
                     case Browsers.Brave:
                         imagePath = "pack://application:,,,/Resources/Assets/browser_brave.png";
+                        break;
+
+                    case Browsers.Firefox:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_firefox.png";
+                        break;
+
+                    case Browsers.None:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_none.png";
                         break;
                 }
 
