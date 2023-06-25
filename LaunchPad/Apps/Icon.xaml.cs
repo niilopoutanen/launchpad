@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using Windows.UI.ViewManagement;
 
 namespace LaunchPad
@@ -35,7 +36,15 @@ namespace LaunchPad
 
         private void InitializeIcon()
         {
-            iconBitmap.Source = AppShortcut.GetIcon(App);
+            var icon = AppShortcut.GetIcon(App);
+            if(icon != null)
+            {
+                iconBitmap.Source = icon;
+            }
+            else
+            {
+                iconBitmap.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Assets/icon_null.png", UriKind.Absolute));
+            }
 
 
             if (preferences.FullSizeIcon)

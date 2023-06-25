@@ -20,6 +20,7 @@
     <None Remove="Resources\Assets\browser_firefox.png" />
     <None Remove="Resources\Assets\browser_none.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
+    <None Remove="Resources\Assets\icon_null.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
     <None Remove="Resources\Fonts\Inter-Medium.ttf" />
     <None Remove="Resources\Fonts\Inter-Regular.ttf" />
@@ -61,6 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Assets\icon_null.png" />
     <Resource Include="Resources\Fonts\Inter-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
