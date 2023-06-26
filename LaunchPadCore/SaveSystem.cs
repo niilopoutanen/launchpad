@@ -82,11 +82,13 @@ namespace LaunchPadConfigurator
                 }
                 catch
                 {
-                    //File most likely being used by LaunchPad
+                    string newFileName = Path.GetFileNameWithoutExtension(currentPath) + "(1)" + Path.GetExtension(currentPath);
+                    string newFilePath = Path.Combine(iconsDirectory, newFileName);
+                    File.Copy(currentPath, newFilePath, true);
                 }
             }
-
         }
+
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();
