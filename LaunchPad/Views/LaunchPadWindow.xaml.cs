@@ -138,7 +138,7 @@ namespace LaunchPad
 
             if (apps.Count == 0)
             {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.");
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", SaveSystem.LaunchPadConfigExecutable);
                 items.Add(suggestion);
                 appContainer.Children.Add(suggestion);
                 return;
