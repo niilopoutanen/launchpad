@@ -76,7 +76,14 @@ namespace LaunchPadConfigurator
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
             if (finalPath != currentPath)
             {
-                File.Copy(currentPath, finalPath, true);
+                try
+                {
+                    File.Copy(currentPath, finalPath, true);
+                }
+                catch
+                {
+                    //File most likely being used by LaunchPad
+                }
             }
 
         }
