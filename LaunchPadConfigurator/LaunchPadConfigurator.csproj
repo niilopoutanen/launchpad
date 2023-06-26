@@ -17,6 +17,7 @@
     <None Remove="Assets\Icons\icon_apps.png" />
     <None Remove="Assets\Icons\icon_general.png" />
     <None Remove="Assets\Icons\icon_github.png" />
+    <None Remove="Assets\Icons\icon_home.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />

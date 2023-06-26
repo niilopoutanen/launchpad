@@ -26,7 +26,11 @@
                 <SolidColorBrush x:Key="NavigationViewContentBackground"/>
             </NavigationView.Resources>
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Content="Home" Tag="Home"></NavigationViewItem>
+                <NavigationViewItem Content="Home" Tag="Home">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/Icons/icon_home.png" ShowAsMonochrome="False" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="General" Tag="General">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets/Icons/icon_general.png" ShowAsMonochrome="False" />
