@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Windows.UI.ViewManagement;
 using static LaunchPadCore.UserPreferences;
 
 namespace LaunchPad
@@ -123,8 +124,6 @@ namespace LaunchPad
             }
         }
 
-
-
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
@@ -139,14 +138,14 @@ namespace LaunchPad
 
             if (apps.Count == 0)
             {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.", Terminate);
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", SaveSystem.LaunchPadConfigExecutable);
                 items.Add(suggestion);
                 appContainer.Children.Add(suggestion);
                 return;
             }
             foreach (AppShortcut app in apps)
             {
-                var icon = new Icon(app, Terminate);
+                var icon = new Icon(app);
                 items.Add(icon);
                 appContainer.Children.Add(icon);
             }
@@ -157,17 +156,33 @@ namespace LaunchPad
 
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
-            SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
-
-            launchPadRoot.Background = backgroundColor;
             foreach (LaunchPadItem item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }
+
+
+            if (preferences.UseSystemAccent)
+            {
+                var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
+                SolidColorBrush accentBrush = new SolidColorBrush(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
+                if (preferences.TransparentTheme)
+                {
+                    byte opacity = (byte)(accentColor.A * 0.4);
+                    accentBrush.Color = Color.FromArgb(opacity, accentBrush.Color.R, accentBrush.Color.G, accentBrush.Color.B);
+                }
+                launchPadRoot.Background = accentBrush;
+
+                return;
+            }
+
+
+
+            SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
+
+            launchPadRoot.Background = backgroundColor;
+
         }
-
-
-
 
         private void HandleKeyboard(Window window)
         {

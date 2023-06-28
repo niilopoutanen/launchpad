@@ -10,37 +10,45 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-
-                <StackPanel Style="{StaticResource StackPanelCardStyle}" Margin="0,0,10,0" Orientation="Horizontal">
-                    <Image Source="/Assets/Icons/LaunchPad.ico" Margin="0,0,10,0" Height="60"/>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad:</TextBlock>
-                        <TextBlock Grid.Column="0" VerticalAlignment="Center" 
-                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           x:Name="versionNumber">v0.5.0</TextBlock>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Style="{StaticResource StackPanelCardStyle}" Orientation="Vertical">
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad settings:</TextBlock>
+            <StackPanel Margin="0,0,10,0" Orientation="Horizontal">
+                <Image Source="/Assets/Icons/LaunchPad.ico" Margin="0,0,30,0" Height="150"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="40" FontWeight="Bold">LaunchPad</TextBlock>
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" 
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           x:Name="settingsVersionNumber">v0.5.0</TextBlock>
+                           x:Name="versionNumber" FontSize="20">v0.5.0</TextBlock>
                 </StackPanel>
             </StackPanel>
-            
-            
+
+            <TextBlock Margin="0,10,0,5" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Status</TextBlock>
             <Grid Style="{StaticResource GridCardStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Column="0">
-                    <TextBlock>Status:</TextBlock>
-                    <TextBlock x:Name="launchPadStatus" Foreground="{ThemeResource TextFillColorSecondaryBrush}"></TextBlock>
-                </StackPanel>
-                
+                <TextBlock Grid.Column="0" x:Name="launchPadStatus" VerticalAlignment="Center"/>
+
                 <Button Grid.Column="1" x:Name="launchPadManageButton">Start LaunchPad</Button>
+            </Grid>
+
+            <TextBlock Margin="0,10,0,5" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Activation shortcut</TextBlock>
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <ComboBox Name="ModifierComboBox"/>
+
+                    <TextBlock VerticalAlignment="Center" Margin="5">+</TextBlock>
+                    <ToggleButton Name="KeyButton" Margin="0,0,10,0" Click="ListenForKeyChange">Tab</ToggleButton>
+                    <TextBlock Name="RestartAlert" VerticalAlignment="Center" 
+                               
+                               Text="Modifying the hotkey requires restarting LaunchPad."/>
+
+                </StackPanel>
+
+                <Button Grid.Column="1" Click="RestoreHotkey">Restore defaults</Button>
             </Grid>
         </StackPanel>
     </ScrollViewer>

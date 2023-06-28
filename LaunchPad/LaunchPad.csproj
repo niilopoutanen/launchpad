@@ -2,30 +2,56 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Company>Niilo Poutanen</Company>
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <Version>0.5.0</Version>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Assets\browser_brave.png" />
+    <None Remove="Resources\Assets\browser_chrome.png" />
+    <None Remove="Resources\Assets\browser_edge.png" />
+    <None Remove="Resources\Assets\browser_firefox.png" />
+    <None Remove="Resources\Assets\browser_none.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
+    <None Remove="Resources\Assets\icon_null.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
     <None Remove="Resources\Fonts\Inter-Medium.ttf" />
+    <None Remove="Resources\Fonts\Inter-Regular.ttf" />
+    <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Assets\dashed_border.png">
+    <Resource Include="Resources\Assets\browser_brave.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Assets\icon.ico">
+    </Resource>
+    <Resource Include="Resources\Assets\browser_chrome.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_edge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_firefox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\browser_none.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\dashed_border.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Assets\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,12 +63,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\Inter-Bold.ttf">
+    <Resource Include="Resources\Assets\icon_null.png" />
+    <Resource Include="Resources\Fonts\Inter-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Resource Include="Resources\Fonts\Inter-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
+    <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>

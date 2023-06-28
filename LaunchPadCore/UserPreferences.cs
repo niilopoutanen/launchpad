@@ -1,4 +1,6 @@
-﻿namespace LaunchPadCore
+﻿using System.Windows.Input;
+
+namespace LaunchPadCore
 {
     public class UserPreferences
     {
@@ -57,6 +59,29 @@
         {
             get { return selectedAnimation; }
             set { selectedAnimation = value; }
+        }
+
+
+        private HotKey.Modifiers modifier = HotKey.Modifiers.Shift;
+        public HotKey.Modifiers Modifier
+        {
+            get { return modifier; }
+            set { modifier = value; }
+        }
+
+        private Key key = Key.Tab;
+        public Key Key
+        {
+            get { return key; }
+            set { key = value; }
+        }
+
+
+        private bool useSystemAccent = false;
+        public bool UseSystemAccent
+        {
+            get { return useSystemAccent; }
+            set { useSystemAccent = value; }
         }
     }
 }

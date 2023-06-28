@@ -9,16 +9,28 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SolidBackgroundFillColorBase}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Height="30" Background="Transparent" Grid.Row="0" />
+
         <NavigationView
+            Grid.Row="1"
             Name="settingsMenu"
             Header="LaunchPad Settings"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False">
             <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SolidBackgroundFillColorBase}" />
+                <SolidColorBrush x:Key="NavigationViewContentBackground"/>
             </NavigationView.Resources>
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Content="Home" Tag="Home"></NavigationViewItem>
+                <NavigationViewItem Content="Home" Tag="Home">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/Icons/icon_home.png" ShowAsMonochrome="False" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="General" Tag="General">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets/Icons/icon_general.png" ShowAsMonochrome="False" />
@@ -37,7 +49,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.PaneFooter>
-            <Frame x:Name="ContentFrame" Padding="56,20,56,0" Background="{ThemeResource SolidBackgroundFillColorBase}">
+            <Frame x:Name="ContentFrame" Padding="56,20,56,0">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />
@@ -47,5 +59,6 @@
         </NavigationView>
 
     </Grid>
+
 
 </Window>

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LaunchPadConfigurator;
+using LaunchPadCore;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -16,18 +19,23 @@ namespace LaunchPad
         {
             base.OnStartup(e);
 
+            EngageHotKey();
+            StartSystemTrayApp();
+        }
+        private void EngageHotKey()
+        {
+            UserPreferences preferences = SaveSystem.LoadPreferences();
             var hwndSource = new HwndSource(0, 0, 0, 0, 0, "LaunchPadCore", IntPtr.Zero);
             var hotKey = new HotKey(hwndSource)
             {
-                Key = Key.Tab,
-                ModifierKeys = HotKey.Modifiers.Shift
+                Key = preferences.Key,
+                ModifierKeys = preferences.Modifier
             };
 
             hotKey.HotKeyPressed += (s, e) =>
             {
                 ToggleLaunchpad();
             };
-            StartSystemTrayApp();
             try
             {
                 hotKey.Enabled = true;
@@ -36,10 +44,8 @@ namespace LaunchPad
             {
                 DisplayMessage("Error", "Could not register the hotkey. Most likely LaunchPad is already running.", ToolTipIcon.Info);
             }
-            
         }
-
-        private void ToggleLaunchpad()
+        public void ToggleLaunchpad()
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
             {
@@ -53,9 +59,12 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
+            Uri iconUri = new Uri("pack://application:,,,/Resources/Assets/icon.ico");
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
+
             notifyIcon = new()
             {
-                Icon = new System.Drawing.Icon("Resources/Assets/icon.ico"),
+                Icon = new System.Drawing.Icon(iconStream),
                 Visible = true
             };
 
@@ -70,7 +79,14 @@ namespace LaunchPad
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
             notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
             {
-
+                try
+                {
+                    Process.Start(SaveSystem.LaunchPadConfigExecutable);
+                }
+                catch
+                {
+                    DisplayMessage("Error", "Could not start LaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
+                }
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>
             {

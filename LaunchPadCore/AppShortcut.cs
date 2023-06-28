@@ -1,4 +1,5 @@
 ﻿using LaunchPadConfigurator;
+using Microsoft.Win32;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -15,8 +16,23 @@ namespace LaunchPadCore
         public string? IconFileName { get; set; }
         public int ID { get; set; }
         public int Position { get; set; }
+        public AppTypes AppType { get; set; }
 
-        public AppShortcut(string name, string exeUri, string? iconFileName)
+        public enum AppTypes
+        {
+            EXE,
+            URL
+        }
+        private enum Browsers
+        {
+            Chrome,
+            Edge,
+            Brave,
+            Firefox,
+            None
+        }
+
+        public AppShortcut(string name, string exeUri, string? iconFileName, AppTypes appType)
         {
             Name = name;
             ExeUri = exeUri;
@@ -26,6 +42,7 @@ namespace LaunchPadCore
             }
             ID = GetId();
             Position = GetPosition();
+            AppType = appType;
         }
         public AppShortcut() { }
 
@@ -61,9 +78,73 @@ namespace LaunchPadCore
             return usedValues.Last() + 1;
         }
 
+        static Browsers GetDefaultBrowser()
+        {
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
+            {
+                if (userChoiceKey != null)
+                {
+                    object progIdValue = userChoiceKey.GetValue("Progid");
 
+                    if (progIdValue != null)
+                    {
+                        string progId = progIdValue.ToString();
+
+                        if (progId.Contains("ChromeHTML"))
+                        {
+                            return Browsers.Chrome;
+                        }
+                        else if (progId.Contains("MSEdgeHTM"))
+                        {
+                            return Browsers.Edge;
+                        }
+                        else if (progId.Contains("BraveHTML"))
+                        {
+                            return Browsers.Brave;
+                        }
+                        else if (progId.Contains("FirefoxHTML"))
+                        {
+                            return Browsers.Firefox;
+                        }
+                    }
+                }
+            }
+
+            return Browsers.None; // Default if none found
+        }
         public static ImageSource GetIcon(AppShortcut app)
         {
+            if(app.AppType == AppTypes.URL)
+            {
+                string imagePath = string.Empty;
+
+                switch (GetDefaultBrowser())
+                {
+                    case Browsers.Chrome:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_chrome.png";
+                        break;
+
+                    case Browsers.Edge:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_edge.png";
+                        break;
+
+                    case Browsers.Brave:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_brave.png";
+                        break;
+
+                    case Browsers.Firefox:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_firefox.png";
+                        break;
+
+                    case Browsers.None:
+                        imagePath = "pack://application:,,,/Resources/Assets/browser_none.png";
+                        break;
+                }
+
+                BitmapImage imageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+
+                return imageSource;
+            }
             if (app.IconFileName == null)
             {
                 Icon appIcon = Icon.ExtractAssociatedIcon(app.ExeUri);

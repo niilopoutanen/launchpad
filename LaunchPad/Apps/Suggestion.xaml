@@ -18,7 +18,7 @@
             </Style>
         </Border.Style>
         <Border.Background>
-            <ImageBrush ImageSource="/Resources/Assets/dashed_border.png"/>
+            <ImageBrush ImageSource="pack://application:,,,/Resources/Assets/dashed_border.png"/>
         </Border.Background>
         <TextBlock Name="SuggestionText" TextWrapping="Wrap"
                    TextAlignment="Center" VerticalAlignment="Center"

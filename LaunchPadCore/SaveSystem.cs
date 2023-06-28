@@ -9,14 +9,14 @@ namespace LaunchPadConfigurator
     public class SaveSystem
     {
         public const string launchPadVersion = "v0.5.0";
-        public const string launchPadSettingsVersion = "v0.5.0";
 
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         private static readonly string preferences = Path.Combine(saveFileLocation, "LaunchPad.prefs");
 
-        public static readonly string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "LaunchPad.exe");
+        public static readonly string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "App", "LaunchPad.exe");
+        public static readonly string LaunchPadConfigExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad","Configurator", "LaunchPadConfigurator.exe");
 
         public static void SaveApps(List<AppShortcut> apps)
         {
@@ -76,10 +76,19 @@ namespace LaunchPadConfigurator
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
             if (finalPath != currentPath)
             {
-                File.Copy(currentPath, finalPath, true);
+                try
+                {
+                    File.Copy(currentPath, finalPath, true);
+                }
+                catch
+                {
+                    string newFileName = Path.GetFileNameWithoutExtension(currentPath) + "(1)" + Path.GetExtension(currentPath);
+                    string newFilePath = Path.Combine(iconsDirectory, newFileName);
+                    File.Copy(currentPath, newFilePath, true);
+                }
             }
-
         }
+
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();

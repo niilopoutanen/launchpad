@@ -59,8 +59,9 @@ namespace LaunchPadConfigurator
                     string name = dialogContent.AppName;
                     string exepath = dialogContent.ExePath;
                     string iconpath = dialogContent.IconPath;
+                    AppShortcut.AppTypes appType = dialogContent.AppType;
 
-                    AppShortcut app = new(name, exepath, iconpath);
+                    AppShortcut app = new(name, exepath, iconpath, appType);
                     SaveSystem.SaveApp(app);
                     RefreshAppList();
                 }
@@ -84,6 +85,7 @@ namespace LaunchPadConfigurator
                         string name = dialogContent.AppName;
                         string exepath = dialogContent.ExePath;
                         string iconpath = dialogContent.IconPath;
+                        AppShortcut.AppTypes appType = dialogContent.AppType;
 
                         List<AppShortcut> existingApps = SaveSystem.LoadApps();
                         foreach (AppShortcut appToCheck in existingApps)
@@ -94,7 +96,7 @@ namespace LaunchPadConfigurator
                                 break;
                             }
                         }
-                        AppShortcut app = new(name, exepath, iconpath)
+                        AppShortcut app = new(name, exepath, iconpath, appType)
                         {
                             Position = existingApp.Position,
                             ID = existingApp.ID

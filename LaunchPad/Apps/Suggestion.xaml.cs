@@ -1,8 +1,11 @@
-﻿using LaunchPadCore;
+﻿using LaunchPadConfigurator;
+using LaunchPadCore;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -16,20 +19,36 @@ namespace LaunchPad.Apps
         public override bool Focused { get; set; }
 
         public override UIElement BaseElement { get => Container; }
-        public override Action CloseHander { get; set; }
 
-        public Suggestion(string text, Action closeHandler)
+        private string actionPath;
+        public Suggestion(string text, string actionPath)
         {
             InitializeComponent();
             SuggestionText.Text = text;
-            this.CloseHander = closeHandler;
-
+            this.actionPath = actionPath;
             base.InitializeControl();
         }
 
-        public override Task OnClick(Action closeHandler)
+        public override async Task OnClick()
         {
-            return Task.Delay(1);
+            await Task.Run(() =>
+            {
+                try
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = actionPath;
+                    process.StartInfo.UseShellExecute = true;
+                    process.Start();
+                }
+                catch (Exception)
+                {
+                    if (System.Windows.Application.Current is App hostApp)
+                    {
+                        hostApp.DisplayMessage("Error", "Configurator could not be opened. Make sure LaunchPad is installed correctly.", ToolTipIcon.Error);
+                    }
+                }
+            });
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
         }
 
 

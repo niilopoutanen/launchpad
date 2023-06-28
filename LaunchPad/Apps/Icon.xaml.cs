@@ -2,11 +2,14 @@
 using LaunchPadCore;
 using System;
 using System.Diagnostics;
+using System.Runtime;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using Windows.UI.ViewManagement;
 
 namespace LaunchPad
 {
@@ -16,14 +19,12 @@ namespace LaunchPad
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override UIElement BaseElement { get => appIcon; }
-        public override Action CloseHander { get; set; }
 
         private UserPreferences preferences;
 
-        public Icon(AppShortcut app, Action handler)
+        public Icon(AppShortcut app)
         {
             this.App = app;
-            this.CloseHander = handler;
             preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
             InitializeIcon();
@@ -35,7 +36,15 @@ namespace LaunchPad
 
         private void InitializeIcon()
         {
-            iconBitmap.Source = AppShortcut.GetIcon(App);
+            var icon = AppShortcut.GetIcon(App);
+            if(icon != null)
+            {
+                iconBitmap.Source = icon;
+            }
+            else
+            {
+                iconBitmap.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Assets/icon_null.png", UriKind.Absolute));
+            }
 
 
             if (preferences.FullSizeIcon)
@@ -47,8 +56,8 @@ namespace LaunchPad
             if (preferences.NameVisible)
             {
                 appName.Visibility = Visibility.Visible;
-                appIcon.Width = 70;
-                appIcon.Height = 70;
+                appIcon.Width = 80;
+                appIcon.Height = 80;
 
 
                 if (App.Name.Length > 13)
@@ -65,7 +74,7 @@ namespace LaunchPad
 
         }
 
-        public override async Task OnClick(Action closeHandler)
+        public override async Task OnClick()
         {
             await Task.Run(() =>
             {
@@ -84,7 +93,7 @@ namespace LaunchPad
                     }
                 }
             });
-            closeHandler.Invoke();
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
 
         }
 

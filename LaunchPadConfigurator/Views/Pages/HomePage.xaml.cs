@@ -1,6 +1,14 @@
+using LaunchPadCore;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Diagnostics;
+using System.Windows.Input;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Windows.UI.Core;
+using Windows.System;
+using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
@@ -8,8 +16,10 @@ namespace LaunchPadConfigurator.Views.Pages
     public sealed partial class HomePage : Page
     {
         private Process launchPadProcess;
+        private UserPreferences preferences;
         public HomePage()
         {
+            preferences = SaveSystem.LoadPreferences();
             this.InitializeComponent();
             this.InitializeElements();
 
@@ -18,7 +28,54 @@ namespace LaunchPadConfigurator.Views.Pages
         {
             GetLaunchPadStatus();
             versionNumber.Text = SaveSystem.launchPadVersion;
-            settingsVersionNumber.Text = SaveSystem.launchPadSettingsVersion;
+
+
+            ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
+            ModifierComboBox.SelectedItem = preferences.Modifier;
+            ModifierComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                if (Enum.TryParse(ModifierComboBox.SelectedValue.ToString(), out HotKey.Modifiers selectedModifier))
+                {
+                    preferences.Modifier = selectedModifier;
+                    SaveSystem.SavePreferences(preferences);
+                }
+            };
+
+            KeyButton.Content = preferences.Key;
+        }
+        private void ListenForKeyChange(object sender, RoutedEventArgs e)
+        {
+            Key keyPressed = Key.Tab;
+            ToggleButton btn = (ToggleButton)sender;
+
+            btn.KeyDown += (s, e) =>
+            {
+                if(btn.IsChecked == false)
+                {
+                    return;
+                }
+                keyPressed = KeyInterop.KeyFromVirtualKey((int)e.Key);
+
+                preferences.Key = keyPressed;
+                SaveSystem.SavePreferences(preferences);
+
+                btn.IsChecked = false;
+                btn.Content = keyPressed;
+            };
+            if (btn.IsChecked == true)
+            {
+                btn.Content = "Press a key";
+            }
+        }
+        private void RestoreHotkey(object sender, RoutedEventArgs e)
+        {
+            preferences = SaveSystem.LoadPreferences();
+            preferences.Modifier = HotKey.Modifiers.Shift;
+            preferences.Key = Key.Tab;
+            SaveSystem.SavePreferences(preferences);
+            ModifierComboBox.SelectedItem = preferences.Modifier;
+            KeyButton.Content = preferences.Key;
         }
         private void GetLaunchPadStatus()
         {
@@ -52,21 +109,28 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 launchPadStatus.Text = "LaunchPad is not currently running.";
                 launchPadManageButton.Content = "Start Launchpad";
-                launchPadManageButton.Click += (s, e) =>
+                launchPadManageButton.Click += async (s, e) =>
                 {
-                    TryStartLaunchPad();
+                    await TryStartLaunchPad();
                     GetLaunchPadStatus();
                 };
             }
         }
-        private static void TryStartLaunchPad()
+        private async Task TryStartLaunchPad()
         {
             try
             {
                 Process process = Process.Start(SaveSystem.LaunchPadExecutable);
                 if (process == null)
                 {
-                    throw new Exception("Process did not start");
+                    ContentDialog dialog = new ContentDialog();
+
+                    dialog.XamlRoot = this.XamlRoot;
+                    dialog.Title = "Could not start LaunchPad.";
+                    dialog.PrimaryButtonText = "Ok";
+                    dialog.DefaultButton = ContentDialogButton.Primary;
+
+                    var result = await dialog.ShowAsync();
                 }
             }
             catch (Exception)
@@ -95,5 +159,6 @@ namespace LaunchPadConfigurator.Views.Pages
             {
             }
         }
+
     }
 }

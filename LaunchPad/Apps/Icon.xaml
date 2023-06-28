@@ -38,7 +38,7 @@
 
         <TextBlock x:Name="appName" Visibility="Collapsed" Margin="0,5,0,0"
                    HorizontalAlignment="Center"
-                   FontSize="13" FontFamily="{StaticResource Inter}"
+                   FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
                    Foreground="{StaticResource LaunchPadTextColor}">App</TextBlock>
     </StackPanel>
 </LaunchPadCore:LaunchPadItem>
