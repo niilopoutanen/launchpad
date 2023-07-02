@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Windows.ApplicationModel;
 using System.Windows.Interop;
 
 namespace LaunchPad
@@ -77,11 +78,16 @@ namespace LaunchPad
             };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, async (s, e) =>
             {
                 try
                 {
-                    Process.Start(SaveSystem.LaunchPadConfigExecutable);
+                    Package package = Package.Current;
+
+                    var appListEntries = await package.GetAppListEntriesAsync();
+                    string path = System.IO.Path.Combine(appListEntries[0].AppInfo.Package.InstalledPath, "LaunchPadConfigurator", "LaunchPadConfigurator.exe");
+
+                    Process.Start(path);
                 }
                 catch
                 {

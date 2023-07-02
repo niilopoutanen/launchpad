@@ -10,13 +10,13 @@
   <Identity
     Name="1ebbc395-73dc-4302-b025-469cfa5bc701"
     Publisher="CN=niilo"
-    Version="1.0.0.0" />
+    Version="0.5.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="1ebbc395-73dc-4302-b025-469cfa5bc701" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>LaunchPadConfigurator</DisplayName>
-    <PublisherDisplayName>niilo</PublisherDisplayName>
+    <PublisherDisplayName>Niilo Poutanen</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="LaunchPadConfigurator"
-        Description="LaunchPadConfigurator"
+        DisplayName="LaunchPad Configurator"
+        Description="Settings menu for LaunchPad"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

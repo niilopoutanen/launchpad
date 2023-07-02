@@ -9,7 +9,8 @@
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
-    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>false</SelfContained>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
     <EnableMsixTooling>true</EnableMsixTooling>
     <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
     <UseWPF>False</UseWPF>
@@ -21,6 +22,7 @@
     <Product>LaunchPad Configurator</Product>
     <Description>Settings menu for LaunchPad</Description>
     <PackageIcon>Square44x44Logo.scale-200.png</PackageIcon>
+    <StartupObject>LaunchPadConfigurator.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AppsPage.xaml" />
