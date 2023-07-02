@@ -15,9 +15,6 @@ namespace LaunchPadConfigurator
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         private static readonly string preferences = Path.Combine(saveFileLocation, "LaunchPad.prefs");
 
-        public static readonly string LaunchPadExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad", "App", "LaunchPad.exe");
-        public static readonly string LaunchPadConfigExecutable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "NiiloPoutanen", "LaunchPad","Configurator", "LaunchPadConfigurator.exe");
-
         public static void SaveApps(List<AppShortcut> apps)
         {
             foreach (AppShortcut app in apps)

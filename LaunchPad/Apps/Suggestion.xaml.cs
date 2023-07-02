@@ -20,12 +20,12 @@ namespace LaunchPad.Apps
 
         public override UIElement BaseElement { get => Container; }
 
-        private string actionPath;
-        public Suggestion(string text, string actionPath)
+        private string appID;
+        public Suggestion(string text, string appID)
         {
             InitializeComponent();
             SuggestionText.Text = text;
-            this.actionPath = actionPath;
+            this.appID = appID;
             base.InitializeControl();
         }
 
@@ -35,10 +35,7 @@ namespace LaunchPad.Apps
             {
                 try
                 {
-                    Process process = new Process();
-                    process.StartInfo.FileName = actionPath;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
+                    Process.Start("explorer.exe", "shell:appsfolder\\" + appID);
                 }
                 catch (Exception)
                 {

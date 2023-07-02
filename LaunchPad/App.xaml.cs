@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Windows.ApplicationModel;
 using System.Windows.Interop;
+using Windows.System;
 
 namespace LaunchPad
 {
@@ -43,6 +45,7 @@ namespace LaunchPad
             catch (Win32Exception)
             {
                 DisplayMessage("Error", "Could not register the hotkey. Most likely LaunchPad is already running.", ToolTipIcon.Info);
+                System.Windows.Application.Current.Shutdown();
             }
         }
         public void ToggleLaunchpad()
@@ -77,15 +80,15 @@ namespace LaunchPad
             };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, async (s, e) =>
             {
                 try
                 {
-                    Process.Start(SaveSystem.LaunchPadConfigExecutable);
+                    Process.Start("explorer.exe", "shell:appsfolder\\1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 }
                 catch
                 {
-                    DisplayMessage("Error", "Could not start LaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
+                    DisplayMessage("Error", "Could not startLaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
                 }
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>
