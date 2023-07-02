@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using System.Windows.Interop;
+using Windows.System;
 
 namespace LaunchPad
 {
@@ -82,16 +83,11 @@ namespace LaunchPad
             {
                 try
                 {
-                    Package package = Package.Current;
-
-                    var appListEntries = await package.GetAppListEntriesAsync();
-                    string path = System.IO.Path.Combine(appListEntries[0].AppInfo.Package.InstalledPath, "LaunchPadConfigurator", "LaunchPadConfigurator.exe");
-
-                    Process.Start(path);
+                    Process.Start("explorer.exe", "shell:appsfolder\\1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 }
                 catch
                 {
-                    DisplayMessage("Error", "Could not start LaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
+                    DisplayMessage("Error", "Could not startLaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
                 }
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>

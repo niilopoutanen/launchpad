@@ -120,22 +120,19 @@ namespace LaunchPadConfigurator.Views.Pages
         {
             try
             {
-                Process process = Process.Start(SaveSystem.LaunchPadExecutable);
-                if (process == null)
-                {
-                    ContentDialog dialog = new ContentDialog();
-
-                    dialog.XamlRoot = this.XamlRoot;
-                    dialog.Title = "Could not start LaunchPad.";
-                    dialog.PrimaryButtonText = "Ok";
-                    dialog.DefaultButton = ContentDialogButton.Primary;
-
-                    var result = await dialog.ShowAsync();
-                }
+                Process.Start("explorer.exe", "shell:appsfolder\\923NiiloPoutanen.364392126B592_5y1c2t4szcgd8!App");
             }
             catch (Exception)
             {
+                ContentDialog dialog = new()
+                {
+                    XamlRoot = this.XamlRoot,
+                    Title = "Could not start LaunchPad.",
+                    PrimaryButtonText = "Ok",
+                    DefaultButton = ContentDialogButton.Primary
+                };
 
+                await dialog.ShowAsync();
             }
         }
         private void TryCloseLaunchPad()
