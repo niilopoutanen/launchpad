@@ -9,13 +9,13 @@ using Windows.UI.Core;
 using Windows.System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using System.Security.Policy;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
 
     public sealed partial class HomePage : Page
     {
-        private Process launchPadProcess;
         private UserPreferences preferences;
         public HomePage()
         {
@@ -91,7 +91,6 @@ namespace LaunchPadConfigurator.Views.Pages
                 if (process.MainModule.FileVersionInfo.CompanyName == publisher)
                 {
                     isRunning = true;
-                    launchPadProcess = process;
                     break;
                 }
             }
@@ -99,20 +98,20 @@ namespace LaunchPadConfigurator.Views.Pages
             if (isRunning)
             {
                 launchPadStatus.Text = "LaunchPad is currently running.";
-                launchPadManageButton.Content = "Close Launchpad";
-                launchPadManageButton.Click += (s, e) =>
-                {
-                    TryCloseLaunchPad();
-                };
+                launchPadManageButton.Visibility = Visibility.Collapsed;
             }
             else
             {
+                launchPadManageButton.Visibility = Visibility.Visible;
                 launchPadStatus.Text = "LaunchPad is not currently running.";
                 launchPadManageButton.Content = "Start Launchpad";
                 launchPadManageButton.Click += async (s, e) =>
                 {
+                    launchPadManageButton.IsEnabled = false;
                     await TryStartLaunchPad();
+                    await Task.Delay(500);
                     GetLaunchPadStatus();
+                    launchPadManageButton.IsEnabled = true;
                 };
             }
         }
@@ -134,27 +133,8 @@ namespace LaunchPadConfigurator.Views.Pages
 
                 await dialog.ShowAsync();
             }
-        }
-        private void TryCloseLaunchPad()
-        {
-            try
-            {
-                if (launchPadProcess != null)
-                {
-                    launchPadProcess.Kill();
-                    launchPadProcess.WaitForExit();
-                    launchPadProcess.Dispose();
-                    launchPadProcess = null;
-                    GetLaunchPadStatus();
-                }
-                else
-                {
-                    throw new Exception("Could not shut down the process");
-                }
-            }
-            catch (Exception)
-            {
-            }
+
+
         }
 
     }

@@ -45,6 +45,7 @@ namespace LaunchPad
             catch (Win32Exception)
             {
                 DisplayMessage("Error", "Could not register the hotkey. Most likely LaunchPad is already running.", ToolTipIcon.Info);
+                System.Windows.Application.Current.Shutdown();
             }
         }
         public void ToggleLaunchpad()
