@@ -34,6 +34,19 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
+            switch(BatteryLevel.Visibility)
+            {
+                case Visibility.Visible:
+                    BatteryLevel.Visibility = Visibility.Collapsed;
+                    BatteryCanvas.Visibility = Visibility.Visible;
+                    break;
+
+                case Visibility.Collapsed:
+                    BatteryCanvas.Visibility = Visibility.Collapsed;
+                    BatteryLevel.Visibility = Visibility.Visible;
+                    break;
+            }
+
             return Task.CompletedTask;
         }
 
@@ -56,8 +69,8 @@ namespace LaunchPad.Apps
             }
 
 
-            double levelWidth = 25 * (batteryLevel / 100.0);
-            RectangleGeometry levelGeometry = new RectangleGeometry(new Rect(3, 3, levelWidth, 10), 3, 3);
+            double levelWidth = 40 * (batteryLevel / 100.0);
+            RectangleGeometry levelGeometry = new RectangleGeometry(new Rect(3, 3, levelWidth, 18), 3, 3);
             Path levelPath = new Path();
             switch (batteryLevel)
             {
@@ -73,8 +86,8 @@ namespace LaunchPad.Apps
             }
 
             levelPath.Data = levelGeometry;
-            BatteryCanvas.Children.Add(levelPath);
-            BatteryLevel.Text = batteryLevel.ToString();
+            BatteryCanvas.Children.Insert(0,levelPath);
+            BatteryLevel.Text = batteryLevel.ToString() + "%";
         }
     }
 }
