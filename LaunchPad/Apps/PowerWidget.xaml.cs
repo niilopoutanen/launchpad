@@ -17,18 +17,13 @@ using System.Windows.Shapes;
 
 namespace LaunchPad.Apps
 {
-    public partial class PowerWidget : Widget
+    public partial class PowerWidget : LaunchPadItem
     {
         public PowerWidget()
         {
             InitializeComponent();
             base.InitializeControl();
         }
-        public override string WidgetName => "PowerWidget";
-        public override string Description => "Turns off the computer";
-        public override string IconPath => "Resources/Assets/Icons/PowerWidget.png";
-
-        public override bool Active { get; set; }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
 

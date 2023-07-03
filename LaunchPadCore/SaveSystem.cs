@@ -1,6 +1,7 @@
 ﻿using LaunchPadCore;
 using Microsoft.Win32;
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Windows;
 
@@ -11,7 +12,8 @@ namespace LaunchPadConfigurator
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
-        private static readonly string preferences = Path.Combine(saveFileLocation, "LaunchPad.prefs");
+        private static readonly string widgets = Path.Combine(saveFileLocation, "launchpad.widgets");
+        private static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
         public static void SaveApps(List<AppShortcut> apps)
         {
@@ -158,7 +160,47 @@ namespace LaunchPadConfigurator
 
             return new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
         }
+        public static List<Widget> LoadWidgets()
+        {
+            List<Widget> widgets = new();
 
+
+            EnsureSaveFolderExists();
+            if (File.Exists(SaveSystem.widgets))
+            {
+                string encodedString = File.ReadAllText(SaveSystem.widgets) ?? throw new FileLoadException("File is empty");
+                string jsonString = Encoding.UTF8.GetString(Convert.FromBase64String(encodedString));
+                widgets = JsonSerializer.Deserialize<List<Widget>>(jsonString);
+            }
+            else
+            {
+                Widget widget = new()
+                {
+                    WidgetName = "PowerWidget",
+                    Description = "Turns off the system"
+                };
+                widgets.Add(widget);
+                SaveWidgets(widgets);
+            }
+
+
+            return widgets;
+        }
+        public static void SaveWidgets(List<Widget> widgets)
+        {
+            if (widgets == null)
+            {
+                widgets = LoadWidgets();
+            }
+
+            string jsonString = JsonSerializer.Serialize(widgets);
+            string encodedString = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
+            EnsureSaveFolderExists();
+            using (StreamWriter streamWriter = new StreamWriter(SaveSystem.widgets))
+            {
+                streamWriter.Write(encodedString);
+            }
+        }
 
         private static bool IsLightTheme()
         {

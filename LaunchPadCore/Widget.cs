@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace LaunchPadCore
 {
-    public abstract class Widget : LaunchPadItem
+    public class Widget
     {
-        public abstract string WidgetName { get; }
-        public abstract string Description { get; }
-        public abstract string IconPath { get; }
-        public abstract bool Active { get; set; }
+        public string WidgetName { get; set; }
+        public string Description { get; set; }
+        public string IconPath { get; set; }
+        public bool Active { get; set; }
+        public Type ClassType { get; set; }
     }
 }

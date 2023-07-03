@@ -1,4 +1,3 @@
-using LaunchPadConfigurator.Views.Elements;
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -18,23 +17,26 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace LaunchPadConfigurator.Views.Pages
+namespace LaunchPadConfigurator.Views.Elements
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class WidgetsPage : Page
+    public sealed partial class WidgetListItem : UserControl
     {
-        List<Widget> widgets = new();
-        public WidgetsPage()
+        private Widget Widget { get; set; }
+        public WidgetListItem(Widget widget)
         {
             this.InitializeComponent();
-            widgets = SaveSystem.LoadWidgets();
-            foreach (Widget widget in widgets)
+            this.Widget = widget;
+
+            InitializeElement();
+        }
+        private void InitializeElement()
+        {
+            if (this.Widget == null) 
             {
-                WidgetListItem listItem = new(widget);
-                WidgetContainer.Children.Add(listItem);
+                return;
             }
+
+            WidgetName.Text = Widget.WidgetName;
         }
     }
 }
