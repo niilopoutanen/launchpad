@@ -37,12 +37,25 @@ namespace LaunchPadConfigurator.Views.Elements
             }
 
             WidgetName.Text = Widget.WidgetName;
-            WidgetActive.IsOn = Widget.Active;
-            WidgetActive.Toggled += (s, e) =>
+            WidgetDescription.Text = Widget.Description;
+            WidgetActive.Checked += (s, e) =>
             {
-                Widget.Active = ((ToggleSwitch)s).IsOn;
+                Widget.Active = true;
+                WidgetActive.Content = "Active";
                 SaveSystem.SaveWidget(Widget);
             };
+            WidgetActive.Unchecked += (s, e) =>
+            {
+                Widget.Active = false;
+                WidgetActive.Content = "Inactive";
+                SaveSystem.SaveWidget(Widget);
+            };
+            WidgetActive.IsChecked = Widget.Active;
+        }
+
+        private void WidgetActive_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

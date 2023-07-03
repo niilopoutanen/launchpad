@@ -77,6 +77,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Apps\BatteryWidget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -89,6 +92,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Apps\BatteryWidget.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

@@ -9,8 +9,8 @@
     mc:Ignorable="d">
 
     <ScrollViewer>
-        <StackPanel Name="WidgetContainer" Orientation="Vertical">
+        <VariableSizedWrapGrid Name="WidgetContainer" Orientation="Horizontal">
 
-        </StackPanel>
+        </VariableSizedWrapGrid>
     </ScrollViewer>
 </Page>

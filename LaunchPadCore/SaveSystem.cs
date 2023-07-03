@@ -182,7 +182,7 @@ namespace LaunchPadConfigurator
                 Widget widget_battery = new()
                 {
                     WidgetName = "BatteryWidget",
-                    Description = "Displays the battery level of your laptop"
+                    Description = "Displays your battery level"
                 };
                 widgets.Add(widget_power);
                 widgets.Add(widget_battery);
