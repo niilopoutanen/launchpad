@@ -10,7 +10,7 @@ namespace LaunchPadCore
     {
         public string WidgetName { get; set; }
         public string Description { get; set; }
-        public string IconPath { get; set; }
+        public string IconFile { get; set; }
         public bool Active { get; set; }
     }
 }

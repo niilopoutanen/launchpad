@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <StackPanel Orientation="Vertical" Margin="10" MaxWidth="180">
         <Border Width="150" Height="150" Background="#3a3a3a" CornerRadius="30">
-
+            <Image HorizontalAlignment="Stretch" Name="WidgetIcon"/>
         </Border>
         <TextBlock x:Name="WidgetName" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" FontWeight="Medium"/>
         <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Name="WidgetDescription" VerticalAlignment="Center" FontSize="12" Margin="0,0,0,10" HorizontalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>

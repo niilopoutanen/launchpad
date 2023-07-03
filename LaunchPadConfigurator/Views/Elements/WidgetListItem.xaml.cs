@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace LaunchPadConfigurator.Views.Elements
 {
@@ -38,6 +36,8 @@ namespace LaunchPadConfigurator.Views.Elements
 
             WidgetName.Text = Widget.WidgetName;
             WidgetDescription.Text = Widget.Description;
+            WidgetIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/Widgets/" + Widget.IconFile));
+
             WidgetActive.Checked += (s, e) =>
             {
                 Widget.Active = true;
@@ -51,11 +51,6 @@ namespace LaunchPadConfigurator.Views.Elements
                 SaveSystem.SaveWidget(Widget);
             };
             WidgetActive.IsChecked = Widget.Active;
-        }
-
-        private void WidgetActive_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
