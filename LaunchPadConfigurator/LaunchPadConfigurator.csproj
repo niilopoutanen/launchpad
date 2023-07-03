@@ -32,6 +32,7 @@
     <None Remove="Assets\Icons\icon_home.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="Assets\Widgets\widget_battery.jpg" />
+    <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Elements\WidgetListItem.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
@@ -102,6 +103,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_battery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_power.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

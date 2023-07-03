@@ -158,13 +158,13 @@ namespace LaunchPad
                 }
                 switch (widget.WidgetName)
                 {
-                    case "PowerWidget":
+                    case "Power":
                         var powerWidget = new PowerWidget();
                         items.Add(powerWidget);
                         appContainer.Children.Add(powerWidget);
                         break;
 
-                    case "BatteryWidget":
+                    case "Battery":
                         var batteryWidget = new BatteryWidget();
                         items.Add(batteryWidget);
                         appContainer.Children.Add(batteryWidget);

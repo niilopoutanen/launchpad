@@ -176,12 +176,13 @@ namespace LaunchPadConfigurator
             {
                 Widget widget_power = new()
                 {
-                    WidgetName = "PowerWidget",
-                    Description = "Turns off the system"
+                    WidgetName = "Power",
+                    Description = "Turns off the system",
+                    IconFile = "widget_power.jpg"
                 };
                 Widget widget_battery = new()
                 {
-                    WidgetName = "BatteryWidget",
+                    WidgetName = "Battery",
                     Description = "Displays your battery level",
                     IconFile = "widget_battery.jpg"
                 };

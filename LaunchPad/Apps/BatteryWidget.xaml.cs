@@ -52,11 +52,11 @@ namespace LaunchPad.Apps
                 Duration = new Duration(TimeSpan.FromSeconds(0.3))
             };
 
-            switch (BatteryLevel.Visibility)
+            switch (LevelText.Visibility)
             {
                 case Visibility.Visible:
-                    BatteryLevel.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
-                    BatteryLevel.Visibility = Visibility.Collapsed;
+                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                    LevelText.Visibility = Visibility.Collapsed;
                     BatteryCanvas.Visibility = Visibility.Visible;
                     BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
@@ -64,8 +64,8 @@ namespace LaunchPad.Apps
                 case Visibility.Collapsed:
                     BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     BatteryCanvas.Visibility = Visibility.Collapsed;
-                    BatteryLevel.Visibility = Visibility.Visible;
-                    BatteryLevel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    LevelText.Visibility = Visibility.Visible;
+                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
             }
 
@@ -82,7 +82,7 @@ namespace LaunchPad.Apps
                 return;
             }
             Container.Background = itemBackgroundColor;
-            BatteryLevel.Foreground = textColor;
+            LevelText.Foreground = textColor;
         }
 
         private int LoadBatteryLevel()
@@ -106,24 +106,20 @@ namespace LaunchPad.Apps
 
 
             double levelWidth = 38 * (batteryLevel / 100.0);
-            RectangleGeometry levelGeometry = new RectangleGeometry(new Rect(3, 3, levelWidth, 17), 3, 3);
-            Path levelPath = new Path();
+            BatteryLevel.Width = levelWidth;
             switch (batteryLevel)
             {
                 case < 20:
-                    levelPath.Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                     break;
                 case < 50:
-                    levelPath.Fill = new SolidColorBrush(Color.FromRgb(255, 204, 10));
+                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 204, 10));
                     break;
-                case < 100:
-                    levelPath.Fill = new SolidColorBrush(Color.FromRgb(101, 196, 102));
+                case < 101:
+                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(101, 196, 102));
                     break;
             }
-
-            levelPath.Data = levelGeometry;
-            BatteryCanvas.Children.Insert(0,levelPath);
-            BatteryLevel.Text = batteryLevel.ToString() + "%";
+            LevelText.Text = batteryLevel.ToString() + "%";
         }
     }
 }
