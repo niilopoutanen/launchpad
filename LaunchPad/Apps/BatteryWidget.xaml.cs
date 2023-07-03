@@ -15,6 +15,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Management;
+using System.Windows.Forms;
 
 namespace LaunchPad.Apps
 {
@@ -25,7 +27,7 @@ namespace LaunchPad.Apps
             InitializeComponent();
             base.InitializeControl();
 
-            SetBatteryLevel(70);
+            SetBatteryLevel(LoadBatteryLevel());
         }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -80,6 +82,14 @@ namespace LaunchPad.Apps
             }
             Container.Background = itemBackgroundColor;
         }
+
+        private int LoadBatteryLevel()
+        {
+            PowerStatus pwr = SystemInformation.PowerStatus;
+            float batteryLifePercent = pwr.BatteryLifePercent;
+            int batteryLevel = (int)(batteryLifePercent * 100 + 0.5f);
+            return Math.Clamp(batteryLevel, 0, 100);
+        }
         private void SetBatteryLevel(int batteryLevel)
         {
             if (batteryLevel < 0)
@@ -89,8 +99,8 @@ namespace LaunchPad.Apps
             }
 
 
-            double levelWidth = 40 * (batteryLevel / 100.0);
-            RectangleGeometry levelGeometry = new RectangleGeometry(new Rect(3, 3, levelWidth, 18), 3, 3);
+            double levelWidth = 38 * (batteryLevel / 100.0);
+            RectangleGeometry levelGeometry = new RectangleGeometry(new Rect(3, 3, levelWidth, 17), 3, 3);
             Path levelPath = new Path();
             switch (batteryLevel)
             {
