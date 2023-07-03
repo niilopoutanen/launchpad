@@ -12,6 +12,5 @@ namespace LaunchPadCore
         public string Description { get; set; }
         public string IconPath { get; set; }
         public bool Active { get; set; }
-        public Type ClassType { get; set; }
     }
 }

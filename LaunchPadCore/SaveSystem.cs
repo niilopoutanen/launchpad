@@ -174,12 +174,18 @@ namespace LaunchPadConfigurator
             }
             else
             {
-                Widget widget = new()
+                Widget widget_power = new()
                 {
                     WidgetName = "PowerWidget",
                     Description = "Turns off the system"
                 };
-                widgets.Add(widget);
+                Widget widget_battery = new()
+                {
+                    WidgetName = "BatteryWidget",
+                    Description = "Displays the battery level of your laptop"
+                };
+                widgets.Add(widget_power);
+                widgets.Add(widget_battery);
                 SaveWidgets(widgets);
             }
 
@@ -201,7 +207,26 @@ namespace LaunchPadConfigurator
                 streamWriter.Write(encodedString);
             }
         }
+        public static void SaveWidget(Widget widget)
+        {
+            EnsureSaveFolderExists();
+            List<Widget> existingWidgets = LoadWidgets();
 
+            Widget? existingWidget = existingWidgets.FirstOrDefault(a => a.WidgetName == widget.WidgetName);
+
+            if (existingWidget != null)
+            {
+                existingWidgets.Remove(existingWidget);
+                existingWidget.Active = widget.Active;
+                existingWidgets.Add(existingWidget);
+            }
+            else
+            {
+                existingWidgets.Add(widget);
+            }
+
+            SaveWidgets(existingWidgets);
+        }
         private static bool IsLightTheme()
         {
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");

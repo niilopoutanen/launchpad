@@ -8,7 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Name="WidgetName"></TextBlock>
+    <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" x:Name="WidgetName" VerticalAlignment="Center"/>
+
+        <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" Name="WidgetActive"/>
+
+
     </Grid>
 </UserControl>

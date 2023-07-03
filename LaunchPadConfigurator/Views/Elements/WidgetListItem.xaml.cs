@@ -37,6 +37,12 @@ namespace LaunchPadConfigurator.Views.Elements
             }
 
             WidgetName.Text = Widget.WidgetName;
+            WidgetActive.IsOn = Widget.Active;
+            WidgetActive.Toggled += (s, e) =>
+            {
+                Widget.Active = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SaveWidget(Widget);
+            };
         }
     }
 }
