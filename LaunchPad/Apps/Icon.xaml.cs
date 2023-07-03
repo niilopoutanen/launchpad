@@ -18,6 +18,7 @@ namespace LaunchPad
         public AppShortcut App { get; set; }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
+        public override bool WaitForAnim => true;
         public override UIElement BaseElement => appIcon;
 
         private UserPreferences preferences;

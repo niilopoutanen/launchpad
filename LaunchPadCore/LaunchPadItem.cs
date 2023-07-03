@@ -17,6 +17,7 @@ namespace LaunchPadCore
 
         public abstract bool Pressed { get; set; }
         public abstract bool Focused { get; set; }
+        public abstract bool WaitForAnim { get; }
 
         public abstract UIElement BaseElement { get; }
 
@@ -107,7 +108,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public virtual void OnRelease()
+        public virtual async void OnRelease()
         {
             if (!Pressed)
             {
@@ -135,15 +136,22 @@ namespace LaunchPadCore
 
             BaseElement.RenderTransform = scaleTransform;
 
-            bool animationCompleted = false;
-            scaleAnimation.Completed += async (s, e) =>
+            if(WaitForAnim)
             {
-                if (!animationCompleted)
+                bool animationCompleted = false;
+                scaleAnimation.Completed += async (s, e) =>
                 {
-                    animationCompleted = true;
-                    await OnClick();
-                }
-            };
+                    if (!animationCompleted)
+                    {
+                        animationCompleted = true;
+                        await OnClick();
+                    }
+                };
+            }
+            else
+            {
+                await OnClick();
+            }
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
