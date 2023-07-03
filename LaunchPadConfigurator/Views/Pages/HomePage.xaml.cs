@@ -10,6 +10,7 @@ using Windows.System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using System.Security.Policy;
+using Windows.ApplicationModel;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
@@ -27,8 +28,9 @@ namespace LaunchPadConfigurator.Views.Pages
         private void InitializeElements()
         {
             GetLaunchPadStatus();
-            versionNumber.Text = SaveSystem.launchPadVersion;
 
+            PackageVersion version = Package.Current.Id.Version;
+            versionNumber.Text = string.Format("v{0}.{1}.{2}", version.Major, version.Minor, version.Build);
 
             ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
             ModifierComboBox.SelectedItem = preferences.Modifier;
