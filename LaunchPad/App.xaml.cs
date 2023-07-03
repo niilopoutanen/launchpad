@@ -68,7 +68,8 @@ namespace LaunchPad
             notifyIcon = new()
             {
                 Icon = new System.Drawing.Icon(iconStream),
-                Visible = true
+                Visible = true,
+                Text = "LaunchPad"
             };
 
             notifyIcon.MouseClick += (sender, e) =>
