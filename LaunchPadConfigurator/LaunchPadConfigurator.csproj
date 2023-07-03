@@ -35,6 +35,7 @@
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Elements\AddAppDialog.xaml" />
     <None Remove="Views\Elements\AppListItem.xaml" />
+    <None Remove="Views\Pages\WidgetsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +105,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Views\Pages\WidgetsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Elements\AddAppDialog.xaml">

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LaunchPadConfigurator
+namespace LaunchPadConfigurator.Views.Pages
 {
     public sealed partial class AppsPage : Page
     {
