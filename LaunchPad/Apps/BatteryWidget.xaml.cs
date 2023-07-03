@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -35,16 +36,34 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
-            switch(BatteryLevel.Visibility)
+            DoubleAnimation fadeOutAnimation = new()
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            switch (BatteryLevel.Visibility)
             {
                 case Visibility.Visible:
+                    BatteryLevel.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     BatteryLevel.Visibility = Visibility.Collapsed;
                     BatteryCanvas.Visibility = Visibility.Visible;
+                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
 
                 case Visibility.Collapsed:
+                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     BatteryCanvas.Visibility = Visibility.Collapsed;
                     BatteryLevel.Visibility = Visibility.Visible;
+                    BatteryLevel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
             }
 
