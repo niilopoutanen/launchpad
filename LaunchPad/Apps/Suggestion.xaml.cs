@@ -14,11 +14,10 @@ namespace LaunchPad.Apps
 
     public partial class Suggestion : LaunchPadItem
     {
-        public override AppShortcut App { get; set; }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
 
-        public override UIElement BaseElement { get => Container; }
+        public override UIElement BaseElement  => Container;
 
         private string appID;
         public Suggestion(string text, string appID)

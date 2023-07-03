@@ -149,7 +149,7 @@ namespace LaunchPad
                 items.Add(icon);
                 appContainer.Children.Add(icon);
             }
-
+           
         }
 
 

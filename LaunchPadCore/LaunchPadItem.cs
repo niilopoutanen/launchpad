@@ -15,8 +15,6 @@ namespace LaunchPadCore
         public const float SIZE_STATIC = 1f;
         public const float SIZE_PRESSED = 0.9f;
 
-
-        public abstract AppShortcut App { get; set; }
         public abstract bool Pressed { get; set; }
         public abstract bool Focused { get; set; }
 
