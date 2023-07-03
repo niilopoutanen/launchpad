@@ -75,12 +75,14 @@ namespace LaunchPad.Apps
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
             SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
 
-            if (itemBackgroundColor == null)
+            if (itemBackgroundColor == null || textColor == null)
             {
                 return;
             }
             Container.Background = itemBackgroundColor;
+            BatteryLevel.Foreground = textColor;
         }
 
         private int LoadBatteryLevel()
@@ -92,6 +94,10 @@ namespace LaunchPad.Apps
         }
         private void SetBatteryLevel(int batteryLevel)
         {
+            if(SystemInformation.PowerStatus.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online)
+            {
+                BatteryCharging.Visibility = Visibility.Visible;
+            }
             if (batteryLevel < 0)
             {
                 BatteryCanvas.Visibility = Visibility.Hidden;
