@@ -34,10 +34,6 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
-            var shutdownProcess = new ProcessStartInfo("shutdown", "/s /t 0");
-            shutdownProcess.CreateNoWindow = true;
-            shutdownProcess.UseShellExecute = false;
-            Process.Start(shutdownProcess);
             return Task.CompletedTask;
         }
 

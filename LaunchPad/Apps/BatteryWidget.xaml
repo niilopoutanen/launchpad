@@ -5,8 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LaunchPad.Apps"
-             mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="80">
+             mc:Ignorable="d">
     <Border Name="Container" CornerRadius="17" Background="#181818" Width="80" Height="80" Margin="5">
         <Border.RenderTransform>
             <ScaleTransform />
