@@ -22,6 +22,7 @@
     <None Remove="Resources\Assets\browser_edge.png" />
     <None Remove="Resources\Assets\browser_firefox.png" />
     <None Remove="Resources\Assets\browser_none.png" />
+    <None Remove="Resources\Assets\clock.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
     <None Remove="Resources\Assets\icon_null.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
@@ -30,6 +31,10 @@
     <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Assets\clock.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,6 +83,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Apps\ClockWidget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Apps\DateWidget.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

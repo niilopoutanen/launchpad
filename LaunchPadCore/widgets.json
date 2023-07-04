@@ -16,5 +16,11 @@
     "Description": "Displays the current date",
     "IconFile": "widget_date.jpg",
     "ID": "dt_03"
+  },
+  {
+    "WidgetName": "Clock",
+    "Description": "Displays the current tme",
+    "IconFile": "widget_clock.jpg",
+    "ID": "clk_04"
   }
 ]

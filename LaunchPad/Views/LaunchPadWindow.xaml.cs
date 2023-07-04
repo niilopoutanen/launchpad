@@ -172,6 +172,11 @@ namespace LaunchPad
                         items.Add(dateWidget);
                         appContainer.Children.Add(dateWidget);
                         break;
+                    case "clk_04":
+                        var clockWidget = new ClockWidget();
+                        items.Add(clockWidget);
+                        appContainer.Children.Add(clockWidget);
+                        break;
                 }
             }
 

@@ -33,6 +33,7 @@
     <None Remove="Assets\Icons\icon_widgets.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="Assets\Widgets\widget_battery.jpg" />
+    <None Remove="Assets\Widgets\widget_clock.jpg" />
     <None Remove="Assets\Widgets\widget_date.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
