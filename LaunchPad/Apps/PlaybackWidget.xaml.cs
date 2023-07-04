@@ -39,30 +39,7 @@ namespace LaunchPad.Apps
         }
         public override Task OnClick()
         {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            switch (PlayButton.Visibility)
-            {
-                case Visibility.Visible:
-                    TogglePlayBack();
-                    PlayButton.Visibility = Visibility.Collapsed;
-                    PauseButton.Visibility = Visibility.Visible;
-                    PauseButton.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case Visibility.Collapsed:
-                    TogglePlayBack();
-                    PauseButton.Visibility = Visibility.Collapsed;
-                    PlayButton.Visibility = Visibility.Visible;
-                    PlayButton.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-
+            TogglePlayBack();
             return Task.CompletedTask;
         }
 
@@ -77,8 +54,7 @@ namespace LaunchPad.Apps
             }
             Container.Background = itemBackgroundColor;
             Name.Foreground = textColor;
-            PlayButton.Fill = textColor;
-            PauseButton.Fill = textColor;
+            PlaybackButton.Fill = textColor;
         }
 
 
