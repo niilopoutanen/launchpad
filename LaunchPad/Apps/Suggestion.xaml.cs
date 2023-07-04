@@ -3,10 +3,8 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
@@ -17,7 +15,7 @@ namespace LaunchPad.Apps
         public override bool Focused { get; set; }
         public override bool WaitForAnim => true;
 
-        public override UIElement BaseElement  => Container;
+        public override UIElement BaseElement => Container;
 
         private string appID;
         public Suggestion(string text, string appID)

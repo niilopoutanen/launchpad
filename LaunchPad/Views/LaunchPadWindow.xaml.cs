@@ -4,7 +4,6 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -138,7 +137,7 @@ namespace LaunchPad
 
             if (apps.Count == 0 && widgets.Count == 0)
             {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.","1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", "1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 items.Add(suggestion);
                 appContainer.Children.Add(suggestion);
                 return;
@@ -151,7 +150,7 @@ namespace LaunchPad
             }
             foreach (Widget widget in widgets)
             {
-                if(!widget.Active)
+                if (!widget.Active)
                 {
                     continue;
                 }

@@ -60,7 +60,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             AppType = app.AppType;
             NameField.Text = AppName;
             AppTypeComboBox.SelectedItem = AppType;
-            if(AppType == AppShortcut.AppTypes.URL)
+            if (AppType == AppShortcut.AppTypes.URL)
             {
                 URLInput.Visibility = Visibility.Visible;
                 ExeInput.Visibility = Visibility.Collapsed;
@@ -85,7 +85,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             if (file != null)
             {
                 IconPath = file.Path;
-               
+
             }
         }
         private async void ExePathProvided(object sender, RoutedEventArgs e)

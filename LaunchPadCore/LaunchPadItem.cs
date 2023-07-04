@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -64,7 +59,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public virtual void OnFocusLeave() 
+        public virtual void OnFocusLeave()
         {
             if (!Focused || Pressed)
             {
@@ -86,7 +81,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public virtual void OnPress() 
+        public virtual void OnPress()
         {
             if (Pressed)
             {
@@ -136,7 +131,7 @@ namespace LaunchPadCore
 
             BaseElement.RenderTransform = scaleTransform;
 
-            if(WaitForAnim)
+            if (WaitForAnim)
             {
                 bool animationCompleted = false;
                 scaleAnimation.Completed += async (s, e) =>

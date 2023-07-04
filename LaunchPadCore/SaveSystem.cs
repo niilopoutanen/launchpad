@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Windows;
 
@@ -179,7 +178,7 @@ namespace LaunchPadCore
             Dictionary<string, bool> activeDict = LoadPreferences().ActiveWidgets;
             foreach (Widget widget in widgets)
             {
-                foreach(string key in activeDict.Keys)
+                foreach (string key in activeDict.Keys)
                 {
                     if (widget.ID == key)
                     {

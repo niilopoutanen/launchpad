@@ -1,14 +1,11 @@
 ﻿using LaunchPadCore;
 using System;
 using System.Diagnostics;
-using System.Runtime;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using Windows.UI.ViewManagement;
 
 namespace LaunchPad
 {
@@ -37,7 +34,7 @@ namespace LaunchPad
         private void InitializeIcon()
         {
             var icon = AppShortcut.GetIcon(App);
-            if(icon != null)
+            if (icon != null)
             {
                 iconBitmap.Source = icon;
             }
