@@ -17,12 +17,12 @@
         </Border.Style>
         <Grid>
             <StackPanel Name="DatePanel" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Name="DateNumber" FontSize="40" TextAlignment="Center">12</TextBlock>
-                <TextBlock Name="DateName" FontSize="13" TextAlignment="Center">Fri</TextBlock>
+                <TextBlock Name="DateNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
+                <TextBlock Name="DateName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}"/>
             </StackPanel>
             <StackPanel Name="MonthPanel" Orientation="Vertical" VerticalAlignment="Center" Visibility="Collapsed">
-                <TextBlock Name="MonthNumber" FontSize="40" TextAlignment="Center">05</TextBlock>
-                <TextBlock Name="MonthName" FontSize="13" TextAlignment="Center">May</TextBlock>
+                <TextBlock Name="MonthNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
+                <TextBlock Name="MonthName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}"/>
             </StackPanel>
         </Grid>        
 
