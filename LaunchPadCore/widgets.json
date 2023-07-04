@@ -19,8 +19,14 @@
   },
   {
     "WidgetName": "Clock",
-    "Description": "Displays the current tme",
+    "Description": "Displays the current time",
     "IconFile": "widget_clock.jpg",
     "ID": "clk_04"
+  },
+  {
+    "WidgetName": "Playback",
+    "Description": "Controls system media playback",
+    "IconFile": "widget_playback.jpg",
+    "ID": "plbk_05"
   }
 ]

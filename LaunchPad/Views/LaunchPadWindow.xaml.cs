@@ -181,6 +181,11 @@ namespace LaunchPad
                         items.Add(clockWidget);
                         appContainer.Children.Add(clockWidget);
                         break;
+                    case "plbk_05":
+                        var playbackWidget = new PlaybackWidget();
+                        items.Add(playbackWidget);
+                        appContainer.Children.Add(playbackWidget);
+                        break;
                 }
             }
 

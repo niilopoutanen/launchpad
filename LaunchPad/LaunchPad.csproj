@@ -92,6 +92,9 @@
     <Compile Update="Apps\BatteryWidget.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Apps\PlaybackWidget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
