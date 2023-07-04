@@ -8,7 +8,7 @@
              mc:Ignorable="d">
     <StackPanel MaxWidth="100" Margin="5">
 
-        <Border Name="Container" CornerRadius="17" Background="#181818" Width="80" Height="80">
+        <Border Name="Container" CornerRadius="17" Background="#FFFFFF" Width="80" Height="80">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>
@@ -20,11 +20,11 @@
             <Grid>
                 <StackPanel Name="DatePanel" Orientation="Vertical" VerticalAlignment="Center">
                     <TextBlock Name="DateNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
-                    <TextBlock Name="DateName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}"/>
+                    <TextBlock Name="DateName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}" Foreground="#FF564C"/>
                 </StackPanel>
                 <StackPanel Name="MonthPanel" Orientation="Vertical" VerticalAlignment="Center" Visibility="Collapsed">
                     <TextBlock Name="MonthNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
-                    <TextBlock Name="MonthName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}"/>
+                    <TextBlock Name="MonthName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}" Foreground="#FF564C"/>
                 </StackPanel>
             </Grid>
 

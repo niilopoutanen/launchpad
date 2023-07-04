@@ -18,13 +18,13 @@ namespace LaunchPad.Apps
         public override UIElement BaseElement => Container;
 
         private readonly DispatcherTimer clock;
-
+        private readonly UserPreferences preferences;
         public ClockWidget()
         {
             InitializeComponent();
             base.InitializeControl();
-
-            if (SaveSystem.LoadPreferences().NameVisible)
+            preferences = SaveSystem.LoadPreferences();
+            if (preferences.NameVisible)
             {
                 Name.Visibility = Visibility.Visible;
                 Container.Width = 80;
@@ -94,9 +94,13 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            Container.Background = itemBackgroundColor;
+            if (!preferences.ThemedWidgets)
+            {
+                Container.Background = itemBackgroundColor;
+                TimeText.Foreground = textColor;
+            }
+            
             Name.Foreground = textColor;
-            TimeText.Foreground = textColor;
         }
     }
 }

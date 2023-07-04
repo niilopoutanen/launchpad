@@ -83,6 +83,14 @@ namespace LaunchPadConfigurator.Views.Pages
                     SaveSystem.SavePreferences(preferences);
                 }
             };
+
+            themedWidgetsToggle.IsOn = preferences.ThemedWidgets;
+            themedWidgetsToggle.Toggled += (s, e) =>
+            {
+                preferences = SaveSystem.LoadPreferences();
+                preferences.ThemedWidgets = ((ToggleSwitch)s).IsOn;
+                SaveSystem.SavePreferences(preferences);
+            };
         }
     }
 }

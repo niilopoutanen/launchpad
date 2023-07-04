@@ -25,12 +25,14 @@ namespace LaunchPad.Apps
         public override bool WaitForAnim => false;
 
         public override UIElement BaseElement => Container;
-
+        private readonly UserPreferences preferences;
         public PlaybackWidget()
         {
             InitializeComponent();
             base.InitializeControl();
-            if (SaveSystem.LoadPreferences().NameVisible)
+            preferences = SaveSystem.LoadPreferences();
+
+            if (preferences.NameVisible)
             {
                 Name.Visibility = Visibility.Visible;
                 Container.Width = 80;
@@ -52,9 +54,12 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            Container.Background = itemBackgroundColor;
+            if (!preferences.ThemedWidgets)
+            {
+                Container.Background = itemBackgroundColor;
+                PlaybackButton.Fill = textColor;
+            }
             Name.Foreground = textColor;
-            PlaybackButton.Fill = textColor;
         }
 
 

@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:LaunchPad.Apps"
              mc:Ignorable="d">
     <StackPanel MaxWidth="100" Margin="5">
-        <Border Name="Container" CornerRadius="17" Background="#181818" Width="80" Height="80">
+        <Border Name="Container" CornerRadius="17" Background="#FF453A" Width="80" Height="80">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>
@@ -23,7 +23,7 @@
                     </Canvas>
                 </Viewbox>
 
-                <TextBlock Name="PowerConfirmation" Visibility="Collapsed" TextWrapping="Wrap" FontFamily="{StaticResource Inter}" TextAlignment="Center" VerticalAlignment="Center" FontSize="17">Press again to confirm</TextBlock>
+                <TextBlock Name="PowerConfirmation" Visibility="Collapsed" TextWrapping="Wrap" FontFamily="{StaticResource Inter}" TextAlignment="Center" VerticalAlignment="Center" FontSize="17" Foreground="White">Press again to confirm</TextBlock>
             </Grid>
 
         </Border>

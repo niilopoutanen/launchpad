@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace LaunchPad.Apps
 {
@@ -15,14 +16,14 @@ namespace LaunchPad.Apps
         public override bool WaitForAnim => false;
 
         public override UIElement BaseElement => Container;
-
+        private UserPreferences preferences;
         public BatteryWidget()
         {
             InitializeComponent();
             base.InitializeControl();
-
+            preferences = SaveSystem.LoadPreferences();
             SetBatteryLevel(LoadBatteryLevel());
-            if (SaveSystem.LoadPreferences().NameVisible)
+            if (preferences.NameVisible)
             {
                 Name.Visibility = Visibility.Visible;
                 Container.Width = 80;
@@ -66,8 +67,11 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            Container.Background = itemBackgroundColor;
-            LevelText.Foreground = textColor;
+            if (!preferences.ThemedWidgets)
+            {
+                Container.Background = itemBackgroundColor;
+                LevelText.Foreground = textColor;
+            }
             Name.Foreground = textColor;
         }
 
@@ -91,20 +95,29 @@ namespace LaunchPad.Apps
             }
 
 
-            double levelWidth = 38 * (batteryLevel / 100.0);
+            double levelWidth = 35.5 * (batteryLevel / 100.0);
             BatteryLevel.Width = levelWidth;
-            switch (batteryLevel)
+            if (preferences.ThemedWidgets)
             {
-                case < 20:
-                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                    break;
-                case < 50:
-                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 204, 10));
-                    break;
-                case < 101:
-                    BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(101, 196, 102));
-                    break;
+                BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
+            else
+            {
+                switch (batteryLevel)
+                {
+                    case < 20:
+                        BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                        break;
+                    case < 50:
+                        BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(255, 204, 10));
+                        break;
+                    case < 101:
+                        BatteryLevel.Background = new SolidColorBrush(Color.FromRgb(101, 196, 102));
+                        break;
+                }
+                ((Path)BatteryCharging.Children[0]).StrokeThickness = 0;
+            }
+
             LevelText.Text = batteryLevel.ToString() + "%";
         }
     }
