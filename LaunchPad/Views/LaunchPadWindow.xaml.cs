@@ -133,9 +133,19 @@ namespace LaunchPad
 
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = SaveSystem.LoadWidgets();
+            int activeWidgetCount = 0;
+            Dictionary<string, bool> activeWidgets = SaveSystem.LoadPreferences().ActiveWidgets;
+            foreach(bool value in activeWidgets.Values)
+            {
+                if(value)
+                {
+                    activeWidgetCount++;
+                }
+                
+            }
             appContainer.MaxWidth = preferences.PreferredWidth;
 
-            if (apps.Count == 0 && widgets.Count == 0)
+            if (apps.Count == 0 && activeWidgetCount == 0)
             {
                 var suggestion = new Suggestion("No apps added. Open configurator to add some.", "1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 items.Add(suggestion);
