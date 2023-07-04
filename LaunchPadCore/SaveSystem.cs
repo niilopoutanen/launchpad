@@ -1,11 +1,11 @@
-﻿using LaunchPadCore;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
 
-namespace LaunchPadConfigurator
+namespace LaunchPadCore
 {
     public class SaveSystem
     {
@@ -164,70 +164,66 @@ namespace LaunchPadConfigurator
         {
             List<Widget> widgets = new();
 
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string resourceName = "LaunchPadCore.widgets.json";
 
-            EnsureSaveFolderExists();
-            if (File.Exists(SaveSystem.widgets))
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
-                string encodedString = File.ReadAllText(SaveSystem.widgets) ?? throw new FileLoadException("File is empty");
-                string jsonString = Encoding.UTF8.GetString(Convert.FromBase64String(encodedString));
-                widgets = JsonSerializer.Deserialize<List<Widget>>(jsonString);
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string jsonContent = reader.ReadToEnd();
+                    // Do something with the JSON content
+                    widgets = JsonSerializer.Deserialize<List<Widget>>(jsonContent);
+                }
             }
-            else
+            Dictionary<string, bool> activeDict = LoadPreferences().ActiveWidgets;
+            foreach (Widget widget in widgets)
             {
-                Widget widget_power = new()
+                foreach(string key in activeDict.Keys)
                 {
-                    WidgetName = "Power",
-                    Description = "Turns off the system",
-                    IconFile = "widget_power.jpg"
-                };
-                Widget widget_battery = new()
-                {
-                    WidgetName = "Battery",
-                    Description = "Displays your battery level",
-                    IconFile = "widget_battery.jpg"
-                };
-                widgets.Add(widget_power);
-                widgets.Add(widget_battery);
-                SaveWidgets(widgets);
+                    if (widget.ID == key)
+                    {
+                        widget.Active = activeDict[key];
+                        break;
+                    }
+                }
             }
-
-
             return widgets;
         }
         public static void SaveWidgets(List<Widget> widgets)
         {
+            UserPreferences preferences = LoadPreferences();
+            Dictionary<string, bool> activeWidgets = new();
             if (widgets == null)
             {
                 widgets = LoadWidgets();
             }
-
-            string jsonString = JsonSerializer.Serialize(widgets);
-            string encodedString = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
-            EnsureSaveFolderExists();
-            using (StreamWriter streamWriter = new StreamWriter(SaveSystem.widgets))
+            foreach (Widget widget in widgets)
             {
-                streamWriter.Write(encodedString);
+                activeWidgets.Add(widget.ID, widget.Active);
             }
+            preferences.ActiveWidgets = activeWidgets;
+            SavePreferences(preferences);
         }
         public static void SaveWidget(Widget widget)
         {
             EnsureSaveFolderExists();
-            List<Widget> existingWidgets = LoadWidgets();
+            List<Widget> widgets = LoadWidgets();
 
-            Widget? existingWidget = existingWidgets.FirstOrDefault(a => a.WidgetName == widget.WidgetName);
+            Widget? existingWidget = widgets.FirstOrDefault(a => a.WidgetName == widget.WidgetName);
 
             if (existingWidget != null)
             {
-                existingWidgets.Remove(existingWidget);
+                widgets.Remove(existingWidget);
                 existingWidget.Active = widget.Active;
-                existingWidgets.Add(existingWidget);
+                widgets.Add(existingWidget);
             }
             else
             {
-                existingWidgets.Add(widget);
+                widgets.Add(widget);
             }
 
-            SaveWidgets(existingWidgets);
+            SaveWidgets(widgets);
         }
         private static bool IsLightTheme()
         {

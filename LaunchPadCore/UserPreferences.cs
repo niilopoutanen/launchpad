@@ -83,5 +83,7 @@ namespace LaunchPadCore
             get { return useSystemAccent; }
             set { useSystemAccent = value; }
         }
+
+        public Dictionary<string, bool>? ActiveWidgets { get; set; }
     }
 }

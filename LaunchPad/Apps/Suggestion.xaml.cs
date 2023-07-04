@@ -1,5 +1,4 @@
-﻿using LaunchPadConfigurator;
-using LaunchPadCore;
+﻿using LaunchPadCore;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;

@@ -1,5 +1,4 @@
 ﻿using LaunchPad.Apps;
-using LaunchPadConfigurator;
 using LaunchPadCore;
 using Microsoft.Win32;
 using System;
