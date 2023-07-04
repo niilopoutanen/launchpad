@@ -26,7 +26,7 @@ namespace LaunchPadConfigurator.Views.Pages
             widgets = SaveSystem.LoadWidgets();
             foreach (Widget widget in widgets)
             {
-                WidgetListItem listItem = new(widget);
+                WidgetGalleryItem listItem = new(widget);
                 WidgetContainer.Children.Add(listItem);
             }
         }

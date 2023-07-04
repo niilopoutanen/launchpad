@@ -17,10 +17,10 @@ using Windows.Foundation.Collections;
 
 namespace LaunchPadConfigurator.Views.Elements
 {
-    public sealed partial class WidgetListItem : UserControl
+    public sealed partial class WidgetGalleryItem : UserControl
     {
         private Widget Widget { get; set; }
-        public WidgetListItem(Widget widget)
+        public WidgetGalleryItem(Widget widget)
         {
             this.InitializeComponent();
             this.Widget = widget;

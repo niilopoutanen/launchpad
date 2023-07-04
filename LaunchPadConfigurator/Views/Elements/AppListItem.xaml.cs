@@ -12,6 +12,7 @@ namespace LaunchPadConfigurator.Views.UIElements
     public sealed partial class AppListItem : UserControl
     {
         public AppShortcut App { get; set; }
+        public Widget Widget { get; set; }
 
         private readonly Action updateHandler;
 
@@ -19,11 +20,11 @@ namespace LaunchPadConfigurator.Views.UIElements
         {
             this.InitializeComponent();
             this.App = app;
-            appName.Text = App.Name;
+            Name.Text = App.Name;
             if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
             {
                 BitmapImage bitmapImage = new BitmapImage(validUri);
-                appIcon.Source = bitmapImage;
+                Icon.Source = bitmapImage;
             }
 
             this.updateHandler = updateHandler;
@@ -44,25 +45,53 @@ namespace LaunchPadConfigurator.Views.UIElements
                 updateHandler.Invoke();
             };
         }
+        public AppListItem(Widget widget, Action updateHandler)
+        {
+            this.InitializeComponent();
+            this.Widget = widget;
+            this.updateHandler = updateHandler;
+            Name.Text = Widget.WidgetName;
+            Icon.Source = new BitmapImage(new Uri("ms-appx:///Assets/Widgets/" + Widget.IconFile));
 
+
+            editButton.Visibility = Visibility.Collapsed;
+        }
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
-            List<AppShortcut> existingApps = SaveSystem.LoadApps();
-
-            int indexToRemove = existingApps.FindIndex(app => app.ID == App.ID);
-
-            if (indexToRemove != -1)
+            if(App != null)
             {
-                existingApps.RemoveAt(indexToRemove);
+                List<AppShortcut> existingApps = SaveSystem.LoadApps();
 
-                for (int i = indexToRemove; i < existingApps.Count; i++)
+                int indexToRemove = existingApps.FindIndex(app => app.ID == App.ID);
+
+                if (indexToRemove != -1)
                 {
-                    existingApps[i].Position--;
-                }
+                    existingApps.RemoveAt(indexToRemove);
 
-                SaveSystem.SaveApps(existingApps);
-                updateHandler.Invoke();
-                SaveSystem.DeleteUnusedIcons();
+                    for (int i = indexToRemove; i < existingApps.Count; i++)
+                    {
+                        existingApps[i].Position--;
+                    }
+
+                    SaveSystem.SaveApps(existingApps);
+                    updateHandler.Invoke();
+                    SaveSystem.DeleteUnusedIcons();
+                }
+            }
+            else if(Widget != null)
+            {
+                List<Widget> widgets = SaveSystem.LoadWidgets();
+
+                int indexToRemove = widgets.FindIndex(widget => widget.ID == Widget.ID);
+
+                if (indexToRemove != -1)
+                {
+                    UserPreferences preferences = SaveSystem.LoadPreferences();
+                    preferences.ActiveWidgets[Widget.ID] = false;
+
+                    SaveSystem.SavePreferences(preferences);
+                    updateHandler.Invoke();
+                }
             }
         }
 

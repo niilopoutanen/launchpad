@@ -36,7 +36,7 @@
     <None Remove="Assets\Widgets\widget_date.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
-    <None Remove="Views\Elements\WidgetListItem.xaml" />
+    <None Remove="Views\Elements\WidgetGalleryItem.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Elements\AddAppDialog.xaml" />
     <None Remove="Views\Elements\AppListItem.xaml" />
@@ -122,7 +122,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <Page Update="Views\Elements\WidgetListItem.xaml">
+    <Page Update="Views\Elements\WidgetGalleryItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Views\Pages\WidgetsPage.xaml">

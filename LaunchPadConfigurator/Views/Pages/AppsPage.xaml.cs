@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace LaunchPadConfigurator.Views.Pages
 {
@@ -30,6 +31,21 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 AppListItem listItem = new(app, RefreshAppList, ShowDialog);
                 appsList.Children.Add(listItem);
+            }
+
+            UserPreferences preferences = SaveSystem.LoadPreferences();
+            List<Widget> widgets = SaveSystem.LoadWidgets();
+            foreach (Widget widget in widgets)
+            {
+                foreach (string key in preferences.ActiveWidgets.Keys)
+                {
+                    if (widget.ID == key && preferences.ActiveWidgets[key] == true)
+                    {
+                        AppListItem widgetListItem = new(widget, RefreshAppList);
+                        appsList.Children.Add(widgetListItem);
+                        break;
+                    }
+                }
             }
         }
 
