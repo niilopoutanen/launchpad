@@ -43,7 +43,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Content="Widgets" Tag="Widgets">
                     <NavigationViewItem.Icon>
-                        <BitmapIcon UriSource="Assets/Icons/icon_apps.png" ShowAsMonochrome="False" />
+                        <BitmapIcon UriSource="Assets/Icons/icon_widgets.png" ShowAsMonochrome="False" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

@@ -30,8 +30,10 @@
     <None Remove="Assets\Icons\icon_general.png" />
     <None Remove="Assets\Icons\icon_github.png" />
     <None Remove="Assets\Icons\icon_home.png" />
+    <None Remove="Assets\Icons\icon_widgets.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="Assets\Widgets\widget_battery.jpg" />
+    <None Remove="Assets\Widgets\widget_date.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Elements\WidgetListItem.xaml" />
@@ -99,10 +101,16 @@
     <Content Update="Assets\Icons\icon_home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Icons\icon_widgets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Icons\LaunchPad.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_battery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_date.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_power.jpg">
