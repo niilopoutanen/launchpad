@@ -55,6 +55,8 @@ namespace LaunchPadConfigurator.Views.UIElements
 
 
             editButton.Visibility = Visibility.Collapsed;
+            posDown.Visibility = Visibility.Collapsed;
+            posUp.Visibility = Visibility.Collapsed;
         }
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
