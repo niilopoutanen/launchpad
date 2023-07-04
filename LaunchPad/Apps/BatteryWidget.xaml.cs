@@ -32,13 +32,6 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
-            DoubleAnimation fadeOutAnimation = new()
-            {
-                From = 1.0,
-                To = 0.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
             DoubleAnimation fadeInAnimation = new()
             {
                 From = 0.0,
@@ -49,14 +42,12 @@ namespace LaunchPad.Apps
             switch (LevelText.Visibility)
             {
                 case Visibility.Visible:
-                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     LevelText.Visibility = Visibility.Collapsed;
                     BatteryCanvas.Visibility = Visibility.Visible;
                     BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
 
                 case Visibility.Collapsed:
-                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     BatteryCanvas.Visibility = Visibility.Collapsed;
                     LevelText.Visibility = Visibility.Visible;
                     LevelText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);

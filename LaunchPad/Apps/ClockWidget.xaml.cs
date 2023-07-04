@@ -42,6 +42,27 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            switch (ClockCanvas.Visibility)
+            {
+                case Visibility.Visible:
+                    ClockCanvas.Visibility = Visibility.Collapsed;
+                    TimeText.Visibility = Visibility.Visible;
+                    TimeText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+
+                case Visibility.Collapsed:
+                    TimeText.Visibility = Visibility.Collapsed;
+                    ClockCanvas.Visibility = Visibility.Visible;
+                    ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+            }
             return Task.CompletedTask;
         }
         private void Clock_Tick(object sender, EventArgs e)
@@ -60,6 +81,8 @@ namespace LaunchPad.Apps
             HourHand.RenderTransform = new RotateTransform(hourAngle);
             MinuteHand.RenderTransform = new RotateTransform(minuteAngle);
             SecondHand.RenderTransform = new RotateTransform(secondAngle);
+
+            TimeText.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         public override void SetTheme(ResourceDictionary activeDictionary)
@@ -73,6 +96,7 @@ namespace LaunchPad.Apps
             }
             Container.Background = itemBackgroundColor;
             Name.Foreground = textColor;
+            TimeText.Foreground = textColor;
         }
     }
 }

@@ -16,27 +16,32 @@
                     <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
                 </Style>
             </Border.Style>
-            <Canvas Name="ClockCanvas">
-                <Image Width="67" Margin="7" Source="/Resources/Assets/clock.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Grid>
+                <Canvas Name="ClockCanvas">
+                    <Image Width="67" Margin="7" Source="/Resources/Assets/clock.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                <Line Stretch="Uniform" x:Name="HourHand"
+                    <Line Stretch="Uniform" x:Name="HourHand"
                       X1="40" Y1="40" X2="40" Y2="20"
                       Stroke="Black" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
                       Canvas.Left="39.5" Canvas.Top="39.5" RenderTransformOrigin="0.5,0.04"/>
 
 
-                <Line Stretch="Uniform" x:Name="MinuteHand"
+                    <Line Stretch="Uniform" x:Name="MinuteHand"
                       X1="40" Y1="40" X2="40" Y2="15"
                       Stroke="Black" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
                       Canvas.Left="39.5" Canvas.Top="39.5" RenderTransformOrigin="0.5,0.04"/>
 
 
-                <Line Stretch="Uniform" x:Name="SecondHand"
+                    <Line Stretch="Uniform" x:Name="SecondHand"
                       X1="40" Y1="40" X2="40" Y2="15"
                       Stroke="Orange" StrokeThickness="1" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
                       Canvas.Left="40" Canvas.Top="40" RenderTransformOrigin="0.5,0.02"/>
 
-            </Canvas>
+                </Canvas>
+                <TextBlock Name="TimeText" FontSize="18" Visibility="Collapsed"
+                           TextAlignment="Center"  VerticalAlignment="Center"
+                           FontFamily="{StaticResource Inter}" FontWeight="SemiBold"/>
+            </Grid>
 
 
         </Border>

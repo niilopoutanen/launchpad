@@ -29,13 +29,6 @@ namespace LaunchPad.Apps
         }
         public override Task OnClick()
         {
-            DoubleAnimation fadeOutAnimation = new()
-            {
-                From = 1.0,
-                To = 0.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
             DoubleAnimation fadeInAnimation = new()
             {
                 From = 0.0,
@@ -46,7 +39,6 @@ namespace LaunchPad.Apps
             switch (PowerButton.Visibility)
             {
                 case Visibility.Visible:
-                    PowerButton.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     PowerButton.Visibility = Visibility.Collapsed;
                     PowerConfirmation.Visibility = Visibility.Visible;
                     PowerConfirmation.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);

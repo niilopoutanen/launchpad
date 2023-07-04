@@ -32,13 +32,6 @@ namespace LaunchPad.Apps
 
         public override Task OnClick()
         {
-            DoubleAnimation fadeOutAnimation = new()
-            {
-                From = 1.0,
-                To = 0.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
             DoubleAnimation fadeInAnimation = new()
             {
                 From = 0.0,
@@ -49,14 +42,12 @@ namespace LaunchPad.Apps
             switch (DatePanel.Visibility)
             {
                 case Visibility.Visible:
-                    DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     DatePanel.Visibility = Visibility.Collapsed;
                     MonthPanel.Visibility = Visibility.Visible;
                     MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
 
                 case Visibility.Collapsed:
-                    MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
                     MonthPanel.Visibility = Visibility.Collapsed;
                     DatePanel.Visibility = Visibility.Visible;
                     DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
