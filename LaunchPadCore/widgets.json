@@ -25,7 +25,7 @@
   },
   {
     "WidgetName": "Playback",
-    "Description": "Controls system media playback",
+    "Description": "Controls media playback",
     "IconFile": "widget_playback.jpg",
     "ID": "plbk_05"
   }

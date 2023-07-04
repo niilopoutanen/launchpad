@@ -35,6 +35,7 @@
     <None Remove="Assets\Widgets\widget_battery.jpg" />
     <None Remove="Assets\Widgets\widget_clock.jpg" />
     <None Remove="Assets\Widgets\widget_date.jpg" />
+    <None Remove="Assets\Widgets\widget_playback.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Elements\WidgetGalleryItem.xaml" />
@@ -115,6 +116,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_date.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_playback.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_power.jpg">
