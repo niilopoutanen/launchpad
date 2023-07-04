@@ -3,6 +3,7 @@ using LaunchPadCore;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -133,16 +134,9 @@ namespace LaunchPad
 
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = SaveSystem.LoadWidgets();
-            int activeWidgetCount = 0;
-            Dictionary<string, bool> activeWidgets = SaveSystem.LoadPreferences().ActiveWidgets;
-            foreach(bool value in activeWidgets.Values)
-            {
-                if(value)
-                {
-                    activeWidgetCount++;
-                }
-                
-            }
+
+            int activeWidgetCount = SaveSystem.LoadPreferences().ActiveWidgets.Values.Count(value => value);
+
             appContainer.MaxWidth = preferences.PreferredWidth;
 
             if (apps.Count == 0 && activeWidgetCount == 0)
