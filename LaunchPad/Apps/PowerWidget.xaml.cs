@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,7 +22,7 @@ namespace LaunchPad.Apps
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
-        public override bool WaitForAnim => true;
+        public override bool WaitForAnim => false;
 
         public override UIElement BaseElement => Container;
 
@@ -38,10 +39,37 @@ namespace LaunchPad.Apps
         }
         public override Task OnClick()
         {
-            var shutdownProcess = new ProcessStartInfo("shutdown", "/s /t 0");
-            shutdownProcess.CreateNoWindow = true;
-            shutdownProcess.UseShellExecute = false;
-            Process.Start(shutdownProcess);
+            DoubleAnimation fadeOutAnimation = new()
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            switch (PowerButton.Visibility)
+            {
+                case Visibility.Visible:
+                    PowerButton.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                    PowerButton.Visibility = Visibility.Collapsed;
+                    PowerConfirmation.Visibility = Visibility.Visible;
+                    PowerConfirmation.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+
+                case Visibility.Collapsed:
+                    var shutdownProcess = new ProcessStartInfo("shutdown", "/s /t 0");
+                    shutdownProcess.CreateNoWindow = true;
+                    shutdownProcess.UseShellExecute = false;
+                    Process.Start(shutdownProcess);
+                    break;
+            }
+
             return Task.CompletedTask;
         }
 
@@ -56,6 +84,7 @@ namespace LaunchPad.Apps
             }
             Container.Background = itemBackgroundColor;
             Name.Foreground = textColor;
+            PowerConfirmation.Foreground = textColor;
         }
     }
 }
