@@ -24,10 +24,9 @@ namespace LaunchPad
         {
             this.App = app;
             InitializeComponent();
-            InitializeIcon();
-
             base.InitializeControl();
 
+            InitializeIcon();
         }
 
 
