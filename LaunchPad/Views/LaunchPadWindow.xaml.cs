@@ -109,7 +109,7 @@ namespace LaunchPad
 
 
             WindowStartupLocation = WindowStartupLocation.Manual;
-            Left = screenWorkingArea.Left / dpiScaleX + (screenWorkingArea.Width / dpiScaleX - Width) / 2;
+            Left = (screenWorkingArea.Left / dpiScaleX) + (((screenWorkingArea.Width / dpiScaleX) - Width) / 2);
 
             switch (type)
             {
@@ -117,7 +117,7 @@ namespace LaunchPad
                     Top = screenWorkingArea.Top / dpiScaleY;
                     break;
                 case AnimationTypes.SlideBottom:
-                    Top = (screenWorkingArea.Bottom - 20) / dpiScaleY - Height;
+                    Top = ((screenWorkingArea.Bottom - 20) / dpiScaleY) - Height;
                     break;
             }
         }
@@ -190,7 +190,7 @@ namespace LaunchPad
             if (preferences.UseSystemAccent)
             {
                 var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
-                SolidColorBrush accentBrush = new SolidColorBrush(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
+                SolidColorBrush accentBrush = new(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
                 if (preferences.TransparentTheme)
                 {
                     byte opacity = (byte)(accentColor.A * 0.4);

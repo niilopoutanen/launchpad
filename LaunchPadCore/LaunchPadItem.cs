@@ -48,7 +48,7 @@ namespace LaunchPadCore
 
             ScaleTransform scaleTransform = new(SIZE_STATIC, SIZE_STATIC);
 
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_FOCUS,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -67,9 +67,9 @@ namespace LaunchPadCore
             }
             Focused = false;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
+            ScaleTransform scaleTransform = new(SIZE_FOCUS, SIZE_FOCUS);
 
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_STATIC,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -89,7 +89,7 @@ namespace LaunchPadCore
             }
             Pressed = true;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            ScaleTransform scaleTransform = new(SIZE_STATIC, SIZE_STATIC);
 
             DoubleAnimation scaleAnimation = new()
             {
@@ -117,9 +117,9 @@ namespace LaunchPadCore
             {
                 finalValue = SIZE_FOCUS;
             }
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
+            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
 
-            DoubleAnimationUsingKeyFrames scaleAnimation = new DoubleAnimationUsingKeyFrames
+            DoubleAnimationUsingKeyFrames scaleAnimation = new()
             {
                 Duration = TimeSpan.FromSeconds(0.5)
             };

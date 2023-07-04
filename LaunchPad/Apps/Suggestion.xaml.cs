@@ -17,7 +17,7 @@ namespace LaunchPad.Apps
 
         public override UIElement BaseElement => Container;
 
-        private string appID;
+        private readonly string appID;
         public Suggestion(string text, string appID)
         {
             InitializeComponent();

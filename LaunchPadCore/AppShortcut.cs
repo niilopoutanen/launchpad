@@ -140,7 +140,7 @@ namespace LaunchPadCore
                         break;
                 }
 
-                BitmapImage imageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                BitmapImage imageSource = new(new Uri(imagePath, UriKind.Absolute));
 
                 return imageSource;
             }

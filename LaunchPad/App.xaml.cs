@@ -59,7 +59,7 @@ namespace LaunchPad
         }
         private void StartSystemTrayApp()
         {
-            Uri iconUri = new Uri("pack://application:,,,/Resources/Assets/icon.ico");
+            Uri iconUri = new("pack://application:,,,/Resources/Assets/icon.ico");
             System.IO.Stream iconStream = GetResourceStream(iconUri).Stream;
 
             notifyIcon = new()

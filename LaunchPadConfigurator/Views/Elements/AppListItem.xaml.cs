@@ -23,7 +23,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             Name.Text = App.Name;
             if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
             {
-                BitmapImage bitmapImage = new BitmapImage(validUri);
+                BitmapImage bitmapImage = new(validUri);
                 Icon.Source = bitmapImage;
             }
 

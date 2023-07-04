@@ -37,7 +37,7 @@ namespace LaunchPadCore
             }
             string jsonString = JsonSerializer.Serialize(apps);
             EnsureSaveFolderExists();
-            using (StreamWriter streamWriter = new StreamWriter(SaveSystem.apps))
+            using (StreamWriter streamWriter = new(SaveSystem.apps))
             {
                 streamWriter.Write(jsonString);
             }
@@ -168,7 +168,7 @@ namespace LaunchPadCore
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
-                using (StreamReader reader = new StreamReader(stream))
+                using (StreamReader reader = new(stream))
                 {
                     string jsonContent = reader.ReadToEnd();
                     // Do something with the JSON content

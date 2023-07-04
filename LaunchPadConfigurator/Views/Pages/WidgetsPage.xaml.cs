@@ -7,7 +7,7 @@ namespace LaunchPadConfigurator.Views.Pages
 {
     public sealed partial class WidgetsPage : Page
     {
-        List<Widget> widgets = new();
+        readonly List<Widget> widgets = new();
         public WidgetsPage()
         {
             this.InitializeComponent();

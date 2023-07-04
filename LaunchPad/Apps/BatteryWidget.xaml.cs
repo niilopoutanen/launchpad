@@ -84,7 +84,7 @@ namespace LaunchPad.Apps
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
             float batteryLifePercent = pwr.BatteryLifePercent;
-            int batteryLevel = (int)(batteryLifePercent * 100 + 0.5f);
+            int batteryLevel = (int)((batteryLifePercent * 100) + 0.5f);
             return Math.Clamp(batteryLevel, 0, 100);
         }
         private void SetBatteryLevel(int batteryLevel)

@@ -17,7 +17,7 @@ namespace LaunchPad
         public override bool WaitForAnim => true;
         public override UIElement BaseElement => appIcon;
 
-        private UserPreferences preferences;
+        private readonly UserPreferences preferences;
 
         public Icon(AppShortcut app)
         {
@@ -77,7 +77,7 @@ namespace LaunchPad
             {
                 try
                 {
-                    Process process = new Process();
+                    Process process = new();
                     process.StartInfo.FileName = App.ExeUri;
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
