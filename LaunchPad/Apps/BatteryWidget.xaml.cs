@@ -22,19 +22,25 @@ namespace LaunchPad.Apps
 {
     public partial class BatteryWidget : LaunchPadItem
     {
-        public BatteryWidget()
-        {
-            InitializeComponent();
-            base.InitializeControl();
-
-            SetBatteryLevel(LoadBatteryLevel());
-        }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
 
         public override UIElement BaseElement => Container;
 
+        public BatteryWidget()
+        {
+            InitializeComponent();
+            base.InitializeControl();
+
+            SetBatteryLevel(LoadBatteryLevel());
+            if (SaveSystem.LoadPreferences().NameVisible)
+            {
+                Name.Visibility = Visibility.Visible;
+                Container.Width = 80;
+                Container.Height = 80;
+            }
+        }
 
         public override Task OnClick()
         {
@@ -83,6 +89,7 @@ namespace LaunchPad.Apps
             }
             Container.Background = itemBackgroundColor;
             LevelText.Foreground = textColor;
+            Name.Foreground = textColor;
         }
 
         private int LoadBatteryLevel()

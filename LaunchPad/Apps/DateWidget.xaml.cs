@@ -22,19 +22,26 @@ namespace LaunchPad.Apps
 {
     public partial class DateWidget : LaunchPadItem
     {
-        public DateWidget()
-        {
-            InitializeComponent();
-            base.InitializeControl();
-
-            SetDate();
-        }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
 
         public override UIElement BaseElement => Container;
 
+        public DateWidget()
+        {
+            InitializeComponent();
+            base.InitializeControl();
+
+            SetDate();
+
+            if (SaveSystem.LoadPreferences().NameVisible)
+            {
+                Name.Visibility = Visibility.Visible;
+                Container.Width = 80;
+                Container.Height = 80;
+            }
+        }
 
         public override Task OnClick()
         {
@@ -96,6 +103,7 @@ namespace LaunchPad.Apps
             DateName.Foreground = textColor;
             MonthNumber.Foreground = textColor;
             MonthName.Foreground = textColor;
+            Name.Foreground = textColor;
         }
 
     }

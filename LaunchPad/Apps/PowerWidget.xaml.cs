@@ -19,18 +19,23 @@ namespace LaunchPad.Apps
 {
     public partial class PowerWidget : LaunchPadItem
     {
-        public PowerWidget()
-        {
-            InitializeComponent();
-            base.InitializeControl();
-        }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => true;
 
         public override UIElement BaseElement => Container;
 
-
+        public PowerWidget()
+        {
+            InitializeComponent();
+            base.InitializeControl();
+            if (SaveSystem.LoadPreferences().NameVisible)
+            {
+                Name.Visibility = Visibility.Visible;
+                Container.Width = 80;
+                Container.Height = 80;
+            }
+        }
         public override Task OnClick()
         {
             var shutdownProcess = new ProcessStartInfo("shutdown", "/s /t 0");
@@ -43,12 +48,14 @@ namespace LaunchPad.Apps
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
             SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
 
             if (itemBackgroundColor == null)
             {
                 return;
             }
             Container.Background = itemBackgroundColor;
+            Name.Foreground = textColor;
         }
     }
 }
