@@ -10,5 +10,11 @@
     "Description": "Displays your battery level",
     "IconFile": "widget_battery.jpg",
     "ID": "btr_02"
+  },
+  {
+    "WidgetName": "Date",
+    "Description": "Displays the current date",
+    "IconFile": "widget_date.jpg",
+    "ID": "dt_03"
   }
 ]

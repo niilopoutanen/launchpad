@@ -155,18 +155,23 @@ namespace LaunchPad
                 {
                     continue;
                 }
-                switch (widget.WidgetName)
+                switch (widget.ID)
                 {
-                    case "Power":
+                    case "pwr_01":
                         var powerWidget = new PowerWidget();
                         items.Add(powerWidget);
                         appContainer.Children.Add(powerWidget);
                         break;
 
-                    case "Battery":
+                    case "btr_02":
                         var batteryWidget = new BatteryWidget();
                         items.Add(batteryWidget);
                         appContainer.Children.Add(batteryWidget);
+                        break;
+                    case "dt_03":
+                        var dateWidget = new DateWidget();
+                        items.Add(dateWidget);
+                        appContainer.Children.Add(dateWidget);
                         break;
                 }
             }
