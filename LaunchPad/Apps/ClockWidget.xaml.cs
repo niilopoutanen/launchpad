@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -15,21 +16,16 @@ namespace LaunchPad.Apps
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
 
-        public override UIElement BaseElement => Container;
+        public override FrameworkElement BaseElement => Container;
+        public override TextBlock ItemName => VisualName;
+        public override UserPreferences Preferences { get; set; }
 
         private readonly DispatcherTimer clock;
-        private readonly UserPreferences preferences;
+
         public ClockWidget()
         {
             InitializeComponent();
             base.InitializeControl();
-            preferences = SaveSystem.LoadPreferences();
-            if (preferences.NameVisible)
-            {
-                Name.Visibility = Visibility.Visible;
-                Container.Width = 80;
-                Container.Height = 80;
-            }
 
             clock = new DispatcherTimer
             {
@@ -94,13 +90,13 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            if (!preferences.ThemedWidgets)
+            if (!Preferences.ThemedWidgets)
             {
                 Container.Background = itemBackgroundColor;
                 TimeText.Foreground = textColor;
             }
             
-            Name.Foreground = textColor;
+            VisualName.Foreground = textColor;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -15,14 +16,13 @@ namespace LaunchPad
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => true;
-        public override UIElement BaseElement => appIcon;
-
-        private readonly UserPreferences preferences;
+        public override FrameworkElement BaseElement => appIcon;
+        public override TextBlock ItemName => VisualName;
+        public override UserPreferences Preferences { get; set; }
 
         public Icon(AppShortcut app)
         {
             this.App = app;
-            preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
             InitializeIcon();
 
@@ -44,27 +44,27 @@ namespace LaunchPad
             }
 
 
-            if (preferences.FullSizeIcon)
+            if (Preferences.FullSizeIcon)
             {
                 appIcon.Padding = new Thickness(0);
                 appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
             }
 
-            if (preferences.NameVisible)
+            if (Preferences.NameVisible)
             {
-                appName.Visibility = Visibility.Visible;
+                VisualName.Visibility = Visibility.Visible;
                 appIcon.Width = 80;
                 appIcon.Height = 80;
 
 
                 if (App.Name.Length > 13)
                 {
-                    appName.Text = App.Name[..13] + "..";
+                    VisualName.Text = App.Name[..13] + "..";
                 }
 
                 else
                 {
-                    appName.Text = App.Name;
+                    VisualName.Text = App.Name;
                 }
             }
 
@@ -106,11 +106,11 @@ namespace LaunchPad
             {
                 return;
             }
-            if (!preferences.FullSizeIcon)
+            if (!Preferences.FullSizeIcon)
             {
                 appIcon.Background = itemBackgroundColor;
             }
-            appName.Foreground = textColor;
+            VisualName.Foreground = textColor;
 
         }
     }

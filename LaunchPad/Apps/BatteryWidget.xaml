@@ -35,7 +35,7 @@
                        FontFamily="{StaticResource Inter}"></TextBlock>
             </Grid>
         </Border>
-        <TextBlock x:Name="Name" Visibility="Collapsed" Margin="0,5,0,0"
+        <TextBlock x:Name="VisualName" Visibility="Collapsed" Margin="0,5,0,0"
                    HorizontalAlignment="Center"
                    FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
                    Foreground="{StaticResource LaunchPadTextColor}">Battery</TextBlock>

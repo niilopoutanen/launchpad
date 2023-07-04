@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -14,11 +16,12 @@ namespace LaunchPadCore
         public abstract bool Focused { get; set; }
         public abstract bool WaitForAnim { get; }
 
-        public abstract UIElement BaseElement { get; }
-
-
+        public abstract FrameworkElement BaseElement { get; }
+        public abstract TextBlock ItemName { get; }
+        public abstract UserPreferences Preferences { get; set; }
         public void InitializeControl()
         {
+            Preferences = SaveSystem.LoadPreferences();
             BaseElement.MouseLeftButtonDown += (s, e) =>
             {
                 OnPress();
@@ -35,6 +38,13 @@ namespace LaunchPadCore
             {
                 OnFocusLeave();
             };
+
+            if (Preferences.NameVisible)
+            {
+                ItemName.Visibility = Visibility.Visible;
+                BaseElement.Width = 80;
+                BaseElement.Height = 80;
+            }
         }
 
 

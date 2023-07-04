@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -13,21 +14,16 @@ namespace LaunchPad.Apps
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
 
-        public override UIElement BaseElement => Container;
-        private readonly UserPreferences preferences;
+        public override FrameworkElement BaseElement => Container;
+        public override TextBlock ItemName => VisualName;
+        public override UserPreferences Preferences { get; set; }
+
         public DateWidget()
         {
             InitializeComponent();
             base.InitializeControl();
 
             SetDate();
-            preferences = SaveSystem.LoadPreferences();
-            if (preferences.NameVisible)
-            {
-                Name.Visibility = Visibility.Visible;
-                Container.Width = 80;
-                Container.Height = 80;
-            }
         }
 
         public override Task OnClick()
@@ -76,7 +72,7 @@ namespace LaunchPad.Apps
             {
                 return;
             }
-            if (!preferences.ThemedWidgets)
+            if (!Preferences.ThemedWidgets)
             {
                 Container.Background = itemBackgroundColor;
                 DateNumber.Foreground = textColor;
@@ -84,7 +80,7 @@ namespace LaunchPad.Apps
                 MonthNumber.Foreground = textColor;
                 MonthName.Foreground = textColor;
             }
-            Name.Foreground = textColor;
+            VisualName.Foreground = textColor;
         }
 
     }
