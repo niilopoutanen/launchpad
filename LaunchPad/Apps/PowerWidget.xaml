@@ -1,0 +1,35 @@
+﻿<LaunchPadCore:LaunchPadItem  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+            x:Class="LaunchPad.Apps.PowerWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaunchPad.Apps"
+             mc:Ignorable="d">
+    <StackPanel MaxWidth="100" Margin="5">
+        <Border Name="Container" CornerRadius="17" Background="#181818" Width="80" Height="80">
+            <Border.RenderTransform>
+                <ScaleTransform />
+            </Border.RenderTransform>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Viewbox Width="50" Height="50" Name="PowerButton">
+                    <Canvas Height="30" Width="30">
+                        <Path Data="M15 30C23.2059 30 30 23.3795 30 15.4147C30 11.0248 27.9412 7.22118 25.1177 4.71879C23.8236 3.57484 22.1619 5.27646 23.4412 6.46331C25.9413 8.67971 27.4853 11.8542 27.5001 15.4147C27.5148 22.164 21.9413 27.5692 15 27.5692C8.05885 27.5692 2.51472 22.164 2.51472 15.4147C2.52941 11.8256 4.07353 8.66541 6.55883 6.44901C7.85295 5.24786 6.17649 3.56054 4.88236 4.70449C2.04413 7.20687 0 11.0248 0 15.4147C0 23.3795 6.80884 30 15 30ZM15 15.2717C15.7059 15.2717 16.1912 14.7713 16.1912 14.0562V1.21545C16.1912 0.486179 15.7059 0 15 0C14.2941 0 13.8235 0.486179 13.8235 1.21545V14.0562C13.8235 14.7713 14.2941 15.2717 15 15.2717Z" Fill="white" />
+                    </Canvas>
+                </Viewbox>
+
+                <TextBlock Name="PowerConfirmation" Visibility="Collapsed" TextWrapping="Wrap" FontFamily="{StaticResource Inter}" TextAlignment="Center" VerticalAlignment="Center" FontSize="17">Press again to confirm</TextBlock>
+            </Grid>
+
+        </Border>
+        <TextBlock x:Name="Name" Visibility="Collapsed" Margin="0,5,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
+                   Foreground="{StaticResource LaunchPadTextColor}">Power</TextBlock>
+    </StackPanel>
+</LaunchPadCore:LaunchPadItem>

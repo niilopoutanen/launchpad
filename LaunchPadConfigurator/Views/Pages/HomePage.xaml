@@ -16,7 +16,7 @@
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="40" FontWeight="Bold">LaunchPad</TextBlock>
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" 
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           x:Name="versionNumber" FontSize="20">v0.5.0</TextBlock>
+                           x:Name="versionNumber" FontSize="20">v1.0.0</TextBlock>
                 </StackPanel>
             </StackPanel>
 

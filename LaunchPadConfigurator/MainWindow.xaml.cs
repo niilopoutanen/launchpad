@@ -40,6 +40,9 @@ namespace LaunchPadConfigurator
                 case "Home":
                     ContentFrame.Navigate(typeof(HomePage));
                     break;
+                case "Widgets":
+                    ContentFrame.Navigate(typeof(WidgetsPage));
+                    break;
             }
             settingsMenu.Header = itemSelected.Content;
             settingsMenu.SelectedItem = itemSelected;

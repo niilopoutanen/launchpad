@@ -1,5 +1,4 @@
-﻿using LaunchPadConfigurator;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Drawing;
 using System.IO;
 using System.Windows;

@@ -1,5 +1,4 @@
-﻿using LaunchPadConfigurator;
-using LaunchPadCore;
+﻿using LaunchPadCore;
 using System;
 using System.Diagnostics;
 using System.Runtime;
@@ -15,10 +14,11 @@ namespace LaunchPad
 {
     public partial class Icon : LaunchPadItem
     {
-        public override AppShortcut App { get; set; }
+        public AppShortcut App { get; set; }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
-        public override UIElement BaseElement { get => appIcon; }
+        public override bool WaitForAnim => true;
+        public override UIElement BaseElement => appIcon;
 
         private UserPreferences preferences;
 

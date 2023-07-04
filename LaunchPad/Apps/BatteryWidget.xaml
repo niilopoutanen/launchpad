@@ -1,0 +1,43 @@
+﻿<LaunchPadCore:LaunchPadItem  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+            x:Class="LaunchPad.Apps.BatteryWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaunchPad.Apps"
+             mc:Ignorable="d">
+    <StackPanel MaxWidth="100" Margin="5">
+        <Border Name="Container" CornerRadius="17" Background="#181818" Width="80" Height="80">
+            <Border.RenderTransform>
+                <ScaleTransform />
+            </Border.RenderTransform>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Style>
+            </Border.Style>
+
+            <Grid x:Name="BatteryContainer">
+                <Canvas x:Name="BatteryCanvas" Width="50" Height="23" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Border Width="38" Margin="3,3,0,0" Height="17" CornerRadius="2" Name="BatteryLevel"/>
+                    <Viewbox Width="50">
+                        <Path Data="M6.42749 16.3849H24.8093C26.9419 16.3849 28.6167 16.1531 29.8205 14.9494C31.0263 13.7435 31.2464 12.0963 31.2464 9.95741V6.42749C31.2464 4.28859 31.0263 2.63719 29.8205 1.43554C28.6146 0.231795 26.9419 0 24.8093 0H6.40826C4.30452 0 2.62968 0.231795 1.42383 1.43554C0.220074 2.63929 0 4.2982 0 6.39866V9.95741C0 12.0963 0.220074 13.7477 1.42383 14.9494C2.63179 16.1531 4.30453 16.3849 6.42749 16.3849ZM6.10898 14.089C4.89351 14.089 3.75655 13.9207 3.09866 13.2745C2.45037 12.6187 2.29592 11.4935 2.29592 10.2759V6.12609C2.29592 4.88929 2.45248 3.76827 3.09866 3.11038C3.75444 2.45248 4.90312 2.29592 6.13781 2.29592H25.1374C26.3529 2.29592 27.4877 2.4642 28.1381 3.11038C28.796 3.76616 28.9505 4.87968 28.9505 6.09726V10.2759C28.9505 11.4935 28.7939 12.6166 28.1381 13.2745C27.492 13.9228 26.3529 14.089 25.1374 14.089H6.10898ZM32.9498 11.3705C33.9199 11.3097 35.2254 10.065 35.2254 8.18765C35.2254 6.31781 33.9199 5.07515 32.9498 5.01445V11.3705Z" Fill="#FFFFFF"></Path>
+                    </Viewbox>
+
+                    <Grid Width="44" Height="23" Name="BatteryCharging" Visibility="Collapsed">
+                        <Path Width="10" Height="15" Stretch="Uniform" Data="M0 14.5402C0 14.9972 0.351562 15.3371 0.84375 15.3371H7.46484L3.97266 24.8293C3.51562 26.0363 4.76953 26.6808 5.55469 25.6965L16.207 12.384C16.4062 12.1379 16.5117 11.9035 16.5117 11.634C16.5117 11.1887 16.1602 10.8371 15.668 10.8371H9.04688L12.5391 1.34491C12.9961 0.137874 11.7422 -0.506657 10.957 0.489437L0.304688 13.7902C0.105469 14.048 0 14.2824 0 14.5402Z" Fill="White" />
+                    </Grid>
+                </Canvas>
+                <TextBlock Visibility="Collapsed" Text="100%"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="25" FontWeight="Medium"
+                       Name="LevelText" Foreground="White"
+                       FontFamily="{StaticResource Inter}"></TextBlock>
+            </Grid>
+        </Border>
+        <TextBlock x:Name="Name" Visibility="Collapsed" Margin="0,5,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
+                   Foreground="{StaticResource LaunchPadTextColor}">Battery</TextBlock>
+    </StackPanel>
+</LaunchPadCore:LaunchPadItem>

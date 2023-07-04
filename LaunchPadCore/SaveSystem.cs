@@ -1,19 +1,19 @@
-﻿using LaunchPadCore;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
+using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Windows;
 
-namespace LaunchPadConfigurator
+namespace LaunchPadCore
 {
     public class SaveSystem
     {
-        public const string launchPadVersion = "v0.5.0";
-
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
-        private static readonly string preferences = Path.Combine(saveFileLocation, "LaunchPad.prefs");
+        private static readonly string widgets = Path.Combine(saveFileLocation, "launchpad.widgets");
+        private static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
         public static void SaveApps(List<AppShortcut> apps)
         {
@@ -160,8 +160,71 @@ namespace LaunchPadConfigurator
 
             return new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
         }
+        public static List<Widget> LoadWidgets()
+        {
+            List<Widget> widgets = new();
 
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string resourceName = "LaunchPadCore.widgets.json";
 
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string jsonContent = reader.ReadToEnd();
+                    // Do something with the JSON content
+                    widgets = JsonSerializer.Deserialize<List<Widget>>(jsonContent);
+                }
+            }
+            Dictionary<string, bool> activeDict = LoadPreferences().ActiveWidgets;
+            foreach (Widget widget in widgets)
+            {
+                foreach(string key in activeDict.Keys)
+                {
+                    if (widget.ID == key)
+                    {
+                        widget.Active = activeDict[key];
+                        break;
+                    }
+                }
+            }
+            return widgets;
+        }
+        public static void SaveWidgets(List<Widget> widgets)
+        {
+            UserPreferences preferences = LoadPreferences();
+            Dictionary<string, bool> activeWidgets = new();
+            if (widgets == null)
+            {
+                widgets = LoadWidgets();
+            }
+            foreach (Widget widget in widgets)
+            {
+                activeWidgets.Add(widget.ID, widget.Active);
+            }
+            preferences.ActiveWidgets = activeWidgets;
+            SavePreferences(preferences);
+        }
+        public static void SaveWidget(Widget widget)
+        {
+            EnsureSaveFolderExists();
+            List<Widget> widgets = LoadWidgets();
+
+            Widget? existingWidget = widgets.FirstOrDefault(a => a.WidgetName == widget.WidgetName);
+
+            if (existingWidget != null)
+            {
+                widgets.Remove(existingWidget);
+                existingWidget.Active = widget.Active;
+                widgets.Add(existingWidget);
+            }
+            else
+            {
+                widgets.Add(widget);
+            }
+
+            SaveWidgets(widgets);
+        }
         private static bool IsLightTheme()
         {
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");

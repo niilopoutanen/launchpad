@@ -2,7 +2,7 @@ using LaunchPadCore;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace LaunchPadConfigurator
+namespace LaunchPadConfigurator.Views.Pages
 {
     public sealed partial class GeneralPage : Page
     {

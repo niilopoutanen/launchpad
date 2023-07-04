@@ -1,14 +1,11 @@
-﻿using LaunchPadConfigurator;
-using LaunchPadCore;
+﻿using LaunchPadCore;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Windows.ApplicationModel;
 using System.Windows.Interop;
-using Windows.System;
 
 namespace LaunchPad
 {
@@ -45,7 +42,7 @@ namespace LaunchPad
             catch (Win32Exception)
             {
                 DisplayMessage("Error", "Could not register the hotkey. Most likely LaunchPad is already running.", ToolTipIcon.Info);
-                System.Windows.Application.Current.Shutdown();
+                Current.Shutdown();
             }
         }
         public void ToggleLaunchpad()
@@ -63,12 +60,13 @@ namespace LaunchPad
         private void StartSystemTrayApp()
         {
             Uri iconUri = new Uri("pack://application:,,,/Resources/Assets/icon.ico");
-            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
+            System.IO.Stream iconStream = GetResourceStream(iconUri).Stream;
 
             notifyIcon = new()
             {
                 Icon = new System.Drawing.Icon(iconStream),
-                Visible = true
+                Visible = true,
+                Text = "LaunchPad"
             };
 
             notifyIcon.MouseClick += (sender, e) =>
@@ -88,7 +86,7 @@ namespace LaunchPad
                 }
                 catch
                 {
-                    DisplayMessage("Error", "Could not startLaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
+                    DisplayMessage("Error", "Could not start LaunchPad configurator. Make sure the app is installed correctly.", ToolTipIcon.Error);
                 }
             });
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) =>

@@ -30,11 +30,17 @@
     <None Remove="Assets\Icons\icon_general.png" />
     <None Remove="Assets\Icons\icon_github.png" />
     <None Remove="Assets\Icons\icon_home.png" />
+    <None Remove="Assets\Icons\icon_widgets.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
+    <None Remove="Assets\Widgets\widget_battery.jpg" />
+    <None Remove="Assets\Widgets\widget_date.jpg" />
+    <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
+    <None Remove="Views\Elements\WidgetGalleryItem.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Elements\AddAppDialog.xaml" />
     <None Remove="Views\Elements\AppListItem.xaml" />
+    <None Remove="Views\Pages\WidgetsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,7 +101,19 @@
     <Content Update="Assets\Icons\icon_home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Icons\icon_widgets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Icons\LaunchPad.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_battery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_date.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_power.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -104,6 +122,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Views\Elements\WidgetGalleryItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\Pages\WidgetsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Elements\AddAppDialog.xaml">

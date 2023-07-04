@@ -1,5 +1,4 @@
 ﻿using LaunchPad.Apps;
-using LaunchPadConfigurator;
 using LaunchPadCore;
 using Microsoft.Win32;
 using System;
@@ -134,9 +133,10 @@ namespace LaunchPad
         {
 
             List<AppShortcut> apps = SaveSystem.LoadApps();
+            List<Widget> widgets = SaveSystem.LoadWidgets();
             appContainer.MaxWidth = preferences.PreferredWidth;
 
-            if (apps.Count == 0)
+            if (apps.Count == 0 && widgets.Count == 0)
             {
                 var suggestion = new Suggestion("No apps added. Open configurator to add some.","1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 items.Add(suggestion);
@@ -148,6 +148,32 @@ namespace LaunchPad
                 var icon = new Icon(app);
                 items.Add(icon);
                 appContainer.Children.Add(icon);
+            }
+            foreach (Widget widget in widgets)
+            {
+                if(!widget.Active)
+                {
+                    continue;
+                }
+                switch (widget.ID)
+                {
+                    case "pwr_01":
+                        var powerWidget = new PowerWidget();
+                        items.Add(powerWidget);
+                        appContainer.Children.Add(powerWidget);
+                        break;
+
+                    case "btr_02":
+                        var batteryWidget = new BatteryWidget();
+                        items.Add(batteryWidget);
+                        appContainer.Children.Add(batteryWidget);
+                        break;
+                    case "dt_03":
+                        var dateWidget = new DateWidget();
+                        items.Add(dateWidget);
+                        appContainer.Children.Add(dateWidget);
+                        break;
+                }
             }
 
         }
