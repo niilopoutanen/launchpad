@@ -15,6 +15,7 @@ namespace LaunchPadCore
         public abstract bool Pressed { get; set; }
         public abstract bool Focused { get; set; }
         public abstract bool WaitForAnim { get; }
+        public abstract bool HasSecondaryAction { get; }
 
         public abstract FrameworkElement BaseElement { get; }
         public abstract TextBlock ItemName { get; }
@@ -22,6 +23,7 @@ namespace LaunchPadCore
         public void InitializeControl()
         {
             Preferences = SaveSystem.LoadPreferences();
+
             BaseElement.MouseLeftButtonDown += (s, e) =>
             {
                 OnPress();
@@ -30,6 +32,19 @@ namespace LaunchPadCore
             {
                 await OnRelease(true);
             };
+            if(HasSecondaryAction)
+            {
+                BaseElement.MouseRightButtonDown += (s, e) =>
+                {
+                    OnPress();
+                };
+                BaseElement.MouseRightButtonUp += async (s, e) =>
+                {
+                    await OnRelease(false);
+                };
+            }
+
+
             BaseElement.MouseEnter += (s, e) =>
             {
                 OnFocusEnter();
@@ -37,14 +52,6 @@ namespace LaunchPadCore
             BaseElement.MouseLeave += (s, e) =>
             {
                 OnFocusLeave();
-            };
-            BaseElement.MouseRightButtonDown += (s, e) =>
-            {
-                OnPress();
-            };
-            BaseElement.MouseRightButtonUp += async (s, e) =>
-            {
-                await OnRelease(false);
             };
 
             if (Preferences.NameVisible)

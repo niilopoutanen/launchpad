@@ -24,6 +24,7 @@ namespace LaunchPad.Apps
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
+        public override bool HasSecondaryAction => false;
 
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
