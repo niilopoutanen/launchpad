@@ -23,11 +23,12 @@ namespace LaunchPad.Apps
         public override UserPreferences Preferences { get; set; }
 
         private readonly DispatcherTimer clock;
-
+        private Widget widget;
         public ClockWidget()
         {
             InitializeComponent();
             base.InitializeControl();
+            widget = Widget.LoadWidget(typeof(ClockWidget));
 
             clock = new DispatcherTimer
             {

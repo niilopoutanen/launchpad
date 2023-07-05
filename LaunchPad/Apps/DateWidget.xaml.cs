@@ -20,11 +20,12 @@ namespace LaunchPad.Apps
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
 
+        private Widget widget;
         public DateWidget()
         {
             InitializeComponent();
             base.InitializeControl();
-
+            widget = Widget.LoadWidget(typeof(DateWidget));
             SetDate();
         }
         public override Task OnSecondaryClick()

@@ -16,19 +16,19 @@
             List<Widget> widgets = SaveSystem.LoadWidgets();
             switch(requester.ToString()) 
             {
-                case "Launchpad.Apps.PowerWidget":
+                case "LaunchPad.Apps.PowerWidget":
                     widget = widgets.FirstOrDefault(w => w.ID == "pwr_01");
                     break;
-                case "Launchpad.Apps.BatteryWidget":
+                case "LaunchPad.Apps.BatteryWidget":
                     widget = widgets.FirstOrDefault(w => w.ID == "btr_02"); 
                     break;
-                case "Launchpad.Apps.DateWidget":
+                case "LaunchPad.Apps.DateWidget":
                     widget = widgets.FirstOrDefault(w => w.ID == "dt_03");
                     break;
-                case "Launchpad.Apps.ClockWidget":
+                case "LaunchPad.Apps.ClockWidget":
                     widget = widgets.FirstOrDefault(w => w.ID == "clk_04");
                     break;
-                case "Launchpad.Apps.PlaybackWidget":
+                case "LaunchPad.Apps.PlaybackWidget":
                     widget = widgets.FirstOrDefault(w => w.ID == "plbk_05");
                     break;
             }

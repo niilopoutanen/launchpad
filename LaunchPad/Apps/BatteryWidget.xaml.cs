@@ -22,12 +22,14 @@ namespace LaunchPad.Apps
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
 
+        private Widget widget;
         public BatteryWidget()
         {
             InitializeComponent();
             base.InitializeControl();
 
             SetBatteryLevel(LoadBatteryLevel());
+            widget = Widget.LoadWidget(typeof(BatteryWidget));
         }
         public override Task OnSecondaryClick()
         {
