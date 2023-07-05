@@ -1,5 +1,6 @@
 ﻿using LaunchPadCore;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,8 +36,7 @@ namespace LaunchPad.Apps
             clock.Start();
             Clock_Tick(null, null);
         }
-
-        public override Task OnClick()
+        public override Task OnSecondaryClick()
         {
             DoubleAnimation fadeInAnimation = new()
             {
@@ -59,6 +59,12 @@ namespace LaunchPad.Apps
                     ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
             }
+            return Task.CompletedTask;
+        }
+        public override Task OnClick()
+        {
+            Process.Start("explorer.exe", @"shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App");
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
             return Task.CompletedTask;
         }
         private void Clock_Tick(object sender, EventArgs e)

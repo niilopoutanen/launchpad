@@ -26,9 +26,9 @@ namespace LaunchPadCore
             {
                 OnPress();
             };
-            BaseElement.MouseLeftButtonUp += (s, e) =>
+            BaseElement.MouseLeftButtonUp += async (s, e) =>
             {
-                OnRelease();
+                await OnRelease(true);
             };
             BaseElement.MouseEnter += (s, e) =>
             {
@@ -37,6 +37,14 @@ namespace LaunchPadCore
             BaseElement.MouseLeave += (s, e) =>
             {
                 OnFocusLeave();
+            };
+            BaseElement.MouseRightButtonDown += (s, e) =>
+            {
+                OnPress();
+            };
+            BaseElement.MouseRightButtonUp += async (s, e) =>
+            {
+                await OnRelease(false);
             };
 
             if (Preferences.NameVisible)
@@ -113,7 +121,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public virtual async void OnRelease()
+        public virtual async Task OnRelease(bool isPrimary)
         {
             if (!Pressed)
             {
@@ -149,13 +157,27 @@ namespace LaunchPadCore
                     if (!animationCompleted)
                     {
                         animationCompleted = true;
-                        await OnClick();
+                        if (isPrimary)
+                        {
+                            await OnClick();
+                        }
+                        else
+                        {
+                            await OnSecondaryClick();
+                        }
                     }
                 };
             }
             else
             {
-                await OnClick();
+                if (isPrimary)
+                {
+                    await OnClick();
+                }
+                else
+                {
+                    await OnSecondaryClick();
+                }
             }
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
@@ -163,7 +185,10 @@ namespace LaunchPadCore
         }
 
         public abstract Task OnClick();
-
+        public virtual Task OnSecondaryClick()
+        {
+            return Task.CompletedTask;
+        }
         public abstract void SetTheme(ResourceDictionary activeDictionary);
 
     }

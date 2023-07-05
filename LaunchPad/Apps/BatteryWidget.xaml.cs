@@ -1,5 +1,6 @@
 ﻿using LaunchPadCore;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,8 +28,7 @@ namespace LaunchPad.Apps
 
             SetBatteryLevel(LoadBatteryLevel());
         }
-
-        public override Task OnClick()
+        public override Task OnSecondaryClick()
         {
             DoubleAnimation fadeInAnimation = new()
             {
@@ -52,6 +52,15 @@ namespace LaunchPad.Apps
                     break;
             }
 
+            return base.OnSecondaryClick();
+        }
+        public override Task OnClick()
+        {
+            Process process = new();
+            process.StartInfo.FileName = "ms-settings:batterysaver-settings";
+            process.StartInfo.UseShellExecute = true;
+            process.Start();
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
             return Task.CompletedTask;
         }
 

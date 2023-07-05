@@ -1,5 +1,6 @@
 ﻿using LaunchPadCore;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,8 +26,7 @@ namespace LaunchPad.Apps
 
             SetDate();
         }
-
-        public override Task OnClick()
+        public override Task OnSecondaryClick()
         {
             DoubleAnimation fadeInAnimation = new()
             {
@@ -49,7 +49,12 @@ namespace LaunchPad.Apps
                     DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
             }
-
+            return base.OnSecondaryClick();
+        }
+        public override Task OnClick()
+        {
+            Process.Start("explorer.exe", @"shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar");
+            ((App)Application.Current).ToggleLaunchpad();
             return Task.CompletedTask;
         }
         private void SetDate()

@@ -234,13 +234,13 @@ namespace LaunchPad
                     items[keyNumber].OnPress();
                 }
             };
-            window.KeyUp += (s, e) =>
+            window.KeyUp += async (s, e) =>
             {
                 int keyNumber = IsNumberKey(e.Key);
 
                 if (keyNumber >= 0 && keyNumber < items.Count)
                 {
-                    items[keyNumber].OnRelease();
+                    await items[keyNumber].OnRelease(true);
                 }
             };
         }
