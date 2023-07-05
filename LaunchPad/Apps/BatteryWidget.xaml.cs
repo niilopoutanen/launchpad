@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace LaunchPad.Apps
 {
-    public partial class BatteryWidget : LaunchPadItem
+    public partial class BatteryWidget : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }

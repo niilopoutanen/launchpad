@@ -16,7 +16,7 @@ namespace LaunchPad
     public partial class LaunchPadWindow : Window
     {
         readonly UserPreferences preferences;
-        readonly List<LaunchPadItem> items = new();
+        readonly List<LaunchPadItemControl> items = new();
         public LaunchPadWindow()
         {
             preferences = SaveSystem.LoadPreferences();
@@ -195,7 +195,7 @@ namespace LaunchPad
 
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
-            foreach (LaunchPadItem item in appContainer.Children)
+            foreach (LaunchPadItemControl item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }

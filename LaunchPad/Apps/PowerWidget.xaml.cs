@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
-    public partial class PowerWidget : LaunchPadItem
+    public partial class PowerWidget : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }

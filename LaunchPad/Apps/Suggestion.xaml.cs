@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace LaunchPad.Apps
 {
 
-    public partial class Suggestion : LaunchPadItem
+    public partial class Suggestion : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }

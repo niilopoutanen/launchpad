@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPadCore
 {
-    public abstract class LaunchPadItem : System.Windows.Controls.UserControl
+    public abstract class LaunchPadItemControl : UserControl
     {
         public const float SIZE_FOCUS = 1.05f;
         public const float SIZE_STATIC = 1f;

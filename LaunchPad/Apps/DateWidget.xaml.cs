@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
-    public partial class DateWidget : LaunchPadItem
+    public partial class DateWidget : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }

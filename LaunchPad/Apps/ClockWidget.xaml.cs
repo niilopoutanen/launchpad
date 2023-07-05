@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace LaunchPad.Apps
 {
-    public partial class ClockWidget : LaunchPadItem
+    public partial class ClockWidget : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }

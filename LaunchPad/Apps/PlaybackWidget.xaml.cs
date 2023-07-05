@@ -12,7 +12,7 @@ using Windows.Media.Playback;
 
 namespace LaunchPad.Apps
 {
-    public partial class PlaybackWidget : LaunchPadItem
+    public partial class PlaybackWidget : LaunchPadItemControl
     {
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);

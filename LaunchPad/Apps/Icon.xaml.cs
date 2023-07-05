@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace LaunchPad
 {
-    public partial class Icon : LaunchPadItem
+    public partial class Icon : LaunchPadItemControl
     {
         public AppShortcut App { get; set; }
         public override bool Pressed { get; set; }
