@@ -1,4 +1,4 @@
-﻿<LaunchPadCore:LaunchPadItem  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+﻿<LaunchPadCore:LaunchPadItemControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
             x:Class="LaunchPad.Apps.PlaybackWidget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
@@ -27,4 +27,4 @@
                    FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
                    Foreground="{StaticResource LaunchPadTextColor}">Playback</TextBlock>
     </StackPanel>
-</LaunchPadCore:LaunchPadItem>
+</LaunchPadCore:LaunchPadItemControl>

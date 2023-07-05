@@ -12,14 +12,15 @@ namespace LaunchPadCore
         public const float SIZE_STATIC = 1f;
         public const float SIZE_PRESSED = 0.9f;
 
-        public abstract bool Pressed { get; set; }
-        public abstract bool Focused { get; set; }
+        public virtual bool Pressed { get; set; }
+        public virtual bool Focused { get; set; }
         public abstract bool WaitForAnim { get; }
         public abstract bool HasSecondaryAction { get; }
 
-        public abstract FrameworkElement BaseElement { get; }
-        public abstract TextBlock ItemName { get; }
+        public virtual FrameworkElement BaseElement { get; }
+        public virtual TextBlock ItemName { get; }
         public abstract UserPreferences Preferences { get; set; }
+
         public void InitializeControl()
         {
             Preferences = SaveSystem.LoadPreferences();
@@ -61,7 +62,6 @@ namespace LaunchPadCore
                 BaseElement.Height = 80;
             }
         }
-
 
         public virtual void OnFocusEnter()
         {
@@ -191,12 +191,18 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public abstract Task OnClick();
+        public virtual Task OnClick()
+        {
+            return Task.CompletedTask;
+        }
         public virtual Task OnSecondaryClick()
         {
             return Task.CompletedTask;
         }
-        public abstract void SetTheme(ResourceDictionary activeDictionary);
+        public virtual void SetTheme(ResourceDictionary activeDictionary)
+        {
+
+        }
 
     }
 }
