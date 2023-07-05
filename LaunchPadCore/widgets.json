@@ -3,30 +3,35 @@
     "WidgetName": "Power",
     "Description": "Turns off the system",
     "IconFile": "widget_power.jpg",
-    "ID": "pwr_01"
+    "ID": "pwr_01",
+    "VariationCount" :  1
   },
   {
     "WidgetName": "Battery",
     "Description": "Displays your battery level",
     "IconFile": "widget_battery.jpg",
-    "ID": "btr_02"
+    "ID": "btr_02",
+    "VariationCount": 2
   },
   {
     "WidgetName": "Date",
     "Description": "Displays the current date",
     "IconFile": "widget_date.jpg",
-    "ID": "dt_03"
+    "ID": "dt_03",
+    "VariationCount": 2
   },
   {
     "WidgetName": "Clock",
     "Description": "Displays the current time",
     "IconFile": "widget_clock.jpg",
-    "ID": "clk_04"
+    "ID": "clk_04",
+    "VariationCount": 2
   },
   {
     "WidgetName": "Playback",
     "Description": "Controls media playback",
     "IconFile": "widget_playback.jpg",
-    "ID": "plbk_05"
+    "ID": "plbk_05",
+    "VariationCount": 1
   }
 ]
