@@ -1,0 +1,53 @@
+﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+            x:Class="LaunchPad.Apps.ClockWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaunchPad.Apps"
+             mc:Ignorable="d">
+    <StackPanel MaxWidth="100" Margin="5">
+        <Border Name="Container" CornerRadius="17" Background="#121212" Width="80" Height="80">
+            <Border.RenderTransform>
+                <ScaleTransform />
+            </Border.RenderTransform>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Canvas Name="ClockCanvas">
+                    <Image Width="67" Margin="7" Source="/Resources/Assets/clock.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                    <Line Stretch="Uniform" x:Name="HourHand"
+                      X1="40" Y1="40" X2="40" Y2="20"
+                      Stroke="Black" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                      Canvas.Left="39.5" Canvas.Top="39.5" RenderTransformOrigin="0.5,0.04"/>
+
+
+                    <Line Stretch="Uniform" x:Name="MinuteHand"
+                      X1="40" Y1="40" X2="40" Y2="15"
+                      Stroke="Black" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                      Canvas.Left="39.5" Canvas.Top="39.5" RenderTransformOrigin="0.5,0.04"/>
+
+
+                    <Line Stretch="Uniform" x:Name="SecondHand"
+                      X1="40" Y1="40" X2="40" Y2="15"
+                      Stroke="Orange" StrokeThickness="1" StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                      Canvas.Left="40" Canvas.Top="40" RenderTransformOrigin="0.5,0.02"/>
+
+                </Canvas>
+                <TextBlock Name="TimeText" FontSize="16" Visibility="Collapsed"
+                           TextAlignment="Center"  VerticalAlignment="Center"
+                           FontFamily="{StaticResource Inter}" FontWeight="SemiBold" Foreground="White"/>
+            </Grid>
+
+
+        </Border>
+        <TextBlock x:Name="VisualName" Visibility="Collapsed" Margin="0,5,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
+                   Foreground="{StaticResource LaunchPadTextColor}">Clock</TextBlock>
+    </StackPanel>
+</LaunchPadCore:LaunchPadWidgetControl>

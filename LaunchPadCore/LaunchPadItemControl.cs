@@ -1,37 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace LaunchPadCore
 {
-    public abstract class LaunchPadItem : System.Windows.Controls.UserControl
+    public abstract class LaunchPadItemControl : UserControl
     {
         public const float SIZE_FOCUS = 1.05f;
         public const float SIZE_STATIC = 1f;
         public const float SIZE_PRESSED = 0.9f;
 
-        public abstract bool Pressed { get; set; }
-        public abstract bool Focused { get; set; }
+        public virtual bool Pressed { get; set; }
+        public virtual bool Focused { get; set; }
         public abstract bool WaitForAnim { get; }
+        public virtual bool HasSecondaryAction { get; }
 
-        public abstract UIElement BaseElement { get; }
+        public virtual FrameworkElement BaseElement { get; }
+        public virtual TextBlock ItemName { get; }
+        public virtual UserPreferences Preferences { get; set; }
 
-
-        public void InitializeControl()
+        public virtual void InitializeControl()
         {
+            Preferences = SaveSystem.LoadPreferences();
+
             BaseElement.MouseLeftButtonDown += (s, e) =>
             {
                 OnPress();
             };
-            BaseElement.MouseLeftButtonUp += (s, e) =>
+            BaseElement.MouseLeftButtonUp += async (s, e) =>
             {
-                OnRelease();
+                await OnRelease(true);
             };
+            if(HasSecondaryAction)
+            {
+                BaseElement.MouseRightButtonDown += (s, e) =>
+                {
+                    OnPress();
+                };
+                BaseElement.MouseRightButtonUp += async (s, e) =>
+                {
+                    await OnRelease(false);
+                };
+            }
+
+
             BaseElement.MouseEnter += (s, e) =>
             {
                 OnFocusEnter();
@@ -40,8 +54,14 @@ namespace LaunchPadCore
             {
                 OnFocusLeave();
             };
-        }
 
+            if (Preferences.NameVisible)
+            {
+                ItemName.Visibility = Visibility.Visible;
+                BaseElement.Width = 80;
+                BaseElement.Height = 80;
+            }
+        }
 
         public virtual void OnFocusEnter()
         {
@@ -53,7 +73,7 @@ namespace LaunchPadCore
 
             ScaleTransform scaleTransform = new(SIZE_STATIC, SIZE_STATIC);
 
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_FOCUS,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -64,7 +84,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public virtual void OnFocusLeave() 
+        public virtual void OnFocusLeave()
         {
             if (!Focused || Pressed)
             {
@@ -72,9 +92,9 @@ namespace LaunchPadCore
             }
             Focused = false;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_FOCUS, SIZE_FOCUS);
+            ScaleTransform scaleTransform = new(SIZE_FOCUS, SIZE_FOCUS);
 
-            DoubleAnimation scaleAnimation = new DoubleAnimation
+            DoubleAnimation scaleAnimation = new()
             {
                 To = SIZE_STATIC,
                 Duration = TimeSpan.FromSeconds(0.1)
@@ -86,7 +106,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public virtual void OnPress() 
+        public virtual void OnPress()
         {
             if (Pressed)
             {
@@ -94,7 +114,7 @@ namespace LaunchPadCore
             }
             Pressed = true;
 
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_STATIC, SIZE_STATIC);
+            ScaleTransform scaleTransform = new(SIZE_STATIC, SIZE_STATIC);
 
             DoubleAnimation scaleAnimation = new()
             {
@@ -108,7 +128,7 @@ namespace LaunchPadCore
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-        public virtual async void OnRelease()
+        public virtual async Task OnRelease(bool isPrimary)
         {
             if (!Pressed)
             {
@@ -122,9 +142,9 @@ namespace LaunchPadCore
             {
                 finalValue = SIZE_FOCUS;
             }
-            ScaleTransform scaleTransform = new ScaleTransform(SIZE_PRESSED, SIZE_PRESSED);
+            ScaleTransform scaleTransform = new(SIZE_PRESSED, SIZE_PRESSED);
 
-            DoubleAnimationUsingKeyFrames scaleAnimation = new DoubleAnimationUsingKeyFrames
+            DoubleAnimationUsingKeyFrames scaleAnimation = new()
             {
                 Duration = TimeSpan.FromSeconds(0.5)
             };
@@ -136,7 +156,7 @@ namespace LaunchPadCore
 
             BaseElement.RenderTransform = scaleTransform;
 
-            if(WaitForAnim)
+            if (WaitForAnim)
             {
                 bool animationCompleted = false;
                 scaleAnimation.Completed += async (s, e) =>
@@ -144,22 +164,45 @@ namespace LaunchPadCore
                     if (!animationCompleted)
                     {
                         animationCompleted = true;
-                        await OnClick();
+                        if (isPrimary)
+                        {
+                            await OnClick();
+                        }
+                        else
+                        {
+                            await OnSecondaryClick();
+                        }
                     }
                 };
             }
             else
             {
-                await OnClick();
+                if (isPrimary)
+                {
+                    await OnClick();
+                }
+                else
+                {
+                    await OnSecondaryClick();
+                }
             }
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        public abstract Task OnClick();
+        public virtual Task OnClick()
+        {
+            return Task.CompletedTask;
+        }
+        public virtual Task OnSecondaryClick()
+        {
+            return Task.CompletedTask;
+        }
+        public virtual void SetTheme(ResourceDictionary activeDictionary)
+        {
 
-        public abstract void SetTheme(ResourceDictionary activeDictionary);
+        }
 
     }
 }

@@ -10,7 +10,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
     <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
-    <Version>1.0</Version>
+    <Version>1.1</Version>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>LaunchPad.App</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
@@ -22,6 +22,7 @@
     <None Remove="Resources\Assets\browser_edge.png" />
     <None Remove="Resources\Assets\browser_firefox.png" />
     <None Remove="Resources\Assets\browser_none.png" />
+    <None Remove="Resources\Assets\clock.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
     <None Remove="Resources\Assets\icon_null.png" />
     <None Remove="Resources\Fonts\Inter-Bold.ttf" />
@@ -30,6 +31,10 @@
     <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Assets\clock.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,10 +83,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Apps\ClockWidget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Apps\DateWidget.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Apps\BatteryWidget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Apps\PlaybackWidget.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

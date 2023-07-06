@@ -37,12 +37,12 @@ namespace System.Windows.Input
 
         public event EventHandler<HotKeyEventArgs> HotKeyPressed;
 
-        private int id;
+        private readonly int id;
 
-        private HwndSourceHook hook;
+        private readonly HwndSourceHook hook;
         private HwndSource hwndSource;
 
-        private static readonly Random rand = new Random((int)DateTime.Now.Ticks);
+        private static readonly Random rand = new((int)DateTime.Now.Ticks);
 
         public HotKey(HwndSource hwndSource)
         {

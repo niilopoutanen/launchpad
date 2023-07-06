@@ -23,7 +23,7 @@ namespace LaunchPadConfigurator.Views.UIElements
             Name.Text = App.Name;
             if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
             {
-                BitmapImage bitmapImage = new BitmapImage(validUri);
+                BitmapImage bitmapImage = new(validUri);
                 Icon.Source = bitmapImage;
             }
 
@@ -60,7 +60,7 @@ namespace LaunchPadConfigurator.Views.UIElements
         }
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
-            if(App != null)
+            if (App != null)
             {
                 List<AppShortcut> existingApps = SaveSystem.LoadApps();
 
@@ -80,7 +80,7 @@ namespace LaunchPadConfigurator.Views.UIElements
                     SaveSystem.DeleteUnusedIcons();
                 }
             }
-            else if(Widget != null)
+            else if (Widget != null)
             {
                 List<Widget> widgets = SaveSystem.LoadWidgets();
 

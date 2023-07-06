@@ -1,16 +1,22 @@
 ﻿using LaunchPadCore;
 using System;
-using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
-    public partial class PowerWidget : LaunchPadWidgetControl
+    public partial class PlaybackWidget : LaunchPadWidgetControl
     {
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        private const byte VK_MEDIA_PLAY_PAUSE = 0xB3;
+        private const int KEYEVENTF_EXTENDEDKEY = 0x1;
+        private const int KEYEVENTF_KEYUP = 0x2;
+
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => false;
@@ -23,7 +29,7 @@ namespace LaunchPad.Apps
         public override Widget Widget { get; set; }
         public override int Variation { get; set; }
 
-        public PowerWidget(Widget widget)
+        public PlaybackWidget(Widget widget)
         {
             this.Widget = widget;
             InitializeComponent();
@@ -31,29 +37,7 @@ namespace LaunchPad.Apps
         }
         public override Task OnClick()
         {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            switch (PowerButton.Visibility)
-            {
-                case Visibility.Visible:
-                    PowerButton.Visibility = Visibility.Collapsed;
-                    PowerConfirmation.Visibility = Visibility.Visible;
-                    PowerConfirmation.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case Visibility.Collapsed:
-                    var shutdownProcess = new ProcessStartInfo("shutdown", "/s /t 0");
-                    shutdownProcess.CreateNoWindow = true;
-                    shutdownProcess.UseShellExecute = false;
-                    Process.Start(shutdownProcess);
-                    break;
-            }
-
+            TogglePlayBack();
             return Task.CompletedTask;
         }
 
@@ -63,9 +47,18 @@ namespace LaunchPad.Apps
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
             if (!Preferences.ThemedWidgets)
             {
-                PowerConfirmation.Foreground = textColor;
+                PlaybackButton.Fill = textColor;
             }
+            
         }
+
+
+        static void TogglePlayBack()
+        {
+            keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+            keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, UIntPtr.Zero);
+        }
+
         public override void SetVariation(int variation) { }
     }
 }

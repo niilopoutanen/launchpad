@@ -1,43 +1,41 @@
 ﻿using LaunchPadCore;
 using System;
 using System.Diagnostics;
-using System.Runtime;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using Windows.UI.ViewManagement;
 
 namespace LaunchPad
 {
-    public partial class Icon : LaunchPadItem
+    public partial class Icon : LaunchPadItemControl
     {
         public AppShortcut App { get; set; }
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => true;
-        public override UIElement BaseElement => appIcon;
+        public override bool HasSecondaryAction => false;
 
-        private UserPreferences preferences;
+        public override FrameworkElement BaseElement => appIcon;
+        public override TextBlock ItemName => VisualName;
+        public override UserPreferences Preferences { get; set; }
 
         public Icon(AppShortcut app)
         {
             this.App = app;
-            preferences = SaveSystem.LoadPreferences();
             InitializeComponent();
-            InitializeIcon();
-
             base.InitializeControl();
 
+            InitializeIcon();
         }
 
 
         private void InitializeIcon()
         {
             var icon = AppShortcut.GetIcon(App);
-            if(icon != null)
+            if (icon != null)
             {
                 iconBitmap.Source = icon;
             }
@@ -47,27 +45,27 @@ namespace LaunchPad
             }
 
 
-            if (preferences.FullSizeIcon)
+            if (Preferences.FullSizeIcon)
             {
                 appIcon.Padding = new Thickness(0);
                 appIcon.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
             }
 
-            if (preferences.NameVisible)
+            if (Preferences.NameVisible)
             {
-                appName.Visibility = Visibility.Visible;
+                VisualName.Visibility = Visibility.Visible;
                 appIcon.Width = 80;
                 appIcon.Height = 80;
 
 
                 if (App.Name.Length > 13)
                 {
-                    appName.Text = App.Name[..13] + "..";
+                    VisualName.Text = App.Name[..13] + "..";
                 }
 
                 else
                 {
-                    appName.Text = App.Name;
+                    VisualName.Text = App.Name;
                 }
             }
 
@@ -80,7 +78,7 @@ namespace LaunchPad
             {
                 try
                 {
-                    Process process = new Process();
+                    Process process = new();
                     process.StartInfo.FileName = App.ExeUri;
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
@@ -109,11 +107,11 @@ namespace LaunchPad
             {
                 return;
             }
-            if (!preferences.FullSizeIcon)
+            if (!Preferences.FullSizeIcon)
             {
                 appIcon.Background = itemBackgroundColor;
             }
-            appName.Foreground = textColor;
+            VisualName.Foreground = textColor;
 
         }
     }

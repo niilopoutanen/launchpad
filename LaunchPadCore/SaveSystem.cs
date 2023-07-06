@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Windows;
 
@@ -38,7 +37,7 @@ namespace LaunchPadCore
             }
             string jsonString = JsonSerializer.Serialize(apps);
             EnsureSaveFolderExists();
-            using (StreamWriter streamWriter = new StreamWriter(SaveSystem.apps))
+            using (StreamWriter streamWriter = new(SaveSystem.apps))
             {
                 streamWriter.Write(jsonString);
             }
@@ -169,7 +168,7 @@ namespace LaunchPadCore
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
-                using (StreamReader reader = new StreamReader(stream))
+                using (StreamReader reader = new(stream))
                 {
                     string jsonContent = reader.ReadToEnd();
                     // Do something with the JSON content
@@ -179,7 +178,7 @@ namespace LaunchPadCore
             Dictionary<string, bool> activeDict = LoadPreferences().ActiveWidgets;
             foreach (Widget widget in widgets)
             {
-                foreach(string key in activeDict.Keys)
+                foreach (string key in activeDict.Keys)
                 {
                     if (widget.ID == key)
                     {

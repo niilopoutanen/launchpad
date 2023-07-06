@@ -3,8 +3,8 @@ using LaunchPadCore;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -16,7 +16,7 @@ namespace LaunchPad
     public partial class LaunchPadWindow : Window
     {
         readonly UserPreferences preferences;
-        readonly List<LaunchPadItem> items = new();
+        readonly List<LaunchPadItemControl> items = new();
         public LaunchPadWindow()
         {
             preferences = SaveSystem.LoadPreferences();
@@ -110,7 +110,7 @@ namespace LaunchPad
 
 
             WindowStartupLocation = WindowStartupLocation.Manual;
-            Left = screenWorkingArea.Left / dpiScaleX + (screenWorkingArea.Width / dpiScaleX - Width) / 2;
+            Left = (screenWorkingArea.Left / dpiScaleX) + (((screenWorkingArea.Width / dpiScaleX) - Width) / 2);
 
             switch (type)
             {
@@ -118,7 +118,7 @@ namespace LaunchPad
                     Top = screenWorkingArea.Top / dpiScaleY;
                     break;
                 case AnimationTypes.SlideBottom:
-                    Top = (screenWorkingArea.Bottom - 20) / dpiScaleY - Height;
+                    Top = ((screenWorkingArea.Bottom - 20) / dpiScaleY) - Height;
                     break;
             }
         }
@@ -134,11 +134,14 @@ namespace LaunchPad
 
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = SaveSystem.LoadWidgets();
+
+            int activeWidgetCount = SaveSystem.LoadPreferences().ActiveWidgets.Values.Count(value => value);
+
             appContainer.MaxWidth = preferences.PreferredWidth;
 
-            if (apps.Count == 0 && widgets.Count == 0)
+            if (apps.Count == 0 && activeWidgetCount == 0)
             {
-                var suggestion = new Suggestion("No apps added. Open configurator to add some.","1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
+                var suggestion = new Suggestion("No apps added. Open configurator to add some.", "1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
                 items.Add(suggestion);
                 appContainer.Children.Add(suggestion);
                 return;
@@ -151,27 +154,37 @@ namespace LaunchPad
             }
             foreach (Widget widget in widgets)
             {
-                if(!widget.Active)
+                if (!widget.Active)
                 {
                     continue;
                 }
                 switch (widget.ID)
                 {
                     case "pwr_01":
-                        var powerWidget = new PowerWidget();
+                        var powerWidget = new PowerWidget(widget);
                         items.Add(powerWidget);
                         appContainer.Children.Add(powerWidget);
                         break;
 
                     case "btr_02":
-                        var batteryWidget = new BatteryWidget();
+                        var batteryWidget = new BatteryWidget(widget);
                         items.Add(batteryWidget);
                         appContainer.Children.Add(batteryWidget);
                         break;
                     case "dt_03":
-                        var dateWidget = new DateWidget();
+                        var dateWidget = new DateWidget(widget);
                         items.Add(dateWidget);
                         appContainer.Children.Add(dateWidget);
+                        break;
+                    case "clk_04":
+                        var clockWidget = new ClockWidget(widget);
+                        items.Add(clockWidget);
+                        appContainer.Children.Add(clockWidget);
+                        break;
+                    case "plbk_05":
+                        var playbackWidget = new PlaybackWidget(widget);
+                        items.Add(playbackWidget);
+                        appContainer.Children.Add(playbackWidget);
                         break;
                 }
             }
@@ -182,7 +195,7 @@ namespace LaunchPad
 
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
-            foreach (LaunchPadItem item in appContainer.Children)
+            foreach (LaunchPadItemControl item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }
@@ -191,7 +204,7 @@ namespace LaunchPad
             if (preferences.UseSystemAccent)
             {
                 var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
-                SolidColorBrush accentBrush = new SolidColorBrush(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
+                SolidColorBrush accentBrush = new(Color.FromArgb(accentColor.A, accentColor.R, accentColor.G, accentColor.B));
                 if (preferences.TransparentTheme)
                 {
                     byte opacity = (byte)(accentColor.A * 0.4);
@@ -221,13 +234,13 @@ namespace LaunchPad
                     items[keyNumber].OnPress();
                 }
             };
-            window.KeyUp += (s, e) =>
+            window.KeyUp += async (s, e) =>
             {
                 int keyNumber = IsNumberKey(e.Key);
 
                 if (keyNumber >= 0 && keyNumber < items.Count)
                 {
-                    items[keyNumber].OnRelease();
+                    await items[keyNumber].OnRelease(true);
                 }
             };
         }

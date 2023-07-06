@@ -1,5 +1,5 @@
 ﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
-            x:Class="LaunchPad.Apps.DateWidget"
+            x:Class="LaunchPad.Apps.PlaybackWidget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,7 @@
              xmlns:local="clr-namespace:LaunchPad.Apps"
              mc:Ignorable="d">
     <StackPanel MaxWidth="100" Margin="5">
-
-        <Border Name="Container" CornerRadius="17" Background="#FFFFFF" Width="80" Height="80">
+        <Border Name="Container" CornerRadius="17" Background="#4176FF" Width="80" Height="80">
             <Border.RenderTransform>
                 <ScaleTransform />
             </Border.RenderTransform>
@@ -18,20 +17,14 @@
                 </Style>
             </Border.Style>
             <Grid>
-                <StackPanel Name="DatePanel" Orientation="Vertical" VerticalAlignment="Center">
-                    <TextBlock Name="DateNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
-                    <TextBlock Name="DateName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}" Foreground="#FF564C"/>
-                </StackPanel>
-                <StackPanel Name="MonthPanel" Orientation="Vertical" VerticalAlignment="Center" Visibility="Collapsed">
-                    <TextBlock Name="MonthNumber" FontSize="40" TextAlignment="Center" FontFamily="{StaticResource Inter}" FontWeight="Medium"/>
-                    <TextBlock Name="MonthName" FontSize="13" TextAlignment="Center" FontFamily="{StaticResource Inter}" Foreground="#FF564C"/>
-                </StackPanel>
+                <Path Stretch="Uniform" Width="50" Name="PlaybackButton" Data="M21.6328 19.0898H24.3047C25.3242 19.0898 25.8633 18.5508 25.8633 17.5195V1.55859C25.8633 0.492188 25.3242 0 24.3047 0H21.6328C20.6133 0 20.0742 0.539062 20.0742 1.55859V17.5195C20.0742 18.5508 20.6133 19.0898 21.6328 19.0898ZM30.9844 19.0898H33.6445C34.6758 19.0898 35.2031 18.5508 35.2031 17.5195V1.55859C35.2031 0.492188 34.6758 0 33.6445 0H30.9844C29.9531 0 29.4258 0.539062 29.4258 1.55859V17.5195C29.4258 18.5508 29.9531 19.0898 30.9844 19.0898ZM1.6875 18.7383C2.16797 18.7383 2.55469 18.5859 3.03516 18.3047L14.9766 11.2852C15.8086 10.793 16.1602 10.207 16.1602 9.53906C16.1602 8.85938 15.8086 8.28516 14.9766 7.79297L3.03516 0.761719C2.55469 0.480469 2.16797 0.328125 1.6875 0.328125C0.761719 0.328125 0 1.03125 0 2.34375V16.7344C0 18.0469 0.761719 18.7383 1.6875 18.7383Z" Fill="White" />
+
             </Grid>
 
         </Border>
         <TextBlock x:Name="VisualName" Visibility="Collapsed" Margin="0,5,0,0"
                    HorizontalAlignment="Center"
                    FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
-                   Foreground="{StaticResource LaunchPadTextColor}">Date</TextBlock>
+                   Foreground="{StaticResource LaunchPadTextColor}">Playback</TextBlock>
     </StackPanel>
 </LaunchPadCore:LaunchPadWidgetControl>

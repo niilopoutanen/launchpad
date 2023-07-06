@@ -6,10 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace LaunchPad.Apps
 {
-    public partial class DateWidget : LaunchPadWidgetControl
+    public partial class ClockWidget : LaunchPadWidgetControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -23,40 +24,54 @@ namespace LaunchPad.Apps
         public override Widget Widget { get; set; }
         public override int Variation { get; set; }
 
-        public DateWidget(Widget widget)
+        private readonly DispatcherTimer clock;
+        public ClockWidget(Widget widget)
         {
             this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
-            SetDate();
+
+            clock = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            clock.Tick += Clock_Tick;
+            clock.Start();
+            Clock_Tick(null, null);
         }
         public override Task OnClick()
         {
-            Process.Start("explorer.exe", @"shell:Appsfolder\microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar");
-            ((App)Application.Current).ToggleLaunchpad();
+            Process.Start("explorer.exe", @"shell:Appsfolder\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App");
+            ((App)System.Windows.Application.Current).ToggleLaunchpad();
             return Task.CompletedTask;
         }
-        private void SetDate()
+        private void Clock_Tick(object sender, EventArgs e)
         {
-            string month = DateTime.Now.Month.ToString("D2");
-            string date = DateTime.Now.Day.ToString();
+            DateTime now = DateTime.Now;
 
-            DateNumber.Text = date;
-            MonthNumber.Text = month;
+            double hourAngle = (now.Hour % 12 + now.Minute / 60.0) * 30;
+            double minuteAngle = now.Minute * 6;
+            double secondAngle = now.Second * 6;
 
-            DateName.Text = DateTime.Today.ToString("ddd");
-            MonthName.Text = DateTime.Today.ToString("MMM");
+            //Turn the handles the opposite way
+            hourAngle -= 180;
+            minuteAngle -= 180;
+            secondAngle -= 180;
+
+            HourHand.RenderTransform = new RotateTransform(hourAngle);
+            MinuteHand.RenderTransform = new RotateTransform(minuteAngle);
+            SecondHand.RenderTransform = new RotateTransform(secondAngle);
+
+            TimeText.Text = DateTime.Now.ToString("HH:mm:ss");
         }
+
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
             base.SetTheme(activeDictionary);
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
             if (!Preferences.ThemedWidgets)
             {
-                DateNumber.Foreground = textColor;
-                DateName.Foreground = textColor;
-                MonthNumber.Foreground = textColor;
-                MonthName.Foreground = textColor;
+                TimeText.Foreground = textColor;
             }
         }
 
@@ -71,14 +86,14 @@ namespace LaunchPad.Apps
             switch (variation)
             {
                 case 1:
-                    DatePanel.Visibility = Visibility.Collapsed;
-                    MonthPanel.Visibility = Visibility.Visible;
-                    MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    ClockCanvas.Visibility = Visibility.Collapsed;
+                    TimeText.Visibility = Visibility.Visible;
+                    TimeText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
                 case 2:
-                    MonthPanel.Visibility = Visibility.Collapsed;
-                    DatePanel.Visibility = Visibility.Visible;
-                    DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    TimeText.Visibility = Visibility.Collapsed;
+                    ClockCanvas.Visibility = Visibility.Visible;
+                    ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                     break;
             }
             Variation = variation;

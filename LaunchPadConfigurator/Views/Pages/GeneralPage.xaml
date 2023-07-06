@@ -10,6 +10,7 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
+            <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="2,5,0,5">LaunchPad</TextBlock>
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -28,19 +29,18 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Launch animation style</TextBlock>
 
 
-                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="NameVisibleToggle"></ToggleSwitch>
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
             </Grid>
-
+            
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad theme</TextBlock>
-
 
                 <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="ThemeComboBox"></ComboBox>
             </Grid>
@@ -56,7 +56,6 @@
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="transparentThemeToggle"></ToggleSwitch>
             </Grid>
 
-
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -67,6 +66,20 @@
 
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="accentThemeToggle"></ToggleSwitch>
             </Grid>
+
+            
+            <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="2,5,0,5">Apps</TextBlock>
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
+
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="NameVisibleToggle"></ToggleSwitch>
+            </Grid>
+
 
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
@@ -81,17 +94,21 @@
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="fullSizeIconToggle"></ToggleSwitch>
             </Grid>
 
-
+            <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="2,5,0,5">Widgets</TextBlock>
             <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center">Launch animation style</TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Themed widgets</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Custom backgrounds for widgets</TextBlock>
+                </StackPanel>
 
-
-                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="themedWidgetsToggle"></ToggleSwitch>
             </Grid>
+
+
         </StackPanel>
     </ScrollViewer>
 </Page>

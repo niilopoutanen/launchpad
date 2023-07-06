@@ -113,7 +113,7 @@ namespace LaunchPadCore
         }
         public static ImageSource GetIcon(AppShortcut app)
         {
-            if(app.AppType == AppTypes.URL)
+            if (app.AppType == AppTypes.URL)
             {
                 string imagePath = string.Empty;
 
@@ -140,7 +140,7 @@ namespace LaunchPadCore
                         break;
                 }
 
-                BitmapImage imageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                BitmapImage imageSource = new(new Uri(imagePath, UriKind.Absolute));
 
                 return imageSource;
             }

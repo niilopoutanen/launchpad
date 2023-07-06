@@ -1,15 +1,11 @@
 using LaunchPadCore;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
 using System.Diagnostics;
-using System.Windows.Input;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Windows.UI.Core;
-using Windows.System;
 using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
-using System.Security.Policy;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 
 namespace LaunchPadConfigurator.Views.Pages
@@ -53,7 +49,7 @@ namespace LaunchPadConfigurator.Views.Pages
 
             btn.KeyDown += (s, e) =>
             {
-                if(btn.IsChecked == false)
+                if (btn.IsChecked == false)
                 {
                     return;
                 }

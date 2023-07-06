@@ -15,7 +15,7 @@
     <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
     <UseWPF>False</UseWPF>
     <PackageId>LaunchPad Configurator</PackageId>
-    <Version>1.0</Version>
+    <Version>1.1</Version>
     <Title>LaunchPad Configurator</Title>
     <Authors>Niilo Poutanen</Authors>
     <Company>Niilo Poutanen</Company>
@@ -33,7 +33,9 @@
     <None Remove="Assets\Icons\icon_widgets.png" />
     <None Remove="Assets\Icons\LaunchPad.ico" />
     <None Remove="Assets\Widgets\widget_battery.jpg" />
+    <None Remove="Assets\Widgets\widget_clock.jpg" />
     <None Remove="Assets\Widgets\widget_date.jpg" />
+    <None Remove="Assets\Widgets\widget_playback.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
     <None Remove="Views\Elements\WidgetGalleryItem.xaml" />
@@ -110,7 +112,13 @@
     <Content Update="Assets\Widgets\widget_battery.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Widgets\widget_clock.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Widgets\widget_date.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Widgets\widget_playback.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Widgets\widget_power.jpg">

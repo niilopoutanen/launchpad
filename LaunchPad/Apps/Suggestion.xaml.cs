@@ -6,20 +6,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
 
-    public partial class Suggestion : LaunchPadItem
+    public partial class Suggestion : LaunchPadItemControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
         public override bool WaitForAnim => true;
+        public override bool HasSecondaryAction => false;
 
-        public override UIElement BaseElement  => Container;
+        public override FrameworkElement BaseElement => Container;
+        public override TextBlock ItemName => new();
+        public override UserPreferences Preferences { get; set; }
 
-        private string appID;
+        private readonly string appID;
         public Suggestion(string text, string appID)
         {
             InitializeComponent();
