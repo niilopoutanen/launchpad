@@ -1,4 +1,4 @@
-﻿<LaunchPadCore:LaunchPadItemControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
             x:Class="LaunchPad.Apps.PowerWidget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
@@ -32,4 +32,4 @@
                    FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}"
                    Foreground="{StaticResource LaunchPadTextColor}">Power</TextBlock>
     </StackPanel>
-</LaunchPadCore:LaunchPadItemControl>
+</LaunchPadCore:LaunchPadWidgetControl>

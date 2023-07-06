@@ -12,7 +12,7 @@ using Windows.Media.Playback;
 
 namespace LaunchPad.Apps
 {
-    public partial class PlaybackWidget : LaunchPadItemControl
+    public partial class PlaybackWidget : LaunchPadWidgetControl
     {
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
@@ -30,8 +30,12 @@ namespace LaunchPad.Apps
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
 
+        public override Widget Widget { get; set; }
+        public override int Variation { get; set; }
+
         public PlaybackWidget(Widget widget)
         {
+            this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
         }
@@ -64,5 +68,7 @@ namespace LaunchPad.Apps
             keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
             keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, UIntPtr.Zero);
         }
+
+        public override void SetVariation(int variation) { }
     }
 }

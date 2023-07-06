@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
-    public partial class PowerWidget : LaunchPadItemControl
+    public partial class PowerWidget : LaunchPadWidgetControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -20,8 +20,12 @@ namespace LaunchPad.Apps
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
 
+        public override Widget Widget { get; set; }
+        public override int Variation { get; set; }
+
         public PowerWidget(Widget widget)
         {
+            this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
         }
@@ -69,5 +73,6 @@ namespace LaunchPad.Apps
             }
             VisualName.Foreground = textColor;
         }
+        public override void SetVariation(int variation) { }
     }
 }
