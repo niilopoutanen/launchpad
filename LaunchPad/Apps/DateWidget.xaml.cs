@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace LaunchPad.Apps
 {
-    public partial class DateWidget : LaunchPadItemControl
+    public partial class DateWidget : LaunchPadWidgetControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -19,39 +19,15 @@ namespace LaunchPad.Apps
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
+        public override Widget Widget { get; set; }
+        public override int Variation { get; set; }
 
-        private Widget widget;
-        public DateWidget()
+        public DateWidget(Widget widget)
         {
+            this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
-            widget = Widget.LoadWidget(typeof(DateWidget));
             SetDate();
-        }
-        public override Task OnSecondaryClick()
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            switch (DatePanel.Visibility)
-            {
-                case Visibility.Visible:
-                    DatePanel.Visibility = Visibility.Collapsed;
-                    MonthPanel.Visibility = Visibility.Visible;
-                    MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case Visibility.Collapsed:
-                    MonthPanel.Visibility = Visibility.Collapsed;
-                    DatePanel.Visibility = Visibility.Visible;
-                    DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            return base.OnSecondaryClick();
         }
         public override Task OnClick()
         {
@@ -90,5 +66,28 @@ namespace LaunchPad.Apps
             VisualName.Foreground = textColor;
         }
 
+        public override void SetVariation(int variation)
+        {
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+            switch (variation)
+            {
+                case 1:
+                    DatePanel.Visibility = Visibility.Collapsed;
+                    MonthPanel.Visibility = Visibility.Visible;
+                    MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+                case 2:
+                    MonthPanel.Visibility = Visibility.Collapsed;
+                    DatePanel.Visibility = Visibility.Visible;
+                    DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+            }
+            Variation = variation;
+        }
     }
 }

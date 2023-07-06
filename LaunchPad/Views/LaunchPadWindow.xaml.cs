@@ -161,7 +161,7 @@ namespace LaunchPad
                 switch (widget.ID)
                 {
                     case "pwr_01":
-                        var powerWidget = new PowerWidget();
+                        var powerWidget = new PowerWidget(widget);
                         items.Add(powerWidget);
                         appContainer.Children.Add(powerWidget);
                         break;
@@ -172,17 +172,17 @@ namespace LaunchPad
                         appContainer.Children.Add(batteryWidget);
                         break;
                     case "dt_03":
-                        var dateWidget = new DateWidget();
+                        var dateWidget = new DateWidget(widget);
                         items.Add(dateWidget);
                         appContainer.Children.Add(dateWidget);
                         break;
                     case "clk_04":
-                        var clockWidget = new ClockWidget();
+                        var clockWidget = new ClockWidget(widget);
                         items.Add(clockWidget);
                         appContainer.Children.Add(clockWidget);
                         break;
                     case "plbk_05":
-                        var playbackWidget = new PlaybackWidget();
+                        var playbackWidget = new PlaybackWidget(widget);
                         items.Add(playbackWidget);
                         appContainer.Children.Add(playbackWidget);
                         break;

@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace LaunchPad.Apps
 {
-    public partial class ClockWidget : LaunchPadItemControl
+    public partial class ClockWidget : LaunchPadWidgetControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -21,14 +21,15 @@ namespace LaunchPad.Apps
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
+        public override Widget Widget { get; set; }
+        public override int Variation { get; set; }
 
         private readonly DispatcherTimer clock;
-        private Widget widget;
-        public ClockWidget()
+        public ClockWidget(Widget widget)
         {
+            this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
-            widget = Widget.LoadWidget(typeof(ClockWidget));
 
             clock = new DispatcherTimer
             {
@@ -37,31 +38,6 @@ namespace LaunchPad.Apps
             clock.Tick += Clock_Tick;
             clock.Start();
             Clock_Tick(null, null);
-        }
-        public override Task OnSecondaryClick()
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            switch (ClockCanvas.Visibility)
-            {
-                case Visibility.Visible:
-                    ClockCanvas.Visibility = Visibility.Collapsed;
-                    TimeText.Visibility = Visibility.Visible;
-                    TimeText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case Visibility.Collapsed:
-                    TimeText.Visibility = Visibility.Collapsed;
-                    ClockCanvas.Visibility = Visibility.Visible;
-                    ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            return Task.CompletedTask;
         }
         public override Task OnClick()
         {
@@ -105,6 +81,30 @@ namespace LaunchPad.Apps
             }
             
             VisualName.Foreground = textColor;
+        }
+
+        public override void SetVariation(int variation)
+        {
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+            switch (variation)
+            {
+                case 1:
+                    ClockCanvas.Visibility = Visibility.Collapsed;
+                    TimeText.Visibility = Visibility.Visible;
+                    TimeText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+                case 2:
+                    TimeText.Visibility = Visibility.Collapsed;
+                    ClockCanvas.Visibility = Visibility.Visible;
+                    ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+            }
+            Variation = variation;
         }
     }
 }

@@ -20,12 +20,10 @@ namespace LaunchPad.Apps
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
 
-        private Widget widget;
-        public PowerWidget()
+        public PowerWidget(Widget widget)
         {
             InitializeComponent();
             base.InitializeControl();
-            widget = Widget.LoadWidget(typeof(PowerWidget));
         }
         public override Task OnClick()
         {
