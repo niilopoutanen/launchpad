@@ -36,7 +36,7 @@
             int variation = 1;
             UserPreferences preferences = SaveSystem.LoadPreferences();
 
-            if(preferences.WidgetVariations == null)
+            if(preferences.WidgetVariations == null || !preferences.RememberWidgetVariation)
             {
                 return variation;
             }

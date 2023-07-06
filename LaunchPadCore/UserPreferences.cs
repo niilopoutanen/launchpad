@@ -90,6 +90,13 @@ namespace LaunchPadCore
             set => themedWidgets = value; 
         }
 
+        private bool rememberWidgetVariation = true;
+        public bool RememberWidgetVariation
+        {
+            get => rememberWidgetVariation;
+            set => rememberWidgetVariation = value;
+        }
+
         public Dictionary<string, bool>? ActiveWidgets { get; set; }
         public Dictionary<string, int>? WidgetVariations { get; set; }
     }
