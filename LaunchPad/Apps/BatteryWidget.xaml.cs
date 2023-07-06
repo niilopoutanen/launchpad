@@ -44,19 +44,13 @@ namespace LaunchPad.Apps
 
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
-            SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            base.SetTheme(activeDictionary);
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
-
-            if (itemBackgroundColor == null || textColor == null)
-            {
-                return;
-            }
             if (!Preferences.ThemedWidgets)
             {
-                Container.Background = itemBackgroundColor;
                 LevelText.Foreground = textColor;
             }
-            VisualName.Foreground = textColor;
+            
         }
 
         private int LoadBatteryLevel()

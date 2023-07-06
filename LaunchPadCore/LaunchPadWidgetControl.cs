@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LaunchPadCore
 {
@@ -26,5 +30,21 @@ namespace LaunchPadCore
             return base.OnSecondaryClick();
         }
         public abstract void SetVariation(int variation);
+
+        public override void SetTheme(ResourceDictionary activeDictionary)
+        {
+            SolidColorBrush itemBackgroundColor = activeDictionary["LaunchPadItemBackground"] as SolidColorBrush;
+            SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
+
+            if (itemBackgroundColor == null || textColor == null)
+            {
+                return;
+            }
+            if (!Preferences.ThemedWidgets)
+            {
+                ((Border)BaseElement).Background = itemBackgroundColor;
+            }
+            ItemName.Foreground = textColor;
+        }
     }
 }
