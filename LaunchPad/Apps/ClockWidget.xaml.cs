@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -21,6 +20,7 @@ namespace LaunchPad.Apps
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
+
         public override Widget Widget { get; set; }
         public override int Variation { get; set; }
 

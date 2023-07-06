@@ -21,6 +21,7 @@ namespace LaunchPad.Apps
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
+
         public override Widget Widget { get; set; }
         public override int Variation { get; set; }
 
