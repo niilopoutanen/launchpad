@@ -91,5 +91,6 @@ namespace LaunchPadCore
         }
 
         public Dictionary<string, bool>? ActiveWidgets { get; set; }
+        public Dictionary<string, int>? WidgetVariations { get; set; }
     }
 }

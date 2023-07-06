@@ -167,7 +167,7 @@ namespace LaunchPad
                         break;
 
                     case "btr_02":
-                        var batteryWidget = new BatteryWidget();
+                        var batteryWidget = new BatteryWidget(widget);
                         items.Add(batteryWidget);
                         appContainer.Children.Add(batteryWidget);
                         break;

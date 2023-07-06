@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace LaunchPad.Apps
 {
-    public partial class BatteryWidget : LaunchPadItemControl
+    public partial class BatteryWidget : LaunchPadWidgetControl
     {
         public override bool Pressed { get; set; }
         public override bool Focused { get; set; }
@@ -21,41 +21,16 @@ namespace LaunchPad.Apps
         public override FrameworkElement BaseElement => Container;
         public override TextBlock ItemName => VisualName;
         public override UserPreferences Preferences { get; set; }
+        public override Widget Widget { get; set; }
+        public override int Variation { get; set; }
 
-        private Widget widget;
-        public BatteryWidget()
+        public BatteryWidget(Widget widget)
         {
+            this.Widget = widget;
             InitializeComponent();
             base.InitializeControl();
 
             SetBatteryLevel(LoadBatteryLevel());
-            widget = Widget.LoadWidget(typeof(BatteryWidget));
-        }
-        public override Task OnSecondaryClick()
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            switch (LevelText.Visibility)
-            {
-                case Visibility.Visible:
-                    LevelText.Visibility = Visibility.Collapsed;
-                    BatteryCanvas.Visibility = Visibility.Visible;
-                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case Visibility.Collapsed:
-                    BatteryCanvas.Visibility = Visibility.Collapsed;
-                    LevelText.Visibility = Visibility.Visible;
-                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-
-            return base.OnSecondaryClick();
         }
         public override Task OnClick()
         {
@@ -128,6 +103,30 @@ namespace LaunchPad.Apps
             }
 
             LevelText.Text = batteryLevel.ToString() + "%";
+        }
+
+        public override void SetVariation(int variation)
+        {
+            DoubleAnimation fadeInAnimation = new()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+            switch (variation)
+            {
+                case 1:
+                    LevelText.Visibility = Visibility.Collapsed;
+                    BatteryCanvas.Visibility = Visibility.Visible;
+                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+                case 2:
+                    BatteryCanvas.Visibility = Visibility.Collapsed;
+                    LevelText.Visibility = Visibility.Visible;
+                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+                    break;
+            }
+            Variation = variation;
         }
     }
 }

@@ -15,13 +15,13 @@ namespace LaunchPadCore
         public virtual bool Pressed { get; set; }
         public virtual bool Focused { get; set; }
         public abstract bool WaitForAnim { get; }
-        public abstract bool HasSecondaryAction { get; }
+        public virtual bool HasSecondaryAction { get; }
 
         public virtual FrameworkElement BaseElement { get; }
         public virtual TextBlock ItemName { get; }
-        public abstract UserPreferences Preferences { get; set; }
+        public virtual UserPreferences Preferences { get; set; }
 
-        public void InitializeControl()
+        public virtual void InitializeControl()
         {
             Preferences = SaveSystem.LoadPreferences();
 
