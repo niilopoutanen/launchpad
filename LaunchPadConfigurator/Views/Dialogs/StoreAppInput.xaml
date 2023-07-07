@@ -8,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     MaxWidth="400"
-    MinWidth="400">
+    MinWidth="400"
+    MinHeight="250"
+    MaxHeight="250">
 
     
     <ListView Name="AppListView" SelectionMode="Single" SelectionChanged="AppSelected">

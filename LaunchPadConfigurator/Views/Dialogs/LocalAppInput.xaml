@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     MaxWidth="400"
-    MinWidth="400">
+    MinWidth="400"
+    MinHeight="250">
 
     <StackPanel Orientation="Vertical">
         <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>

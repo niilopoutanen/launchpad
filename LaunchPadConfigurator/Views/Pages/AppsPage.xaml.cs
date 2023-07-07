@@ -139,8 +139,8 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 Title = "Add a new app",
                 XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
-                PrimaryButtonText = "OK",
-                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Add",
+                SecondaryButtonText = "Cancel",
                 Content = new AppInputDialog()
             };
             ContentDialogResult result = await selectionDialog.ShowAsync();
