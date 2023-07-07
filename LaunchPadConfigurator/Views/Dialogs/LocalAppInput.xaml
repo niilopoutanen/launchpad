@@ -10,7 +10,48 @@
     MaxWidth="400"
     MinWidth="400">
 
-    <Grid>
+    <StackPanel Orientation="Vertical">
+        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
 
-    </Grid>
+        <Grid Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="0,0,10,0" Width="120" VerticalAlignment="Center">Name</TextBlock>
+            <TextBox Grid.Column="1" Name="NameInput" PlaceholderText="App name"></TextBox>
+            <TextBlock Name="NameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
+        </Grid>
+
+        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0" Width="120">
+                <TextBlock>Icon</TextBlock>
+                <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Setting an icon is optional.</TextBlock>
+            </StackPanel>
+
+            <Button Name="IconButton" Grid.Column="1" HorizontalAlignment="Stretch">Icon file</Button>
+        </Grid>
+
+        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="0,0,10,0" Width="120" VerticalAlignment="Center">Executable</TextBlock>
+
+            <Button Name="ExeButton" Grid.Column="1" HorizontalAlignment="Stretch">.exe file path</Button>
+        </Grid>
+
+
+        <Border Margin="0,10,0,0" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
+
+    </StackPanel>
 </UserControl>
