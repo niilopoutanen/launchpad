@@ -27,5 +27,6 @@ namespace LaunchPadConfigurator.Views.Dialogs
             StoreAppInput storeAppInput = new StoreAppInput();
             InputFrame.Content = storeAppInput;
         }
+        
     }
 }

@@ -10,7 +10,7 @@
     MaxWidth="400"
     MinWidth="400">
 
-    <ListView Name="AppListView" SelectionMode="Single">
+    <ListView Name="AppListView" SelectionMode="Single" SelectionChanged="AppSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">

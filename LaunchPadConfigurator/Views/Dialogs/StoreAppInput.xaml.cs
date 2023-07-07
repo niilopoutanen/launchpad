@@ -1,3 +1,4 @@
+using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -19,8 +20,8 @@ namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class StoreAppInput : UserControl
     {
-        List<Package> storeApps = new();
-
+        readonly List<Package> storeApps = new();
+        AppShortcut Input { get; set; }
         public StoreAppInput()
         {
             this.InitializeComponent();
@@ -38,6 +39,22 @@ namespace LaunchPadConfigurator.Views.Dialogs
                 }
             }
             AppListView.ItemsSource = storeApps;
+        }
+        
+        public AppShortcut Get()
+        {
+            return Input;
+        }
+
+        private void AppSelected(object sender, SelectionChangedEventArgs e)
+        {
+            Package selectedPackage = AppListView.SelectedItem as Package;
+            Input = new()
+            {
+                Name = selectedPackage.DisplayName,
+                IconFileName = selectedPackage.Logo.AbsolutePath,
+                ExeUri = selectedPackage.Id.FamilyName
+            };
         }
     }
 }
