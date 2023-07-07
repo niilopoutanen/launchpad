@@ -17,8 +17,8 @@ namespace LaunchPadConfigurator.Views.Pages
 
             addAppButton.Click += async (s, e) =>
             {
-                await ShowSelection();
-               
+                //await ShowSelection();
+                await ShowDialog(null);
             };
         }
 
