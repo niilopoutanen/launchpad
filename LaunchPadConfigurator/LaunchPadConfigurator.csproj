@@ -38,6 +38,8 @@
     <None Remove="Assets\Widgets\widget_playback.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
+    <None Remove="Views\Dialogs\AppInputDialog.xaml" />
+    <None Remove="Views\Dialogs\StoreAppInput.xaml" />
     <None Remove="Views\ListItems\WidgetGalleryItem.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\ListItems\AddAppDialog.xaml" />
@@ -130,6 +132,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Views\Dialogs\AppInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\Dialogs\StoreAppInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\ListItems\WidgetGalleryItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,9 +169,6 @@
     <Page Update="Views\ListItems\AppListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Dialogs\" />
   </ItemGroup>
 
   <!-- 

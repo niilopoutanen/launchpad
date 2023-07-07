@@ -19,7 +19,6 @@ namespace LaunchPadConfigurator.Views.Dialogs
         private readonly IntPtr hWnd;
         public AddAppDialog(IntPtr hwnd)
         {
-            AppListTest();
             this.InitializeComponent();
             this.hWnd = hwnd;
 
@@ -55,25 +54,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             AppTypeComboBox.SelectedIndex = 0;
             AppType = AppShortcut.AppTypes.EXE;
         }
-        private void AppListTest()
-        {
-            PackageManager packageManager = new PackageManager();
-            IEnumerable<Package> packages = packageManager.FindPackagesForUser("");
 
-            Dictionary<string, string> appDictionary = new Dictionary<string, string>();
-
-            foreach (Package package in packages)
-            {
-                if (package.IsFramework || package.IsResourcePackage)
-                    continue;
-
-                string appName = package.DisplayName;
-                string appId = package.Id.FamilyName;
-
-                appDictionary.Add(appId, appName);
-            }
-
-        }
         public void UpdateApp(AppShortcut app)
         {
             AppName = app.Name;
