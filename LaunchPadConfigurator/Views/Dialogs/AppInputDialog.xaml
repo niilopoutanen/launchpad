@@ -8,7 +8,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Frame Name="InputFrame">
-        
-    </Frame>
+    <StackPanel Orientation="Vertical">
+        <TextBlock>App type:</TextBlock>
+        <ComboBox Name="InputTypeComboBox" SelectedIndex="0" SelectionChanged="AppTypeSelectionChanged">
+            <ComboBox.Items>
+                <TextBlock>Microsoft Store app</TextBlock>
+                <TextBlock>Executable file</TextBlock>
+                <TextBlock>Website URL</TextBlock>
+            </ComboBox.Items>
+        </ComboBox>
+        <Frame Name="InputFrame">
+
+        </Frame>
+    </StackPanel>
+
 </UserControl>

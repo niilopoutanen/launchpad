@@ -1,3 +1,4 @@
+using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -17,16 +18,40 @@ namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class AppInputDialog : UserControl
     {
+        private const int TYPE_MSSTORE = 0;
+        private const int TYPE_EXE = 1;
+        private const int TYPE_URL = 2;
+        private IAppDialog activeDialog;
         public AppInputDialog()
         {
             this.InitializeComponent();
-            InitializeInputControl();
+            InitializeInputControl(1);
         }
-        private void InitializeInputControl()
+        private void InitializeInputControl(int type)
         {
-            StoreAppInput storeAppInput = new StoreAppInput();
-            InputFrame.Content = storeAppInput;
+            switch (type)
+            {
+                case TYPE_MSSTORE:
+                    activeDialog = new StoreAppInput();
+                    break;
+                case TYPE_EXE:
+
+                    break;
+                case TYPE_URL:
+
+                    break;
+            }
+            
+            InputFrame.Content = activeDialog;
         }
-        
+        public AppShortcut GetInput()
+        {
+            return activeDialog.Get();
+        }
+
+        private void AppTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InitializeInputControl(InputTypeComboBox.SelectedIndex);
+        }
     }
 }

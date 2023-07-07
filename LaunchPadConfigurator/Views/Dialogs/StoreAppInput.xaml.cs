@@ -18,10 +18,10 @@ using Windows.Management.Deployment;
 
 namespace LaunchPadConfigurator.Views.Dialogs
 {
-    public sealed partial class StoreAppInput : UserControl
+    public sealed partial class StoreAppInput : UserControl, IAppDialog
     {
         readonly List<Package> storeApps = new();
-        AppShortcut Input { get; set; }
+        public AppShortcut Input { get; set; }
         public StoreAppInput()
         {
             this.InitializeComponent();
