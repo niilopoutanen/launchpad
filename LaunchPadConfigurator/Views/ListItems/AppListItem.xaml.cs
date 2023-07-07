@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace LaunchPadConfigurator.Views.UIElements
+namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class AppListItem : UserControl
     {

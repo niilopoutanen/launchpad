@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using Windows.Storage.Pickers;
 
-namespace LaunchPadConfigurator.Views.UIElements
+namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class AddAppDialog : UserControl
     {

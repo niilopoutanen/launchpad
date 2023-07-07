@@ -1,4 +1,4 @@
-using LaunchPadConfigurator.Views.UIElements;
+using LaunchPadConfigurator.Views.Dialogs;
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -17,7 +17,8 @@ namespace LaunchPadConfigurator.Views.Pages
 
             addAppButton.Click += async (s, e) =>
             {
-                await ShowDialog(null);
+                await ShowSelection();
+               
             };
         }
 
@@ -130,5 +131,43 @@ namespace LaunchPadConfigurator.Views.Pages
 
             await dialog.ShowAsync();
         }
+
+        private static async Task ShowSelection()
+        {
+            ContentDialog selectionDialog = new()
+            {
+                Title = "Select a shortcut type",
+                Content = new ComboBox
+                {
+                    ItemsSource = new List<string> { "Microsoft Store app", "Executable file/ local app", "Website URL" },
+                    SelectedIndex = 0
+                },
+                XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
+                PrimaryButtonText = "OK",
+                CloseButtonText = "Cancel"
+            };
+
+            ContentDialogResult result = await selectionDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                ComboBox comboBox = (ComboBox)selectionDialog.Content;
+
+                int selectedOption = comboBox.SelectedIndex;
+                switch (selectedOption)
+                {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                }
+            }
+        }
+
     }
 }
