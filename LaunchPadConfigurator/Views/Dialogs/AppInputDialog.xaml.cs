@@ -25,20 +25,20 @@ namespace LaunchPadConfigurator.Views.Dialogs
         public AppInputDialog()
         {
             this.InitializeComponent();
-            InitializeInputControl(1);
+            InitializeInputControl(0);
         }
         private void InitializeInputControl(int type)
         {
             switch (type)
             {
-                case TYPE_MSSTORE:
+                default:
                     activeDialog = new StoreAppInput();
                     break;
                 case TYPE_EXE:
-
+                    activeDialog = new LocalAppInput();
                     break;
                 case TYPE_URL:
-
+                    activeDialog = new WebAppInput();
                     break;
             }
             

@@ -5,9 +5,11 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,7 +22,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class StoreAppInput : UserControl, IAppDialog
     {
-        readonly List<Package> storeApps = new();
+        List<Package> storeApps = new();
         public AppShortcut Input { get; set; }
         public StoreAppInput()
         {
@@ -31,8 +33,18 @@ namespace LaunchPadConfigurator.Views.Dialogs
         {
             PackageManager packageManager = new PackageManager();
             IEnumerable<Package> rawData = packageManager.FindPackagesForUser("");
+
             foreach (Package package in rawData)
             {
+                if(package == null) continue;
+                try
+                {
+                    //checking for invalid values
+                    var logo = package.Logo;
+                    var name = package.DisplayName;
+                }
+                catch { }
+
                 if(!package.IsFramework && !package.IsResourcePackage && !package.IsBundle)
                 {
                     storeApps.Add(package);
@@ -40,7 +52,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             }
             AppListView.ItemsSource = storeApps;
         }
-        
+
         public AppShortcut Get()
         {
             return Input;
