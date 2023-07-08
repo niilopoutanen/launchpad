@@ -1,4 +1,4 @@
-using LaunchPadConfigurator.Views.UIElements;
+using LaunchPadConfigurator.Views.Dialogs;
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -17,7 +17,7 @@ namespace LaunchPadConfigurator.Views.Pages
 
             addAppButton.Click += async (s, e) =>
             {
-                await ShowDialog(null);
+                await ShowInput();
             };
         }
 
@@ -28,7 +28,7 @@ namespace LaunchPadConfigurator.Views.Pages
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new(app, RefreshAppList, ShowDialog);
+                AppListItem listItem = new(app, RefreshAppList, ShowUpdateInput);
                 appsList.Children.Add(listItem);
             }
 
@@ -48,87 +48,60 @@ namespace LaunchPadConfigurator.Views.Pages
             }
         }
 
-        private async Task ShowDialog(AppShortcut existingApp)
+        private async Task ShowInput()
         {
-            var window = (Application.Current as App)?.Window;
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-
-
-            var dialog = new ContentDialog
+            AppInputDialog inputDialog = new();
+            ContentDialog selectionDialog = new()
             {
-                Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
                 Title = "Add a new app",
                 XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
-                PrimaryButtonText = "Save",
-                CloseButtonText = "Cancel",
-                DefaultButton = ContentDialogButton.Primary,
+                PrimaryButtonText = "Add",
+                SecondaryButtonText = "Cancel",
+                Content = inputDialog
             };
-
-
-            AddAppDialog dialogContent = new(hWnd);
-            dialog.Content = dialogContent;
-            dialog.PrimaryButtonClick += (s, e) =>
+            selectionDialog.PrimaryButtonClick += (s, e) =>
             {
-                if (dialogContent.InputsAreValid())
+                if (inputDialog.ValidInputs())
                 {
-                    string name = dialogContent.AppName;
-                    string exepath = dialogContent.ExePath;
-                    string iconpath = dialogContent.IconPath;
-                    AppShortcut.AppTypes appType = dialogContent.AppType;
-
-                    AppShortcut app = new(name, exepath, iconpath, appType);
-                    SaveSystem.SaveApp(app);
+                    inputDialog.Save();
                     RefreshAppList();
                 }
                 else
                 {
-                    e.Cancel = true; // Prevent dialog from closing
+                    e.Cancel = true;
                 }
-
             };
 
 
-            //User is updating an app
-            if (existingApp != null)
-            {
-                dialogContent.UpdateApp(existingApp);
-                dialog.Title = "Update app details";
-                dialog.PrimaryButtonClick += (s, e) =>
-                {
-                    if (dialogContent.InputsAreValid())
-                    {
-                        string name = dialogContent.AppName;
-                        string exepath = dialogContent.ExePath;
-                        string iconpath = dialogContent.IconPath;
-                        AppShortcut.AppTypes appType = dialogContent.AppType;
-
-                        List<AppShortcut> existingApps = SaveSystem.LoadApps();
-                        foreach (AppShortcut appToCheck in existingApps)
-                        {
-                            if (appToCheck.ID == existingApp.ID)
-                            {
-                                existingApps.Remove(appToCheck);
-                                break;
-                            }
-                        }
-                        AppShortcut app = new(name, exepath, iconpath, appType)
-                        {
-                            Position = existingApp.Position,
-                            ID = existingApp.ID
-                        };
-                        existingApps.Add(app);
-                        SaveSystem.SaveApps(existingApps);
-
-                        RefreshAppList();
-                    }
-                    else
-                    {
-                        e.Cancel = true; // Prevent dialog from closing
-                    }
-                };
-            }
-
-            await dialog.ShowAsync();
+            await selectionDialog.ShowAsync();
         }
+        private async Task ShowUpdateInput(AppShortcut appToUpdate)
+        {
+            AppInputDialog inputDialog = new(appToUpdate);
+            ContentDialog selectionDialog = new()
+            {
+                Title = "Update the app",
+                XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
+                PrimaryButtonText = "Update",
+                SecondaryButtonText = "Cancel",
+                Content = inputDialog
+            };
+            selectionDialog.PrimaryButtonClick += (s, e) =>
+            {
+                if (inputDialog.ValidInputs())
+                {
+                    inputDialog.Update();
+                    RefreshAppList();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            };
+
+
+            await selectionDialog.ShowAsync();
+        }
+
     }
 }

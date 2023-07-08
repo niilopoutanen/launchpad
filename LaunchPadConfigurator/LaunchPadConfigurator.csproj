@@ -38,10 +38,12 @@
     <None Remove="Assets\Widgets\widget_playback.jpg" />
     <None Remove="Assets\Widgets\widget_power.jpg" />
     <None Remove="GeneralPage.xaml" />
-    <None Remove="Views\Elements\WidgetGalleryItem.xaml" />
+    <None Remove="Views\Dialogs\AppInputDialog.xaml" />
+    <None Remove="Views\Dialogs\StoreAppInput.xaml" />
+    <None Remove="Views\ListItems\WidgetGalleryItem.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
-    <None Remove="Views\Elements\AddAppDialog.xaml" />
-    <None Remove="Views\Elements\AppListItem.xaml" />
+    <None Remove="Views\ListItems\AddAppDialog.xaml" />
+    <None Remove="Views\ListItems\AppListItem.xaml" />
     <None Remove="Views\Pages\WidgetsPage.xaml" />
   </ItemGroup>
 
@@ -130,15 +132,16 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <Page Update="Views\Elements\WidgetGalleryItem.xaml">
+    <Page Update="Views\Dialogs\AppInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\Dialogs\StoreAppInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\ListItems\WidgetGalleryItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Views\Pages\WidgetsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\Elements\AddAppDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -158,7 +161,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\Elements\AppListItem.xaml">
+    <Page Update="Views\ListItems\AppListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

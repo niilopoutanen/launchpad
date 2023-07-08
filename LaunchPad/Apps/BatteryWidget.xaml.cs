@@ -100,7 +100,7 @@ namespace LaunchPad.Apps
             LevelText.Text = batteryLevel.ToString() + "%";
         }
 
-        public override void SetVariation(int variation)
+        public override void SetVariation(int variation, bool animationDisabled)
         {
             DoubleAnimation fadeInAnimation = new()
             {
@@ -108,6 +108,10 @@ namespace LaunchPad.Apps
                 To = 1.0,
                 Duration = new Duration(TimeSpan.FromSeconds(0.3))
             };
+            if (animationDisabled)
+            {
+                fadeInAnimation.From = 1.0;
+            }
             switch (variation)
             {
                 case 1:

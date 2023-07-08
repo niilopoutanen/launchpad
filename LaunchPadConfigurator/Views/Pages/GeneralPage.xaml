@@ -108,6 +108,15 @@
                 <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="themedWidgetsToggle"></ToggleSwitch>
             </Grid>
 
+            <Grid Style="{StaticResource GridCardStyle}" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Remember selected widget variation</TextBlock>
+
+                <ToggleSwitch Grid.Column="1" OffContent="" OnContent="" MinWidth="0" x:Name="rememberWidgetVariationToggle"></ToggleSwitch>
+            </Grid>
 
         </StackPanel>
     </ScrollViewer>

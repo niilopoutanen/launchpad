@@ -19,6 +19,7 @@ namespace LaunchPadCore
 
         public enum AppTypes
         {
+            MS_STORE,
             EXE,
             URL
         }
@@ -113,86 +114,100 @@ namespace LaunchPadCore
         }
         public static ImageSource GetIcon(AppShortcut app)
         {
-            if (app.AppType == AppTypes.URL)
+            try
             {
-                string imagePath = string.Empty;
-
-                switch (GetDefaultBrowser())
+                if (app.AppType == AppTypes.URL)
                 {
-                    case Browsers.Chrome:
-                        imagePath = "pack://application:,,,/Resources/Assets/browser_chrome.png";
-                        break;
+                    string imagePath = string.Empty;
 
-                    case Browsers.Edge:
-                        imagePath = "pack://application:,,,/Resources/Assets/browser_edge.png";
-                        break;
+                    switch (GetDefaultBrowser())
+                    {
+                        case Browsers.Chrome:
+                            imagePath = "pack://application:,,,/Resources/Assets/browser_chrome.png";
+                            break;
 
-                    case Browsers.Brave:
-                        imagePath = "pack://application:,,,/Resources/Assets/browser_brave.png";
-                        break;
+                        case Browsers.Edge:
+                            imagePath = "pack://application:,,,/Resources/Assets/browser_edge.png";
+                            break;
 
-                    case Browsers.Firefox:
-                        imagePath = "pack://application:,,,/Resources/Assets/browser_firefox.png";
-                        break;
+                        case Browsers.Brave:
+                            imagePath = "pack://application:,,,/Resources/Assets/browser_brave.png";
+                            break;
 
-                    case Browsers.None:
-                        imagePath = "pack://application:,,,/Resources/Assets/browser_none.png";
-                        break;
-                }
+                        case Browsers.Firefox:
+                            imagePath = "pack://application:,,,/Resources/Assets/browser_firefox.png";
+                            break;
 
-                BitmapImage imageSource = new(new Uri(imagePath, UriKind.Absolute));
+                        case Browsers.None:
+                            imagePath = "pack://application:,,,/Resources/Assets/browser_none.png";
+                            break;
+                    }
 
-                return imageSource;
-            }
-            if (app.IconFileName == null)
-            {
-                Icon appIcon = Icon.ExtractAssociatedIcon(app.ExeUri);
-
-                if (appIcon != null)
-                {
-                    ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                        appIcon.Handle,
-                        Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions()
-                    );
+                    BitmapImage imageSource = new(new Uri(imagePath, UriKind.Absolute));
 
                     return imageSource;
                 }
-                return null;
-            }
-            else
-            {
-                if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
+                if(app.AppType == AppTypes.EXE || app.AppType == AppTypes.MS_STORE)
                 {
-                    if (Path.GetExtension(validUri.LocalPath) == ".ico")
+                    if (app.IconFileName == null)
                     {
-                        BitmapDecoder decoder = BitmapDecoder.Create(validUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                        Icon appIcon = Icon.ExtractAssociatedIcon(app.ExeUri);
 
-                        int maxWidth = 0;
-                        int maxHeight = 0;
-                        BitmapFrame highestResFrame = null;
-
-                        foreach (BitmapFrame frame in decoder.Frames)
+                        if (appIcon != null)
                         {
-                            if (frame.PixelWidth > maxWidth && frame.PixelHeight > maxHeight)
-                            {
-                                maxWidth = frame.PixelWidth;
-                                maxHeight = frame.PixelHeight;
-                                highestResFrame = frame;
-                            }
-                        }
+                            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                                appIcon.Handle,
+                                Int32Rect.Empty,
+                                BitmapSizeOptions.FromEmptyOptions()
+                            );
 
-                        if (highestResFrame != null)
-                        {
-                            return highestResFrame;
+                            return imageSource;
                         }
+                        return null;
                     }
                     else
                     {
-                        return new BitmapImage(validUri);
+                        if (Uri.TryCreate(app.GetIconFullPath(), UriKind.Absolute, out Uri validUri))
+                        {
+                            if (Path.GetExtension(validUri.LocalPath) == ".ico")
+                            {
+                                BitmapDecoder decoder = BitmapDecoder.Create(validUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+
+                                int maxWidth = 0;
+                                int maxHeight = 0;
+                                BitmapFrame highestResFrame = null;
+
+                                foreach (BitmapFrame frame in decoder.Frames)
+                                {
+                                    if (frame.PixelWidth > maxWidth && frame.PixelHeight > maxHeight)
+                                    {
+                                        maxWidth = frame.PixelWidth;
+                                        maxHeight = frame.PixelHeight;
+                                        highestResFrame = frame;
+                                    }
+                                }
+
+                                if (highestResFrame != null)
+                                {
+                                    return highestResFrame;
+                                }
+                            }
+                            else
+                            {
+                                return new BitmapImage(validUri);
+                            }
+                        }
+                        return null;
                     }
                 }
-                return null;
+                else
+                {
+                    return new BitmapImage(new Uri("pack://application:,,,/Resources/Assets/icon_null.png", UriKind.Absolute));
+                }
+            }
+            catch
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/Resources/Assets/icon_null.png", UriKind.Absolute));
             }
         }
 
