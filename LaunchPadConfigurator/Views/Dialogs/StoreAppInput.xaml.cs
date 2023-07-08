@@ -24,8 +24,10 @@ namespace LaunchPadConfigurator.Views.Dialogs
     {
         List<Package> storeApps = new();
         public AppShortcut Input { get; set; }
-        public StoreAppInput()
+        private Action<string, string, string> dataChanged;
+        public StoreAppInput(Action<string,string,string> dataChanged)
         {
+            this.dataChanged = dataChanged;
             this.InitializeComponent();
             LoadStoreApps();
         }
@@ -67,6 +69,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
                 IconFileName = selectedPackage.Logo.AbsolutePath,
                 ExeUri = selectedPackage.Id.FamilyName
             };
+            dataChanged.Invoke(Input.Name, Input.IconFileName, Input.ExeUri);
         }
     }
 }

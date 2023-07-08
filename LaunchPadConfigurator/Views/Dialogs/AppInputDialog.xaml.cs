@@ -26,8 +26,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
         public AppInputDialog()
         {
             this.InitializeComponent();
-            InitializeInputControl(0);
-
+            InputTypeComboBox.SelectedIndex = 0;
             AppNameInput.TextChanged += (s, e) =>
             {
                 InputChanged(AppNameInput.Text, null, null);
@@ -42,7 +41,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             switch (type)
             {
                 default:
-                    StoreFrame.Content = new StoreAppInput();
+                    StoreFrame.Content = new StoreAppInput(InputChanged);
                     StoreFrame.Visibility = Visibility.Visible;
                     break;
                 case TYPE_EXE:
@@ -58,15 +57,14 @@ namespace LaunchPadConfigurator.Views.Dialogs
         {
             InitializeInputControl(InputTypeComboBox.SelectedIndex);
         }
-        public void InputChanged(string? name, string? path, string? iconPath)
+        public void InputChanged( string? name, string? path, string? iconPath)
         {
-            if(Input == null)
-            {
-                Input = new();
-            }
-            if(name != null)
+            Input ??= new();
+
+            if (name != null)
             {
                 Input.Name = name;
+                AppNameInput.Text = name;
             }
             if (path != null)
             {

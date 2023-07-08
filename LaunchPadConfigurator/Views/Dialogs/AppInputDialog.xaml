@@ -33,14 +33,15 @@
             </ComboBox>
             <Grid Padding="0,10,0,0" Height="230">
                 <StackPanel Orientation="Vertical" Visibility="Collapsed" Name="WebAppInput">
-                    <TextBlock>Website url</TextBlock>
-                    <TextBox Grid.Column="1" Name="UrlInput" PlaceholderText="www.google.com" Height="35"></TextBox>
+                    <TextBlock Margin="0,0,10,0">Website url</TextBlock>
+                    <TextBox Name="UrlInput" PlaceholderText="www.google.com"></TextBox>
                     <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Use a full URL with www. at the start.</TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Visibility="Collapsed" Name="LocalAppInput">
-                    <TextBlock Grid.Column="0" Margin="0,0,10,0">Executable</TextBlock>
-                    <Button Name="ExeButton" Grid.Column="1" HorizontalAlignment="Stretch">.exe file path</Button>
+                    <TextBlock Margin="0,0,10,0">Local app</TextBlock>
+                    <Button Name="ExeButton" HorizontalAlignment="Stretch">Shortcut file path</Button>
+                    <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">You can set any local file as the shortcut. Example files: .exe, .txt, .jpg</TextBlock>
                 </StackPanel>
                 
                 <Frame Name="StoreFrame" Height="230">
