@@ -21,37 +21,61 @@ namespace LaunchPadConfigurator.Views.Dialogs
         private const int TYPE_MSSTORE = 0;
         private const int TYPE_EXE = 1;
         private const int TYPE_URL = 2;
-        private IAppDialog activeDialog;
+
+        public AppShortcut Input { get; set; }
         public AppInputDialog()
         {
             this.InitializeComponent();
             InitializeInputControl(0);
+
+            AppNameInput.TextChanged += (s, e) =>
+            {
+                InputChanged(AppNameInput.Text, null, null);
+            };
         }
         private void InitializeInputControl(int type)
         {
+            StoreFrame.Visibility = Visibility.Collapsed;
+            WebAppInput.Visibility = Visibility.Collapsed;
+            LocalAppInput.Visibility = Visibility.Collapsed;
+
             switch (type)
             {
                 default:
-                    activeDialog = new StoreAppInput();
+                    StoreFrame.Content = new StoreAppInput();
+                    StoreFrame.Visibility = Visibility.Visible;
                     break;
                 case TYPE_EXE:
-                    activeDialog = new LocalAppInput();
+                    LocalAppInput.Visibility = Visibility.Visible;
                     break;
                 case TYPE_URL:
-                    activeDialog = new WebAppInput();
+                    WebAppInput.Visibility = Visibility.Visible;
                     break;
             }
-            
-            InputFrame.Content = activeDialog;
-        }
-        public AppShortcut GetInput()
-        {
-            return activeDialog.Get();
         }
 
         private void AppTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             InitializeInputControl(InputTypeComboBox.SelectedIndex);
+        }
+        public void InputChanged(string? name, string? path, string? iconPath)
+        {
+            if(Input == null)
+            {
+                Input = new();
+            }
+            if(name != null)
+            {
+                Input.Name = name;
+            }
+            if (path != null)
+            {
+                Input.ExeUri = name;
+            }
+            if (iconPath != null)
+            {
+                Input.IconFileName = name;
+            }
         }
     }
 }
