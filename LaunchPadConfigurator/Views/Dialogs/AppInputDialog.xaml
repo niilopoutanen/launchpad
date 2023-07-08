@@ -21,7 +21,7 @@
             <TextBlock Name="NameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
             
             <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Icon (optional)</TextBlock>
-            <Button HorizontalAlignment="Stretch">App icon</Button>
+            <Button Name="IconButton" HorizontalAlignment="Stretch">App icon</Button>
         </StackPanel>
         <StackPanel Orientation="Vertical" Width="300">
             <TextBlock Margin="0,0,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">App type</TextBlock>

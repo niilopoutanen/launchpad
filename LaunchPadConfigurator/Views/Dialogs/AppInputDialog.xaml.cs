@@ -3,6 +3,8 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.IO;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 
 namespace LaunchPadConfigurator.Views.Dialogs
 {
@@ -18,6 +20,17 @@ namespace LaunchPadConfigurator.Views.Dialogs
             Input = new();
             this.InitializeComponent();
             InputTypeComboBox.SelectedIndex = 0;
+            InitializeEvents();
+        }
+        public AppInputDialog(int type)
+        {
+            this.InitializeComponent();
+            InputTypeComboBox.SelectedIndex = type;
+            InitializeEvents();
+        }
+
+        private void InitializeEvents()
+        {
             AppNameInput.TextChanged += (s, e) =>
             {
                 InputChanged(AppNameInput.Text, null, null);
@@ -26,14 +39,14 @@ namespace LaunchPadConfigurator.Views.Dialogs
             {
                 InputChanged(null, UrlInput.Text, null);
             };
-        }
-        public AppInputDialog(int type)
-        {
-            this.InitializeComponent();
-            InputTypeComboBox.SelectedIndex = type;
-            AppNameInput.TextChanged += (s, e) =>
+            ExeButton.Click += async (s, e) =>
             {
-                InputChanged(AppNameInput.Text, null, null);
+                await ExePathRequest();
+            };
+
+            IconButton.Click += async (s, e) =>
+            {
+                await IconPathRequest();
             };
         }
         private void InitializeInputControl(AppShortcut.AppTypes type)
@@ -83,7 +96,8 @@ namespace LaunchPadConfigurator.Views.Dialogs
         }
         public void Save()
         {
-            SaveSystem.SaveApp(Input);
+            AppShortcut appToSave = new AppShortcut(Input.Name, Input.ExeUri, Input.IconFileName, Input.AppType);
+            SaveSystem.SaveApp(appToSave);
         }
         public bool ValidInputs()
         {
@@ -107,13 +121,56 @@ namespace LaunchPadConfigurator.Views.Dialogs
                 UrlInputError.Visibility = Visibility.Visible;
                 valid = false;
             }
-            if (Input.AppType == AppShortcut.AppTypes.EXE && !Directory.Exists(Input.ExeUri))
+            if (Input.AppType == AppShortcut.AppTypes.EXE && !File.Exists(Input.ExeUri))
             {
                 LocalFileInputError.Visibility = Visibility.Visible;
                 valid = false;
             }
 
             return valid;
+        }
+
+
+        private async Task IconPathRequest()
+        {
+            var window = (Application.Current as App)?.Window;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
+            var appIconPicker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            appIconPicker.FileTypeFilter.Add(".jpg");
+            appIconPicker.FileTypeFilter.Add(".jpeg");
+            appIconPicker.FileTypeFilter.Add(".png");
+            appIconPicker.FileTypeFilter.Add(".ico");
+
+            WinRT.Interop.InitializeWithWindow.Initialize(appIconPicker, hWnd);
+
+            var file = await appIconPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                Input.IconFileName = file.Path;
+            }
+        }
+
+
+        private async Task ExePathRequest()
+        {
+            var window = (Application.Current as App)?.Window;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
+            LocalFileInputError.Visibility = Visibility.Collapsed;
+            var appExePicker = new FileOpenPicker();
+            appExePicker.FileTypeFilter.Add("*");
+
+            WinRT.Interop.InitializeWithWindow.Initialize(appExePicker, hWnd);
+
+            var file = await appExePicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                Input.ExeUri = file.Path;
+            }
         }
     }
 }
