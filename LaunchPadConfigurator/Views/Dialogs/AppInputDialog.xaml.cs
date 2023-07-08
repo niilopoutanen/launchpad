@@ -18,15 +18,24 @@ namespace LaunchPadConfigurator.Views.Dialogs
 {
     public sealed partial class AppInputDialog : UserControl
     {
-        private const int TYPE_MSSTORE = 0;
-        private const int TYPE_EXE = 1;
-        private const int TYPE_URL = 2;
+        public const int TYPE_MSSTORE = 0;
+        public const int TYPE_EXE = 1;
+        public const int TYPE_URL = 2;
 
         public AppShortcut Input { get; set; }
         public AppInputDialog()
         {
             this.InitializeComponent();
             InputTypeComboBox.SelectedIndex = 0;
+            AppNameInput.TextChanged += (s, e) =>
+            {
+                InputChanged(AppNameInput.Text, null, null);
+            };
+        }
+        public AppInputDialog(int type)
+        {
+            this.InitializeComponent();
+            InputTypeComboBox.SelectedIndex = type;
             AppNameInput.TextChanged += (s, e) =>
             {
                 InputChanged(AppNameInput.Text, null, null);
