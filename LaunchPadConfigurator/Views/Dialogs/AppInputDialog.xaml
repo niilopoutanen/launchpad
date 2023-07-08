@@ -6,20 +6,34 @@
     xmlns:local="using:LaunchPadConfigurator.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    MinWidth="500"
+    MaxHeight="300">
 
-    <StackPanel Orientation="Vertical">
-        <TextBlock Margin="0,0,0,5">App type:</TextBlock>
-        <ComboBox Name="InputTypeComboBox" SelectionChanged="AppTypeSelectionChanged" HorizontalAlignment="Stretch">
-            <ComboBox.Items>
-                <TextBlock>Microsoft Store app</TextBlock>
-                <TextBlock>Executable file</TextBlock>
-                <TextBlock>Website URL</TextBlock>
-            </ComboBox.Items>
-        </ComboBox>
-        <Frame Name="InputFrame" Padding="0,10,0,0" MaxHeight="500">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" Width="200" Padding="0,0,20,0">
+            <Border Width="180" Height="180" CornerRadius="30" HorizontalAlignment="Left" Background="AliceBlue"></Border>
 
-        </Frame>
+            <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Name</TextBlock>
+            <TextBox PlaceholderText="App name"></TextBox>
+
+            <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Icon (optional)</TextBlock>
+            <Button HorizontalAlignment="Stretch">App icon</Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Width="300">
+            <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">App type</TextBlock>
+            <ComboBox Name="InputTypeComboBox" SelectionChanged="AppTypeSelectionChanged" HorizontalAlignment="Stretch">
+                <ComboBox.Items>
+                    <TextBlock>Microsoft Store app</TextBlock>
+                    <TextBlock>Executable file</TextBlock>
+                    <TextBlock>Website URL</TextBlock>
+                </ComboBox.Items>
+            </ComboBox>
+            <Frame Name="InputFrame" Padding="0,10,0,0" Height="240">
+
+            </Frame>
+        </StackPanel>
+
     </StackPanel>
 
 </UserControl>

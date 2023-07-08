@@ -6,53 +6,12 @@
     xmlns:local="using:LaunchPadConfigurator.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    MaxWidth="400"
-    MinWidth="400"
-    MinHeight="250">
+    mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
-        
-        <Grid Margin="0,5,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Margin="0,0,10,0" Width="120" VerticalAlignment="Center">Name</TextBlock>
-            <TextBox Grid.Column="1" Name="NameInput" PlaceholderText="Google" TextChanged="InputChanged"></TextBox>
-            <TextBlock Name="NameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
-        </Grid>
+        <TextBlock>Website url</TextBlock>
+        <TextBox Grid.Column="1" Name="UrlInput" PlaceholderText="www.google.com" Height="35"></TextBox>
+        <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Use a full URL with www. at the start.</TextBlock>
 
-        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0" Width="120">
-                <TextBlock>Icon</TextBlock>
-                <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Setting an icon is optional.</TextBlock>
-            </StackPanel>
-
-            <Button Name="IconButton" Grid.Column="1" HorizontalAlignment="Stretch">Icon file</Button>
-        </Grid>
-
-        <Border Margin="0,10,0,10" HorizontalAlignment="Stretch" Background="#3a3a3a" Height="1"/>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,10,0" Width="120">
-                <TextBlock>Website url</TextBlock>
-                <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Use a full URL with www. at the start.</TextBlock>
-            </StackPanel>
-            
-            <TextBox Grid.Column="1" Name="UrlInput" PlaceholderText="www.google.com" Height="35"></TextBox>
-        </Grid>
-        
     </StackPanel>
 </UserControl>

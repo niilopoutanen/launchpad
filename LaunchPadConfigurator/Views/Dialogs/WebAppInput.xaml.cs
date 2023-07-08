@@ -34,7 +34,6 @@ namespace LaunchPadConfigurator.Views.Dialogs
         {
             Input = new()
             {
-                Name = NameInput.Text,
                 ExeUri = UrlInput.Text
             };
         }
