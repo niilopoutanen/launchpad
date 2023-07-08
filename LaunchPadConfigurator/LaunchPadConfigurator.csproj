@@ -15,7 +15,7 @@
     <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
     <UseWPF>False</UseWPF>
     <PackageId>LaunchPad Configurator</PackageId>
-    <Version>1.1</Version>
+    <Version>1.2</Version>
     <Title>LaunchPad Configurator</Title>
     <Authors>Niilo Poutanen</Authors>
     <Company>Niilo Poutanen</Company>
