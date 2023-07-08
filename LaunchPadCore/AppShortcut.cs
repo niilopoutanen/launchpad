@@ -147,7 +147,7 @@ namespace LaunchPadCore
 
                     return imageSource;
                 }
-                if(app.AppType == AppTypes.EXE)
+                if(app.AppType == AppTypes.EXE || app.AppType == AppTypes.MS_STORE)
                 {
                     if (app.IconFileName == null)
                     {

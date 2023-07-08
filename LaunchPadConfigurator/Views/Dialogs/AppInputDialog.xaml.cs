@@ -78,7 +78,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             }
             if (iconPath != null)
             {
-                Input.IconFileName = iconPath;
+                Input.IconFileName = iconPath.Replace("%20", " ");
             }
         }
         public void Save()
