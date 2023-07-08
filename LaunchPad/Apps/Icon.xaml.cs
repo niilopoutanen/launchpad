@@ -79,9 +79,16 @@ namespace LaunchPad
                 try
                 {
                     Process process = new();
-                    process.StartInfo.FileName = App.ExeUri;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
+                    if (App.AppType == AppShortcut.AppTypes.MS_STORE)
+                    {
+                        Process.Start("explorer.exe", "shell:appsfolder\\" + App.ExeUri + "!App");
+                    }
+                    else
+                    {
+                        process.StartInfo.FileName = App.ExeUri;
+                        process.StartInfo.UseShellExecute = true;
+                        process.Start();
+                    }
                 }
                 catch (Exception)
                 {

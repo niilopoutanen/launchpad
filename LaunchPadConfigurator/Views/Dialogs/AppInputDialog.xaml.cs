@@ -1,18 +1,8 @@
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 namespace LaunchPadConfigurator.Views.Dialogs
 {
@@ -25,11 +15,16 @@ namespace LaunchPadConfigurator.Views.Dialogs
         public AppShortcut Input { get; set; }
         public AppInputDialog()
         {
+            Input = new();
             this.InitializeComponent();
             InputTypeComboBox.SelectedIndex = 0;
             AppNameInput.TextChanged += (s, e) =>
             {
                 InputChanged(AppNameInput.Text, null, null);
+            };
+            UrlInput.TextChanged += (s, e) =>
+            {
+                InputChanged(null, UrlInput.Text, null);
             };
         }
         public AppInputDialog(int type)
@@ -41,22 +36,24 @@ namespace LaunchPadConfigurator.Views.Dialogs
                 InputChanged(AppNameInput.Text, null, null);
             };
         }
-        private void InitializeInputControl(int type)
+        private void InitializeInputControl(AppShortcut.AppTypes type)
         {
             StoreFrame.Visibility = Visibility.Collapsed;
             WebAppInput.Visibility = Visibility.Collapsed;
             LocalAppInput.Visibility = Visibility.Collapsed;
 
+            Input.AppType = type;
             switch (type)
             {
                 default:
                     StoreFrame.Content = new StoreAppInput(InputChanged);
                     StoreFrame.Visibility = Visibility.Visible;
+                    Input.AppType = AppShortcut.AppTypes.MS_STORE;
                     break;
-                case TYPE_EXE:
+                case AppShortcut.AppTypes.EXE:
                     LocalAppInput.Visibility = Visibility.Visible;
                     break;
-                case TYPE_URL:
+                case AppShortcut.AppTypes.URL:
                     WebAppInput.Visibility = Visibility.Visible;
                     break;
             }
@@ -64,7 +61,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
 
         private void AppTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InitializeInputControl(InputTypeComboBox.SelectedIndex);
+            InitializeInputControl((AppShortcut.AppTypes)InputTypeComboBox.SelectedIndex);
         }
         public void InputChanged( string? name, string? path, string? iconPath)
         {
@@ -77,12 +74,46 @@ namespace LaunchPadConfigurator.Views.Dialogs
             }
             if (path != null)
             {
-                Input.ExeUri = name;
+                Input.ExeUri = path;
             }
             if (iconPath != null)
             {
-                Input.IconFileName = name;
+                Input.IconFileName = iconPath;
             }
+        }
+        public void Save()
+        {
+            SaveSystem.SaveApp(Input);
+        }
+        public bool ValidInputs()
+        {
+            bool valid = true;
+            NameInputError.Visibility = Visibility.Collapsed;
+            UrlInputError.Visibility = Visibility.Collapsed;
+            LocalFileInputError.Visibility = Visibility.Collapsed;
+
+            if (Input == null)
+            {
+                valid = false;
+            }
+            if (String.IsNullOrEmpty(Input.Name))
+            {
+                NameInputError.Visibility = Visibility.Visible;
+                valid = false;
+            }
+            if (String.IsNullOrEmpty(Input.ExeUri))
+            {
+                LocalFileInputError.Visibility = Visibility.Visible;
+                UrlInputError.Visibility = Visibility.Visible;
+                valid = false;
+            }
+            if (Input.AppType == AppShortcut.AppTypes.EXE && !Directory.Exists(Input.ExeUri))
+            {
+                LocalFileInputError.Visibility = Visibility.Visible;
+                valid = false;
+            }
+
+            return valid;
         }
     }
 }

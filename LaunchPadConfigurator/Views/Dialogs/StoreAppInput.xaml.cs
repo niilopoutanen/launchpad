@@ -20,7 +20,7 @@ using Windows.Management.Deployment;
 
 namespace LaunchPadConfigurator.Views.Dialogs
 {
-    public sealed partial class StoreAppInput : UserControl, IAppDialog
+    public sealed partial class StoreAppInput : UserControl
     {
         List<Package> storeApps = new();
         public AppShortcut Input { get; set; }
@@ -69,7 +69,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
                 IconFileName = selectedPackage.Logo.AbsolutePath,
                 ExeUri = selectedPackage.Id.FamilyName
             };
-            dataChanged.Invoke(Input.Name, Input.IconFileName, Input.ExeUri);
+            dataChanged.Invoke(Input.Name, Input.ExeUri, Input.IconFileName);
         }
     }
 }

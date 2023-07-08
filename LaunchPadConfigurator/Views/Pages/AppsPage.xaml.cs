@@ -133,16 +133,31 @@ namespace LaunchPadConfigurator.Views.Pages
         }
 
 
-        private static async Task ShowInput()
+        private async Task ShowInput()
         {
+            AppInputDialog inputDialog = new AppInputDialog();
             ContentDialog selectionDialog = new()
             {
                 Title = "Add a new app",
                 XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
                 PrimaryButtonText = "Add",
                 SecondaryButtonText = "Cancel",
-                Content = new AppInputDialog()
+                Content = inputDialog
             };
+            selectionDialog.PrimaryButtonClick += (s, e) =>
+            {
+                if (inputDialog.ValidInputs())
+                {
+                    inputDialog.Save();
+                    RefreshAppList();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            };
+
+
             ContentDialogResult result = await selectionDialog.ShowAsync();
         }
 

@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     MinWidth="500"
-    MaxHeight="300">
+    MaxHeight="400">
 
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical" Width="200" Padding="0,0,20,0">
@@ -18,7 +18,8 @@
 
             <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Name</TextBlock>
             <TextBox Name="AppNameInput" PlaceholderText="App name"></TextBox>
-
+            <TextBlock Name="NameInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">App name cannot be empty.</TextBlock>
+            
             <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Icon (optional)</TextBlock>
             <Button HorizontalAlignment="Stretch">App icon</Button>
         </StackPanel>
@@ -36,12 +37,14 @@
                     <TextBlock Margin="0,0,10,0">Website url</TextBlock>
                     <TextBox Name="UrlInput" PlaceholderText="www.google.com"></TextBox>
                     <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Use a full URL with www. at the start.</TextBlock>
+                    <TextBlock Name="UrlInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">URL cannot be empty.</TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Visibility="Collapsed" Name="LocalAppInput">
                     <TextBlock Margin="0,0,10,0">Local app</TextBlock>
                     <Button Name="ExeButton" HorizontalAlignment="Stretch">Shortcut file path</Button>
                     <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">You can set any local file as the shortcut. Example files: .exe, .txt, .jpg</TextBlock>
+                    <TextBlock Name="LocalFileInputError" Visibility="Collapsed" FontSize="12" Foreground="#cf7f88" Tag="Error">Shortcut file is not valid.</TextBlock>
                 </StackPanel>
                 
                 <Frame Name="StoreFrame" Height="230">
