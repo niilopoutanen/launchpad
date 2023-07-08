@@ -146,11 +146,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\Dialogs\AddAppDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="AppsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

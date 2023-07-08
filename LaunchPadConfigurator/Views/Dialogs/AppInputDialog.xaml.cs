@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -24,11 +25,16 @@ namespace LaunchPadConfigurator.Views.Dialogs
             InputTypeComboBox.SelectedIndex = 0;
             InitializeEvents();
         }
-        public AppInputDialog(int type)
+
+        //for updating
+        public AppInputDialog(AppShortcut app)
         {
+            Input = app;
             this.InitializeComponent();
-            InputTypeComboBox.SelectedIndex = type;
+            InputTypeComboBox.SelectedIndex = (int)app.AppType;
             InitializeEvents();
+            InputChanged(app.Name, app.ExeUri, app.GetIconFullPath());
+            
         }
 
         private void InitializeEvents()
@@ -101,6 +107,20 @@ namespace LaunchPadConfigurator.Views.Dialogs
         {
             AppShortcut appToSave = new AppShortcut(Input.Name, Input.ExeUri, Input.IconFileName, Input.AppType);
             SaveSystem.SaveApp(appToSave);
+        }
+        public void Update()
+        {
+            List<AppShortcut> existingApps = SaveSystem.LoadApps();
+            foreach (AppShortcut appToCheck in existingApps)
+            {
+                if (appToCheck.ID == Input.ID)
+                {
+                    existingApps.Remove(appToCheck);
+                    break;
+                }
+            }
+            existingApps.Add(Input);
+            SaveSystem.SaveApps(existingApps);
         }
         public bool ValidInputs()
         {
