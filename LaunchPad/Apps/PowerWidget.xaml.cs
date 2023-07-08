@@ -66,6 +66,6 @@ namespace LaunchPad.Apps
                 PowerConfirmation.Foreground = textColor;
             }
         }
-        public override void SetVariation(int variation) { }
+        public override void SetVariation(int variation, bool animationDisabled) { }
     }
 }

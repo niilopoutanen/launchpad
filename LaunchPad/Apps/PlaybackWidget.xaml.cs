@@ -59,6 +59,6 @@ namespace LaunchPad.Apps
             keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, UIntPtr.Zero);
         }
 
-        public override void SetVariation(int variation) { }
+        public override void SetVariation(int variation, bool animationDisabled) { }
     }
 }

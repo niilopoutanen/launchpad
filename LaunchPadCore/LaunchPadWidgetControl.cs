@@ -14,16 +14,16 @@ namespace LaunchPadCore
         {
             base.InitializeControl();
             Variation = Widget.LoadSelectedVariation();
-            SetVariation(Variation);
+            SetVariation(Variation, true);
         }
         public override Task OnSecondaryClick()
         {
             Variation++;
             Variation = Widget.SwapWidgetVariation(Variation);
-            SetVariation(Variation);
+            SetVariation(Variation, false);
             return base.OnSecondaryClick();
         }
-        public abstract void SetVariation(int variation);
+        public abstract void SetVariation(int variation, bool animationDisabled);
 
         public override void SetTheme(ResourceDictionary activeDictionary)
         {
