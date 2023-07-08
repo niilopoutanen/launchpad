@@ -1,9 +1,11 @@
 using LaunchPadCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using Windows.Storage.Pickers;
 
 namespace LaunchPadConfigurator.Views.Dialogs
@@ -92,6 +94,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             if (iconPath != null)
             {
                 Input.IconFileName = iconPath.Replace("%20", " ");
+                IconImage.Source = new BitmapImage(new Uri(Input.IconFileName));
             }
         }
         public void Save()
@@ -150,7 +153,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             var file = await appIconPicker.PickSingleFileAsync();
             if (file != null)
             {
-                Input.IconFileName = file.Path;
+                InputChanged(null, null, file.Path);
             }
         }
 

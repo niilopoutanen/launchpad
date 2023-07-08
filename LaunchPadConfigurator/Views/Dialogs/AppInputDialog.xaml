@@ -12,8 +12,8 @@
 
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical" Width="200" Padding="0,0,20,0">
-            <Border Width="180" Height="180" CornerRadius="30" HorizontalAlignment="Left" Background="#EAEAEA" BorderBrush="#FFFFFF" BorderThickness="13">
-                
+            <Border Width="180" Height="180" CornerRadius="30" HorizontalAlignment="Left" Background="{ThemeResource ControlFillColorDefaultBrush}">
+                <Image Name="IconImage" Stretch="UniformToFill" Width="auto" Height="auto"/>
             </Border>
 
             <TextBlock Margin="0,5,0,2" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Name</TextBlock>
