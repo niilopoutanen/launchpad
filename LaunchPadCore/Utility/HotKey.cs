@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace System.Windows.Input
+namespace LaunchPadCore.Utility
 {
     public class HotKeyEventArgs : EventArgs
     {
@@ -51,7 +52,7 @@ namespace System.Windows.Input
                 throw new ArgumentNullException("hwnd was null");
             }
 
-            this.hook = new HwndSourceHook(WndProc);
+            hook = new HwndSourceHook(WndProc);
             this.hwndSource = hwndSource;
             hwndSource.AddHook(hook);
 
@@ -126,7 +127,7 @@ namespace System.Windows.Input
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 

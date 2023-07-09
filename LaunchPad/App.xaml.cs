@@ -1,4 +1,5 @@
-﻿using LaunchPadCore;
+﻿using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;

@@ -1,10 +1,11 @@
-﻿using Microsoft.Win32;
+﻿using LaunchPadCore.Models;
+using Microsoft.Win32;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Utility
 {
     public class SaveSystem
     {
@@ -152,8 +153,8 @@ namespace LaunchPadCore
 
                 default:
                     themePath = preferences.TransparentTheme
-                        ? (IsLightTheme() ? "Resources/TransparentLight.xaml" : "Resources/TransparentDark.xaml")
-                        : (IsLightTheme() ? "Resources/LightMode.xaml" : "Resources/DarkMode.xaml");
+                        ? IsLightTheme() ? "Resources/TransparentLight.xaml" : "Resources/TransparentDark.xaml"
+                        : IsLightTheme() ? "Resources/LightMode.xaml" : "Resources/DarkMode.xaml";
                     break;
             }
 

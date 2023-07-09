@@ -3,8 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using LaunchPadCore.Models;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Controls
 {
     public abstract class LaunchPadItemControl : UserControl
     {
@@ -33,7 +34,7 @@ namespace LaunchPadCore
             {
                 await OnRelease(true);
             };
-            if(HasSecondaryAction)
+            if (HasSecondaryAction)
             {
                 BaseElement.MouseRightButtonDown += (s, e) =>
                 {

@@ -1,4 +1,4 @@
-﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore.Controls;assembly=LaunchPadCore"
             x:Class="LaunchPad.Apps.ClockWidget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   

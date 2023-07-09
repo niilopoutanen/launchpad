@@ -2,8 +2,9 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows.Input;
+using LaunchPadCore.Utility;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Models
 {
     public class UserPreferences
     {
@@ -119,7 +120,7 @@ namespace LaunchPadCore
         public bool ThemedWidgets
         {
             get => themedWidgets;
-            set => themedWidgets = value; 
+            set => themedWidgets = value;
         }
 
         private bool rememberWidgetVariation = true;

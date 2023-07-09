@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using LaunchPadCore.Utility;
+using Microsoft.Win32;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -6,7 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Models
 {
     public class AppShortcut
     {
@@ -147,7 +148,7 @@ namespace LaunchPadCore
 
                     return imageSource;
                 }
-                if(app.AppType == AppTypes.EXE || app.AppType == AppTypes.MS_STORE)
+                if (app.AppType == AppTypes.EXE || app.AppType == AppTypes.MS_STORE)
                 {
                     if (app.IconFileName == null)
                     {

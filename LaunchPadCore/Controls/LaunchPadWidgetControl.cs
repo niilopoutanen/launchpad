@@ -1,8 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using LaunchPadCore.Models;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Controls
 {
     public abstract class LaunchPadWidgetControl : LaunchPadItemControl
     {
