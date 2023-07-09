@@ -1,5 +1,6 @@
 ﻿using LaunchPadCore.Controls;
 using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace LaunchPad.Apps
             {
                 try
                 {
-                    Process.Start("explorer.exe", "shell:appsfolder\\" + appID);
+                    Core.LaunchApp(Core.APP_LAUNCHPADCONFIG);
                 }
                 catch (Exception)
                 {

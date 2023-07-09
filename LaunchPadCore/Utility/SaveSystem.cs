@@ -12,7 +12,6 @@ namespace LaunchPadCore.Utility
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
-        private static readonly string widgets = Path.Combine(saveFileLocation, "launchpad.widgets");
         public static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
         public static void SaveApps(List<AppShortcut> apps)
@@ -153,8 +152,8 @@ namespace LaunchPadCore.Utility
 
                 default:
                     themePath = preferences.TransparentTheme
-                        ? IsLightTheme() ? "Resources/TransparentLight.xaml" : "Resources/TransparentDark.xaml"
-                        : IsLightTheme() ? "Resources/LightMode.xaml" : "Resources/DarkMode.xaml";
+                        ? Core.IsLightTheme() ? "Resources/TransparentLight.xaml" : "Resources/TransparentDark.xaml"
+                        : Core.IsLightTheme() ? "Resources/LightMode.xaml" : "Resources/DarkMode.xaml";
                     break;
             }
 
@@ -225,11 +224,6 @@ namespace LaunchPadCore.Utility
 
             SaveWidgets(widgets);
         }
-        private static bool IsLightTheme()
-        {
-            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
-            var value = key?.GetValue("AppsUseLightTheme");
-            return value is int i && i > 0;
-        }
+
     }
 }

@@ -83,7 +83,7 @@ namespace LaunchPad
             {
                 try
                 {
-                    Process.Start("explorer.exe", "shell:appsfolder\\1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
+                    Core.LaunchApp(Core.APP_LAUNCHPADCONFIG);
                 }
                 catch
                 {

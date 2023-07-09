@@ -118,7 +118,7 @@ namespace LaunchPadConfigurator.Views.Pages
         {
             try
             {
-                Process.Start("explorer.exe", "shell:appsfolder\\923NiiloPoutanen.364392126B592_5y1c2t4szcgd8!App");
+                Core.LaunchApp(Core.APP_LAUNCHPAD);
             }
             catch (Exception)
             {
