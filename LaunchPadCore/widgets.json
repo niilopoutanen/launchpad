@@ -32,6 +32,6 @@
     "Description": "Controls media playback",
     "IconFile": "widget_playback.jpg",
     "ID": "plbk_05",
-    "VariationCount": 1
+    "VariationCount": 3
   }
 ]
