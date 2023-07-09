@@ -23,7 +23,7 @@ namespace LaunchPadCore
 
         public virtual void InitializeControl()
         {
-            Preferences = SaveSystem.LoadPreferences();
+            Preferences = UserPreferences.Load();
 
             BaseElement.MouseLeftButtonDown += (s, e) =>
             {

@@ -12,7 +12,7 @@ namespace LaunchPadCore
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         private static readonly string widgets = Path.Combine(saveFileLocation, "launchpad.widgets");
-        private static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
+        public static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
         public static void SaveApps(List<AppShortcut> apps)
         {
@@ -99,7 +99,7 @@ namespace LaunchPadCore
 
             return apps;
         }
-        static void EnsureSaveFolderExists()
+        public static void EnsureSaveFolderExists()
         {
             if (!Directory.Exists(saveFileLocation))
             {
@@ -137,7 +137,7 @@ namespace LaunchPadCore
 
         public static ResourceDictionary LoadTheme()
         {
-            UserPreferences preferences = LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             string themePath;
 
             switch (preferences.SelectedTheme)
@@ -175,7 +175,7 @@ namespace LaunchPadCore
                     widgets = JsonSerializer.Deserialize<List<Widget>>(jsonContent);
                 }
             }
-            Dictionary<string, bool> activeDict = LoadPreferences().ActiveWidgets;
+            Dictionary<string, bool> activeDict = UserPreferences.Load().ActiveWidgets;
             foreach (Widget widget in widgets)
             {
                 foreach (string key in activeDict.Keys)
@@ -191,7 +191,7 @@ namespace LaunchPadCore
         }
         public static void SaveWidgets(List<Widget> widgets)
         {
-            UserPreferences preferences = LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             Dictionary<string, bool> activeWidgets = new();
             if (widgets == null)
             {
@@ -202,7 +202,7 @@ namespace LaunchPadCore
                 activeWidgets.Add(widget.ID, widget.Active);
             }
             preferences.ActiveWidgets = activeWidgets;
-            SavePreferences(preferences);
+            preferences.Save();
         }
         public static void SaveWidget(Widget widget)
         {
@@ -229,34 +229,6 @@ namespace LaunchPadCore
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
             var value = key?.GetValue("AppsUseLightTheme");
             return value is int i && i > 0;
-        }
-        public static void SavePreferences(UserPreferences prefs)
-        {
-            string jsonString = JsonSerializer.Serialize(prefs);
-            EnsureSaveFolderExists();
-            using (StreamWriter streamWriter = new(preferences))
-            {
-                streamWriter.Write(jsonString);
-            }
-        }
-        public static UserPreferences LoadPreferences()
-        {
-            UserPreferences prefs = new();
-            EnsureSaveFolderExists();
-            if (File.Exists(preferences))
-            {
-                string jsonString = File.ReadAllText(preferences) ?? throw new FileLoadException("File is empty");
-                prefs = JsonSerializer.Deserialize<UserPreferences>(jsonString);
-            }
-            if (prefs != null)
-            {
-                return prefs;
-            }
-            else
-            {
-                return new UserPreferences();
-            }
-
         }
     }
 }

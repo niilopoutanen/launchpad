@@ -88,10 +88,10 @@ namespace LaunchPadConfigurator.Views.Dialogs
 
                 if (indexToRemove != -1)
                 {
-                    UserPreferences preferences = SaveSystem.LoadPreferences();
+                    UserPreferences preferences = UserPreferences.Load();
                     preferences.ActiveWidgets[Widget.ID] = false;
 
-                    SaveSystem.SavePreferences(preferences);
+                    preferences.Save();
                     updateHandler.Invoke();
                 }
             }

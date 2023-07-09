@@ -19,7 +19,7 @@ namespace LaunchPad
         readonly List<LaunchPadItemControl> items = new();
         public LaunchPadWindow()
         {
-            preferences = SaveSystem.LoadPreferences();
+            preferences = UserPreferences.Load();
             ResourceDictionary activeTheme = SaveSystem.LoadTheme();
             InitializeComponent();
             LoadApps();
@@ -135,7 +135,7 @@ namespace LaunchPad
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = SaveSystem.LoadWidgets();
 
-            int activeWidgetCount = SaveSystem.LoadPreferences().ActiveWidgets.Values.Count(value => value);
+            int activeWidgetCount = UserPreferences.Load().ActiveWidgets.Values.Count(value => value);
 
             appContainer.MaxWidth = preferences.PreferredWidth;
 

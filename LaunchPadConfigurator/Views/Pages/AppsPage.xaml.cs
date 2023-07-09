@@ -32,7 +32,7 @@ namespace LaunchPadConfigurator.Views.Pages
                 appsList.Children.Add(listItem);
             }
 
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             List<Widget> widgets = SaveSystem.LoadWidgets();
             foreach (Widget widget in widgets)
             {

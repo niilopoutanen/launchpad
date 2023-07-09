@@ -11,7 +11,7 @@
 
         public int SwapWidgetVariation(int variation)
         {
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             if(VariationCount < variation)
             {
                 variation = 1;
@@ -28,13 +28,13 @@
                 preferences.WidgetVariations.Add(ID, variation);
             }
 
-            SaveSystem.SavePreferences(preferences);
+            preferences.Save();
             return variation;
         }
         public int LoadSelectedVariation()
         {
             int variation = 1;
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
 
             if(preferences.WidgetVariations == null || !preferences.RememberWidgetVariation)
             {
