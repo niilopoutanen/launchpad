@@ -64,7 +64,7 @@ namespace LaunchPad.Apps
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
             if (!Preferences.ThemedWidgets)
             {
-                PlaybackButton.Fill = textColor;
+                Variation1.Fill = textColor;
             }
             
         }
@@ -85,42 +85,6 @@ namespace LaunchPad.Apps
         {
             keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
             keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, UIntPtr.Zero);
-        }
-
-        public override void SetVariation(int variation, bool animationDisabled) 
-        {
-            PreviousButton.Visibility = Visibility.Collapsed;
-            NextButton.Visibility = Visibility.Collapsed;
-            PlaybackButton.Visibility = Visibility.Collapsed;
-
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-            if (animationDisabled)
-            {
-                fadeInAnimation.From = 1.0;
-            }
-            switch (variation)
-            {
-                case 1:
-                    PlaybackButton.Visibility = Visibility.Visible;
-                    PlaybackButton.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case 2:
-                    NextButton.Visibility = Visibility.Visible;
-                    NextButton.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-
-                case 3:
-                    PreviousButton.Visibility = Visibility.Visible;
-                    PreviousButton.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            Variation = variation;
         }
     }
 }

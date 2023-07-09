@@ -50,7 +50,7 @@ namespace LaunchPad.Apps
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
             if (!Preferences.ThemedWidgets)
             {
-                LevelText.Foreground = textColor;
+                Variation2.Foreground = textColor;
             }
             
         }
@@ -70,7 +70,7 @@ namespace LaunchPad.Apps
             }
             if (batteryLevel < 0)
             {
-                BatteryCanvas.Visibility = Visibility.Hidden;
+                Variation1.Visibility = Visibility.Hidden;
                 return;
             }
 
@@ -98,35 +98,7 @@ namespace LaunchPad.Apps
                 ((Path)BatteryCharging.Children[0]).StrokeThickness = 0;
             }
 
-            LevelText.Text = batteryLevel.ToString() + "%";
-        }
-
-        public override void SetVariation(int variation, bool animationDisabled)
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-            if (animationDisabled)
-            {
-                fadeInAnimation.From = 1.0;
-            }
-            switch (variation)
-            {
-                case 1:
-                    LevelText.Visibility = Visibility.Collapsed;
-                    BatteryCanvas.Visibility = Visibility.Visible;
-                    BatteryCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-                case 2:
-                    BatteryCanvas.Visibility = Visibility.Collapsed;
-                    LevelText.Visibility = Visibility.Visible;
-                    LevelText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            Variation = variation;
+            Variation2.Text = batteryLevel.ToString() + "%";
         }
     }
 }

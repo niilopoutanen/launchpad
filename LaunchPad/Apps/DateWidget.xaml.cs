@@ -60,33 +60,5 @@ namespace LaunchPad.Apps
                 MonthName.Foreground = textColor;
             }
         }
-
-        public override void SetVariation(int variation, bool animationDisabled)
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-            if (animationDisabled)
-            {
-                fadeInAnimation.From = 1.0;
-            }
-            switch (variation)
-            {
-                case 1:
-                    DatePanel.Visibility = Visibility.Collapsed;
-                    MonthPanel.Visibility = Visibility.Visible;
-                    MonthPanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-                case 2:
-                    MonthPanel.Visibility = Visibility.Collapsed;
-                    DatePanel.Visibility = Visibility.Visible;
-                    DatePanel.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            Variation = variation;
-        }
     }
 }
