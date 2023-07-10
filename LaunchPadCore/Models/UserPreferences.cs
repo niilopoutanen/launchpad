@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows.Input;
+using System.Xml.Linq;
 using LaunchPadCore.Utility;
 
 namespace LaunchPadCore.Models
@@ -130,7 +131,19 @@ namespace LaunchPadCore.Models
             set => rememberWidgetVariation = value;
         }
 
-        public Dictionary<string, bool>? ActiveWidgets { get; set; }
-        public Dictionary<string, int>? WidgetVariations { get; set; }
+        private Dictionary<string, bool>? activeWidgets = new();
+        public Dictionary<string, bool> ActiveWidgets 
+        {
+            get { return activeWidgets ?? new Dictionary<string, bool>(); }
+            set { activeWidgets = value; }
+        }
+
+        private Dictionary<string, int>? widgetVariations = new();
+        public Dictionary<string, int>? WidgetVariations
+        {
+            get { return widgetVariations ?? new Dictionary<string, int>(); }
+            set { widgetVariations = value; }
+        }
+
     }
 }

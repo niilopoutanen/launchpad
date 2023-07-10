@@ -25,8 +25,7 @@ namespace LaunchPadCore.Utility
                     // Icon has not yet been moved
                     if (File.Exists(app.IconFileName))
                     {
-                        CopyIconToAppData(app.IconFileName);
-                        app.IconFileName = filename;
+                        app.IconFileName = CopyIconToAppData(app.IconFileName);
                     }
                     else
                     {
@@ -66,8 +65,8 @@ namespace LaunchPadCore.Utility
             SaveApps(existingApps);
         }
 
-
-        private static void CopyIconToAppData(string currentPath)
+        /// <returns>Final name of the file</returns>
+        private static string CopyIconToAppData(string currentPath)
         {
             string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
             if (finalPath != currentPath)
@@ -81,8 +80,10 @@ namespace LaunchPadCore.Utility
                     string newFileName = Path.GetFileNameWithoutExtension(currentPath) + "(1)" + Path.GetExtension(currentPath);
                     string newFilePath = Path.Combine(iconsDirectory, newFileName);
                     File.Copy(currentPath, newFilePath, true);
+                    return newFileName;
                 }
             }
+            return currentPath;
         }
 
         public static List<AppShortcut> LoadApps()
