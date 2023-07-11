@@ -47,13 +47,9 @@ namespace LaunchPadCore.Utility
 
         public HotKey(HwndSource hwndSource)
         {
-            if (hwndSource == null)
-            {
-                throw new ArgumentNullException("hwnd was null");
-            }
-
             hook = new HwndSourceHook(WndProc);
-            this.hwndSource = hwndSource;
+            this.hwndSource = hwndSource ?? throw new ArgumentNullException("hwnd was null");
+
             hwndSource.AddHook(hook);
 
             id = rand.Next();

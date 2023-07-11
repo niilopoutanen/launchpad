@@ -15,6 +15,8 @@ namespace LaunchPad
         private LaunchPadWindow? launchPadWindow;
         private NotifyIcon? notifyIcon;
 
+        private DateTime lastLaunchpadToggleTime;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -46,6 +48,7 @@ namespace LaunchPad
                 Current.Shutdown();
             }
         }
+
         public void ToggleLaunchpad()
         {
             if (launchPadWindow != null && launchPadWindow.IsVisible)
@@ -54,9 +57,19 @@ namespace LaunchPad
                 return;
             }
 
+            DateTime currentTime = DateTime.Now;
+            TimeSpan timeSinceLastToggle = currentTime - lastLaunchpadToggleTime;
+
+            if (timeSinceLastToggle < TimeSpan.FromSeconds(1))
+            {
+                // Cooldown is active, do not proceed
+                return;
+            }
             launchPadWindow = new LaunchPadWindow();
             launchPadWindow.Show();
             launchPadWindow.Activate();
+
+            lastLaunchpadToggleTime = currentTime;
         }
         private void StartSystemTrayApp()
         {
