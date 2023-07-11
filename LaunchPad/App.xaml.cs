@@ -51,25 +51,27 @@ namespace LaunchPad
 
         public void ToggleLaunchpad()
         {
-            if (launchPadWindow != null && launchPadWindow.IsVisible)
-            {
-                launchPadWindow.Terminate();
-                return;
-            }
-
             DateTime currentTime = DateTime.Now;
             TimeSpan timeSinceLastToggle = currentTime - lastLaunchpadToggleTime;
 
-            if (timeSinceLastToggle < TimeSpan.FromSeconds(1))
+            if (timeSinceLastToggle < TimeSpan.FromSeconds(0.3))
             {
                 // Cooldown is active, do not proceed
                 return;
             }
+
+            if (launchPadWindow != null && launchPadWindow.IsVisible)
+            {
+                launchPadWindow.Terminate();
+                lastLaunchpadToggleTime = currentTime;
+                return;
+            }
+
+            lastLaunchpadToggleTime = currentTime;
+
             launchPadWindow = new LaunchPadWindow();
             launchPadWindow.Show();
             launchPadWindow.Activate();
-
-            lastLaunchpadToggleTime = currentTime;
         }
         private void StartSystemTrayApp()
         {

@@ -21,7 +21,7 @@ namespace LaunchPad
         readonly List<LaunchPadItemControl> items = new();
         public LaunchPadWindow()
         {
-            preferences = UserPreferences.Load();
+            preferences = Load();
             ResourceDictionary activeTheme = SaveSystem.LoadTheme();
             InitializeComponent();
             LoadApps();
@@ -139,7 +139,7 @@ namespace LaunchPad
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            ((App)System.Windows.Application.Current).ToggleLaunchpad();
+            ((App)Application.Current).ToggleLaunchpad();
         }
 
         private void LoadApps()
@@ -148,7 +148,7 @@ namespace LaunchPad
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = SaveSystem.LoadWidgets();
 
-            int activeWidgetCount = UserPreferences.Load().ActiveWidgets.Values.Count(value => value);
+            int activeWidgetCount = preferences.ActiveWidgets.Values.Count(value => value);
 
             appContainer.MaxWidth = preferences.PreferredWidth;
 
@@ -204,15 +204,12 @@ namespace LaunchPad
 
         }
 
-
-
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
             foreach (LaunchPadItemControl item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }
-
 
             if (preferences.UseSystemAccent)
             {
@@ -227,8 +224,6 @@ namespace LaunchPad
 
                 return;
             }
-
-
 
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 
