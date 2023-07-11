@@ -99,6 +99,16 @@ namespace LaunchPadConfigurator.Views.Pages
                 preferences.RememberWidgetVariation = ((ToggleSwitch)s).IsOn;
                 preferences.Save();
             };
+
+            AnimationSpeedSlider.Value = preferences.AnimationSpeed;
+            AnimationSpeedSlider.ValueChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.AnimationSpeed = (int)e.NewValue;
+                preferences.Save();
+
+                AnimationSpeedheader.Text = "Animation speed: " +  AnimationSpeedSlider.Value.ToString("0.0"); ;
+            };
         }
     }
 }

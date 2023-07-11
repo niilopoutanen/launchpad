@@ -20,16 +20,16 @@
                         <QuadraticEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
-                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="0.5" To="1" Duration="0:0:0.3">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut" />
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="0.5" To="1" Duration="0:0:0.3">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut" />
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.ScaleX" Duration="0:0:0.3">
+                    <EasingDoubleKeyFrame Value="0.5" KeyTime="0:0:0"/>
+                    <EasingDoubleKeyFrame Value="1.1" KeyTime="0:0:0.2"/>
+                    <EasingDoubleKeyFrame Value="1" KeyTime="0:0:0.3"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.ScaleY" Duration="0:0:0.3">
+                    <EasingDoubleKeyFrame Value="0.5" KeyTime="0:0:0"/>
+                    <EasingDoubleKeyFrame Value="1.1" KeyTime="0:0:0.2"/>
+                    <EasingDoubleKeyFrame Value="1" KeyTime="0:0:0.3"/>
+                </DoubleAnimationUsingKeyFrames>
             </Storyboard>
 
 

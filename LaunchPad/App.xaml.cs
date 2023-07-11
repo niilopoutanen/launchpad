@@ -79,7 +79,7 @@ namespace LaunchPad
             };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, async (s, e) =>
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
             {
                 try
                 {

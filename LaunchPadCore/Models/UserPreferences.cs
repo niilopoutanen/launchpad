@@ -93,7 +93,17 @@ namespace LaunchPadCore.Models
             get => selectedAnimation;
             set => selectedAnimation = value;
         }
-
+        private double animationSpeed = 1;
+        public double AnimationSpeed
+        {
+            get => animationSpeed;
+            set
+            {
+                double min = 0.5;
+                double max = 3;
+                animationSpeed = (value < min) ? min : (value > max) ? max : value;
+            }
+        }
 
         private HotKey.Modifiers modifier = HotKey.Modifiers.Shift;
         public HotKey.Modifiers Modifier
