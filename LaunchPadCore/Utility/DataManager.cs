@@ -51,14 +51,14 @@ namespace LaunchPadCore.Utility
 
 
         /// <returns>Final file name</returns>
-        private static async Task<string> DownloadIcon(string fileName)
+        private static async Task DownloadIcon(string fileName)
         {
             if (File.Exists(Path.Combine(SaveSystem.iconsDirectory, fileName)))
             {
-                return fileName;
+                return;
             }
             string path = iconsUrl + fileName;
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new())
             {
                 try
                 {
@@ -74,7 +74,6 @@ namespace LaunchPadCore.Utility
                     Console.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
-            return fileName;
         }
     }
 }
