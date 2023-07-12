@@ -10,7 +10,8 @@ namespace LaunchPadCore.Utility
     public class SaveSystem
     {
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
-        public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
+        public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "icons");
+        public static readonly string defaultIconsDirectory = Path.Combine(saveFileLocation, "icons", "default");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         public static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
@@ -117,6 +118,7 @@ namespace LaunchPadCore.Utility
         public static void VerifyPathIntegrity()
         {
             Directory.CreateDirectory(iconsDirectory);
+            Directory.CreateDirectory(defaultIconsDirectory);
             Directory.CreateDirectory(saveFileLocation);
         }
 

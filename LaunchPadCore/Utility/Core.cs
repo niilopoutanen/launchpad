@@ -1,7 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using LaunchPadCore.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +28,17 @@ namespace LaunchPadCore.Utility
                     break;
             }
         }
+        public static async void UpdateData()
+        {
+            if(await DataManager.IsLatestData())
+            {
+                return;
+            }
 
+            List<AppTemplate> apps = await DataManager.GetData();
+            await DataManager.ProcessData(apps);
+
+        }
         public static bool IsLightTheme()
         {
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");

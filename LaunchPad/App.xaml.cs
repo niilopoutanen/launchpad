@@ -20,7 +20,7 @@ namespace LaunchPad
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            Core.UpdateData();
             EngageHotKey();
             StartSystemTrayApp();
         }

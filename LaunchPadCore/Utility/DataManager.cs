@@ -17,6 +17,7 @@ namespace LaunchPadCore.Utility
     public class DataManager
     {
         private const string baseUrl = "https://raw.githubusercontent.com/niilopoutanen/LaunchPad/data/";
+        private const string latestUpdateUrl = baseUrl + "data.updated";
         private const string iconsUrl = baseUrl + "icons/";
         private const string appList = baseUrl + "app-list.json";
 
@@ -37,7 +38,6 @@ namespace LaunchPadCore.Utility
 
             if(templateApps != null)
             {
-                await ProcessData(templateApps);
                 return templateApps;
             }
             else
@@ -45,17 +45,59 @@ namespace LaunchPadCore.Utility
                 return new List<AppTemplate>();
             }
         }
-        private static async Task ProcessData(List<AppTemplate> data)
+        public static async Task<bool> IsLatestData()
         {
-            foreach(AppTemplate template in data)
+            long local = 0;
+            long server = 0;
+
+            using (HttpClient client = new())
             {
-                await DownloadIcon(template.IconFileName);
+                byte[] data = await client.GetByteArrayAsync(latestUpdateUrl);
+                string dataString = Encoding.UTF8.GetString(data);
+                if (long.TryParse(dataString, out long version))
+                {
+                    server = version;
+                }
+            }
+
+            string currentDataVersion = File.ReadAllText(Path.Combine(SaveSystem.defaultIconsDirectory, "data.updated"));
+            if (String.IsNullOrEmpty(currentDataVersion))
+            {
+                local = 0;
+            }
+            else
+            {
+                local = (long)Convert.ToDouble(currentDataVersion);
+            }
+
+            if(local == server)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static async Task ProcessData(List<AppTemplate> data)
+        {
+            List<string> localApps = GetApps();
+            foreach (string id in localApps)
+            {
+                foreach (AppTemplate template in data)
+                {
+                    if(template.AppId == id)
+                    {
+                        await DownloadIcon(template.IconFileName);
+                    }
+                }
+
             }
         }
 
-        public static Dictionary<string,string> GetApps()
+        public static List<string> GetApps()
         {
-            Dictionary<string, string> apps = new();
+            List<string> apps = new();
             using (PowerShell ps = PowerShell.Create())
             {
                 //Bypass the execution policy
@@ -70,13 +112,9 @@ namespace LaunchPadCore.Utility
                 Collection<PSObject> results = ps.Invoke();
                 foreach (PSObject obj in results)
                 {
-                    string name = obj.Properties["Name"].Value.ToString();
                     string appId = obj.Properties["AppID"].Value.ToString();
 
-                    if(!apps.ContainsKey(appId))
-                    {
-                        apps.Add(appId, name);
-                    }
+                    apps.Add(appId);
                 }
             }
             return apps;
@@ -84,7 +122,7 @@ namespace LaunchPadCore.Utility
         /// <returns>Final file name</returns>
         private static async Task DownloadIcon(string fileName)
         {
-            if (File.Exists(Path.Combine(SaveSystem.iconsDirectory, fileName)))
+            if (File.Exists(Path.Combine(SaveSystem.defaultIconsDirectory, fileName)))
             {
                 return;
             }
@@ -93,8 +131,14 @@ namespace LaunchPadCore.Utility
             {
                 try
                 {
-                    byte[] imageBytes = await client.GetByteArrayAsync(path);
-                    SaveSystem.SaveIcon(fileName,imageBytes, false);
+                    byte[] data = await client.GetByteArrayAsync(path);
+                    SaveSystem.VerifyPathIntegrity();
+                    string filePath = Path.Combine(SaveSystem.defaultIconsDirectory, fileName);
+                    if (File.Exists(filePath))
+                    {
+                        return;
+                    }
+                    File.WriteAllBytes(filePath, data);
                 }
                 catch (Exception ex)
                 {
