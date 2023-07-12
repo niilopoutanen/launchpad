@@ -1,4 +1,5 @@
-using LaunchPadCore;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -16,7 +17,7 @@ namespace LaunchPadConfigurator.Views.Pages
         private UserPreferences preferences;
         public HomePage()
         {
-            preferences = SaveSystem.LoadPreferences();
+            preferences = UserPreferences.Load();
             this.InitializeComponent();
             this.InitializeElements();
 
@@ -32,11 +33,11 @@ namespace LaunchPadConfigurator.Views.Pages
             ModifierComboBox.SelectedItem = preferences.Modifier;
             ModifierComboBox.SelectionChanged += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 if (Enum.TryParse(ModifierComboBox.SelectedValue.ToString(), out HotKey.Modifiers selectedModifier))
                 {
                     preferences.Modifier = selectedModifier;
-                    SaveSystem.SavePreferences(preferences);
+                    preferences.Save();
                 }
             };
 
@@ -56,7 +57,7 @@ namespace LaunchPadConfigurator.Views.Pages
                 keyPressed = KeyInterop.KeyFromVirtualKey((int)e.Key);
 
                 preferences.Key = keyPressed;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
 
                 btn.IsChecked = false;
                 btn.Content = keyPressed;
@@ -68,10 +69,10 @@ namespace LaunchPadConfigurator.Views.Pages
         }
         private void RestoreHotkey(object sender, RoutedEventArgs e)
         {
-            preferences = SaveSystem.LoadPreferences();
+            preferences = UserPreferences.Load();
             preferences.Modifier = HotKey.Modifiers.Shift;
             preferences.Key = Key.Tab;
-            SaveSystem.SavePreferences(preferences);
+            preferences.Save();
             ModifierComboBox.SelectedItem = preferences.Modifier;
             KeyButton.Content = preferences.Key;
         }
@@ -117,7 +118,7 @@ namespace LaunchPadConfigurator.Views.Pages
         {
             try
             {
-                Process.Start("explorer.exe", "shell:appsfolder\\923NiiloPoutanen.364392126B592_5y1c2t4szcgd8!App");
+                Core.LaunchApp(Core.APP_LAUNCHPAD);
             }
             catch (Exception)
             {

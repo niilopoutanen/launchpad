@@ -1,4 +1,4 @@
-﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore;assembly=LaunchPadCore"
+﻿<LaunchPadCore:LaunchPadWidgetControl  xmlns:LaunchPadCore="clr-namespace:LaunchPadCore.Controls;assembly=LaunchPadCore"
             x:Class="LaunchPad.Apps.ClockWidget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
@@ -17,7 +17,7 @@
                 </Style>
             </Border.Style>
             <Grid>
-                <Canvas Name="ClockCanvas">
+                <Canvas Name="Variation1">
                     <Image Width="67" Margin="7" Source="/Resources/Assets/clock.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
                     <Line Stretch="Uniform" x:Name="HourHand"
@@ -38,7 +38,7 @@
                       Canvas.Left="40" Canvas.Top="40" RenderTransformOrigin="0.5,0.02"/>
 
                 </Canvas>
-                <TextBlock Name="TimeText" FontSize="16" Visibility="Collapsed"
+                <TextBlock Name="Variation2" FontSize="16" Visibility="Collapsed"
                            TextAlignment="Center"  VerticalAlignment="Center"
                            FontFamily="{StaticResource Inter}" FontWeight="SemiBold" Foreground="White"/>
             </Grid>

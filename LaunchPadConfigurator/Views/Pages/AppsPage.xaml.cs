@@ -1,5 +1,6 @@
 using LaunchPadConfigurator.Views.Dialogs;
-using LaunchPadCore;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -32,7 +33,7 @@ namespace LaunchPadConfigurator.Views.Pages
                 appsList.Children.Add(listItem);
             }
 
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             List<Widget> widgets = SaveSystem.LoadWidgets();
             foreach (Widget widget in widgets)
             {

@@ -1,4 +1,4 @@
-﻿namespace LaunchPadCore
+﻿namespace LaunchPadCore.Models
 {
     public class Widget
     {
@@ -11,8 +11,8 @@
 
         public int SwapWidgetVariation(int variation)
         {
-            UserPreferences preferences = SaveSystem.LoadPreferences();
-            if(VariationCount < variation)
+            UserPreferences preferences = UserPreferences.Load();
+            if (VariationCount < variation)
             {
                 variation = 1;
             }
@@ -28,22 +28,22 @@
                 preferences.WidgetVariations.Add(ID, variation);
             }
 
-            SaveSystem.SavePreferences(preferences);
+            preferences.Save();
             return variation;
         }
         public int LoadSelectedVariation()
         {
             int variation = 1;
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
 
-            if(preferences.WidgetVariations == null || !preferences.RememberWidgetVariation)
+            if (preferences.WidgetVariations == null || !preferences.RememberWidgetVariation)
             {
                 return variation;
             }
 
-            foreach (string key in  preferences.WidgetVariations.Keys)
+            foreach (string key in preferences.WidgetVariations.Keys)
             {
-                if(key == ID)
+                if (key == ID)
                 {
                     variation = preferences.WidgetVariations[key];
                     break;

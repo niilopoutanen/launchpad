@@ -1,4 +1,4 @@
-using LaunchPadCore;
+using LaunchPadCore.Models;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
@@ -9,7 +9,7 @@ namespace LaunchPadConfigurator.Views.Pages
         UserPreferences preferences;
         public GeneralPage()
         {
-            preferences = SaveSystem.LoadPreferences();
+            preferences = UserPreferences.Load();
 
             this.InitializeComponent();
             this.InitializeElements();
@@ -21,9 +21,9 @@ namespace LaunchPadConfigurator.Views.Pages
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.PreferredWidth = (int)e.NewValue;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
 
                 ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
             };
@@ -31,73 +31,83 @@ namespace LaunchPadConfigurator.Views.Pages
             NameVisibleToggle.IsOn = preferences.NameVisible;
             NameVisibleToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.NameVisible = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
             };
 
             ThemeComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.LaunchPadTheme));
             ThemeComboBox.SelectedItem = preferences.SelectedTheme;
             ThemeComboBox.SelectionChanged += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 if (Enum.TryParse(ThemeComboBox.SelectedValue.ToString(), out UserPreferences.LaunchPadTheme selectedTheme))
                 {
                     preferences.SelectedTheme = selectedTheme;
-                    SaveSystem.SavePreferences(preferences);
+                    preferences.Save();
                 }
             };
 
             transparentThemeToggle.IsOn = preferences.TransparentTheme;
             transparentThemeToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.TransparentTheme = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
             };
 
             accentThemeToggle.IsOn = preferences.UseSystemAccent;
             accentThemeToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.UseSystemAccent = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
             };
 
             fullSizeIconToggle.IsOn = preferences.FullSizeIcon;
             fullSizeIconToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.FullSizeIcon = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
             };
 
             AnimationComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.AnimationTypes));
             AnimationComboBox.SelectedItem = preferences.SelectedAnimation;
             AnimationComboBox.SelectionChanged += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 if (Enum.TryParse(AnimationComboBox.SelectedValue.ToString(), out UserPreferences.AnimationTypes selectedAnimation))
                 {
                     preferences.SelectedAnimation = selectedAnimation;
-                    SaveSystem.SavePreferences(preferences);
+                    preferences.Save();
                 }
             };
 
             themedWidgetsToggle.IsOn = preferences.ThemedWidgets;
             themedWidgetsToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.ThemedWidgets = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
             };
 
             rememberWidgetVariationToggle.IsOn = preferences.RememberWidgetVariation;
             rememberWidgetVariationToggle.Toggled += (s, e) =>
             {
-                preferences = SaveSystem.LoadPreferences();
+                preferences = UserPreferences.Load();
                 preferences.RememberWidgetVariation = ((ToggleSwitch)s).IsOn;
-                SaveSystem.SavePreferences(preferences);
+                preferences.Save();
+            };
+
+            AnimationSpeedSlider.Value = preferences.AnimationSpeed;
+            AnimationSpeedSlider.ValueChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.AnimationSpeed = (int)e.NewValue;
+                preferences.Save();
+
+                AnimationSpeedheader.Text = "Animation speed: " +  AnimationSpeedSlider.Value.ToString("0.0"); ;
             };
         }
     }

@@ -1,4 +1,5 @@
-using LaunchPadCore;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -88,10 +89,10 @@ namespace LaunchPadConfigurator.Views.Dialogs
 
                 if (indexToRemove != -1)
                 {
-                    UserPreferences preferences = SaveSystem.LoadPreferences();
+                    UserPreferences preferences = UserPreferences.Load();
                     preferences.ActiveWidgets[Widget.ID] = false;
 
-                    SaveSystem.SavePreferences(preferences);
+                    preferences.Save();
                     updateHandler.Invoke();
                 }
             }

@@ -1,9 +1,43 @@
-﻿using System.Windows.Input;
+﻿using System.Drawing;
+using System.IO;
+using System.Text.Json;
+using System.Windows.Input;
+using System.Xml.Linq;
+using LaunchPadCore.Utility;
 
-namespace LaunchPadCore
+namespace LaunchPadCore.Models
 {
     public class UserPreferences
     {
+        public void Save()
+        {
+            string jsonString = JsonSerializer.Serialize(this);
+            SaveSystem.EnsureSaveFolderExists();
+            using (StreamWriter streamWriter = new(SaveSystem.preferences))
+            {
+                streamWriter.Write(jsonString);
+            }
+        }
+        public static UserPreferences Load()
+        {
+            UserPreferences prefs = new();
+            SaveSystem.EnsureSaveFolderExists();
+            if (File.Exists(SaveSystem.preferences))
+            {
+                string jsonString = File.ReadAllText(SaveSystem.preferences) ?? throw new FileLoadException("File is empty");
+                prefs = JsonSerializer.Deserialize<UserPreferences>(jsonString);
+            }
+            if (prefs != null)
+            {
+                return prefs;
+            }
+            else
+            {
+                return new UserPreferences();
+            }
+        }
+
+
         private int preferredWidth = 600;
         public int PreferredWidth
         {
@@ -59,7 +93,17 @@ namespace LaunchPadCore
             get => selectedAnimation;
             set => selectedAnimation = value;
         }
-
+        private double animationSpeed = 1;
+        public double AnimationSpeed
+        {
+            get => animationSpeed;
+            set
+            {
+                double min = 0.5;
+                double max = 3;
+                animationSpeed = (value < min) ? min : (value > max) ? max : value;
+            }
+        }
 
         private HotKey.Modifiers modifier = HotKey.Modifiers.Shift;
         public HotKey.Modifiers Modifier
@@ -87,7 +131,7 @@ namespace LaunchPadCore
         public bool ThemedWidgets
         {
             get => themedWidgets;
-            set => themedWidgets = value; 
+            set => themedWidgets = value;
         }
 
         private bool rememberWidgetVariation = true;
@@ -97,7 +141,19 @@ namespace LaunchPadCore
             set => rememberWidgetVariation = value;
         }
 
-        public Dictionary<string, bool>? ActiveWidgets { get; set; }
-        public Dictionary<string, int>? WidgetVariations { get; set; }
+        private Dictionary<string, bool>? activeWidgets = new();
+        public Dictionary<string, bool> ActiveWidgets 
+        {
+            get { return activeWidgets ?? new Dictionary<string, bool>(); }
+            set { activeWidgets = value; }
+        }
+
+        private Dictionary<string, int>? widgetVariations = new();
+        public Dictionary<string, int>? WidgetVariations
+        {
+            get { return widgetVariations ?? new Dictionary<string, int>(); }
+            set { widgetVariations = value; }
+        }
+
     }
 }

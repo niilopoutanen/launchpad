@@ -1,4 +1,5 @@
-﻿using LaunchPadCore;
+﻿using LaunchPadCore.Controls;
+using LaunchPadCore.Models;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -62,7 +63,7 @@ namespace LaunchPad.Apps
             MinuteHand.RenderTransform = new RotateTransform(minuteAngle);
             SecondHand.RenderTransform = new RotateTransform(secondAngle);
 
-            TimeText.Text = DateTime.Now.ToString("HH:mm:ss");
+            Variation2.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         public override void SetTheme(ResourceDictionary activeDictionary)
@@ -71,36 +72,8 @@ namespace LaunchPad.Apps
             SolidColorBrush textColor = activeDictionary["LaunchPadTextColor"] as SolidColorBrush;
             if (!Preferences.ThemedWidgets)
             {
-                TimeText.Foreground = textColor;
+                Variation2.Foreground = textColor;
             }
-        }
-
-        public override void SetVariation(int variation, bool animationDisabled)
-        {
-            DoubleAnimation fadeInAnimation = new()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-            if(animationDisabled)
-            {
-                fadeInAnimation.From = 1.0;
-            }
-            switch (variation)
-            {
-                case 1:
-                    TimeText.Visibility = Visibility.Collapsed;
-                    ClockCanvas.Visibility = Visibility.Visible;
-                    ClockCanvas.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-                case 2:
-                    ClockCanvas.Visibility = Visibility.Collapsed;
-                    TimeText.Visibility = Visibility.Visible;
-                    TimeText.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-                    break;
-            }
-            Variation = variation;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LaunchPadCore;
+﻿using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace LaunchPad
         private LaunchPadWindow? launchPadWindow;
         private NotifyIcon? notifyIcon;
 
+        private DateTime lastLaunchpadToggleTime;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -23,7 +26,7 @@ namespace LaunchPad
         }
         private void EngageHotKey()
         {
-            UserPreferences preferences = SaveSystem.LoadPreferences();
+            UserPreferences preferences = UserPreferences.Load();
             var hwndSource = new HwndSource(0, 0, 0, 0, 0, "LaunchPadCore", IntPtr.Zero);
             var hotKey = new HotKey(hwndSource)
             {
@@ -45,13 +48,26 @@ namespace LaunchPad
                 Current.Shutdown();
             }
         }
+
         public void ToggleLaunchpad()
         {
+            DateTime currentTime = DateTime.Now;
+            TimeSpan timeSinceLastToggle = currentTime - lastLaunchpadToggleTime;
+
+            if (timeSinceLastToggle < TimeSpan.FromSeconds(0.3))
+            {
+                // Cooldown is active, do not proceed
+                return;
+            }
+
             if (launchPadWindow != null && launchPadWindow.IsVisible)
             {
                 launchPadWindow.Terminate();
+                lastLaunchpadToggleTime = currentTime;
                 return;
             }
+
+            lastLaunchpadToggleTime = currentTime;
 
             launchPadWindow = new LaunchPadWindow();
             launchPadWindow.Show();
@@ -78,11 +94,11 @@ namespace LaunchPad
             };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, async (s, e) =>
+            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) =>
             {
                 try
                 {
-                    Process.Start("explorer.exe", "shell:appsfolder\\1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App");
+                    Core.LaunchApp(Core.APP_LAUNCHPADCONFIG);
                 }
                 catch
                 {
