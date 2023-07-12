@@ -48,8 +48,15 @@ namespace LaunchPadCore.Utility
                 await DownloadIcon(template.IconFileName);
             }
         }
-        private static async Task DownloadIcon(string fileName)
+
+
+        /// <returns>Final file name</returns>
+        private static async Task<string> DownloadIcon(string fileName)
         {
+            if (File.Exists(Path.Combine(SaveSystem.iconsDirectory, fileName)))
+            {
+                return fileName;
+            }
             string path = iconsUrl + fileName;
             using (HttpClient client = new HttpClient())
             {
@@ -59,9 +66,7 @@ namespace LaunchPadCore.Utility
 
                     Directory.CreateDirectory(SaveSystem.iconsDirectory);
 
-                    string file = $"{fileName}_{DateTime.Now:yyyyMMddHHmmss}.jpg";
-
-                    string filePath = Path.Combine(SaveSystem.iconsDirectory, file);
+                    string filePath = Path.Combine(SaveSystem.iconsDirectory, fileName);
                     File.WriteAllBytes(filePath, imageBytes);
                 }
                 catch (Exception ex)
@@ -69,6 +74,7 @@ namespace LaunchPadCore.Utility
                     Console.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
+            return fileName;
         }
     }
 }
