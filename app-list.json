@@ -3,12 +3,14 @@
         "Name": "Mail",
         "FamilyId": "",
         "AppId": "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail",
+        "IconFileName": "windows-mail.png",
         "ID": 0
     },
     {
         "Name": "Calendar",
         "FamilyId": "",
         "AppId": "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar",
+        "IconFileName": "windows-calendar.png",
         "ID": 1
     }
 ]
