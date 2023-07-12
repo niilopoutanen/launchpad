@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Company>Niilo Poutanen</Company>
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
-    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
     <Version>1.1</Version>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>LaunchPad.App</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
