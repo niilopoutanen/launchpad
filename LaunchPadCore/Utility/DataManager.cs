@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Management.Automation;
+using System.Management;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace LaunchPadCore.Utility
 {
@@ -19,6 +22,7 @@ namespace LaunchPadCore.Utility
 
         public static async Task<List<AppTemplate>> GetData()
         {
+            GetApps();
             List<AppTemplate> templateApps = new();
 
             using (HttpClient client = new())
@@ -49,7 +53,34 @@ namespace LaunchPadCore.Utility
             }
         }
 
+        public static Dictionary<string,string> GetApps()
+        {
+            Dictionary<string, string> apps = new();
+            using (PowerShell ps = PowerShell.Create())
+            {
+                //Bypass the execution policy
+                ps.AddCommand("Set-ExecutionPolicy")
+                    .AddParameter("ExecutionPolicy", "Bypass")
+                    .AddParameter("Scope", "Process")
+                    .Invoke();
 
+           
+                ps.AddCommand("Get-StartApps");
+
+                Collection<PSObject> results = ps.Invoke();
+                foreach (PSObject obj in results)
+                {
+                    string name = obj.Properties["Name"].Value.ToString();
+                    string appId = obj.Properties["AppID"].Value.ToString();
+
+                    if(!apps.ContainsKey(appId))
+                    {
+                        apps.Add(appId, name);
+                    }
+                }
+            }
+            return apps;
+        }
         /// <returns>Final file name</returns>
         private static async Task DownloadIcon(string fileName)
         {
