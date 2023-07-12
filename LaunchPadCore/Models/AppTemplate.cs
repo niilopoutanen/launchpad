@@ -11,15 +11,17 @@ namespace LaunchPadCore.Models
         public string Name { get; set; }
         public string FamilyId { get; set; }
         public string AppId { get; set; }
+        public string IconFileName { get; set; }
         public int ID { get; set; }
 
         public AppTemplate() { }
 
-        public AppTemplate(string name, string familyId, string appId, int id)
+        public AppTemplate(string name, string familyId, string iconFileName, string appId, int id)
         {
             Name = name;
             FamilyId = familyId;
             AppId = appId;
+            IconFileName = iconFileName;
             ID = id;
         }
     }
