@@ -54,7 +54,7 @@ namespace LaunchPad
             DateTime currentTime = DateTime.Now;
             TimeSpan timeSinceLastToggle = currentTime - lastLaunchpadToggleTime;
 
-            if (timeSinceLastToggle < TimeSpan.FromSeconds(0.3))
+            if (timeSinceLastToggle < TimeSpan.FromSeconds(0.4))
             {
                 // Cooldown is active, do not proceed
                 return;
@@ -85,9 +85,8 @@ namespace LaunchPad
                 Text = "LaunchPad"
             };
 
-            notifyIcon.MouseClick += async (sender, e) =>
+            notifyIcon.MouseClick += (sender, e) =>
             {
-                await DataManager.GetData();
                 if (e.Button == MouseButtons.Left)
                 {
                     ToggleLaunchpad();
