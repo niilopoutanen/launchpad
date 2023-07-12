@@ -85,8 +85,9 @@ namespace LaunchPad
                 Text = "LaunchPad"
             };
 
-            notifyIcon.MouseClick += (sender, e) =>
+            notifyIcon.MouseClick += async (sender, e) =>
             {
+                await DataManager.GetData();
                 if (e.Button == MouseButtons.Left)
                 {
                     ToggleLaunchpad();
