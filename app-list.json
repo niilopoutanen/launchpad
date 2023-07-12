@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "Name": "Mail",
+        "FamilyId": "",
+        "AppId": "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail",
+        "ID": 0
+    },
+    {
+        "Name": "Calendar",
+        "FamilyId": "",
+        "AppId": "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar",
+        "ID": 1
+    }
+]
