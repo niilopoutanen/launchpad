@@ -12,7 +12,7 @@ namespace LaunchPadCore.Models
         public void Save()
         {
             string jsonString = JsonSerializer.Serialize(this);
-            SaveSystem.EnsureSaveFolderExists();
+            SaveSystem.VerifyPathIntegrity();
             using (StreamWriter streamWriter = new(SaveSystem.preferences))
             {
                 streamWriter.Write(jsonString);
@@ -21,7 +21,7 @@ namespace LaunchPadCore.Models
         public static UserPreferences Load()
         {
             UserPreferences prefs = new();
-            SaveSystem.EnsureSaveFolderExists();
+            SaveSystem.VerifyPathIntegrity();
             if (File.Exists(SaveSystem.preferences))
             {
                 string jsonString = File.ReadAllText(SaveSystem.preferences) ?? throw new FileLoadException("File is empty");

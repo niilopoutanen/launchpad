@@ -63,11 +63,7 @@ namespace LaunchPadCore.Utility
                 try
                 {
                     byte[] imageBytes = await client.GetByteArrayAsync(path);
-
-                    Directory.CreateDirectory(SaveSystem.iconsDirectory);
-
-                    string filePath = Path.Combine(SaveSystem.iconsDirectory, fileName);
-                    File.WriteAllBytes(filePath, imageBytes);
+                    SaveSystem.SaveIcon(fileName,imageBytes, false);
                 }
                 catch (Exception ex)
                 {
