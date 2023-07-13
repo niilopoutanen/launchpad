@@ -71,13 +71,15 @@
             </Grid>
         </ControlTemplate>
     </Window.Template>
-    <Border Background="#1e1e1e" CornerRadius="8" ClipToBounds="True" BorderBrush="#3a3a3a" BorderThickness="1">
+    <Border CornerRadius="8" ClipToBounds="True" Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"  Name="SideBar" Background="#282828" Width="200" CornerRadius="8,0,0,8" Padding="20">
+            <Border Grid.Column="0"  Name="SideBar" Background="{StaticResource WindowForeGround}" Width="200" CornerRadius="8,0,0,8" 
+                    Padding="20" BorderThickness="0,0,1,0" BorderBrush="{StaticResource WindowBorder}">
+                
                 <StackPanel Orientation="Vertical">
                     <StackPanel Style="{StaticResource SideBarItem}">
                         <Image Source="/Resources/Icons/icon_home.png"/>
@@ -104,7 +106,7 @@
             </Border>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch">
-                <Grid Height="30">
+                <Grid Height="40" Background="{StaticResource WindowForeGround}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
@@ -119,6 +121,8 @@
                         </Border>
                     </StackPanel>
                 </Grid>
+                <Border Grid.Row="1" Height="1" Background="{StaticResource WindowBorder}"/>
+
                 <Frame/>
             </StackPanel>
         </Grid>
