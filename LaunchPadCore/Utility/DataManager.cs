@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace LaunchPadCore.Utility
 {
@@ -21,17 +22,17 @@ namespace LaunchPadCore.Utility
         private const string iconsUrl = baseUrl + "icons/";
         private const string appList = baseUrl + "app-list.json";
 
-        public static async Task<List<AppTemplate>> GetData()
+        public static async Task<Dictionary<string, string>> GetData()
         {
             GetApps();
-            List<AppTemplate> templateApps = new();
+            Dictionary<string, string> templateApps = new();
 
             using (HttpClient client = new())
             {
                 try
                 {
                     string json = await client.GetStringAsync(appList);
-                    templateApps = JsonSerializer.Deserialize<List<AppTemplate>>(json);
+                    templateApps = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
                 }
                 catch{}
             }
@@ -42,7 +43,7 @@ namespace LaunchPadCore.Utility
             }
             else
             {
-                return new List<AppTemplate>();
+                return new Dictionary<string, string>();
             }
         }
         public static async Task<bool> IsLatestData()
@@ -82,21 +83,19 @@ namespace LaunchPadCore.Utility
                 return false;
             }
         }
-        public static async Task ProcessData(List<AppTemplate> data)
+        public static async Task ProcessData(Dictionary<string, string> data)
         {
             List<string> localApps = GetApps();
-            foreach (string id in localApps)
+            foreach(var keyValuePair in data)
             {
-                foreach (AppTemplate template in data)
+                if (localApps.Contains(keyValuePair.Value))
                 {
-                    if(template.AppId == id)
-                    {
-                        await DownloadIcon(template.IconFileName);
-                    }
+                    await DownloadIcon(keyValuePair.Value);
                 }
-
             }
+
         }
+
 
         public static List<string> GetApps()
         {

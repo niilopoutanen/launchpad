@@ -35,7 +35,7 @@ namespace LaunchPadCore.Utility
                 return;
             }
 
-            List<AppTemplate> apps = await DataManager.GetData();
+            Dictionary<string, string> apps = await DataManager.GetData();
             await DataManager.ProcessData(apps);
 
         }
