@@ -1,4 +1,12 @@
 {
     "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail": "windows-mail.png",
-    "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar": "windows-calendar.png"
+    "microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar": "windows-calendar.png",
+    "Microsoft.WindowsMaps_8wekyb3d8bbwe!App": "windows-maps.png",
+    "Microsoft.BingWeather_8wekyb3d8bbwe!App": "windows-weather.png",
+    "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App": "windows-terminal.png",
+    "Microsoft.WindowsNotepad_8wekyb3d8bbwe!App": "windows-notepad.png",
+    "Microsoft.Windows.Photos_8wekyb3d8bbwe!App": "windows-photos.png",
+    "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App": "windows-calculator.png",
+    "Microsoft.WindowsCamera_8wekyb3d8bbwe!App": "windows-camera.png",
+    "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App": "windows-clock.png"
 }
