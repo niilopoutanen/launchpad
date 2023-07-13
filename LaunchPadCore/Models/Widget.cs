@@ -104,7 +104,7 @@ namespace LaunchPadCore.Models
         }
         public void Save()
         {
-            SaveSystem.EnsureSaveFolderExists();
+            SaveSystem.VerifyPathIntegrity();
             List<Widget> widgets = LoadWidgets();
 
             Widget? existingWidget = widgets.FirstOrDefault(a => a.WidgetName == WidgetName);

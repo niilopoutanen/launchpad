@@ -59,8 +59,11 @@ namespace LaunchPadCore.Utility
                     server = version;
                 }
             }
-
-            string currentDataVersion = File.ReadAllText(Path.Combine(SaveSystem.defaultIconsDirectory, "data.updated"));
+            if(!File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated")))
+            {
+                return false;
+            }
+            string currentDataVersion = File.ReadAllText(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated"));
             if (String.IsNullOrEmpty(currentDataVersion))
             {
                 local = 0;
@@ -122,7 +125,7 @@ namespace LaunchPadCore.Utility
         /// <returns>Final file name</returns>
         private static async Task DownloadIcon(string fileName)
         {
-            if (File.Exists(Path.Combine(SaveSystem.defaultIconsDirectory, fileName)))
+            if (File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, fileName)))
             {
                 return;
             }
@@ -133,7 +136,7 @@ namespace LaunchPadCore.Utility
                 {
                     byte[] data = await client.GetByteArrayAsync(path);
                     SaveSystem.VerifyPathIntegrity();
-                    string filePath = Path.Combine(SaveSystem.defaultIconsDirectory, fileName);
+                    string filePath = Path.Combine(SaveSystem.predefinedIconsDirectory, fileName);
                     if (File.Exists(filePath))
                     {
                         return;
