@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows.Input;
+using System.Xml.Linq;
 using LaunchPadCore.Utility;
 
 namespace LaunchPadCore.Models
@@ -11,7 +12,7 @@ namespace LaunchPadCore.Models
         public void Save()
         {
             string jsonString = JsonSerializer.Serialize(this);
-            SaveSystem.EnsureSaveFolderExists();
+            SaveSystem.VerifyPathIntegrity();
             using (StreamWriter streamWriter = new(SaveSystem.preferences))
             {
                 streamWriter.Write(jsonString);
@@ -20,7 +21,7 @@ namespace LaunchPadCore.Models
         public static UserPreferences Load()
         {
             UserPreferences prefs = new();
-            SaveSystem.EnsureSaveFolderExists();
+            SaveSystem.VerifyPathIntegrity();
             if (File.Exists(SaveSystem.preferences))
             {
                 string jsonString = File.ReadAllText(SaveSystem.preferences) ?? throw new FileLoadException("File is empty");
@@ -92,7 +93,17 @@ namespace LaunchPadCore.Models
             get => selectedAnimation;
             set => selectedAnimation = value;
         }
-
+        private double animationSpeed = 1;
+        public double AnimationSpeed
+        {
+            get => animationSpeed;
+            set
+            {
+                double min = 0.5;
+                double max = 3;
+                animationSpeed = (value < min) ? min : (value > max) ? max : value;
+            }
+        }
 
         private HotKey.Modifiers modifier = HotKey.Modifiers.Shift;
         public HotKey.Modifiers Modifier
@@ -130,7 +141,19 @@ namespace LaunchPadCore.Models
             set => rememberWidgetVariation = value;
         }
 
-        public Dictionary<string, bool>? ActiveWidgets { get; set; }
-        public Dictionary<string, int>? WidgetVariations { get; set; }
+        private Dictionary<string, bool>? activeWidgets = new();
+        public Dictionary<string, bool> ActiveWidgets 
+        {
+            get { return activeWidgets ?? new Dictionary<string, bool>(); }
+            set { activeWidgets = value; }
+        }
+
+        private Dictionary<string, int>? widgetVariations = new();
+        public Dictionary<string, int>? WidgetVariations
+        {
+            get { return widgetVariations ?? new Dictionary<string, int>(); }
+            set { widgetVariations = value; }
+        }
+
     }
 }

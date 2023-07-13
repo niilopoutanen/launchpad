@@ -52,7 +52,6 @@ namespace LaunchPad.Apps
                 ActionConfirmation.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
                 return Task.CompletedTask;
             }
-
             var powerProcess = new ProcessStartInfo("shutdown", "/s /t 0");
             switch (Variation)
             {
@@ -73,6 +72,14 @@ namespace LaunchPad.Apps
             Process.Start(powerProcess);
             ((App)Application.Current).ToggleLaunchpad();
             return Task.CompletedTask;
+        }
+        public override Task OnSecondaryClick()
+        {
+            if(ActionConfirmation.Visibility == Visibility.Visible)
+            {
+                return Task.CompletedTask;
+            }
+            return base.OnSecondaryClick();
         }
 
         public override void SetTheme(ResourceDictionary activeDictionary)

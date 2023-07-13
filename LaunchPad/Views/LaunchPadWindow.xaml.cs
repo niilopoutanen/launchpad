@@ -21,7 +21,7 @@ namespace LaunchPad
         readonly List<LaunchPadItemControl> items = new();
         public LaunchPadWindow()
         {
-            preferences = UserPreferences.Load();
+            preferences = Load();
             ResourceDictionary activeTheme = SaveSystem.LoadTheme();
             InitializeComponent();
             LoadApps();
@@ -35,10 +35,13 @@ namespace LaunchPad
         }
         private void Launch(object sender, RoutedEventArgs e)
         {
+            double speed = preferences.AnimationSpeed;
+
             switch (preferences.SelectedAnimation)
             {
                 case AnimationTypes.Center:
                     Storyboard fade = ((Storyboard)this.FindResource("LaunchPadCenterIn")).Clone();
+                    fade.SpeedRatio = speed;
                     fade.Begin(launchPadRoot);
                     break;
 
@@ -47,6 +50,7 @@ namespace LaunchPad
 
                     ThicknessAnimation slideAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideAnimation.From = new Thickness(0, launchPadRoot.ActualHeight, 0, 0);
+                    slideAnimation.SpeedRatio = speed;
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
                     break;
@@ -57,6 +61,8 @@ namespace LaunchPad
                     ThicknessAnimation slideTopAnimation = ((ThicknessAnimation)this.FindResource("LaunchPadSlideIn")).Clone();
                     slideTopAnimation.From = new Thickness(0, -launchPadRoot.ActualHeight, 0, 0);
                     slideTopAnimation.To = new Thickness(0, 20, 0, 0);
+                    slideTopAnimation.SpeedRatio = speed;
+
                     launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
                     break;
 
@@ -66,6 +72,8 @@ namespace LaunchPad
 
         public void Terminate()
         {
+            double speed = preferences.AnimationSpeed;
+
             switch (preferences.SelectedAnimation)
             {
                 case AnimationTypes.Center:
@@ -74,6 +82,8 @@ namespace LaunchPad
                     {
                         this.Close();
                     };
+                    launchPadClose.SpeedRatio = speed;
+
                     launchPadClose.Begin(launchPadRoot);
                     break;
 
@@ -84,6 +94,7 @@ namespace LaunchPad
                     {
                         this.Close();
                     };
+                    slideAnimation.SpeedRatio = speed;
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideAnimation);
 
@@ -97,6 +108,7 @@ namespace LaunchPad
                     {
                         this.Close();
                     };
+                    slideTopAnimation.SpeedRatio = speed;
 
                     launchPadRoot.BeginAnimation(MarginProperty, slideTopAnimation);
 
@@ -127,8 +139,7 @@ namespace LaunchPad
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            Window window = (Window)sender;
-            window.Topmost = true;
+            ((App)Application.Current).ToggleLaunchpad();
         }
 
         private void LoadApps()
@@ -137,7 +148,7 @@ namespace LaunchPad
             List<AppShortcut> apps = SaveSystem.LoadApps();
             List<Widget> widgets = Widget.LoadWidgets();
 
-            int activeWidgetCount = UserPreferences.Load().ActiveWidgets.Values.Count(value => value);
+            int activeWidgetCount = preferences.ActiveWidgets.Values.Count(value => value);
 
             appContainer.MaxWidth = preferences.PreferredWidth;
 
@@ -193,15 +204,12 @@ namespace LaunchPad
 
         }
 
-
-
         private void SetTheme(ResourceDictionary resourceDictionary)
         {
             foreach (LaunchPadItemControl item in appContainer.Children)
             {
                 item.SetTheme(resourceDictionary);
             }
-
 
             if (preferences.UseSystemAccent)
             {
@@ -216,8 +224,6 @@ namespace LaunchPad
 
                 return;
             }
-
-
 
             SolidColorBrush backgroundColor = resourceDictionary["LaunchPadBackground"] as SolidColorBrush;
 

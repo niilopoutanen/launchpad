@@ -10,7 +10,8 @@ namespace LaunchPadCore.Utility
     public class SaveSystem
     {
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
-        public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "Icons");
+        public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "icons");
+        public static readonly string defaultIconsDirectory = Path.Combine(saveFileLocation, "icons", "default");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         public static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
 
@@ -25,8 +26,7 @@ namespace LaunchPadCore.Utility
                     // Icon has not yet been moved
                     if (File.Exists(app.IconFileName))
                     {
-                        CopyIconToAppData(app.IconFileName);
-                        app.IconFileName = filename;
+                        app.IconFileName = SaveIcon(app.IconFileName, false);
                     }
                     else
                     {
@@ -36,7 +36,7 @@ namespace LaunchPadCore.Utility
                 }
             }
             string jsonString = JsonSerializer.Serialize(apps);
-            EnsureSaveFolderExists();
+            VerifyPathIntegrity();
             using (StreamWriter streamWriter = new(SaveSystem.apps))
             {
                 streamWriter.Write(jsonString);
@@ -44,7 +44,7 @@ namespace LaunchPadCore.Utility
         }
         public static void SaveApp(AppShortcut app)
         {
-            EnsureSaveFolderExists();
+            VerifyPathIntegrity();
             List<AppShortcut> existingApps = LoadApps();
 
             AppShortcut? existingApp = existingApps.FirstOrDefault(a => a.Name == app.Name);
@@ -66,30 +66,46 @@ namespace LaunchPadCore.Utility
             SaveApps(existingApps);
         }
 
-
-        private static void CopyIconToAppData(string currentPath)
+        /// <returns>Final name of the file</returns>
+        public static string SaveIcon(string fileName, byte[] data, bool overWrite)
         {
-            string finalPath = Path.Combine(iconsDirectory, Path.GetFileName(currentPath));
-            if (finalPath != currentPath)
+            VerifyPathIntegrity();
+            string filePath = Path.Combine(iconsDirectory, fileName);
+            if (!overWrite)
             {
-                try
+                if (File.Exists(filePath))
                 {
-                    File.Copy(currentPath, finalPath, true);
-                }
-                catch
-                {
-                    string newFileName = Path.GetFileNameWithoutExtension(currentPath) + "(1)" + Path.GetExtension(currentPath);
-                    string newFilePath = Path.Combine(iconsDirectory, newFileName);
-                    File.Copy(currentPath, newFilePath, true);
+                    fileName += DateTime.Now.ToShortTimeString();
+                    filePath = Path.Combine(iconsDirectory, fileName);
                 }
             }
+            File.WriteAllBytes(filePath, data);
+
+            return fileName;
+        }
+        public static string SaveIcon(string currentPath, bool overWrite)
+        {
+            VerifyPathIntegrity(); 
+            string fileName = Path.GetFileName(currentPath);
+            string filePath = Path.Combine(iconsDirectory, fileName);
+            if (!overWrite)
+            {
+                if (File.Exists(filePath))
+                {
+                    fileName = Path.GetFileNameWithoutExtension(fileName) + DateTime.Now.ToShortTimeString() + Path.GetExtension(fileName);
+                    filePath = Path.Combine(iconsDirectory, fileName);
+                }
+            }
+            File.Copy(currentPath, filePath, overWrite);
+
+            return fileName;
         }
 
         public static List<AppShortcut> LoadApps()
         {
             List<AppShortcut> apps = new();
 
-            EnsureSaveFolderExists();
+            VerifyPathIntegrity();
             if (File.Exists(SaveSystem.apps))
             {
                 string jsonString = File.ReadAllText(SaveSystem.apps) ?? throw new FileLoadException("File is empty");
@@ -99,16 +115,11 @@ namespace LaunchPadCore.Utility
 
             return apps;
         }
-        public static void EnsureSaveFolderExists()
+        public static void VerifyPathIntegrity()
         {
-            if (!Directory.Exists(saveFileLocation))
-            {
-                Directory.CreateDirectory(saveFileLocation);
-            }
-            if (!Directory.Exists(iconsDirectory))
-            {
-                Directory.CreateDirectory(iconsDirectory);
-            }
+            Directory.CreateDirectory(iconsDirectory);
+            Directory.CreateDirectory(defaultIconsDirectory);
+            Directory.CreateDirectory(saveFileLocation);
         }
 
         public static void DeleteUnusedIcons()
