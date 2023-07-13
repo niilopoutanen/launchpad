@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchPadConfiguratorWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" ResizeMode="CanResizeWithGrip"
+        WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+    <Border Background="#1e1e1e" CornerRadius="8" ClipToBounds="True">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Name="SideBar" Background="#282828" Orientation="Vertical" Width="200">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                    <Border Width="10" Height="10" Background="Blue"/>
+                    <TextBlock Foreground="White">Home</TextBlock>
+                </StackPanel>
 
-    </Grid>
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                    <TextBlock Foreground="White">General</TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                    <TextBlock Foreground="White">Apps</TextBlock>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                    <TextBlock Foreground="White">Widgets</TextBlock>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch">
+                <Grid Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Foreground="White" VerticalAlignment="Center" Name="AppTitleBar" Padding="5">Window name</TextBlock>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Border Name="Minimize" Background="White" Width="20" Height="20" Margin="10,0,10,0"></Border>
+                        <Border Name="Close" Background="White" Width="20" Height="20" Margin="0,0,10,0"></Border>
+                    </StackPanel>
+                </Grid>
+                <Frame/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

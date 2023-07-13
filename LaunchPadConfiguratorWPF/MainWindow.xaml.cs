@@ -23,6 +23,23 @@ namespace LaunchPadConfiguratorWPF
         public MainWindow()
         {
             InitializeComponent();
+            InitializeElements();
         }
+        private void InitializeElements()
+        {
+            AppTitleBar.MouseLeftButtonDown += (s, e) =>
+            {
+                this.DragMove();
+            };
+            Close.MouseLeftButtonUp += (s, e) =>
+            {
+                Application.Current.Shutdown();
+            };
+            Minimize.MouseLeftButtonUp += (s, e) =>
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            };
+        }
+
     }
 }
