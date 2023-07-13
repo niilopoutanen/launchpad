@@ -11,6 +11,48 @@
         MaxHeight="800"
         Title="MainWindow" Height="450" Width="800" ResizeMode="CanResizeWithGrip"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleBarButton" TargetType="Border">
+                <Setter Property="Width" Value="20"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Margin" Value="10,0,10,0"/>
+                <Style.Triggers>
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.Background" Value="#3a3a3a" />
+                    </Trigger>
+                </Style.Triggers>
+                <Style.Resources>
+                    <Style TargetType="Path">
+                        <Setter Property="Width" Value="15"/>
+                        <Setter Property="Height" Value="15"/>
+                        <Setter Property="Stretch" Value="Uniform"/>
+                        <Setter Property="Stroke" Value="#FFFFFF"/>
+                        <Setter Property="StrokeThickness" Value="2"/>
+                        <Setter Property="StrokeEndLineCap" Value="Round"/>
+                        <Setter Property="StrokeStartLineCap" Value="Round"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+
+            <Style x:Key="SideBarItem" TargetType="StackPanel">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Style.Resources>
+                    <Style TargetType="Image">
+                        <Setter Property="Width" Value="20"/>
+                        <Setter Property="Margin" Value="0,0,10,0"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
     <Window.Template>
         <ControlTemplate TargetType="Window">
             <Grid>
@@ -35,24 +77,27 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"  Name="SideBar" Background="#282828" Width="200" CornerRadius="8,0,0,8">
+            <Border Grid.Column="0"  Name="SideBar" Background="#282828" Width="200" CornerRadius="8,0,0,8" Padding="20">
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                        <Border Width="10" Height="10" Background="Blue"/>
-                        <TextBlock Foreground="White">Home</TextBlock>
+                    <StackPanel Style="{StaticResource SideBarItem}">
+                        <Image Source="/Resources/Icons/icon_home.png"/>
+                        <TextBlock>Home</TextBlock>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                        <TextBlock Foreground="White">General</TextBlock>
+                    <StackPanel Style="{StaticResource SideBarItem}">
+                        <Image Source="/Resources/Icons/icon_general.png"/>
+                        <TextBlock>General</TextBlock>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                        <TextBlock Foreground="White">Apps</TextBlock>
+                    <StackPanel Style="{StaticResource SideBarItem}">
+                        <Image Source="/Resources/Icons/icon_apps.png"/>
+                        <TextBlock>Apps</TextBlock>
                     </StackPanel>
 
 
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                        <TextBlock Foreground="White">Widgets</TextBlock>
+                    <StackPanel Style="{StaticResource SideBarItem}">
+                        <Image Source="/Resources/Icons/icon_widgets.png"/>
+                        <TextBlock>Widgets</TextBlock>
                     </StackPanel>
                 </StackPanel>
 
@@ -64,13 +109,13 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Foreground="White" VerticalAlignment="Center" Name="AppTitleBar" Padding="5">Window name</TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Name="AppTitleBar" Padding="10,5,5,5">LaunchPad Configurator</TextBlock>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Border Name="Minimize" Width="20" Height="20" Margin="10,0,10,0" Background="Transparent">
-                            <Path Width="15" Height="15" Stretch="Uniform" Data="M1 1H19" Stroke="White" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                        <Border Style="{StaticResource TitleBarButton}" Name="Minimize">
+                            <Path Data="M1 1H19"/>
                         </Border>
-                        <Border Name="Close" Width="20" Height="20" Margin="0,0,10,0" Background="Transparent">
-                            <Path Width="15" Stretch="Uniform" Height="15" Stroke="#FFFFFF" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round"  Data="M1 1L9.99987 9.5M18.4999 18L9.99987 9.5M9.99987 9.5L1.49987 18M9.99987 9.5L18.4999 1"/>
+                        <Border Style="{StaticResource TitleBarButton}" Name="Close">
+                            <Path Data="M1 1L9.99987 9.5M18.4999 18L9.99987 9.5M9.99987 9.5L1.49987 18M9.99987 9.5L18.4999 1"/>
                         </Border>
                     </StackPanel>
                 </Grid>

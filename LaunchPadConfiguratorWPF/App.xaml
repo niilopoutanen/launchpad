@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:LaunchPadConfiguratorWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Inter">/Resources/Fonts/#Inter</FontFamily>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+
+        <SolidColorBrush x:Key="TextSecondary" Color="#E6E6E6"/>
+
     </Application.Resources>
 </Application>
