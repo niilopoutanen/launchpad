@@ -1,7 +1,7 @@
 ﻿[
   {
     "WidgetName": "Power",
-    "Description": "Turns off the system",
+    "Description": "Manages system power status",
     "IconFile": "widget_power.jpg",
     "ID": "pwr_01",
     "VariationCount" : 3

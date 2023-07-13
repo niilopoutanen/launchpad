@@ -12,7 +12,7 @@ namespace LaunchPadConfigurator.Views.Pages
         public WidgetsPage()
         {
             this.InitializeComponent();
-            widgets = SaveSystem.LoadWidgets();
+            widgets = Widget.LoadWidgets();
             foreach (Widget widget in widgets)
             {
                 WidgetGalleryItem listItem = new(widget);

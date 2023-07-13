@@ -31,13 +31,13 @@ namespace LaunchPadConfigurator.Views.Elements
             {
                 Widget.Active = true;
                 WidgetActive.Content = "Active";
-                SaveSystem.SaveWidget(Widget);
+                Widget.Save();
             };
             WidgetActive.Unchecked += (s, e) =>
             {
                 Widget.Active = false;
                 WidgetActive.Content = "Inactive";
-                SaveSystem.SaveWidget(Widget);
+                Widget.Save();
             };
             WidgetActive.IsChecked = Widget.Active;
         }

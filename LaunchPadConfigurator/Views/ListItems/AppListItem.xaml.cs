@@ -83,7 +83,7 @@ namespace LaunchPadConfigurator.Views.Dialogs
             }
             else if (Widget != null)
             {
-                List<Widget> widgets = SaveSystem.LoadWidgets();
+                List<Widget> widgets = Widget.LoadWidgets();
 
                 int indexToRemove = widgets.FindIndex(widget => widget.ID == Widget.ID);
 

@@ -34,7 +34,7 @@ namespace LaunchPadConfigurator.Views.Pages
             }
 
             UserPreferences preferences = UserPreferences.Load();
-            List<Widget> widgets = SaveSystem.LoadWidgets();
+            List<Widget> widgets = Widget.LoadWidgets();
             foreach (Widget widget in widgets)
             {
                 foreach (string key in preferences.ActiveWidgets.Keys)

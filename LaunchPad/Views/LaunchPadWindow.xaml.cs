@@ -135,7 +135,7 @@ namespace LaunchPad
         {
 
             List<AppShortcut> apps = SaveSystem.LoadApps();
-            List<Widget> widgets = SaveSystem.LoadWidgets();
+            List<Widget> widgets = Widget.LoadWidgets();
 
             int activeWidgetCount = UserPreferences.Load().ActiveWidgets.Values.Count(value => value);
 
