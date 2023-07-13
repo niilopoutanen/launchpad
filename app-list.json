@@ -8,5 +8,8 @@
     "Microsoft.Windows.Photos_8wekyb3d8bbwe!App": "windows-photos.png",
     "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App": "windows-calculator.png",
     "Microsoft.WindowsCamera_8wekyb3d8bbwe!App": "windows-camera.png",
-    "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App": "windows-clock.png"
+    "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App": "windows-clock.png",
+    "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel": "windows-settings.png",
+    "Microsoft.Windows.Explorer": "windows-explorer.png",
+    "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App": "windows-stickynotes.png"
 }
