@@ -90,7 +90,7 @@ namespace LaunchPadCore.Utility
             List<string> localApps = GetApps();
             foreach(var keyValuePair in data)
             {
-                if (localApps.Contains(keyValuePair.Value))
+                if (localApps.Contains(keyValuePair.Key))
                 {
                     await DownloadIcon(keyValuePair.Value);
                 }
