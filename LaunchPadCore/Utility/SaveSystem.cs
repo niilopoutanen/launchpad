@@ -9,11 +9,16 @@ namespace LaunchPadCore.Utility
 {
     public class SaveSystem
     {
+        //local
         private static readonly string saveFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NiiloPoutanen", "LaunchPad");
         public static readonly string iconsDirectory = Path.Combine(saveFileLocation, "icons");
-        public static readonly string predefinedIconsDirectory = Path.Combine(saveFileLocation, "icons", "predefined");
         private static readonly string apps = Path.Combine(saveFileLocation, "apps.json");
         public static readonly string preferences = Path.Combine(saveFileLocation, "launchpad.prefs");
+
+        //server
+        public static readonly string predefinedIconsDirectory = Path.Combine(saveFileLocation, "icons", "predefined");
+        public static readonly string predefinedAppsList = Path.Combine(saveFileLocation, "icons", "predefined", "predefined-apps.json");
+
 
         public static void SaveApps(List<AppShortcut> apps)
         {

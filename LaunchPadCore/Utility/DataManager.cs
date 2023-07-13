@@ -24,7 +24,6 @@ namespace LaunchPadCore.Utility
 
         public static async Task<Dictionary<string, string>> GetData()
         {
-            GetApps();
             Dictionary<string, string> templateApps = new();
 
             using (HttpClient client = new())
@@ -33,6 +32,9 @@ namespace LaunchPadCore.Utility
                 {
                     string json = await client.GetStringAsync(appList);
                     templateApps = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+
+                    SaveSystem.VerifyPathIntegrity();
+                    File.WriteAllText(SaveSystem.predefinedAppsList, json);
                 }
                 catch{}
             }
