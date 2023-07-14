@@ -4,11 +4,149 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LaunchPadConfiguratorWPF.Views.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" d:DesignWidth="800"
       Title="GeneralPage">
 
-    <Grid>
-        
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}" Margin="15,5,0,2">LaunchPad</TextBlock>
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" x:Name="ColumnCountHeader">LaunchPad max width</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Defines how many items can fit in one row.</TextBlock>
+                </StackPanel>
+
+                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" x:Name="ColumnCountSlider"></Slider>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Launch animation style</TextBlock>
+
+
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Name="AnimationSpeedheader">Animation speed</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Speed is multiplied by this value</TextBlock>
+                </StackPanel>
+
+                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="0.5" Maximum="3" Width="150" Name="AnimationSpeedSlider"></Slider>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">LaunchPad theme</TextBlock>
+
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="ThemeComboBox"></ComboBox>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Transparent theme</TextBlock>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="TransparentThemeToggle"/>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Use Windows accent color</TextBlock>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="accentThemeToggle"/>
+            </Grid>
+        </Border>
+
+        <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}" Margin="15,5,0,2">Apps</TextBlock>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="NameVisibleToggle"/>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Full sized icons</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">If on, icons will have no border and take full size of the area.</TextBlock>
+                </StackPanel>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="FullSizeIconToggle"/>
+            </Grid>
+        </Border>
+
+        <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}" Margin="15,5,0,2">Widgets</TextBlock>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Themed widgets</TextBlock>
+                    <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Custom backgrounds for widgets</TextBlock>
+                </StackPanel>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="ThemedWidgetsToggle"/>
+            </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center">Remember selected widget variation</TextBlock>
+
+                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="RememberWidgetVariationToggle"/>
+            </Grid>
+        </Border>
+
+    </StackPanel>
+
+
 </Page>

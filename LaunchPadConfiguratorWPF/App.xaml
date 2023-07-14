@@ -23,8 +23,9 @@
         <Style x:Key="SettingsCard" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource ContainerBackground}" />
             <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
-            <Setter Property="MinHeight" Value="72"/>
+            <Setter Property="MinHeight" Value="60"/>
             <Setter Property="Padding" Value="15" />
+            <Setter Property="Margin" Value="0,0,0,10"/>
             <Setter Property="CornerRadius" Value="8" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>

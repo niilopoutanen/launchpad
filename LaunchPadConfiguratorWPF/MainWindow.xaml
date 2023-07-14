@@ -87,7 +87,7 @@
 
                 <TextBlock Margin="20,20,0,10" FontSize="25" FontWeight="SemiBold" Name="Header">Home</TextBlock>
 
-                <ScrollViewer>
+                <ScrollViewer MaxHeight="450">
                     <Frame Margin="20,0,20,0" Name="PageFrame" NavigationUIVisibility="Hidden"/>
                 </ScrollViewer>
             </StackPanel>
