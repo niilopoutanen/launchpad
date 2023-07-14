@@ -75,6 +75,7 @@
     <EmbeddedResource Include="Resources\Fonts\Inter-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <ProjectReference Include="..\LaunchPadCoreControls\LaunchPadCoreControls.csproj" />
     <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
     <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
     <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
