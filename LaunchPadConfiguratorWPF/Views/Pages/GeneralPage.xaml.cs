@@ -1,4 +1,5 @@
 ﻿using System;
+using LaunchPadCore.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +13,114 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-    /// <summary>
-    /// Interaction logic for GeneralPage.xaml
-    /// </summary>
     public partial class GeneralPage : Page
     {
+        private UserPreferences preferences;
         public GeneralPage()
         {
+            preferences = UserPreferences.Load();
             InitializeComponent();
+            InitializeElements();
+        }
+        private void InitializeElements()
+        {
+            ColumnCountSlider.Value = preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth;
+
+            ColumnCountSlider.ValueChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.PreferredWidth = (int)e.NewValue;
+                preferences.Save();
+
+                ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
+            };
+
+            NameVisibleToggle.IsChecked = preferences.NameVisible;
+            NameVisibleToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.NameVisible = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            ThemeComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.LaunchPadTheme));
+            ThemeComboBox.SelectedItem = preferences.SelectedTheme;
+            ThemeComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                if (Enum.TryParse(ThemeComboBox.SelectedValue.ToString(), out UserPreferences.LaunchPadTheme selectedTheme))
+                {
+                    preferences.SelectedTheme = selectedTheme;
+                    preferences.Save();
+                }
+            };
+
+            TransparentThemeToggle.IsChecked = preferences.TransparentTheme;
+            TransparentThemeToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.TransparentTheme = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            accentThemeToggle.IsChecked = preferences.UseSystemAccent;
+            accentThemeToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.UseSystemAccent = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            FullSizeIconToggle.IsChecked = preferences.FullSizeIcon;
+            FullSizeIconToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.FullSizeIcon = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            AnimationComboBox.ItemsSource = Enum.GetValues(typeof(UserPreferences.AnimationTypes));
+            AnimationComboBox.SelectedItem = preferences.SelectedAnimation;
+            AnimationComboBox.SelectionChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                if (Enum.TryParse(AnimationComboBox.SelectedValue.ToString(), out UserPreferences.AnimationTypes selectedAnimation))
+                {
+                    preferences.SelectedAnimation = selectedAnimation;
+                    preferences.Save();
+                }
+            };
+
+            ThemedWidgetsToggle.IsChecked = preferences.ThemedWidgets;
+            ThemedWidgetsToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.ThemedWidgets = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            RememberWidgetVariationToggle.IsChecked = preferences.RememberWidgetVariation;
+            RememberWidgetVariationToggle.Checked += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.RememberWidgetVariation = (bool)((ToggleButton)s).IsChecked;
+                preferences.Save();
+            };
+
+            AnimationSpeedSlider.Value = preferences.AnimationSpeed;
+            AnimationSpeedSlider.ValueChanged += (s, e) =>
+            {
+                preferences = UserPreferences.Load();
+                preferences.AnimationSpeed = (int)e.NewValue;
+                preferences.Save();
+
+                AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0"); ;
+            };
         }
     }
 }
