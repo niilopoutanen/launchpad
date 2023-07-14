@@ -16,8 +16,19 @@
         <SolidColorBrush x:Key="WindowBackground" Color="#202020"/>
         <SolidColorBrush x:Key="WindowForeGround" Color="#292929"/>
         <SolidColorBrush x:Key="WindowBorder" Color="#3A3A3A"/>
+        <SolidColorBrush x:Key="WindowElement" Color="#404040"/>
 
-        <SolidColorBrush x:Key="ContainerBackground" Color="#404040"/>
+        <SolidColorBrush x:Key="ContainerBackground" Color="#2b2b2b"/>
+
+        <Style x:Key="SettingsCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource ContainerBackground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
+            <Setter Property="MinHeight" Value="72"/>
+            <Setter Property="Padding" Value="15" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
 
     </Application.Resources>
 </Application>

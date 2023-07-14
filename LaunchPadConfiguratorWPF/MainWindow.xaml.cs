@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaunchPadConfiguratorWPF.Views.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace LaunchPadConfiguratorWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -28,6 +26,7 @@ namespace LaunchPadConfiguratorWPF
         }
         private void InitializeElements()
         {
+            ChangeTab(0);
             AppTitleBar.MouseLeftButtonDown += (s, e) =>
             {
                 this.DragMove();
@@ -71,27 +70,35 @@ namespace LaunchPadConfiguratorWPF
             GeneralTab.Tag = "";
             AppsTab.Tag = "";
             WidgetsTab.Tag = "";
+            Page? page = null;
             switch(index)
             {
                 case 0:
                     HomeTab.Tag = "active";
                     Header.Text = "Home";
+                    page = new HomePage();
                     break;
 
                 case 1:
                     GeneralTab.Tag = "active";
                     Header.Text = "General";
+                    page = new GeneralPage();
                     break;
 
                 case 2:
                     AppsTab.Tag = "active";
                     Header.Text = "Apps";
+                    page = new AppsPage();
                     break; 
                 case 3:
                     WidgetsTab.Tag = "active";
                     Header.Text = "Widgets";
+                    page = new WidgetsPage();
                     break;
             }
+
+            page ??= new HomePage();
+            PageFrame.Content = page;
         }
 
     }
