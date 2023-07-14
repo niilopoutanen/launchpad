@@ -40,12 +40,58 @@ namespace LaunchPadConfiguratorWPF
             {
                 Application.Current.MainWindow.WindowState = WindowState.Minimized;
             };
+
+            HomeTab.MouseLeftButtonUp += (s, e) =>
+            {
+                ChangeTab(0);
+            };
+            GeneralTab.MouseLeftButtonUp += (s, e) =>
+            {
+                ChangeTab(1);
+            };
+            AppsTab.MouseLeftButtonUp += (s, e) =>
+            {
+                ChangeTab(2);
+            };
+            WidgetsTab.MouseLeftButtonUp += (s, e) =>
+            {
+                ChangeTab(3);
+            };
         }
 
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Width = Math.Max(MinWidth, Width + e.HorizontalChange);
             Height = Math.Max(MinHeight, Height + e.VerticalChange);
+        }
+
+        private void ChangeTab(int index)
+        {
+            HomeTab.Tag = "";
+            GeneralTab.Tag = "";
+            AppsTab.Tag = "";
+            WidgetsTab.Tag = "";
+            switch(index)
+            {
+                case 0:
+                    HomeTab.Tag = "active";
+                    Header.Text = "Home";
+                    break;
+
+                case 1:
+                    GeneralTab.Tag = "active";
+                    Header.Text = "General";
+                    break;
+
+                case 2:
+                    AppsTab.Tag = "active";
+                    Header.Text = "Apps";
+                    break; 
+                case 3:
+                    WidgetsTab.Tag = "active";
+                    Header.Text = "Widgets";
+                    break;
+            }
         }
 
     }
