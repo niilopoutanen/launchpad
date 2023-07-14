@@ -63,8 +63,8 @@
     <Border Grid.Column="0" Name="SidebarContainer" Background="{StaticResource WindowForeGround}" Width="200" CornerRadius="8,0,0,8" 
                     Padding="0,10,0,20" BorderThickness="0,0,1,0" BorderBrush="{StaticResource WindowBorder}">
         <StackPanel Orientation="Vertical">
-            <Border MouseLeftButtonUp="Button_Click" Background="Transparent" Margin="20,0,0,0" Name="CollapseButton">
-                <Path  MouseLeftButtonUp="Button_Click" Margin="5" HorizontalAlignment="Left" Width="20" Height="30" Stretch="Uniform" Stroke="#a4a4a4" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round" Data="M1 9H14M1 5H14M1 1H14"/>
+            <Border MouseLeftButtonUp="CollapseButton_Click" Background="Transparent" Margin="20,0,0,0" Name="CollapseButton">
+                <Path  MouseLeftButtonUp="CollapseButton_Click" Margin="5" HorizontalAlignment="Left" Width="20" Height="30" Stretch="Uniform" Stroke="#a4a4a4" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round" Data="M1 9H14M1 5H14M1 1H14"/>
             </Border>
 
             <Border Style="{StaticResource SideBarItem}" Tag="active" Name="HomeTab">

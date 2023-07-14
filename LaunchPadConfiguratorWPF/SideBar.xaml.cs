@@ -63,26 +63,20 @@ namespace LaunchPadConfiguratorWPF
             page ??= new HomePage();
             PageChanged.Invoke(this, page);
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CollapseButton_Click(object sender, RoutedEventArgs e)
         {
-            DoubleAnimation animation = new DoubleAnimation();
-            animation.Duration = TimeSpan.FromSeconds(0.2); // Set the animation duration (adjust as needed)
-
+            DoubleAnimation animation = new();
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+            animation.EasingFunction = new QuadraticEase();
             if (SidebarContainer.Width == 200)
             {
                 animation.To = 40;
-                animation.Completed += (s, e) =>
-                {
-                    SetSmallLayout();
-                };
+                SetSmallLayout();
             }
             else
             {
                 animation.To = 200;
-                animation.Completed += (s, e) =>
-                {
-                    SetLargeLayout();
-                };
+                SetLargeLayout();
             }
 
             Storyboard.SetTarget(animation, SidebarContainer);
@@ -122,8 +116,7 @@ namespace LaunchPadConfiguratorWPF
             AppsTab.Style = collapsedStyle;
             WidgetsTab.Style = collapsedStyle;
 
-            CollapseButton.Margin = new Thickness(0);
-            CollapseButton.HorizontalAlignment = HorizontalAlignment.Center;
+            CollapseButton.Margin = new Thickness(5,0,0,0);
         }
         private void SetLargeLayout()
         {
@@ -137,7 +130,6 @@ namespace LaunchPadConfiguratorWPF
             WidgetsTab.Style = initialStyle;
 
             CollapseButton.Margin = new Thickness(20, 0, 0, 0);
-            CollapseButton.HorizontalAlignment = HorizontalAlignment.Left;
         }
     }
 }
