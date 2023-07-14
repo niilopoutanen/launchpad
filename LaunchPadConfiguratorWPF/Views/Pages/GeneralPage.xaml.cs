@@ -29,7 +29,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
         private void InitializeElements()
         {
             ColumnCountSlider.Value = preferences.PreferredWidth;
-            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth + "px";
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
@@ -37,7 +37,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
                 preferences.PreferredWidth = (int)e.NewValue;
                 preferences.Save();
 
-                ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
+                ColumnCountHeader.Text = "LaunchPad max width: " + (int)e.NewValue + "px";
             };
 
             NameVisibleToggle.IsChecked = preferences.NameVisible;
@@ -113,13 +113,14 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             };
 
             AnimationSpeedSlider.Value = preferences.AnimationSpeed;
+            AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0");
             AnimationSpeedSlider.ValueChanged += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.AnimationSpeed = (int)e.NewValue;
+                preferences.AnimationSpeed = e.NewValue;
                 preferences.Save();
 
-                AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0"); ;
+                AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0");
             };
         }
     }
