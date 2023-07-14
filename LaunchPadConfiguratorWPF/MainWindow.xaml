@@ -35,32 +35,6 @@
                 </Style.Resources>
             </Style>
 
-            <Style x:Key="SideBarItem" TargetType="Border">
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Margin" Value="5,5,5,0"/>
-                <Setter Property="CornerRadius" Value="5"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Style.Resources>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Orientation" Value="Horizontal"/>
-                        <Setter Property="Margin" Value="20,0,20,0"/>
-                    </Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Width" Value="20"/>
-                        <Setter Property="Margin" Value="0,0,10,0"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="#FFFFFF"/>
-                        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
-                </Style.Resources>
-                <Style.Triggers>
-                    <Trigger Property="Tag" Value="active">
-                        <Setter Property="Background" Value="{StaticResource WindowElement}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Window.Resources>
     <Window.Template>
@@ -88,45 +62,8 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"  Name="SideBar" Background="{StaticResource WindowForeGround}" Width="200" CornerRadius="8,0,0,8" 
-                    Padding="0,20,0,20" BorderThickness="0,0,1,0" BorderBrush="{StaticResource WindowBorder}">
-                <StackPanel Orientation="Vertical">
-                    <Border Height="20"/>
 
-                    <Border Style="{StaticResource SideBarItem}" Tag="active" Name="HomeTab">
-                        <StackPanel>
-                            <Image Source="/Resources/Icons/icon_home.png"/>
-                            <TextBlock>Home</TextBlock>
-                        </StackPanel>
-                    </Border>
-
-                    <Border Style="{StaticResource SideBarItem}" Name="GeneralTab">
-                        <StackPanel>
-                            <Image Source="/Resources/Icons/icon_general.png"/>
-                            <TextBlock>General</TextBlock>
-                        </StackPanel>
-                    </Border>
-
-
-                    <Border Style="{StaticResource SideBarItem}" Name="AppsTab">
-                        <StackPanel>
-                            <Image Source="/Resources/Icons/icon_apps.png"/>
-                            <TextBlock>Apps</TextBlock>
-                        </StackPanel>
-                    </Border>
-
-
-                    <Border Style="{StaticResource SideBarItem}" Name="WidgetsTab">
-                        <StackPanel>
-                            <Image Source="/Resources/Icons/icon_widgets.png"/>
-                            <TextBlock>Widgets</TextBlock>
-                        </StackPanel>
-                    </Border>
-
-                </StackPanel>
-
-            </Border>
-
+            <local:SideBar x:Name="SideBar"></local:SideBar>
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch">
                 <Border  Height="40" Background="{StaticResource WindowForeGround}" CornerRadius="0,7,0,0">
                     <Grid>
