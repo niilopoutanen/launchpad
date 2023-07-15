@@ -94,8 +94,9 @@
                 </StackPanel>
 
 
-                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                    <Frame Margin="20,0,20,0" Name="PageFrame" NavigationUIVisibility="Hidden"/>
+                <ScrollViewer Name="ScrollView" Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                    <Frame Margin="20,0,20,0" Name="PageFrame" NavigationUIVisibility="Hidden"
+                           Width="{Binding ElementName=ScrollView, Path=ActualWidth}"/>
                 </ScrollViewer>
             </Grid>
         </Grid>
