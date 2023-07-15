@@ -45,7 +45,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             NameVisibleToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.NameVisible = (bool)((ToggleButton)s).IsChecked;
+                preferences.NameVisible = e;
                 preferences.Save();
             };
 
@@ -65,15 +65,15 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             TransparentThemeToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.TransparentTheme = ((ToggleSwitch)s).IsChecked;
+                preferences.TransparentTheme = e;
                 preferences.Save();
             };
 
-            accentThemeToggle.IsChecked = preferences.UseSystemAccent;
-            accentThemeToggle.Checked += (s, e) =>
+            AccentThemeToggle.IsChecked = preferences.UseSystemAccent;
+            AccentThemeToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.UseSystemAccent = (bool)((ToggleButton)s).IsChecked;
+                preferences.UseSystemAccent = e;
                 preferences.Save();
             };
 
@@ -81,7 +81,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             FullSizeIconToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.FullSizeIcon = (bool)((ToggleButton)s).IsChecked;
+                preferences.FullSizeIcon = e;
                 preferences.Save();
             };
 
@@ -101,7 +101,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             ThemedWidgetsToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.ThemedWidgets = (bool)((ToggleButton)s).IsChecked;
+                preferences.ThemedWidgets = e;
                 preferences.Save();
             };
 
@@ -109,7 +109,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             RememberWidgetVariationToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.RememberWidgetVariation = (bool)((ToggleButton)s).IsChecked;
+                preferences.RememberWidgetVariation = e;
                 preferences.Save();
             };
 
