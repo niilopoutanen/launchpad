@@ -10,8 +10,9 @@
     <SolidColorBrush x:Key="WindowElement" Color="#404040"/>
 
     <SolidColorBrush x:Key="ContainerBackground" Color="#2b2b2b"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#007aff"/>
 
-
+    
     <ControlTemplate x:Key="LaunchPadButton" TargetType="Button">
         <Border x:Name="Container" Background="#373737" BorderBrush="#3A3A3A" BorderThickness="1" CornerRadius="5" Padding="10,0">
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -27,7 +28,7 @@
     </ControlTemplate>
 
 
-    <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+    <Style x:Key="SliderEnd" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
@@ -41,13 +42,13 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+    <Style x:Key="SliderStart" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border SnapsToDevicePixels="True" Background="#007aff"  Height="4" CornerRadius="2,0,0,2"/>
+                    <Border SnapsToDevicePixels="True" Background="{StaticResource AccentColor}"  Height="4" CornerRadius="2,0,0,2"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -59,9 +60,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
-                    <Border Width="20" Height="20" Background="#454545" CornerRadius="100">
-                        <Ellipse Height="10" Width="10" Fill="#007aff"/>
+                    <Border Name="ThumbContainer" Width="20" Height="20" Background="#454545" CornerRadius="100">
+                        <Ellipse VerticalAlignment="Center" HorizontalAlignment="Center" Name="InnerThumb" Height="10" Width="10" Fill="{StaticResource AccentColor}"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="InnerThumb" Property="Height" Value="12"/>
+                            <Setter TargetName="InnerThumb" Property="Width" Value="12"/>
+                        </Trigger>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="InnerThumb" Property="Height" Value="8"/>
+                            <Setter TargetName="InnerThumb" Property="Width" Value="8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -76,13 +87,13 @@
             </Grid.RowDefinitions>
             <Track Grid.Row="1" x:Name="PART_Track"   >
                 <Track.DecreaseRepeatButton>
-                    <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    <RepeatButton Style="{StaticResource SliderStart}"  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Style="{StaticResource SliderThumb}"  />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
-                    <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    <RepeatButton Style="{StaticResource SliderEnd}" Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
         </Grid>
