@@ -4,32 +4,29 @@
              xmlns:local="clr-namespace:LaunchPadConfiguratorWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <FontFamily x:Key="Inter">/Resources/Fonts/#Inter</FontFamily>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LaunchPadCore;component/ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="Inter">pack://application:,,,/LaunchPadCore;component/Fonts/#Inter</FontFamily>
 
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-        </Style>
-
-        <SolidColorBrush x:Key="TextSecondary" Color="#cccccc"/>
-        
-        <SolidColorBrush x:Key="WindowBackground" Color="#202020"/>
-        <SolidColorBrush x:Key="WindowForeGround" Color="#292929"/>
-        <SolidColorBrush x:Key="WindowBorder" Color="#3A3A3A"/>
-        <SolidColorBrush x:Key="WindowElement" Color="#404040"/>
-
-        <SolidColorBrush x:Key="ContainerBackground" Color="#2b2b2b"/>
-
-        <Style x:Key="SettingsCard" TargetType="Border">
-            <Setter Property="Background" Value="{StaticResource ContainerBackground}" />
-            <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
-            <Setter Property="MinHeight" Value="60"/>
-            <Setter Property="Padding" Value="15" />
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="CornerRadius" Value="8" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+            </Style>
 
 
+
+            <Style x:Key="SettingsCard" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource ContainerBackground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
+                <Setter Property="MinHeight" Value="60"/>
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

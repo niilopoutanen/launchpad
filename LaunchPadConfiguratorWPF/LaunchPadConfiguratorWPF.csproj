@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\Inter-Bold.ttf" />
-    <None Remove="Resources\Fonts\Inter-Medium.ttf" />
-    <None Remove="Resources\Fonts\Inter-Regular.ttf" />
-    <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\Icons\icon.ico" />
     <None Remove="Resources\Icons\icon_apps.png" />
     <None Remove="Resources\Icons\icon_general.png" />
@@ -69,16 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Fonts\Inter-Bold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <EmbeddedResource Include="Resources\Fonts\Inter-Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <ProjectReference Include="..\LaunchPadCoreControls\LaunchPadCoreControls.csproj" />
     <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
-    <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
-    <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
 </Project>

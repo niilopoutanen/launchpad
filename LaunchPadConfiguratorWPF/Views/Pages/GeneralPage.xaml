@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:controls="clr-namespace:LaunchPadCoreControls;assembly=LaunchPadCoreControls"
+      xmlns:core="clr-namespace:LaunchPadCore.Controls;assembly=LaunchPadCore"
       xmlns:local="clr-namespace:LaunchPadConfiguratorWPF.Views.Pages"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="GeneralPage">
@@ -73,7 +73,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Transparent theme</TextBlock>
 
-                <controls:ToggleSwitch Grid.Column="1" Name="TransparentThemeToggle"/>
+                <core:ToggleSwitch Grid.Column="1" Name="TransparentThemeToggle"/>
             </Grid>
         </Border>
 
@@ -85,7 +85,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Use Windows accent color</TextBlock>
 
-                <controls:ToggleSwitch Grid.Column="1" Name="AccentThemeToggle"/>
+                <core:ToggleSwitch Grid.Column="1" Name="AccentThemeToggle"/>
             </Grid>
         </Border>
 
@@ -99,7 +99,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Show name below app</TextBlock>
 
-                <controls:ToggleSwitch Grid.Column="1" Name="NameVisibleToggle"/>
+                <core:ToggleSwitch Grid.Column="1" Name="NameVisibleToggle"/>
             </Grid>
         </Border>
 
@@ -113,8 +113,8 @@
                     <TextBlock Grid.Column="0" VerticalAlignment="Center">Full sized icons</TextBlock>
                     <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">If on, icons will have no border and take full size of the area.</TextBlock>
                 </StackPanel>
-                
-                <controls:ToggleSwitch Grid.Column="1" Name="FullSizeIconToggle"/>
+
+                <core:ToggleSwitch Grid.Column="1" Name="FullSizeIconToggle"/>
             </Grid>
         </Border>
 
@@ -131,7 +131,7 @@
                     <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Custom backgrounds for widgets</TextBlock>
                 </StackPanel>
 
-                <controls:ToggleSwitch Grid.Column="1" Name="ThemedWidgetsToggle"/>
+                <core:ToggleSwitch Grid.Column="1" Name="ThemedWidgetsToggle"/>
             </Grid>
         </Border>
 
@@ -143,7 +143,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Remember selected widget variation</TextBlock>
 
-                <controls:ToggleSwitch Grid.Column="1" Name="RememberWidgetVariationToggle"/>
+                <core:ToggleSwitch Grid.Column="1" Name="RememberWidgetVariationToggle"/>
             </Grid>
         </Border>
 
