@@ -76,7 +76,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Name="AppTitleBar" Padding="10,5,5,5">LaunchPad Configurator</TextBlock>
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Name="AppTitleBar" Height="40" Padding="13">LaunchPad Configurator</TextBlock>
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
                                 <Border Style="{StaticResource TitleBarButton}" Name="Minimize">
                                     <Path Data="M1 1H19"/>
@@ -94,7 +94,7 @@
                 </StackPanel>
 
 
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                     <Frame Margin="20,0,20,0" Name="PageFrame" NavigationUIVisibility="Hidden"/>
                 </ScrollViewer>
             </Grid>
