@@ -21,7 +21,7 @@
                     <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Defines how many items can fit in one row.</TextBlock>
                 </StackPanel>
 
-                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" x:Name="ColumnCountSlider"></Slider>
+                <Slider Style="{StaticResource LaunchPadSlider}" Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" x:Name="ColumnCountSlider"></Slider>
             </Grid>
         </Border>
 
@@ -49,7 +49,7 @@
                     <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Speed is multiplied by this value</TextBlock>
                 </StackPanel>
 
-                <Slider Grid.Column="1" VerticalAlignment="Center" Minimum="0.5" Maximum="3" Width="150" Name="AnimationSpeedSlider"></Slider>
+                <Slider Style="{StaticResource LaunchPadSlider}" Grid.Column="1" VerticalAlignment="Center" Minimum="0.5" Maximum="3" Width="150" Name="AnimationSpeedSlider"></Slider>
             </Grid>
         </Border>
 

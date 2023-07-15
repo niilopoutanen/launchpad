@@ -27,7 +27,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" x:Name="launchPadStatus" VerticalAlignment="Center"/>
 
-                <Button Grid.Column="1" x:Name="launchPadManageButton">Start LaunchPad</Button>
+                <Button Template="{StaticResource LaunchPadButton}" Grid.Column="1" x:Name="launchPadManageButton">Start LaunchPad</Button>
             </Grid>
         </Border>
 
@@ -50,7 +50,7 @@
 
                 </StackPanel>
 
-                <Button Grid.Column="1">Restore defaults</Button>
+                <Button Template="{StaticResource LaunchPadButton}" Grid.Column="1">Restore defaults</Button>
             </Grid>
 
         </Border>

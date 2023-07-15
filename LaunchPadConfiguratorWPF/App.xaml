@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/LaunchPadCore;component/Common/ResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="Inter">pack://application:,,,/LaunchPadCore;component/Common/Fonts/#Inter</FontFamily>
+            <FontFamily x:Key="Inter">pack://application:,,,/LaunchPadCore;component/Common/Resources/Fonts/#Inter</FontFamily>
 
             <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="FontFamily" Value="{StaticResource Inter}"/>

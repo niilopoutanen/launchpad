@@ -19,9 +19,6 @@ using Windows.ApplicationModel;
 
 namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-    /// <summary>
-    /// Interaction logic for HomePage.xaml
-    /// </summary>
     public partial class HomePage : Page
     {
         private UserPreferences preferences;
@@ -29,14 +26,15 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
         {
             preferences = UserPreferences.Load();
             InitializeComponent();
+            InitializeElements();
         }
 
         private void InitializeElements()
         {
             GetLaunchPadStatus();
 
-            PackageVersion version = Package.Current.Id.Version;
-            versionNumber.Text = string.Format("v{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+            //PackageVersion version = Package.Current.Id.Version;
+            //versionNumber.Text = string.Format("v{0}.{1}.{2}", version.Major, version.Minor, version.Build);
 
             ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
             ModifierComboBox.SelectedItem = preferences.Modifier;
