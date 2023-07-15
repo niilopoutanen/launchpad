@@ -17,7 +17,7 @@ namespace LaunchPadCore.Utility
 
         public static void LaunchApp(int appType)
         {
-            switch(appType)
+            switch (appType)
             {
                 case APP_LAUNCHPAD:
                     Process.Start("explorer.exe", "shell:appsfolder\\923NiiloPoutanen.364392126B592_5y1c2t4szcgd8!App");
@@ -30,7 +30,7 @@ namespace LaunchPadCore.Utility
         }
         public static async void UpdateData()
         {
-            if(await DataManager.IsLatestData())
+            if (await DataManager.IsLatestData())
             {
                 return;
             }

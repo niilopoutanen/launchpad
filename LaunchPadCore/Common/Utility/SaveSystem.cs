@@ -90,7 +90,7 @@ namespace LaunchPadCore.Utility
         }
         public static string SaveIcon(string currentPath, bool overWrite)
         {
-            VerifyPathIntegrity(); 
+            VerifyPathIntegrity();
             string fileName = Path.GetFileName(currentPath);
             string filePath = Path.Combine(iconsDirectory, fileName);
             if (!overWrite)

@@ -1,4 +1,4 @@
-using LaunchPadCore.Models;
+using LaunchPadCore.Common.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;

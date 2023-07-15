@@ -1,5 +1,5 @@
-﻿using LaunchPadCore.Controls;
-using LaunchPadCore.Models;
+﻿using LaunchPadCore.Common.Controls;
+using LaunchPadCore.Common.Models;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;

@@ -36,10 +36,10 @@ namespace LaunchPadCore.Utility
                     SaveSystem.VerifyPathIntegrity();
                     File.WriteAllText(SaveSystem.predefinedAppsList, json);
                 }
-                catch{}
+                catch { }
             }
 
-            if(templateApps != null)
+            if (templateApps != null)
             {
                 return templateApps;
             }
@@ -62,12 +62,12 @@ namespace LaunchPadCore.Utility
                     server = version;
                 }
             }
-            if(!File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated")))
+            if (!File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated")))
             {
                 return false;
             }
             string currentDataVersion = File.ReadAllText(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated"));
-            if (String.IsNullOrEmpty(currentDataVersion))
+            if (string.IsNullOrEmpty(currentDataVersion))
             {
                 local = 0;
             }
@@ -76,7 +76,7 @@ namespace LaunchPadCore.Utility
                 local = (long)Convert.ToDouble(currentDataVersion);
             }
 
-            if(local == server)
+            if (local == server)
             {
                 return true;
             }
@@ -88,7 +88,7 @@ namespace LaunchPadCore.Utility
         public static async Task ProcessData(Dictionary<string, string> data)
         {
             List<string> localApps = GetApps();
-            foreach(var keyValuePair in data)
+            foreach (var keyValuePair in data)
             {
                 if (localApps.Contains(keyValuePair.Key))
                 {
@@ -110,7 +110,7 @@ namespace LaunchPadCore.Utility
                     .AddParameter("Scope", "Process")
                     .Invoke();
 
-           
+
                 ps.AddCommand("Get-StartApps");
 
                 Collection<PSObject> results = ps.Invoke();

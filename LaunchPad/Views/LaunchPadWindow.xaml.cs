@@ -1,7 +1,7 @@
 ﻿using LaunchPad.Apps;
-using LaunchPadCore.Controls;
-using LaunchPadCore.Models;
-using LaunchPadCore.Utility;
+using LaunchPadCore.Common.Controls;
+using LaunchPadCore.Common.Models;
+using LaunchPadCore.Common.Utility;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Windows.UI.ViewManagement;
-using static LaunchPadCore.Models.UserPreferences;
+using static LaunchPadCore.Common.Models.UserPreferences;
 
 namespace LaunchPad
 {

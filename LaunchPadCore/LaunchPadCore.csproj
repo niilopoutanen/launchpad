@@ -11,10 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\Inter-Bold.ttf" />
-    <None Remove="Resources\Fonts\Inter-Medium.ttf" />
-    <None Remove="Resources\Fonts\Inter-Regular.ttf" />
-    <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-Bold.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-Medium.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-Regular.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="widgets.json" />
   </ItemGroup>
 
@@ -30,14 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Fonts\Inter-Bold.ttf">
+    <Resource Include="Common\Resources\Fonts\Inter-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Fonts\Inter-Medium.ttf">
+    <Resource Include="Common\Resources\Fonts\Inter-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
-    <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
+    <Resource Include="Common\Resources\Fonts\Inter-Regular.ttf" />
+    <Resource Include="Common\Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
 </Project>

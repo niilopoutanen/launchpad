@@ -101,7 +101,7 @@ namespace LaunchPadCore.Models
             {
                 double min = 0.5;
                 double max = 3;
-                animationSpeed = (value < min) ? min : (value > max) ? max : value;
+                animationSpeed = value < min ? min : value > max ? max : value;
             }
         }
 
@@ -142,7 +142,7 @@ namespace LaunchPadCore.Models
         }
 
         private Dictionary<string, bool>? activeWidgets = new();
-        public Dictionary<string, bool> ActiveWidgets 
+        public Dictionary<string, bool> ActiveWidgets
         {
             get { return activeWidgets ?? new Dictionary<string, bool>(); }
             set { activeWidgets = value; }
