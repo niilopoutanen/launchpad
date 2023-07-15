@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
+using LaunchPadCoreControls;
 
 namespace LaunchPadConfiguratorWPF.Views.Pages
 {
@@ -64,7 +65,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             TransparentThemeToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.TransparentTheme = (bool)((ToggleButton)s).IsChecked;
+                preferences.TransparentTheme = ((ToggleSwitch)s).IsChecked;
                 preferences.Save();
             };
 

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:LaunchPadCoreControls;assembly=LaunchPadCoreControls"
       xmlns:local="clr-namespace:LaunchPadConfiguratorWPF.Views.Pages"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="GeneralPage">
@@ -72,7 +73,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Transparent theme</TextBlock>
 
-                <ToggleButton Grid.Column="1" Content="On" Padding="10,0" Name="TransparentThemeToggle"/>
+                <controls:ToggleSwitch Grid.Column="1" Name="TransparentThemeToggle"/>
             </Grid>
         </Border>
 

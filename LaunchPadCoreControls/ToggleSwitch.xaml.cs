@@ -17,7 +17,20 @@ namespace LaunchPadCoreControls
 {
     public partial class ToggleSwitch : UserControl
     {
-        public bool IsChecked { get; set; }
+        private bool isChecked;
+
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                if (isChecked != value)
+                {
+                    isChecked = value;
+                    SetState();
+                }
+            }
+        }
         public EventHandler<bool> Checked;
 
         public ToggleSwitch()
@@ -29,30 +42,30 @@ namespace LaunchPadCoreControls
         {
             Container.MouseLeftButtonUp += (s, e) =>
             {
-                SwitchState();
+                isChecked = !isChecked;
+                SetState();
             };
         }
-        private void SwitchState()
+        private void SetState()
         {
             ResourceDictionary resourceDict = this.Resources;
 
             Style toggleInactive = resourceDict["ToggleInactive"] as Style;
             Style toggleActive = resourceDict["ToggleActive"] as Style;
 
-            if (IsChecked)
-            {
-                Container.Style = toggleInactive;
-                Content.Text = "Off";
-                IsChecked = false;
-            }
-            else if (!IsChecked)
+            if (isChecked)
             {
                 Container.Style = toggleActive;
                 Content.Text = "On";
-                IsChecked = true;
+                isChecked = true;
             }
-
-            Checked?.Invoke(this, IsChecked);
+            else if (!isChecked)
+            {
+                Container.Style = toggleInactive;
+                Content.Text = "Off";
+                isChecked = false;
+            }
+            Checked?.Invoke(this, isChecked);
         }
     }
 }
