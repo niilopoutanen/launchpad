@@ -5,7 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LaunchPadCoreControls"
              mc:Ignorable="d">
-    <Border Name="Container" Background="#373737" BorderBrush="#3a3a3a" BorderThickness="1" CornerRadius="5" Height="32" MinWidth="100" >
-        <TextBlock Name="Content" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">Off</TextBlock>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ToggleInactive" TargetType="Border">
+                <Setter Property="Background" Value="#373737"/>
+                <Setter Property="BorderBrush" Value="#3A3A3A"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Height" Value="32"/>
+                <Setter Property="MinWidth" Value="60"/>
+                <Style.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                    </Style>
+                </Style.Resources>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#3c3c3c"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ToggleActive" TargetType="Border">
+                <Setter Property="Background" Value="#007aff"/>
+                <Setter Property="BorderBrush" Value="#1484ff"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Height" Value="32"/>
+                <Setter Property="MinWidth" Value="60"/>
+                <Style.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                    </Style>
+                </Style.Resources>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#238CFF"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border Style="{StaticResource ToggleInactive}" Name="Container">
+        <TextBlock Name="Content">Off</TextBlock>
     </Border>
 </UserControl>
