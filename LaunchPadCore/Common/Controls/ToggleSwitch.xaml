@@ -12,7 +12,7 @@
                 <Setter Property="BorderBrush" Value="#3A3A3A"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="CornerRadius" Value="5"/>
-                <Setter Property="Height" Value="32"/>
+                <Setter Property="Height" Value="27"/>
                 <Setter Property="MinWidth" Value="60"/>
                 <Style.Resources>
                     <Style TargetType="TextBlock">
@@ -33,7 +33,7 @@
                 <Setter Property="BorderBrush" Value="#1484ff"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="CornerRadius" Value="5"/>
-                <Setter Property="Height" Value="32"/>
+                <Setter Property="Height" Value="27"/>
                 <Setter Property="MinWidth" Value="60"/>
                 <Style.Resources>
                     <Style TargetType="TextBlock">
