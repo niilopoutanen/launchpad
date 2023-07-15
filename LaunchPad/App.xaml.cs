@@ -1,5 +1,4 @@
-﻿using LaunchPadCore.Common.Models;
-using LaunchPadCore.Common.Utility;
+﻿using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
 using System;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Drawing;
 
 namespace LaunchPad
 {

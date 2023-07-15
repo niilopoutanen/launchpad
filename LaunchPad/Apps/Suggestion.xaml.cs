@@ -1,6 +1,6 @@
-﻿using LaunchPadCore.Common.Controls;
-using LaunchPadCore.Common.Models;
-using LaunchPadCore.Common.Utility;
+﻿using LaunchPadCore.Controls;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;

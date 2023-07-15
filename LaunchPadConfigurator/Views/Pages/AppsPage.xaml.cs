@@ -1,6 +1,6 @@
 using LaunchPadConfigurator.Views.Dialogs;
-using LaunchPadCore.Common.Models;
-using LaunchPadCore.Common.Utility;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;

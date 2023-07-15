@@ -1,5 +1,5 @@
 using LaunchPadConfigurator.Views.Elements;
-using LaunchPadCore.Common.Models;
+using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
