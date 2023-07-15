@@ -79,45 +79,5 @@ namespace LaunchPad.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Inter_Bold {
-            get {
-                object obj = ResourceManager.GetObject("Inter_Bold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Inter_Medium {
-            get {
-                object obj = ResourceManager.GetObject("Inter_Medium", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Inter_Regular {
-            get {
-                object obj = ResourceManager.GetObject("Inter_Regular", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Inter_SemiBold {
-            get {
-                object obj = ResourceManager.GetObject("Inter_SemiBold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
