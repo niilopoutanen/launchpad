@@ -48,7 +48,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
                 }
             };
 
-            KeyButton.Content = preferences.Key;
+            KeyButton.Content = preferences.Key.ToString();
         }
         private void GetLaunchPadStatus()
         {

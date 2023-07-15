@@ -52,6 +52,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border Style="{StaticResource ToggleInactive}" Name="Container">
-        <TextBlock Name="Content">Off</TextBlock>
+        <TextBlock Name="Text">Off</TextBlock>
     </Border>
 </UserControl>

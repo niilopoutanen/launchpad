@@ -31,6 +31,29 @@ namespace LaunchPadCore.Controls
                 }
             }
         }
+        private string content;
+        public string? Content 
+        {
+            get 
+            {
+                if(String.IsNullOrEmpty(content))
+                {
+                    return null;
+                }
+                else
+                {
+                    return content;
+                }
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    content = value;
+                    Text.Text = content ?? "Off";
+                }
+            }
+        }
         public EventHandler<bool> Checked;
 
         public ToggleSwitch()
@@ -40,6 +63,7 @@ namespace LaunchPadCore.Controls
         }
         private void InitializeControl()
         {
+            Text.Text = Content ?? "Off";
             Container.MouseLeftButtonUp += (s, e) =>
             {
                 isChecked = !isChecked;
@@ -56,13 +80,16 @@ namespace LaunchPadCore.Controls
             if (isChecked)
             {
                 Container.Style = toggleActive;
-                Content.Text = "On";
+                Text.Text = Content ?? "On";
+
+
                 isChecked = true;
             }
             else if (!isChecked)
             {
                 Container.Style = toggleInactive;
-                Content.Text = "Off";
+                Text.Text = Content ?? "Off";
+
                 isChecked = false;
             }
             Checked?.Invoke(this, isChecked);

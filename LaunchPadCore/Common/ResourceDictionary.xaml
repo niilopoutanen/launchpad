@@ -47,6 +47,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Height" Value="27"/>
+        <Setter Property="MinWidth" Value="40"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -59,7 +60,7 @@
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"  
                                 ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"  
                                 VerticalAlignment="Center"  
-                                HorizontalAlignment="Left"  
+                                HorizontalAlignment="Center"  
                                 Margin="10,0,10,0"
                                 IsHitTestVisible="False"/>
                         <Popup Name="Popup"  
