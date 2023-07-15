@@ -34,7 +34,7 @@
                 <TextBlock Grid.Column="0" VerticalAlignment="Center">Launch animation style</TextBlock>
 
 
-                <ComboBox Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
+                <ComboBox Style="{StaticResource ComboboxStyle}" Grid.Column="1" VerticalAlignment="Center" x:Name="AnimationComboBox"></ComboBox>
             </Grid>
         </Border>
 
