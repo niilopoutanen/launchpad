@@ -8,8 +8,8 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="923NiiloPoutanen.364392126B592"
-    Publisher="CN=EF9760AE-9B4F-4306-A988-6ACF88CDF54D"
+    Name="LaunchPad"
+    Publisher="CN=Niilo Poutanen"
     Version="1.1.0.0" />
 
   <Properties>
