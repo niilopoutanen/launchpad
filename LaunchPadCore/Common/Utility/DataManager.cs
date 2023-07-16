@@ -87,10 +87,10 @@ namespace LaunchPadCore.Utility
         }
         public static async Task ProcessData(Dictionary<string, string> data)
         {
-            List<string> localApps = GetApps();
+            Dictionary<string, string> localApps = GetApps();
             foreach (var keyValuePair in data)
             {
-                if (localApps.Contains(keyValuePair.Key))
+                if (localApps.ContainsKey(keyValuePair.Key))
                 {
                     await DownloadIcon(keyValuePair.Value);
                 }
@@ -99,9 +99,9 @@ namespace LaunchPadCore.Utility
         }
 
 
-        public static List<string> GetApps()
+        public static Dictionary<string, string> GetApps()
         {
-            List<string> apps = new();
+            Dictionary<string, string> apps = new();
             using (PowerShell ps = PowerShell.Create())
             {
                 //Bypass the execution policy
@@ -117,8 +117,12 @@ namespace LaunchPadCore.Utility
                 foreach (PSObject obj in results)
                 {
                     string appId = obj.Properties["AppID"].Value.ToString();
-
-                    apps.Add(appId);
+                    string name = obj.Properties["Name"].Value.ToString();
+                    if (!apps.ContainsKey(appId))
+                    {
+                        apps.Add(appId, name);
+                    }
+                    
                 }
             }
             return apps;

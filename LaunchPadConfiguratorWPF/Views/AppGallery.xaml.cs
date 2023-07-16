@@ -31,12 +31,12 @@ namespace LaunchPadConfiguratorWPF.Views
         private async void LoadApps()
         {
             Dictionary<string, string> data = await DataManager.GetData();
-            List<string> localApps = DataManager.GetApps();
+            Dictionary<string, string> localApps = DataManager.GetApps();
             foreach (var keyValuePair in data)
             {
-                if (localApps.Contains(keyValuePair.Key))
+                if (localApps.ContainsKey(keyValuePair.Key))
                 {
-                    AppGalleryControl control = new(keyValuePair.Value, keyValuePair.Key);
+                    AppGalleryControl control = new(keyValuePair.Value, localApps[keyValuePair.Key]);
                     AppContainer.Children.Add(control);
                 }
             }
