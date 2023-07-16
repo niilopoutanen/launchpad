@@ -81,7 +81,6 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             {
                 launchPadManageButton.Visibility = Visibility.Visible;
                 launchPadStatus.Text = "LaunchPad is not currently running.";
-                launchPadManageButton.Content = "Start Launchpad";
                 launchPadManageButton.Click += async (s, e) =>
                 {
                     launchPadManageButton.IsEnabled = false;

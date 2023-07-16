@@ -8,7 +8,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="LaunchPad"
+    Name="NiiloPoutanen.LaunchPad"
     Publisher="CN=Niilo Poutanen"
     Version="1.1.0.0" />
 
