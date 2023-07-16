@@ -41,7 +41,7 @@ namespace LaunchPadCore.Common.Controls
         public new bool IsFocused = false;
         public EventHandler<bool> Pressed;
         public EventHandler<bool>? Focused;
-        public EventHandler OnClick;
+        public EventHandler? OnClick;
 
         public AppIconControl()
         {
@@ -67,28 +67,17 @@ namespace LaunchPadCore.Common.Controls
                 Focused?.Invoke(this, IsFocused);
             };
 
-            Pressed += (s, e) =>
-            {
-                if (e)
-                {
-                    OnPress();
-                }
-                else
-                {
-                    OnRelease();
-                }
+            Pressed += (s, e) => 
+            { 
+                if (e) OnPress();
+                else OnRelease();
             };
-            Focused += (s, e) =>
-            {
-                if (e)
-                {
-                    OnFocusEnter();
-                }
-                else
-                {
-                    OnFocusLeave();
-                }
+            Focused += (s, e) => 
+            { 
+                if (e) OnFocusEnter();
+                else OnFocusLeave();
             };
+
         }
         public void SetBackground(ImageSource image)
         {
