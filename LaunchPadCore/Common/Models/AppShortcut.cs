@@ -57,6 +57,7 @@ namespace LaunchPadCore.Models
             string filename = Path.GetFileName(IconFileName);
             if (IconFileName != filename)
             {
+                IconFileName = IconFileName.Replace("%20", " ");
                 return IconFileName;
             }
             return Path.Combine(SaveSystem.iconsDirectory, IconFileName);

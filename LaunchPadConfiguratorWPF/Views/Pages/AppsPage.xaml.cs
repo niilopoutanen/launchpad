@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LaunchPadConfiguratorWPF.Views.Controls;
+using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +18,39 @@ using System.Windows.Shapes;
 
 namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-    /// <summary>
-    /// Interaction logic for AppsPage.xaml
-    /// </summary>
     public partial class AppsPage : Page
     {
         public AppsPage()
         {
             InitializeComponent();
+            RefreshAppList();
         }
+        private void RefreshAppList()
+        {
+            AppsList.Children.Clear();
+            List<AppShortcut> apps = SaveSystem.LoadApps();
+
+            foreach (AppShortcut app in apps)
+            {
+                AppListControl listItem = new(app, RefreshAppList);
+                AppsList.Children.Add(listItem);
+            }
+
+            UserPreferences preferences = UserPreferences.Load();
+            List<Widget> widgets = Widget.LoadWidgets();
+            foreach (Widget widget in widgets)
+            {
+                foreach (string key in preferences.ActiveWidgets.Keys)
+                {
+                    if (widget.ID == key && preferences.ActiveWidgets[key] == true)
+                    {
+                        AppListControl widgetListItem = new(widget, RefreshAppList);
+                        AppsList.Children.Add(widgetListItem);
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 }
