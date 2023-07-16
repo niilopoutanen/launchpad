@@ -43,14 +43,16 @@
             <Grid>
                 <ContentPresenter />
 
-                <Thumb x:Name="ResizeThumb" 
-                       Width="16" 
-                       Height="16" 
-                       HorizontalAlignment="Right" 
-                       VerticalAlignment="Bottom"
-                       Margin="-6"
-                       Cursor="SizeNWSE" 
-                       DragDelta="ResizeThumb_DragDelta" />
+                <Thumb x:Name="ResizeThumb" Width="10" Height="10" 
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                       Margin="5" Cursor="SizeNWSE" DragDelta="ResizeThumb_DragDelta" >
+                    <Thumb.Template>
+                        <ControlTemplate TargetType="Thumb">
+                            <Path Stretch="UniformToFill" Fill="#3a3a3a" 
+                                      Data="M1.19497 8.80503L8.80503 1.19497C9.246 0.753999 10 1.06632 10 1.68995V9C10 9.55229 9.55228 10 9 10H1.68995C1.06632 10 0.753998 9.246 1.19497 8.80503Z" />
+                        </ControlTemplate>
+                    </Thumb.Template>
+                </Thumb>
             </Grid>
         </ControlTemplate>
     </Window.Template>
