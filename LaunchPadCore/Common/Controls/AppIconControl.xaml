@@ -5,9 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LaunchPadCore.Common.Controls"
              mc:Ignorable="d">
-    <StackPanel MaxWidth="100" Margin="5">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../ResourceDictionary.xaml"/>
+    </UserControl.Resources>
+    <StackPanel MaxWidth="100" Margin="5" Name="Base" Background="Transparent">
         <Border Width="80" Height="80" Name="Container"
-                Background="#3a3a3a"
+                Background="{StaticResource IconBackground}"
                 CornerRadius="17">
             <Border.RenderTransform>
                 <ScaleTransform />
@@ -31,9 +34,9 @@
             </Border>
         </Border>
 
-        <TextBlock x:Name="VisualName" Visibility="Collapsed" Margin="0,5,0,0"
-                   HorizontalAlignment="Center"
-                   FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Inter}">App</TextBlock>
+        <TextBlock x:Name="VisualName" Margin="0,5,0,0"
+                   HorizontalAlignment="Center" FontSize="13" FontWeight="SemiBold" 
+                   Foreground="{StaticResource TextSecondary}" FontFamily="{StaticResource Inter}">App</TextBlock>
     </StackPanel>
 
 </UserControl>

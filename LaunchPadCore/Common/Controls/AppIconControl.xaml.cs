@@ -32,10 +32,20 @@ namespace LaunchPadCore.Common.Controls
             get { return ForegroundImage.Source; }
             set { ForegroundImage.Source = value; }
         }
+        public EventHandler? OnRelease;
+        public EventHandler? OnPress;
 
         public AppIconControl()
         {
             InitializeComponent();
+            Base.MouseLeftButtonDown += (s, e) =>
+            {
+                OnPress?.Invoke(this, EventArgs.Empty);
+            };
+            Base.MouseLeftButtonUp += (s, e) =>
+            {
+                OnRelease?.Invoke(this, EventArgs.Empty);
+            };
         }
         public void SetBackground(ImageSource image)
         {

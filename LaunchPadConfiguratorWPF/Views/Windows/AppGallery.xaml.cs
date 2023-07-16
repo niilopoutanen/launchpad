@@ -1,7 +1,9 @@
 ﻿using LaunchPadConfiguratorWPF.Views.Controls;
+using LaunchPadCore.Common.Controls;
 using LaunchPadCore.Utility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace LaunchPadConfiguratorWPF.Views
 {
@@ -36,7 +37,11 @@ namespace LaunchPadConfiguratorWPF.Views
             {
                 if (localApps.ContainsKey(keyValuePair.Key))
                 {
-                    AppGalleryControl control = new(keyValuePair.Value, localApps[keyValuePair.Key]);
+                    AppIconControl control = new()
+                    {
+                        Name = localApps[keyValuePair.Key],
+                        Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, keyValuePair.Value)))
+                    };
                     AppContainer.Children.Add(control);
                 }
             }
