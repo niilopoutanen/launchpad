@@ -7,13 +7,25 @@
         mc:Ignorable="d"
         Title="AppGallery" WindowStyle="None" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
-    <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" BorderThickness="1" CornerRadius="8" 
-            Width="600" Height="400" Name="Container" Padding="20">
-        <ScrollViewer>
-            <WrapPanel Name="AppContainer">
+    <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" BorderThickness="1" CornerRadius="25" 
+            Width="590" Height="400" Name="Container" Padding="15">
+        <StackPanel Orientation="Vertical">
+            <TextBlock FontSize="20" FontWeight="SemiBold">Add new app</TextBlock>
 
-            </WrapPanel>
-        </ScrollViewer>
+
+            <ScrollViewer Height="314">
+                <WrapPanel Name="AppContainer">
+
+                </WrapPanel>
+            </ScrollViewer>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Template="{StaticResource LaunchPadButton}" Margin="0,0,10,0">Cancel</Button>
+                <Button Template="{StaticResource LaunchPadButton}">Search for more</Button>
+            </StackPanel>
+
+        </StackPanel>
+
 
     </Border>
 </Window>
