@@ -161,7 +161,7 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="20,20,0,10" FontSize="25" FontWeight="SemiBold" Name="Header">Home</TextBlock>
 
-                        <Frame Margin="20,0,0,0" Name="PageFrame" NavigationUIVisibility="Hidden"
+                        <Frame Margin="20,0,0,0" Name="PageFrame" NavigationUIVisibility="Hidden" Padding="0,0,40,0"
                            Width="{Binding ElementName=ScrollView, Path=ActualWidth}"/>
                     </StackPanel>
                 </ScrollViewer>

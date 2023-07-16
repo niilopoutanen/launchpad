@@ -21,7 +21,8 @@
                     <TextBlock FontSize="13" Foreground="{StaticResource TextSecondary}">Defines how many items can fit in one row.</TextBlock>
                 </StackPanel>
 
-                <Slider Style="{StaticResource LaunchPadSlider}" Grid.Column="1" VerticalAlignment="Center" Minimum="90" Maximum="1000" Width="150" x:Name="ColumnCountSlider"></Slider>
+                <Slider Style="{StaticResource LaunchPadSlider}" Grid.Column="1" VerticalAlignment="Center" TickFrequency="10" IsSnapToTickEnabled="True" 
+                        Minimum="90" Maximum="1000" Width="150" x:Name="ColumnCountSlider"/>
             </Grid>
         </Border>
 
