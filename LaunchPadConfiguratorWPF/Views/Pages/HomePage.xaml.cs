@@ -61,6 +61,10 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
 
             foreach (Process process in processes)
             {
+                if(process.MainModule == null)
+                {
+                    continue;
+                }
                 if (process.MainModule.FileVersionInfo.CompanyName == publisher)
                 {
                     isRunning = true;
@@ -81,7 +85,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
                 launchPadManageButton.Click += async (s, e) =>
                 {
                     launchPadManageButton.IsEnabled = false;
-                    await TryStartLaunchPad();
+                    TryStartLaunchPad();
                     await Task.Delay(500);
                     GetLaunchPadStatus();
                     launchPadManageButton.IsEnabled = true;
@@ -89,7 +93,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             }
         }
 
-        private async Task TryStartLaunchPad()
+        private static void TryStartLaunchPad()
         {
             try
             {
@@ -99,9 +103,6 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             {
                 throw new NotImplementedException("Custom alert here");
             }
-
-
         }
-
     }
 }
