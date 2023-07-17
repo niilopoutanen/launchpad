@@ -99,16 +99,36 @@ namespace LaunchPadCore.Utility
             {
                 foreach (string key in keyValuePair.Key)
                 {
-                    if (localApps.ContainsKey(key))
+                    if(DoesAppExist(localApps, key))
                     {
-                        await DownloadIcon(key);
+                        await DownloadIcon(keyValuePair.Value);
                     }
                 }
 
             }
 
         }
+        public static bool DoesAppExist(Dictionary<string, string> localApps, string serverAppID)
+        {
+            string filePattern = "<f>";
 
+            if (localApps.ContainsKey(serverAppID))
+            {
+                return true;
+            }
+
+            if (serverAppID.StartsWith(filePattern))
+            {
+                if (localApps.Any(kvp => kvp.Key.Contains(serverAppID)))
+                {
+                    return true;
+                }
+            }
+
+
+
+            return false;
+        }
 
         public static Dictionary<string, string> GetApps()
         {
