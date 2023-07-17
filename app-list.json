@@ -11,5 +11,14 @@
     "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App": "windows-clock.png",
     "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel": "windows-settings.png",
     "Microsoft.Windows.Explorer": "windows-explorer.png",
-    "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App": "windows-stickynotes.png"
+    "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App": "windows-stickynotes.png",
+    "com.squirrel.Figma.Figma": "figma.png",
+    "com.squirrel.GitHubDesktop.GitHubDesktop": "github.png",
+    "Adobe.CreativeCloud": "adobe-creativecloud.png",
+    "MegaLimited.MEGAsync": "megasync.png",
+    "Microsoft.VisualStudioCode": "visualstudio-code.png",
+    "VisualStudio.223a5d53": "visualstudio.png",
+    "308046B0AF4A39CB": "firefox.png",
+    "com.squirrel.Discord.Discord": "discord.png",
+    "Chrome._crx_agimnkijcamfeangaknmldooml": "youtube.png"
 }
