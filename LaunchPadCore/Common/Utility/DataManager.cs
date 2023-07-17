@@ -22,16 +22,23 @@ namespace LaunchPadCore.Utility
         private const string iconsUrl = baseUrl + "icons/";
         private const string appList = baseUrl + "app-list.json";
 
-        public static async Task<Dictionary<string, string>> GetData()
+        public static async Task<Dictionary<string[], string>> GetData()
         {
-            Dictionary<string, string> templateApps = new();
+            Dictionary<string[], string> templateApps = new();
 
             using (HttpClient client = new())
             {
                 try
                 {
                     string json = await client.GetStringAsync(appList);
-                    templateApps = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    Dictionary<string, string> rawdata = new();
+
+                    rawdata = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    foreach (var kvp in rawdata)
+                    {
+                        string[] keys = kvp.Key.Trim('[', ']').Split(new[] { "', '", "'," }, StringSplitOptions.RemoveEmptyEntries);
+                        templateApps[keys] = kvp.Value;
+                    }
 
                     SaveSystem.VerifyPathIntegrity();
                     File.WriteAllText(SaveSystem.predefinedAppsList, json);
@@ -45,7 +52,7 @@ namespace LaunchPadCore.Utility
             }
             else
             {
-                return new Dictionary<string, string>();
+                return new Dictionary<string[], string>();
             }
         }
         public static async Task<bool> IsLatestData()
@@ -85,15 +92,19 @@ namespace LaunchPadCore.Utility
                 return false;
             }
         }
-        public static async Task ProcessData(Dictionary<string, string> data)
+        public static async Task ProcessData(Dictionary<string[], string> data)
         {
             Dictionary<string, string> localApps = GetApps();
             foreach (var keyValuePair in data)
             {
-                if (localApps.ContainsKey(keyValuePair.Key))
+                foreach (string key in keyValuePair.Key)
                 {
-                    await DownloadIcon(keyValuePair.Value);
+                    if (localApps.ContainsKey(key))
+                    {
+                        await DownloadIcon(key);
+                    }
                 }
+
             }
 
         }
