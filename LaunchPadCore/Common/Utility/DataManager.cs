@@ -56,6 +56,41 @@ namespace LaunchPadCore.Utility
                 return new Dictionary<string[], string>();
             }
         }
+        public static List<Tuple<string, string, string>> MergeData(Dictionary<string,string> localApps, Dictionary<string[], string> serverApps)
+        {
+            //app name, icon filename, appID
+            List<Tuple<string, string, string>> merges = new();
+            foreach (var keyValuePair in serverApps)
+            {
+                foreach (string key in keyValuePair.Key)
+                {
+                    if (DoesAppExist(localApps, key))
+                    {
+                        merges.Add(new Tuple<string, string, string>(DecryptPattern(localApps, key), keyValuePair.Value, key));
+                    }
+                }
+
+            }
+            return merges;
+        }
+        public static string DecryptPattern(Dictionary<string,string> localApps, string pattern)
+        {
+            string result = pattern;
+            if (pattern.StartsWith(PATTERN_FILE))
+            {
+                pattern = pattern[3..];
+                foreach(var kvp in localApps)
+                {
+                    if (kvp.Key.Contains(pattern))
+                    {
+                        result = kvp.Key;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
         public static async Task<bool> IsLatestData()
         {
             long local = 0;

@@ -30,6 +30,18 @@ namespace LaunchPadCore.Utility
                     break;
             }
         }
+        public static bool LaunchApp(string appId)
+        {
+            try
+            {
+                Process.Start("explorer.exe", "shell:appsfolder\\" + appId);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public static async void UpdateData()
         {
             if (await DataManager.IsLatestData())

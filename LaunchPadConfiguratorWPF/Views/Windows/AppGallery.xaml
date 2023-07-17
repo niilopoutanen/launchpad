@@ -8,7 +8,7 @@
         Title="AppGallery" WindowStyle="None" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
     <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" BorderThickness="1" CornerRadius="25" 
-            Width="590" Height="400" Name="Container" Padding="15">
+            Width="600" Height="400" Name="Container" Padding="15">
         <StackPanel Orientation="Vertical">
             <TextBlock FontSize="20" FontWeight="SemiBold">Add new app</TextBlock>
 

@@ -1,4 +1,5 @@
-﻿using LaunchPadConfiguratorWPF.Views.Controls;
+﻿using ABI.System.Collections.Generic;
+using LaunchPadConfiguratorWPF.Views.Controls;
 using LaunchPadCore.Common.Controls;
 using LaunchPadCore.Utility;
 using System;
@@ -33,36 +34,25 @@ namespace LaunchPadConfiguratorWPF.Views
         {
             Dictionary<string[], string> data = await DataManager.GetData();
             Dictionary<string, string> localApps = DataManager.GetApps();
-            foreach (var keyValuePair in data)
+
+            List<Tuple<string,string,string>> mergedData = DataManager.MergeData(localApps, data);
+            foreach(var tuple in mergedData)
             {
-                foreach (string key in keyValuePair.Key)
+                AppIconControl control = new()
                 {
-                    if(DataManager.DoesAppExist(localApps, key))
-                    {
-                        var tempKey = key;
-                        if (key.StartsWith(DataManager.PATTERN_FILE))
-                        {
-                            tempKey = tempKey[3..];
-                            foreach(string s in localApps.Keys)
-                            {
-                                if (s.Contains(tempKey))
-                                {
-                                    tempKey = s;
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
-                        }
-                        AppIconControl control = new()
-                        {
-                            Name = localApps[tempKey],
-                            Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, keyValuePair.Value)))
-                        };
-                        AppContainer.Children.Add(control);
-                    }
-                }
+                    Name = localApps[tuple.Item1],
+                    Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, tuple.Item2)))
+                };
+                control.OnClick += (s, e) =>
+                {
+                    Core.LaunchApp(tuple.Item3);
+                };
+                control.Container.Margin = new Thickness(0,10,0,10);
+                control.Container.Width = 110;
+                control.Container.MaxWidth = 110;
+                control.Container.MinWidth = 110;
+                control.NameElement.TextWrapping = TextWrapping.Wrap;
+                AppContainer.Children.Add(control);
             }
         }
     }

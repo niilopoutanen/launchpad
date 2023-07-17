@@ -9,7 +9,7 @@
         <ResourceDictionary Source="../ResourceDictionary.xaml"/>
     </UserControl.Resources>
     <StackPanel MaxWidth="100" Margin="5" Name="Base" Background="Transparent">
-        <Border Width="80" Height="80" Name="Container"
+        <Border Width="80" Height="80" Name="IconContainer"
                 Background="{StaticResource IconBackground}"
                 CornerRadius="17">
             <Border.RenderTransform>
@@ -34,7 +34,7 @@
             </Border>
         </Border>
 
-        <TextBlock x:Name="VisualName" Margin="0,5,0,0"
+        <TextBlock x:Name="VisualName" Margin="0,5,0,0" TextAlignment="Center"
                    HorizontalAlignment="Center" FontSize="13" FontWeight="SemiBold" 
                    Foreground="{StaticResource TextSecondary}" FontFamily="{StaticResource Inter}">App</TextBlock>
     </StackPanel>

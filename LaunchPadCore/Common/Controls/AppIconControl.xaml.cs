@@ -37,6 +37,11 @@ namespace LaunchPadCore.Common.Controls
             get { return ForegroundImage.Source; }
             set { ForegroundImage.Source = value; }
         }
+        public StackPanel Container
+        {
+            get => Base;
+            set => Base = value;
+        }
         public bool IsPressed = false;
         public new bool IsFocused = false;
         public EventHandler<bool> Pressed;
@@ -85,7 +90,7 @@ namespace LaunchPadCore.Common.Controls
         }
         public void SetBackground(SolidColorBrush color)
         {
-            Container.Background = color;
+            IconContainer.Background = color;
         }
 
         public virtual void OnFocusEnter()
@@ -98,7 +103,7 @@ namespace LaunchPadCore.Common.Controls
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
-            Container.RenderTransform = scaleTransform;
+            IconContainer.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -113,7 +118,7 @@ namespace LaunchPadCore.Common.Controls
                 Duration = TimeSpan.FromSeconds(0.1)
             };
 
-            Container.RenderTransform = scaleTransform;
+            IconContainer.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -130,7 +135,7 @@ namespace LaunchPadCore.Common.Controls
             };
 
 
-            Container.RenderTransform = scaleTransform;
+            IconContainer.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
@@ -154,7 +159,7 @@ namespace LaunchPadCore.Common.Controls
             scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue * 1.05, TimeSpan.FromSeconds(0.1)));
             scaleAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(finalValue, TimeSpan.FromSeconds(0.25)));
 
-            Container.RenderTransform = scaleTransform;
+            IconContainer.RenderTransform = scaleTransform;
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
