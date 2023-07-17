@@ -22,6 +22,7 @@ namespace LaunchPadCore.Utility
         private const string iconsUrl = baseUrl + "icons/";
         private const string appList = baseUrl + "app-list.json";
 
+        public const string PATTERN_FILE = "<f>";
         public static async Task<Dictionary<string[], string>> GetData()
         {
             Dictionary<string[], string> templateApps = new();
@@ -110,14 +111,12 @@ namespace LaunchPadCore.Utility
         }
         public static bool DoesAppExist(Dictionary<string, string> localApps, string serverAppID)
         {
-            string filePattern = "<f>";
-
             if (localApps.ContainsKey(serverAppID))
             {
                 return true;
             }
 
-            if (serverAppID.StartsWith(filePattern))
+            if (serverAppID.StartsWith(PATTERN_FILE))
             {
                 if (localApps.Any(kvp => kvp.Key.Contains(serverAppID[3..])))
                 {

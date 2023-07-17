@@ -31,18 +31,37 @@ namespace LaunchPadConfiguratorWPF.Views
         }
         private async void LoadApps()
         {
-            Dictionary<string, string> data = await DataManager.GetData();
+            Dictionary<string[], string> data = await DataManager.GetData();
             Dictionary<string, string> localApps = DataManager.GetApps();
             foreach (var keyValuePair in data)
             {
-                if (localApps.ContainsKey(keyValuePair.Key))
+                foreach (string key in keyValuePair.Key)
                 {
-                    AppIconControl control = new()
+                    if(DataManager.DoesAppExist(localApps, key))
                     {
-                        Name = localApps[keyValuePair.Key],
-                        Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, keyValuePair.Value)))
-                    };
-                    AppContainer.Children.Add(control);
+                        var tempKey = key;
+                        if (key.StartsWith(DataManager.PATTERN_FILE))
+                        {
+                            tempKey = tempKey[3..];
+                            foreach(string s in localApps.Keys)
+                            {
+                                if (s.Contains(tempKey))
+                                {
+                                    tempKey = s;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        AppIconControl control = new()
+                        {
+                            Name = localApps[tempKey],
+                            Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, keyValuePair.Value)))
+                        };
+                        AppContainer.Children.Add(control);
+                    }
                 }
             }
         }
