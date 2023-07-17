@@ -119,7 +119,7 @@ namespace LaunchPadCore.Utility
 
             if (serverAppID.StartsWith(filePattern))
             {
-                if (localApps.Any(kvp => kvp.Key.Contains(serverAppID.Substring(3))))
+                if (localApps.Any(kvp => kvp.Key.Contains(serverAppID[3..])))
                 {
                     return true;
                 }
