@@ -66,7 +66,8 @@ namespace LaunchPadCore.Utility
                 {
                     if (DoesAppExist(localApps, key))
                     {
-                        merges.Add(new Tuple<string, string, string>(DecryptPattern(localApps, key), keyValuePair.Value, key));
+                        string appID = DecryptPattern(localApps, key);
+                        merges.Add(new Tuple<string, string, string>(localApps[appID], keyValuePair.Value, appID));
                     }
                 }
 

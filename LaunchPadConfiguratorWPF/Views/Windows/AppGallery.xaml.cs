@@ -40,7 +40,7 @@ namespace LaunchPadConfiguratorWPF.Views
             {
                 AppIconControl control = new()
                 {
-                    Name = localApps[tuple.Item1],
+                    Name = tuple.Item1,
                     Foreground = new BitmapImage(new Uri(Path.Combine(SaveSystem.predefinedIconsDirectory, tuple.Item2)))
                 };
                 control.OnClick += (s, e) =>
