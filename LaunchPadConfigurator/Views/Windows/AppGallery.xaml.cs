@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace LaunchPadConfiguratorWPF.Views.Windows
@@ -68,6 +69,25 @@ namespace LaunchPadConfiguratorWPF.Views.Windows
                 control.NameElement.TextWrapping = TextWrapping.Wrap;
                 AppContainer.Children.Add(control);
             }
+        }
+
+
+        public new void Close()
+        {
+            DoubleAnimation animation = new()
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3))
+            };
+
+            animation.Completed += (sender, e) =>
+            {
+                base.Close();
+            };
+
+            this.BeginAnimation(UIElement.OpacityProperty, animation);
+
         }
     }
 }

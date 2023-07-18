@@ -1,0 +1,54 @@
+﻿<Window x:Class="LaunchPadConfigurator.Views.Windows.AppTypeSelection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LaunchPadConfigurator.Views.Windows"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" SizeToContent="WidthAndHeight"
+        AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="OptionCard" TargetType="Border">
+                <Setter Property="CornerRadius" Value="7"/>
+                <Setter Property="Background" Value="{StaticResource ContainerBackground}"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Width" Value="180"/>
+                <Setter Property="Height" Value="90"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ContainerBackgroundHover}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Style="{StaticResource WindowBase}" Padding="10" Width="auto" Height="auto">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Margin="0,0,0,5">Select an app type:</TextBlock>
+            <Border Style="{StaticResource OptionCard}" Name="Option1">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center">Predefined</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource TextSecondary}"
+                               TextAlignment="Center"
+                               Text="Select from one of the predefined apps installed on your system."/>
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource OptionCard}" Name="Option2" Margin="0,10,0,10">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center">Local</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource TextSecondary}"
+                               TextAlignment="Center"
+                               Text="Select any local file from your computer"/>
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource OptionCard}" Name="Option3">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center">URL</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource TextSecondary}"
+                               TextAlignment="Center"
+                               Text="Select a website URL"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</Window>

@@ -27,6 +27,12 @@
                 <Setter Property="BorderThickness" Value="1" />
             </Style>
 
+            <Style x:Key="WindowBase" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="WindowElement" Color="#404040"/>
 
     <SolidColorBrush x:Key="ContainerBackground" Color="#2b2b2b"/>
+    <SolidColorBrush x:Key="ContainerBackgroundHover" Color="#363636"/>
     <SolidColorBrush x:Key="IconBackground" Color="#3D3D3D"/>
     <SolidColorBrush x:Key="AccentColor" Color="#007aff"/>
 

@@ -27,8 +27,8 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             RefreshAppList();
             AddAppButton.Click += (s, e) =>
             {
-                AppDialog appGallery = new();
-                appGallery.Show();
+                AppTypeSelection selection = new();
+                selection.Show();
             };
         }
         private void RefreshAppList()
