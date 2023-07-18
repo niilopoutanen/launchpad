@@ -40,7 +40,7 @@
     <ControlTemplate x:Key="LaunchPadTextBox" TargetType="TextBox">
         <Grid>
             <Border x:Name="Container" Style="{StaticResource ControlBackground}"/>
-            <ScrollViewer x:Name="PART_ContentHost" />
+            <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" Margin="5,0"/>
 
         </Grid>
 

@@ -5,18 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchPadConfigurator.Views.Windows" 
         xmlns:controls="clr-namespace:LaunchPadCore.Common.Controls;assembly=LaunchPadCore"
-        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" WindowStyle="None" SizeToContent="WidthAndHeight">
+        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" 
+        WindowStyle="None" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" 
             BorderThickness="1" Width="200" Height="auto" CornerRadius="15" Padding="15">
         <StackPanel Orientation="Vertical">
-            <Border Background="{StaticResource ContainerBackground}" CornerRadius="10" Width="70" Height="70" Name="AppIcon">
-                
-            </Border>
-            <TextBox Template="{StaticResource LaunchPadTextBox}" Name="AppName">
+            <TextBlock Margin="0,0,0,5" FontSize="15" TextAlignment="Center">Add new app</TextBlock>
+            <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,0,0,2">App name:</TextBlock>
+            <TextBox Template="{StaticResource LaunchPadTextBox}" Name="AppName" Foreground="White" 
+                     FontFamily="{StaticResource Inter}" CaretBrush="White">
                 
             </TextBox>
-            <Button Template="{StaticResource LaunchPadButton}" Margin="0,5,0,0">File location</Button>
-            <Button Template="{StaticResource LaunchPadButton}" Margin="0,5,0,0">Icon location</Button>
+
+            <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">File location</TextBlock>
+            <Button Template="{StaticResource LaunchPadButton}">File location</Button>
+
+            <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">Icon (optional)</TextBlock>
+            <Button Template="{StaticResource LaunchPadButton}">Icon location</Button>
 
 
             <Grid Margin="0,10,0,0">

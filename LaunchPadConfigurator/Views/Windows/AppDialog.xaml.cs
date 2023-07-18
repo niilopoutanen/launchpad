@@ -23,6 +23,10 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 this.Close();
             };
+            this.MouseLeftButtonDown += (s, e) =>
+            {
+                this.DragMove();
+            };
         }
     }
 }
