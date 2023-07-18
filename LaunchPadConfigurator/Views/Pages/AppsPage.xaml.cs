@@ -1,4 +1,5 @@
-﻿using LaunchPadConfiguratorWPF.Views.Controls;
+﻿using LaunchPadConfigurator.Views.Windows;
+using LaunchPadConfiguratorWPF.Views.Controls;
 using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
 using System;
@@ -26,7 +27,7 @@ namespace LaunchPadConfiguratorWPF.Views.Pages
             RefreshAppList();
             AddAppButton.Click += (s, e) =>
             {
-                AppGallery appGallery = new();
+                AppDialog appGallery = new();
                 appGallery.Show();
             };
         }
