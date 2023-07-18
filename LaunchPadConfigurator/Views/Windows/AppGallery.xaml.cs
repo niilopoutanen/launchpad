@@ -20,18 +20,18 @@ using System.Windows.Media.Imaging;
 
 namespace LaunchPadConfiguratorWPF.Views.Windows
 {
-    public partial class AppGallery : Window
+    public partial class AppGallery : BaseWindow
     {
         public AppGallery()
         {
             InitializeComponent();
             Container.MouseLeftButtonDown += (s, e) =>
             {
-                this.DragMove();
+                base.DragMove();
             };
             Cancel.Click += (s, e) =>
             {
-                this.Close();
+                base.Close();
             };
             LoadApps();
         }
@@ -69,25 +69,6 @@ namespace LaunchPadConfiguratorWPF.Views.Windows
                 control.NameElement.TextWrapping = TextWrapping.Wrap;
                 AppContainer.Children.Add(control);
             }
-        }
-
-
-        public new void Close()
-        {
-            DoubleAnimation animation = new()
-            {
-                From = 1.0,
-                To = 0.0,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3))
-            };
-
-            animation.Completed += (sender, e) =>
-            {
-                base.Close();
-            };
-
-            this.BeginAnimation(UIElement.OpacityProperty, animation);
-
         }
     }
 }

@@ -13,10 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LaunchPadCore.Common.Controls;
 
 namespace LaunchPadConfigurator.Views.Windows
 {
-    public partial class AppDialog : Window
+    public partial class AppDialog : BaseWindow
     {
         private readonly AppShortcut input = new();
         public EventHandler<AppShortcut?>? completed;
@@ -88,12 +89,6 @@ namespace LaunchPadConfigurator.Views.Windows
             await Task.Delay(1000);
 
             this.Close();
-        }
-        public new void Close()
-        {
-            DoubleAnimation fadeOutAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.2));
-            fadeOutAnimation.Completed += (s, e) => base.Close();
-            BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
         }
     }
 }

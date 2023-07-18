@@ -1,4 +1,6 @@
-﻿<Window x:Class="LaunchPadConfiguratorWPF.Views.Windows.AppGallery"
+﻿<controls:BaseWindow  
+        xmlns:controls="clr-namespace:LaunchPadCore.Common.Controls;assembly=LaunchPadCore"
+        x:Class="LaunchPadConfiguratorWPF.Views.Windows.AppGallery"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -26,4 +28,4 @@
 
 
     </Border>
-</Window>
+</controls:BaseWindow>
