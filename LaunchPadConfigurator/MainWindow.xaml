@@ -10,7 +10,7 @@
         MaxWidth="1600"
         MaxHeight="800"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="550" Width="900" ResizeMode="CanResizeWithGrip"
+        Title="MainWindow" Height="550" Width="900" ResizeMode="NoResize"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True" Name="BaseWindow">
     <Window.Resources>
         <ResourceDictionary>
