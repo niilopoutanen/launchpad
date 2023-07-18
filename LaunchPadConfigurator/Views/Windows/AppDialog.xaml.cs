@@ -17,10 +17,10 @@ namespace LaunchPadConfigurator.Views.Windows
 {
     public partial class AppDialog : Window
     {
-        private readonly AppShortcut.AppTypes type;
+        private readonly AppShortcut input = new();
         public AppDialog(AppShortcut.AppTypes type)
         {
-            this.type = type;
+            this.input.AppType = type;
             InitializeComponent();
             InitializeInput();
             Cancel.Click += (s, e) =>
@@ -34,12 +34,16 @@ namespace LaunchPadConfigurator.Views.Windows
         }
         public void InitializeInput()
         {
-            if(type == AppShortcut.AppTypes.EXE)
+            AppName.TextChanged += (s, e) =>
+            {
+                input.Name = AppName.Text;
+            };
+            if(input.AppType == AppShortcut.AppTypes.EXE)
             {
                 LocalFileInput.Visibility = Visibility.Visible;
                 UrlInput.Visibility = Visibility.Collapsed;
             }
-            else if (type == AppShortcut.AppTypes.URL)
+            else if (input.AppType == AppShortcut.AppTypes.URL)
             {
                 UrlInput.Visibility = Visibility.Visible;
                 LocalFileInput.Visibility = Visibility.Collapsed;
@@ -47,7 +51,11 @@ namespace LaunchPadConfigurator.Views.Windows
         }
         public bool InputsAreValid()
         {
-            return false;
+            if (String.IsNullOrEmpty(AppName.Text)) 
+            {
+                return false;
+            }
+            return true;
         }
         public AppShortcut? Get()
         {
@@ -55,13 +63,8 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 return null;
             }
-            AppShortcut returnvalue = new()
-            {
-                Name = AppName.Text,
-                AppType = type
-            };
 
-            return returnvalue;
+            return input;
         }
     }
 }
