@@ -1,23 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 using LaunchPadCore.Models;
-using Microsoft.UI.Xaml.Controls;
-using System;
 
-namespace LaunchPadConfigurator.Views.Pages
+namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-    public sealed partial class GeneralPage : Page
+    public partial class GeneralPage : Page
     {
-        UserPreferences preferences;
+        private UserPreferences preferences;
         public GeneralPage()
         {
             preferences = UserPreferences.Load();
-
-            this.InitializeComponent();
-            this.InitializeElements();
+            InitializeComponent();
+            InitializeElements();
         }
         private void InitializeElements()
         {
             ColumnCountSlider.Value = preferences.PreferredWidth;
-            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth;
+            ColumnCountHeader.Text = "LaunchPad max width: " + preferences.PreferredWidth + "px";
 
             ColumnCountSlider.ValueChanged += (s, e) =>
             {
@@ -25,14 +37,14 @@ namespace LaunchPadConfigurator.Views.Pages
                 preferences.PreferredWidth = (int)e.NewValue;
                 preferences.Save();
 
-                ColumnCountHeader.Text = "LaunchPad max width: " + ColumnCountSlider.Value;
+                ColumnCountHeader.Text = "LaunchPad max width: " + (int)e.NewValue + "px";
             };
 
-            NameVisibleToggle.IsOn = preferences.NameVisible;
-            NameVisibleToggle.Toggled += (s, e) =>
+            NameVisibleToggle.IsChecked = preferences.NameVisible;
+            NameVisibleToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.NameVisible = ((ToggleSwitch)s).IsOn;
+                preferences.NameVisible = e;
                 preferences.Save();
             };
 
@@ -48,27 +60,27 @@ namespace LaunchPadConfigurator.Views.Pages
                 }
             };
 
-            transparentThemeToggle.IsOn = preferences.TransparentTheme;
-            transparentThemeToggle.Toggled += (s, e) =>
+            TransparentThemeToggle.IsChecked = preferences.TransparentTheme;
+            TransparentThemeToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.TransparentTheme = ((ToggleSwitch)s).IsOn;
+                preferences.TransparentTheme = e;
                 preferences.Save();
             };
 
-            accentThemeToggle.IsOn = preferences.UseSystemAccent;
-            accentThemeToggle.Toggled += (s, e) =>
+            AccentThemeToggle.IsChecked = preferences.UseSystemAccent;
+            AccentThemeToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.UseSystemAccent = ((ToggleSwitch)s).IsOn;
+                preferences.UseSystemAccent = e;
                 preferences.Save();
             };
 
-            fullSizeIconToggle.IsOn = preferences.FullSizeIcon;
-            fullSizeIconToggle.Toggled += (s, e) =>
+            FullSizeIconToggle.IsChecked = preferences.FullSizeIcon;
+            FullSizeIconToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.FullSizeIcon = ((ToggleSwitch)s).IsOn;
+                preferences.FullSizeIcon = e;
                 preferences.Save();
             };
 
@@ -84,30 +96,31 @@ namespace LaunchPadConfigurator.Views.Pages
                 }
             };
 
-            themedWidgetsToggle.IsOn = preferences.ThemedWidgets;
-            themedWidgetsToggle.Toggled += (s, e) =>
+            ThemedWidgetsToggle.IsChecked = preferences.ThemedWidgets;
+            ThemedWidgetsToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.ThemedWidgets = ((ToggleSwitch)s).IsOn;
+                preferences.ThemedWidgets = e;
                 preferences.Save();
             };
 
-            rememberWidgetVariationToggle.IsOn = preferences.RememberWidgetVariation;
-            rememberWidgetVariationToggle.Toggled += (s, e) =>
+            RememberWidgetVariationToggle.IsChecked = preferences.RememberWidgetVariation;
+            RememberWidgetVariationToggle.Checked += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.RememberWidgetVariation = ((ToggleSwitch)s).IsOn;
+                preferences.RememberWidgetVariation = e;
                 preferences.Save();
             };
 
             AnimationSpeedSlider.Value = preferences.AnimationSpeed;
+            AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0");
             AnimationSpeedSlider.ValueChanged += (s, e) =>
             {
                 preferences = UserPreferences.Load();
-                preferences.AnimationSpeed = (int)e.NewValue;
+                preferences.AnimationSpeed = e.NewValue;
                 preferences.Save();
 
-                AnimationSpeedheader.Text = "Animation speed: " +  AnimationSpeedSlider.Value.ToString("0.0"); ;
+                AnimationSpeedheader.Text = "Animation speed: " + AnimationSpeedSlider.Value.ToString("0.0");
             };
         }
     }

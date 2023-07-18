@@ -1,36 +1,44 @@
-using LaunchPadConfigurator.Views.Dialogs;
+﻿using LaunchPadConfiguratorWPF.Views.Controls;
 using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace LaunchPadConfigurator.Views.Pages
+namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-    public sealed partial class AppsPage : Page
+    public partial class AppsPage : Page
     {
         public AppsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             RefreshAppList();
-
-            addAppButton.Click += async (s, e) =>
+            AddAppButton.Click += (s, e) =>
             {
-                await ShowInput();
+                AppGallery appGallery = new();
+                appGallery.Show();
             };
         }
-
         private void RefreshAppList()
         {
-            appsList.Children.Clear();
+            AppsList.Children.Clear();
             List<AppShortcut> apps = SaveSystem.LoadApps();
 
             foreach (AppShortcut app in apps)
             {
-                AppListItem listItem = new(app, RefreshAppList, ShowUpdateInput);
-                appsList.Children.Add(listItem);
+                AppListControl listItem = new(app, RefreshAppList);
+                AppsList.Children.Add(listItem);
             }
 
             UserPreferences preferences = UserPreferences.Load();
@@ -41,67 +49,12 @@ namespace LaunchPadConfigurator.Views.Pages
                 {
                     if (widget.ID == key && preferences.ActiveWidgets[key] == true)
                     {
-                        AppListItem widgetListItem = new(widget, RefreshAppList);
-                        appsList.Children.Add(widgetListItem);
+                        AppListControl widgetListItem = new(widget, RefreshAppList);
+                        AppsList.Children.Add(widgetListItem);
                         break;
                     }
                 }
             }
-        }
-
-        private async Task ShowInput()
-        {
-            AppInputDialog inputDialog = new();
-            ContentDialog selectionDialog = new()
-            {
-                Title = "Add a new app",
-                XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
-                PrimaryButtonText = "Add",
-                SecondaryButtonText = "Cancel",
-                Content = inputDialog
-            };
-            selectionDialog.PrimaryButtonClick += (s, e) =>
-            {
-                if (inputDialog.ValidInputs())
-                {
-                    inputDialog.Save();
-                    RefreshAppList();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            };
-
-
-            await selectionDialog.ShowAsync();
-        }
-        private async Task ShowUpdateInput(AppShortcut appToUpdate)
-        {
-            AppInputDialog inputDialog = new(appToUpdate);
-            ContentDialog selectionDialog = new()
-            {
-                Title = "Update the app",
-                XamlRoot = (Application.Current as App)?.Window.Content.XamlRoot,
-                PrimaryButtonText = "Update",
-                SecondaryButtonText = "Cancel",
-                Content = inputDialog
-            };
-            selectionDialog.PrimaryButtonClick += (s, e) =>
-            {
-                if (inputDialog.ValidInputs())
-                {
-                    inputDialog.Update();
-                    RefreshAppList();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            };
-
-
-            await selectionDialog.ShowAsync();
         }
 
     }

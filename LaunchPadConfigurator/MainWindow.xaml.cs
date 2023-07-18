@@ -1,62 +1,62 @@
-using LaunchPadConfigurator.Views.Pages;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
-using System.Diagnostics;
+﻿using LaunchPadConfiguratorWPF.Views.Pages;
+using LaunchPadCore.Utility;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace LaunchPadConfigurator
+namespace LaunchPadConfiguratorWPF
 {
-    public sealed partial class MainWindow : Window
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
-            this.InitializeComponent();
-            settingsMenu.SelectionChanged += (s, e) =>
-            {
-                ChangeSelection(e.SelectedItem as NavigationViewItem);
-            };
-
-            Title = "LaunchPad settings";
-            ExtendsContentIntoTitleBar = true;
-            SetTitleBar(AppTitleBar);
-            ChangeSelection(settingsMenu.MenuItems.FirstOrDefault() as NavigationViewItem);
+            Core.UpdateData();
+            InitializeComponent();
+            InitializeElements();
         }
-
-        private void ChangeSelection(NavigationViewItem itemSelected)
+        private void InitializeElements()
         {
-            if (itemSelected == null || itemSelected.Tag == null)
+            AppTitleBar.MouseLeftButtonDown += (s, e) =>
             {
-                return;
-            }
-            switch (itemSelected.Content.ToString())
-            {
-                case "General":
-                    ContentFrame.Navigate(typeof(GeneralPage));
-                    break;
-                case "Apps":
-                    ContentFrame.Navigate(typeof(AppsPage));
-                    break;
-                case "Home":
-                    ContentFrame.Navigate(typeof(HomePage));
-                    break;
-                case "Widgets":
-                    ContentFrame.Navigate(typeof(WidgetsPage));
-                    break;
-            }
-            settingsMenu.Header = itemSelected.Content;
-            settingsMenu.SelectedItem = itemSelected;
-        }
-
-
-        private void OpenGithub(object sender, TappedRoutedEventArgs e)
-        {
-            ProcessStartInfo git = new()
-            {
-                UseShellExecute = true,
-                FileName = "https://github.com/niilopoutanen/LaunchPad"
+                this.DragMove();
             };
-            Process.Start(git);
+            Close.MouseLeftButtonUp += (s, e) =>
+            {
+                Application.Current.Shutdown();
+            };
+            Minimize.MouseLeftButtonUp += (s, e) =>
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            };
+            SideBar.HeaderChanged += (s, e) =>
+            {
+                Header.Text = e;
+            };
+            SideBar.PageChanged += (s, e) =>
+            {
+                PageFrame.Content = e;
+            };
+            SideBar.ChangeTab(0);
+
         }
+
+        private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
+        {
+            Width = Math.Max(MinWidth, Width + e.HorizontalChange);
+            Height = Math.Max(MinHeight, Height + e.VerticalChange);
+        }
+
     }
 }

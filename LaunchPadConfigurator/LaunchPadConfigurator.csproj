@@ -1,177 +1,71 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>LaunchPadConfigurator</RootNamespace>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Platforms>x86;x64;ARM64</Platforms>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
-    <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
-    <UseWinUI>true</UseWinUI>
-    <SelfContained>true</SelfContained>
-    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <EnableMsixTooling>true</EnableMsixTooling>
-    <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
-    <UseWPF>False</UseWPF>
-    <PackageId>LaunchPad Configurator</PackageId>
-    <Version>1.1</Version>
-    <Title>LaunchPad Configurator</Title>
-    <Authors>Niilo Poutanen</Authors>
-    <Company>Niilo Poutanen</Company>
-    <Product>LaunchPad Configurator</Product>
-    <Description>Settings menu for LaunchPad</Description>
-    <PackageIcon>Square44x44Logo.scale-200.png</PackageIcon>
-    <StartupObject>LaunchPadConfigurator.Program</StartupObject>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <StartupObject></StartupObject>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="AppsPage.xaml" />
-    <None Remove="Assets\Icons\icon_apps.png" />
-    <None Remove="Assets\Icons\icon_general.png" />
-    <None Remove="Assets\Icons\icon_github.png" />
-    <None Remove="Assets\Icons\icon_home.png" />
-    <None Remove="Assets\Icons\icon_widgets.png" />
-    <None Remove="Assets\Icons\LaunchPad.ico" />
-    <None Remove="Assets\Widgets\widget_battery.jpg" />
-    <None Remove="Assets\Widgets\widget_clock.jpg" />
-    <None Remove="Assets\Widgets\widget_date.jpg" />
-    <None Remove="Assets\Widgets\widget_playback.jpg" />
-    <None Remove="Assets\Widgets\widget_power.jpg" />
-    <None Remove="GeneralPage.xaml" />
-    <None Remove="Views\Dialogs\AppInputDialog.xaml" />
-    <None Remove="Views\Dialogs\StoreAppInput.xaml" />
-    <None Remove="Views\ListItems\WidgetGalleryItem.xaml" />
-    <None Remove="Views\Pages\HomePage.xaml" />
-    <None Remove="Views\ListItems\AddAppDialog.xaml" />
-    <None Remove="Views\ListItems\AppListItem.xaml" />
-    <None Remove="Views\Pages\WidgetsPage.xaml" />
+    <None Remove="Resources\Icons\icon.ico" />
+    <None Remove="Resources\Icons\icon_apps.png" />
+    <None Remove="Resources\Icons\icon_general.png" />
+    <None Remove="Resources\Icons\icon_github.png" />
+    <None Remove="Resources\Icons\icon_home.png" />
+    <None Remove="Resources\Icons\icon_widgets.png" />
+    <None Remove="Resources\Icons\LaunchPad.ico" />
+    <None Remove="Resources\Widgets\widget_battery.jpg" />
+    <None Remove="Resources\Widgets\widget_clock.jpg" />
+    <None Remove="Resources\Widgets\widget_date.jpg" />
+    <None Remove="Resources\Widgets\widget_playback.jpg" />
+    <None Remove="Resources\Widgets\widget_power.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png">
+    <Content Include="Resources\Icons\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\LockScreenLogo.scale-200.png">
+    <Content Include="Resources\Icons\icon_apps.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Square150x150Logo.scale-200.png">
+    <Content Include="Resources\Icons\icon_general.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Square44x44Logo.scale-200.png">
+    <Content Include="Resources\Icons\icon_github.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <Content Include="Resources\Icons\icon_home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\StoreLogo.png">
+    <Content Include="Resources\Icons\icon_widgets.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Wide310x150Logo.scale-200.png">
+    <Content Include="Resources\Icons\LaunchPad.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Widgets\widget_battery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Widgets\widget_clock.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Widgets\widget_date.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Widgets\widget_playback.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Widgets\widget_power.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-    <Manifest Include="$(ApplicationManifest)" />
-  </ItemGroup>
-
-  <!-- 
-    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-    Tools extension to be activated for this project even if the Windows App SDK Nuget
-    package has not yet been restored.
-  -->
-  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <ProjectCapability Include="Msix" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LaunchPadCore\LaunchPadCore.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Update="Assets\Icons\icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\icon_apps.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\icon_general.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\icon_github.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\icon_home.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\icon_widgets.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Icons\LaunchPad.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Widgets\widget_battery.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Widgets\widget_clock.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Widgets\widget_date.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Widgets\widget_playback.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Widgets\widget_power.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Assets\Square44x44Logo.scale-200.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <Page Update="Views\Dialogs\AppInputDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Dialogs\StoreAppInput.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\ListItems\WidgetGalleryItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Pages\WidgetsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="AppsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="GeneralPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\Pages\HomePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\ListItems\AppListItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
 
-  <!-- 
-    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
-    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
-    the Windows App SDK Nuget package has not yet been restored.
-  -->
-  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-  </PropertyGroup>
 </Project>

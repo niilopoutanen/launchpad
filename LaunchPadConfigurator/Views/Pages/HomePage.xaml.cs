@@ -1,33 +1,40 @@
-using LaunchPadCore.Models;
+﻿using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Windows.ApplicationModel;
 
-namespace LaunchPadConfigurator.Views.Pages
+namespace LaunchPadConfiguratorWPF.Views.Pages
 {
-
-    public sealed partial class HomePage : Page
+    public partial class HomePage : Page
     {
         private UserPreferences preferences;
         public HomePage()
         {
             preferences = UserPreferences.Load();
-            this.InitializeComponent();
-            this.InitializeElements();
-
+            InitializeComponent();
+            InitializeElements();
         }
+
         private void InitializeElements()
         {
             GetLaunchPadStatus();
 
-            PackageVersion version = Package.Current.Id.Version;
-            versionNumber.Text = string.Format("v{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+            //PackageVersion version = Package.Current.Id.Version;
+            //versionNumber.Text = string.Format("v{0}.{1}.{2}", version.Major, version.Minor, version.Build);
 
             ModifierComboBox.ItemsSource = Enum.GetValues(typeof(HotKey.Modifiers));
             ModifierComboBox.SelectedItem = preferences.Modifier;
@@ -41,40 +48,7 @@ namespace LaunchPadConfigurator.Views.Pages
                 }
             };
 
-            KeyButton.Content = preferences.Key;
-        }
-        private void ListenForKeyChange(object sender, RoutedEventArgs e)
-        {
-            Key keyPressed = Key.Tab;
-            ToggleButton btn = (ToggleButton)sender;
-
-            btn.KeyDown += (s, e) =>
-            {
-                if (btn.IsChecked == false)
-                {
-                    return;
-                }
-                keyPressed = KeyInterop.KeyFromVirtualKey((int)e.Key);
-
-                preferences.Key = keyPressed;
-                preferences.Save();
-
-                btn.IsChecked = false;
-                btn.Content = keyPressed;
-            };
-            if (btn.IsChecked == true)
-            {
-                btn.Content = "Press a key";
-            }
-        }
-        private void RestoreHotkey(object sender, RoutedEventArgs e)
-        {
-            preferences = UserPreferences.Load();
-            preferences.Modifier = HotKey.Modifiers.Shift;
-            preferences.Key = Key.Tab;
-            preferences.Save();
-            ModifierComboBox.SelectedItem = preferences.Modifier;
-            KeyButton.Content = preferences.Key;
+            KeyButton.Content = preferences.Key.ToString();
         }
         private void GetLaunchPadStatus()
         {
@@ -87,6 +61,10 @@ namespace LaunchPadConfigurator.Views.Pages
 
             foreach (Process process in processes)
             {
+                if(process.MainModule == null)
+                {
+                    continue;
+                }
                 if (process.MainModule.FileVersionInfo.CompanyName == publisher)
                 {
                     isRunning = true;
@@ -103,18 +81,18 @@ namespace LaunchPadConfigurator.Views.Pages
             {
                 launchPadManageButton.Visibility = Visibility.Visible;
                 launchPadStatus.Text = "LaunchPad is not currently running.";
-                launchPadManageButton.Content = "Start Launchpad";
                 launchPadManageButton.Click += async (s, e) =>
                 {
                     launchPadManageButton.IsEnabled = false;
-                    await TryStartLaunchPad();
+                    TryStartLaunchPad();
                     await Task.Delay(500);
                     GetLaunchPadStatus();
                     launchPadManageButton.IsEnabled = true;
                 };
             }
         }
-        private async Task TryStartLaunchPad()
+
+        private static void TryStartLaunchPad()
         {
             try
             {
@@ -122,19 +100,8 @@ namespace LaunchPadConfigurator.Views.Pages
             }
             catch (Exception)
             {
-                ContentDialog dialog = new()
-                {
-                    XamlRoot = this.XamlRoot,
-                    Title = "Could not start LaunchPad.",
-                    PrimaryButtonText = "Ok",
-                    DefaultButton = ContentDialogButton.Primary
-                };
-
-                await dialog.ShowAsync();
+                throw new NotImplementedException("Custom alert here");
             }
-
-
         }
-
     }
 }
