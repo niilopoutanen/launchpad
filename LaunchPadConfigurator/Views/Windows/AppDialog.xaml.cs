@@ -48,6 +48,11 @@ namespace LaunchPadConfigurator.Views.Windows
                 UrlInput.Visibility = Visibility.Visible;
                 LocalFileInput.Visibility = Visibility.Collapsed;
             }
+
+            Add.Click += (s,e) =>
+            {
+                Get();
+            };
         }
         public bool InputsAreValid()
         {
