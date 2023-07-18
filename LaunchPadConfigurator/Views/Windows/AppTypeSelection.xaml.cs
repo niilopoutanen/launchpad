@@ -19,15 +19,13 @@ namespace LaunchPadConfigurator.Views.Windows
             };
             Option2.MouseLeftButtonUp += (s, e) =>
             {
-                AppDialog option2 = new();
-                option2.InitializeInput(AppShortcut.AppTypes.EXE);
+                AppDialog option2 = new(AppShortcut.AppTypes.EXE);
                 option2.Show();
                 this.Close();
             };
             Option3.MouseLeftButtonUp += (s, e) =>
             {
-                AppDialog option3 = new();
-                option3.InitializeInput(AppShortcut.AppTypes.URL);
+                AppDialog option3 = new(AppShortcut.AppTypes.URL);
                 option3.Show();
                 this.Close();
             };
