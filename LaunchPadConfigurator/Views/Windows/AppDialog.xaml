@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchPadConfigurator.Views.Windows" 
         xmlns:controls="clr-namespace:LaunchPadCore.Common.Controls;assembly=LaunchPadCore"
-        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" 
+        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize" 
         WindowStyle="None" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" 
             BorderThickness="1" Width="200" Height="auto" CornerRadius="15" Padding="15">
