@@ -1,6 +1,7 @@
 ﻿using ABI.System.Collections.Generic;
 using LaunchPadConfiguratorWPF.Views.Controls;
 using LaunchPadCore.Common.Controls;
+using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,15 @@ namespace LaunchPadConfiguratorWPF.Views
                 };
                 control.OnClick += (s, e) =>
                 {
-                    Core.LaunchApp(tuple.Item3);
+                    AppShortcut app = new()
+                    {
+                        Name = tuple.Item1,
+                        IconFileName = tuple.Item2,
+                        AppType = AppShortcut.AppTypes.MS_STORE,
+                        ExeUri = tuple.Item3
+                    };
+                    SaveSystem.SaveApp(app);
+                    this.Close();
                 };
                 control.Container.Margin = new Thickness(0,10,0,10);
                 control.Container.Width = 110;

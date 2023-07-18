@@ -60,6 +60,15 @@ namespace LaunchPadCore.Models
                 IconFileName = IconFileName.Replace("%20", " ");
                 return IconFileName;
             }
+            if(File.Exists(Path.Combine(SaveSystem.iconsDirectory, IconFileName)))
+            {
+                return Path.Combine(SaveSystem.iconsDirectory, IconFileName);
+            }
+            else if(File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, IconFileName)))
+            {
+                return Path.Combine(SaveSystem.predefinedIconsDirectory, IconFileName);
+            }
+
             return Path.Combine(SaveSystem.iconsDirectory, IconFileName);
         }
 
