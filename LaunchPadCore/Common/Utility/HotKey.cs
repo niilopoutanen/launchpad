@@ -20,10 +20,10 @@ namespace LaunchPadCore.Utility
         private const int WM_HOTKEY = 786;
 
         [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-        private static extern int RegisterHotKey(IntPtr hwnd, int id, int modifiers, int key);
+        private static extern int RegisterHotKey(nint hwnd, int id, int modifiers, int key);
 
         [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-        private static extern int UnregisterHotKey(IntPtr hwnd, int id);
+        private static extern int UnregisterHotKey(nint hwnd, int id);
 
         public enum Modifiers : int
         {
@@ -91,14 +91,14 @@ namespace LaunchPadCore.Utility
         }
 
 
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private nint WndProc(nint hwnd, int msg, nint wParam, nint lParam, ref bool handled)
         {
             if (msg == WM_HOTKEY && (int)wParam == id && HotKeyPressed != null)
             {
                 HotKeyPressed(this, new HotKeyEventArgs(this));
             }
 
-            return IntPtr.Zero;
+            return nint.Zero;
         }
 
 

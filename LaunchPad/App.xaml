@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Resources/LightMode.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <FontFamily x:Key="Inter">/Resources/Fonts/#Inter</FontFamily>
+            <FontFamily x:Key="Inter">pack://application:,,,/LaunchPadCore;component/Common/Fonts/#Inter</FontFamily>
 
 
 

@@ -1,0 +1,31 @@
+﻿<Window x:Class="LaunchPadConfiguratorWPF.Views.AppGallery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LaunchPadConfiguratorWPF.Views"
+        mc:Ignorable="d"
+        Title="AppGallery" WindowStyle="None" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" Background="Transparent">
+    <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" BorderThickness="1" CornerRadius="25" 
+            Width="600" Height="400" Name="Container" Padding="15">
+        <StackPanel Orientation="Vertical">
+            <TextBlock FontSize="20" FontWeight="SemiBold">Add new app</TextBlock>
+
+
+            <ScrollViewer Height="314">
+                <WrapPanel Name="AppContainer">
+
+                </WrapPanel>
+            </ScrollViewer>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Name="Cancel" Template="{StaticResource LaunchPadButton}" Margin="0,0,10,0">Cancel</Button>
+                <Button Template="{StaticResource LaunchPadButton}">Search for more</Button>
+            </StackPanel>
+
+        </StackPanel>
+
+
+    </Border>
+</Window>

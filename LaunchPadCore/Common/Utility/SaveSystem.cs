@@ -17,7 +17,8 @@ namespace LaunchPadCore.Utility
 
         //server
         public static readonly string predefinedIconsDirectory = Path.Combine(saveFileLocation, "icons", "predefined");
-        public static readonly string predefinedAppsList = Path.Combine(saveFileLocation, "icons", "predefined", "predefined-apps.json");
+        public static readonly string predefinedAppsList = Path.Combine(predefinedIconsDirectory, "predefined-apps.json");
+        public static readonly string latestUpdate = Path.Combine(predefinedIconsDirectory, "data.updated");
 
 
         public static void SaveApps(List<AppShortcut> apps)
@@ -90,7 +91,7 @@ namespace LaunchPadCore.Utility
         }
         public static string SaveIcon(string currentPath, bool overWrite)
         {
-            VerifyPathIntegrity(); 
+            VerifyPathIntegrity();
             string fileName = Path.GetFileName(currentPath);
             string filePath = Path.Combine(iconsDirectory, fileName);
             if (!overWrite)

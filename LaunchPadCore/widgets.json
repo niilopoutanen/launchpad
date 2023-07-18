@@ -29,7 +29,7 @@
   },
   {
     "WidgetName": "Playback",
-    "Description": "Controls media playback",
+    "Description": "Controls windows media playback",
     "IconFile": "widget_playback.jpg",
     "ID": "plbk_05",
     "VariationCount": 3

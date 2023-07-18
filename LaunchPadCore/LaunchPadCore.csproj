@@ -11,18 +11,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Common\Resources\Fonts\Inter-Bold.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-Medium.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-Regular.ttf" />
+    <None Remove="Common\Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="widgets.json" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.3.5" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="widgets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Common\Resources\Fonts\Inter-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Resources\Fonts\Inter-Medium.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Resources\Fonts\Inter-Regular.ttf" />
+    <Resource Include="Common\Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
 </Project>

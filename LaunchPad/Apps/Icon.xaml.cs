@@ -1,5 +1,6 @@
 ﻿using LaunchPadCore.Controls;
 using LaunchPadCore.Models;
+using LaunchPadCore.Utility;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -82,7 +83,7 @@ namespace LaunchPad
                     Process process = new();
                     if (App.AppType == AppShortcut.AppTypes.MS_STORE)
                     {
-                        Process.Start("explorer.exe", "shell:appsfolder\\" + App.ExeUri + "!App");
+                        Core.LaunchApp(App.ExeUri);
                     }
                     else
                     {

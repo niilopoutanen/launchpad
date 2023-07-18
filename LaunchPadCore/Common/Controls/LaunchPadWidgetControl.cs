@@ -25,7 +25,7 @@ namespace LaunchPadCore.Controls
             SetVariation(Variation, false);
             return base.OnSecondaryClick();
         }
-        public virtual void SetVariation(int variation, bool animationDisabled) 
+        public virtual void SetVariation(int variation, bool animationDisabled)
         {
             if (!HasSecondaryAction)
             {
@@ -49,7 +49,7 @@ namespace LaunchPadCore.Controls
                 fadeInAnimation.From = 1.0;
             }
             ((FrameworkElement)variationObject).Visibility = Visibility.Visible;
-            ((FrameworkElement)variationObject).BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+            ((FrameworkElement)variationObject).BeginAnimation(OpacityProperty, fadeInAnimation);
 
             Variation = variation;
         }

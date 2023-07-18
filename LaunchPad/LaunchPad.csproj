@@ -25,10 +25,6 @@
     <None Remove="Resources\Assets\clock.png" />
     <None Remove="Resources\Assets\dashed_border.png" />
     <None Remove="Resources\Assets\icon_null.png" />
-    <None Remove="Resources\Fonts\Inter-Bold.ttf" />
-    <None Remove="Resources\Fonts\Inter-Medium.ttf" />
-    <None Remove="Resources\Fonts\Inter-Regular.ttf" />
-    <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\SystemTray.ico" />
   </ItemGroup>
@@ -62,7 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="System.Management" Version="7.0.2" />
   </ItemGroup>
 
@@ -72,14 +67,6 @@
 
   <ItemGroup>
     <Resource Include="Resources\Assets\icon_null.png" />
-    <Resource Include="Resources\Fonts\Inter-Bold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Fonts\Inter-Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Fonts\Inter-Regular.ttf" />
-    <Resource Include="Resources\Fonts\Inter-SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>
