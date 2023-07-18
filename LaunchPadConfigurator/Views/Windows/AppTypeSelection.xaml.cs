@@ -17,10 +17,14 @@ namespace LaunchPadConfigurator.Views.Windows
             };
             Option2.MouseLeftButtonUp += (s, e) =>
             {
+                AppDialog option2 = new AppDialog();
+                option2.Show();
                 this.Close();
             };
             Option3.MouseLeftButtonUp += (s, e) =>
             {
+                AppDialog option3 = new AppDialog();
+                option3.Show();
                 this.Close();
             };
         }

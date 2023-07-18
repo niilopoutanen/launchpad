@@ -14,9 +14,17 @@
     <SolidColorBrush x:Key="IconBackground" Color="#3D3D3D"/>
     <SolidColorBrush x:Key="AccentColor" Color="#007aff"/>
 
+    <Style x:Key="ControlBackground" TargetType="Border">
+        <Setter Property="Background" Value="#373737"/>
+        <Setter Property="BorderBrush" Value="#3a3a3a"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="MinHeight" Value="27"/>
+        <Setter Property="Padding" Value="10,0"/>
+    </Style>
 
     <ControlTemplate x:Key="LaunchPadButton" TargetType="Button">
-        <Border x:Name="Container" Background="#373737" BorderBrush="#3A3A3A" BorderThickness="1" CornerRadius="5" Padding="10,0" MinHeight="27">
+        <Border Style="{StaticResource ControlBackground}" x:Name="Container">
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <ControlTemplate.Triggers>
@@ -29,8 +37,16 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="LaunchPadTextBox" TargetType="TextBox">
+        <Grid>
+            <Border x:Name="Container" Style="{StaticResource ControlBackground}"/>
+            <ScrollViewer x:Name="PART_ContentHost" />
+
+        </Grid>
+
+    </ControlTemplate>
     <ControlTemplate x:Key="ToggleButtonTemplate" TargetType="ToggleButton">
-        <Border x:Name="Container" Background="#373737" BorderBrush="#3A3A3A" BorderThickness="1" CornerRadius="5" Padding="10,0">
+        <Border x:Name="Container" Style="{StaticResource ControlBackground}">
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <ControlTemplate.Triggers>

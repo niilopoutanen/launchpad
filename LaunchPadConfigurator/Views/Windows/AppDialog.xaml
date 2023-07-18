@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LaunchPadConfigurator.Views.Windows" 
         xmlns:controls="clr-namespace:LaunchPadCore.Common.Controls;assembly=LaunchPadCore"
-        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" WindowStyle="None">
+        mc:Ignorable="d" Background="Transparent" AllowsTransparency="True" WindowStyle="None" SizeToContent="WidthAndHeight">
     <Border Background="{StaticResource WindowBackground}" BorderBrush="{StaticResource WindowBorder}" 
-            BorderThickness="1" Width="200" Height="350" CornerRadius="15" Padding="15">
+            BorderThickness="1" Width="200" Height="auto" CornerRadius="15" Padding="15">
         <StackPanel Orientation="Vertical">
-            <controls:AppIconControl Width="170" Height="170" Name="AppIcon"/>
-            <TextBox Name="AppName">
+            <Border Background="{StaticResource ContainerBackground}" CornerRadius="10" Width="70" Height="70" Name="AppIcon">
+                
+            </Border>
+            <TextBox Template="{StaticResource LaunchPadTextBox}" Name="AppName">
                 
             </TextBox>
             <Button Template="{StaticResource LaunchPadButton}" Margin="0,5,0,0">File location</Button>
@@ -22,8 +24,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Template="{StaticResource LaunchPadButton}" Margin="0,0,2.5,0">Cancel</Button>
-                <Button Grid.Column="1" Template="{StaticResource LaunchPadButton}" Margin="2.5,0,0,0">Add</Button>
+                <Button Name="Cancel" Grid.Column="0" Template="{StaticResource LaunchPadButton}" Margin="0,0,2.5,0">Cancel</Button>
+                <Button Name="Add" Grid.Column="1" Template="{StaticResource LaunchPadButton}" Margin="2.5,0,0,0">Add</Button>
             </Grid>
         </StackPanel>
     </Border>

@@ -14,14 +14,15 @@ using System.Windows.Shapes;
 
 namespace LaunchPadConfigurator.Views.Windows
 {
-    /// <summary>
-    /// Interaction logic for AppDialog.xaml
-    /// </summary>
     public partial class AppDialog : Window
     {
         public AppDialog()
         {
             InitializeComponent();
+            Cancel.Click += (s, e) =>
+            {
+                this.Close();
+            };
         }
     }
 }
