@@ -20,7 +20,7 @@
             </ScrollViewer>
 
             <StackPanel Orientation="Horizontal">
-                <Button Template="{StaticResource LaunchPadButton}" Margin="0,0,10,0">Cancel</Button>
+                <Button Name="Cancel" Template="{StaticResource LaunchPadButton}" Margin="0,0,10,0">Cancel</Button>
                 <Button Template="{StaticResource LaunchPadButton}">Search for more</Button>
             </StackPanel>
 

@@ -28,7 +28,10 @@ namespace LaunchPadConfiguratorWPF.Views
             {
                 this.DragMove();
             };
-            
+            Cancel.Click += (s, e) =>
+            {
+                this.Close();
+            };
             LoadApps();
         }
         private async void LoadApps()
