@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -18,6 +19,8 @@ namespace LaunchPadConfigurator.Views.Windows
     public partial class AppDialog : Window
     {
         private readonly AppShortcut input = new();
+        public EventHandler<AppShortcut?>? completed;
+
         public AppDialog(AppShortcut.AppTypes type)
         {
             this.input.AppType = type;
@@ -49,9 +52,14 @@ namespace LaunchPadConfigurator.Views.Windows
                 LocalFileInput.Visibility = Visibility.Collapsed;
             }
 
-            Add.Click += (s,e) =>
+            Add.Click += async (s,e) =>
             {
-                Get();
+                AppShortcut? inp = await Get();
+                if(inp == null)
+                {
+                    return;
+                }
+                completed?.Invoke(this, inp);
             };
         }
         public bool InputsAreValid()
@@ -62,14 +70,30 @@ namespace LaunchPadConfigurator.Views.Windows
             }
             return true;
         }
-        public AppShortcut? Get()
+        private async Task<AppShortcut?> Get()
         {
             if (!InputsAreValid())
             {
                 return null;
             }
-
+            await Complete();
             return input;
+        }
+        public async Task Complete()
+        {
+            DoubleAnimation fadeInAnimation = new(0, 1, TimeSpan.FromSeconds(0.1));
+            Completed.Visibility = Visibility.Visible;
+            Completed.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+            await Task.Delay(1000);
+
+            this.Close();
+        }
+        public new void Close()
+        {
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.2));
+            fadeOutAnimation.Completed += (s, e) => base.Close();
+            BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
         }
     }
 }
