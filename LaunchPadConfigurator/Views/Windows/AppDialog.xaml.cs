@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaunchPadCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,19 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 this.DragMove();
             };
+        }
+        public void InitializeInput(AppShortcut.AppTypes type)
+        {
+            if(type == AppShortcut.AppTypes.EXE)
+            {
+                LocalFileInput.Visibility = Visibility.Visible;
+                UrlInput.Visibility = Visibility.Collapsed;
+            }
+            else if (type == AppShortcut.AppTypes.URL)
+            {
+                UrlInput.Visibility = Visibility.Visible;
+                LocalFileInput.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
