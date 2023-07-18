@@ -27,15 +27,17 @@ namespace LaunchPadConfiguratorWPF.Views
             {
                 this.DragMove();
             };
-
+            
             LoadApps();
         }
         private async void LoadApps()
         {
-            Dictionary<string[], string> data = await DataManager.GetData();
-            Dictionary<string, string> localApps = DataManager.GetApps();
+            Dictionary<string[], string> predefinedApps = await DataManager.LoadPredefinedApps();
+            Dictionary<string, string> localApps = DataManager.LoadInstalledApps();
 
-            List<Tuple<string,string,string>> mergedData = DataManager.MergeData(localApps, data);
+            await DataManager.ProcessData(predefinedApps);
+
+            List<Tuple<string,string,string>> mergedData = DataManager.MergeData(localApps, predefinedApps);
             foreach(var tuple in mergedData)
             {
                 AppIconControl control = new()

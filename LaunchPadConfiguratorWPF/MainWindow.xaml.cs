@@ -1,4 +1,5 @@
 ﻿using LaunchPadConfiguratorWPF.Views.Pages;
+using LaunchPadCore.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace LaunchPadConfiguratorWPF
     {
         public MainWindow()
         {
+            Core.UpdateData();
             InitializeComponent();
             InitializeElements();
         }

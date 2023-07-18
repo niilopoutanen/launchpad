@@ -23,7 +23,7 @@ namespace LaunchPadCore.Utility
         private const string appList = baseUrl + "app-list.json";
 
         public const string PATTERN_FILE = "<f>";
-        public static async Task<Dictionary<string[], string>> GetData()
+        private static async Task<Dictionary<string[], string>> LoadDataFromServer()
         {
             Dictionary<string[], string> templateApps = new();
 
@@ -32,17 +32,12 @@ namespace LaunchPadCore.Utility
                 try
                 {
                     string json = await client.GetStringAsync(appList);
-                    Dictionary<string, string> rawdata = new();
+                    string latestUpdate = await client.GetStringAsync(latestUpdateUrl);
 
-                    rawdata = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-                    foreach (var kvp in rawdata)
-                    {
-                        string[] keys = kvp.Key.Trim('[', ']').Split(new[] { "', '", "'," }, StringSplitOptions.RemoveEmptyEntries);
-                        templateApps[keys] = kvp.Value;
-                    }
-
+                    templateApps = ParseDictionary(JsonSerializer.Deserialize<Dictionary<string, string>>(json));
                     SaveSystem.VerifyPathIntegrity();
                     File.WriteAllText(SaveSystem.predefinedAppsList, json);
+                    File.WriteAllText(SaveSystem.latestUpdate, latestUpdate);
                 }
                 catch { }
             }
@@ -56,6 +51,18 @@ namespace LaunchPadCore.Utility
                 return new Dictionary<string[], string>();
             }
         }
+        public static async Task<Dictionary<string[], string>> LoadPredefinedApps()
+        {
+            if (await IsLatestData())
+            {
+                string json = File.ReadAllText(SaveSystem.predefinedAppsList);
+                return ParseDictionary(JsonSerializer.Deserialize<Dictionary<string, string>>(json));
+            }
+            else
+            {
+                return await LoadDataFromServer();
+            }
+        }
         public static List<Tuple<string, string, string>> MergeData(Dictionary<string,string> localApps, Dictionary<string[], string> serverApps)
         {
             //app name, icon filename, appID
@@ -64,7 +71,7 @@ namespace LaunchPadCore.Utility
             {
                 foreach (string key in keyValuePair.Key)
                 {
-                    if (DoesAppExist(localApps, key))
+                    if (IsAppInstalled(localApps, key))
                     {
                         string appID = DecryptPattern(localApps, key);
                         merges.Add(new Tuple<string, string, string>(localApps[appID], keyValuePair.Value, appID));
@@ -73,6 +80,20 @@ namespace LaunchPadCore.Utility
 
             }
             return merges;
+        }
+        private static Dictionary<string[], string> ParseDictionary(Dictionary<string,string>? rawData)
+        {
+            Dictionary<string[], string> parsedData = new();
+            if(rawData == null)
+            {
+                return parsedData;
+            }
+            foreach (var kvp in rawData)
+            {
+                string[] keys = kvp.Key.Trim('[', ']').Split(new[] { "', '", "'," }, StringSplitOptions.RemoveEmptyEntries);
+                parsedData[keys] = kvp.Value;
+            }
+            return parsedData;
         }
         public static string DecryptPattern(Dictionary<string,string> localApps, string pattern)
         {
@@ -106,7 +127,7 @@ namespace LaunchPadCore.Utility
                     server = version;
                 }
             }
-            if (!File.Exists(Path.Combine(SaveSystem.predefinedIconsDirectory, "data.updated")))
+            if (!File.Exists(SaveSystem.latestUpdate))
             {
                 return false;
             }
@@ -122,6 +143,8 @@ namespace LaunchPadCore.Utility
 
             if (local == server)
             {
+                string json = File.ReadAllText(SaveSystem.predefinedAppsList);
+                await ProcessData(ParseDictionary(JsonSerializer.Deserialize<Dictionary<string, string>>(json))).ConfigureAwait(false);
                 return true;
             }
             else
@@ -131,12 +154,12 @@ namespace LaunchPadCore.Utility
         }
         public static async Task ProcessData(Dictionary<string[], string> data)
         {
-            Dictionary<string, string> localApps = GetApps();
+            Dictionary<string, string> localApps = LoadInstalledApps();
             foreach (var keyValuePair in data)
             {
                 foreach (string key in keyValuePair.Key)
                 {
-                    if(DoesAppExist(localApps, key))
+                    if(IsAppInstalled(localApps, key))
                     {
                         await DownloadIcon(keyValuePair.Value);
                     }
@@ -145,7 +168,7 @@ namespace LaunchPadCore.Utility
             }
 
         }
-        public static bool DoesAppExist(Dictionary<string, string> localApps, string serverAppID)
+        public static bool IsAppInstalled(Dictionary<string, string> localApps, string serverAppID)
         {
             if (localApps.ContainsKey(serverAppID))
             {
@@ -165,7 +188,7 @@ namespace LaunchPadCore.Utility
             return false;
         }
 
-        public static Dictionary<string, string> GetApps()
+        public static Dictionary<string, string> LoadInstalledApps()
         {
             Dictionary<string, string> apps = new();
             using (PowerShell ps = PowerShell.Create())

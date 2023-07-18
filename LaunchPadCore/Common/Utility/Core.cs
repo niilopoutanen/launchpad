@@ -49,7 +49,7 @@ namespace LaunchPadCore.Utility
                 return;
             }
 
-            Dictionary<string[], string> apps = await DataManager.GetData();
+            Dictionary<string[], string> apps = await DataManager.LoadPredefinedApps();
             await DataManager.ProcessData(apps);
 
         }
