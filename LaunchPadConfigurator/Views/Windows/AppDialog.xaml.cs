@@ -99,13 +99,17 @@ namespace LaunchPadConfigurator.Views.Windows
         }
         public bool InputsAreValid()
         {
+            ClearErrors();
+
             if (String.IsNullOrEmpty(AppName.Text)|| String.IsNullOrEmpty(input.Name)) 
             {
+                ShowError(NameError, "App name cannot be empty.");
                 return false;
             }
 
             if(!File.Exists(input.IconFileName))
             {
+                ShowError(NameError, "Icon file is not valid");
                 return false;
             }
 
@@ -113,12 +117,24 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 return false;
             }
-            if (!File.Exists(input.ExeUri))
+            if (input.AppType == AppShortcut.AppTypes.EXE && !File.Exists(input.ExeUri))
             {
                 return false;
             }
 
             return true;
+        }
+        private void ShowError(TextBlock target, string message)
+        {
+            target.Visibility = Visibility.Visible;
+            target.Text = message;
+        }
+        private void ClearErrors()
+        {
+            NameError.Visibility = Visibility.Collapsed;
+            FileError.Visibility = Visibility.Collapsed;
+            UrlError.Visibility = Visibility.Collapsed;
+            IconError.Visibility = Visibility.Collapsed;
         }
         private async Task<AppShortcut?> Get()
         {

@@ -3,6 +3,7 @@
 
 
     <SolidColorBrush x:Key="TextSecondary" Color="#cccccc"/>
+    <SolidColorBrush x:Key="TextError" Color="#f1463e"/>
 
     <SolidColorBrush x:Key="WindowBackground" Color="#202020"/>
     <SolidColorBrush x:Key="WindowForeGround" Color="#292929"/>

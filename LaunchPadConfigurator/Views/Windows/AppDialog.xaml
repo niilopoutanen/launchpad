@@ -17,32 +17,28 @@
         </Border.RenderTransformOrigin>
         <Grid>
             <StackPanel Orientation="Vertical" Margin="15">
+                <TextBlock Margin="0,0,0,5" FontSize="15" TextAlignment="Center">Add new app</TextBlock>
+                <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,0,0,2">App name:</TextBlock>
+
+                <TextBox Template="{StaticResource LaunchPadTextBox}" Name="AppName" Foreground="White" FontFamily="{StaticResource Inter}" CaretBrush="White"/>
+                <TextBlock x:Name="NameError" Foreground="{StaticResource TextError}" FontSize="10" Margin="0,0,0,2" Visibility="Collapsed">App name not valid</TextBlock>
+
                 <StackPanel Orientation="Vertical" Name="LocalFileInput" Visibility="Collapsed">
-                    <TextBlock Margin="0,0,0,5" FontSize="15" TextAlignment="Center">Add new app</TextBlock>
-                    <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,0,0,2">App name:</TextBlock>
-                    <TextBox Template="{StaticResource LaunchPadTextBox}" Name="AppName" Foreground="White" 
-                     FontFamily="{StaticResource Inter}" CaretBrush="White">
-
-                    </TextBox>
-
                     <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">File location</TextBlock>
                     <Button Name="ExeButton" Template="{StaticResource LaunchPadButton}">File location</Button>
+                    <TextBlock x:Name="FileError" Foreground="{StaticResource TextError}" FontSize="10" Margin="0,0,0,2" Visibility="Collapsed">App file not valid</TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Name="UrlInput" Visibility="Collapsed">
-                    <TextBlock Margin="0,0,0,5" FontSize="15" TextAlignment="Center">Add new app</TextBlock>
-                    <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,0,0,2">App name:</TextBlock>
-                    <TextBox Template="{StaticResource LaunchPadTextBox}" Name="UrlName" Foreground="White" 
-                     FontFamily="{StaticResource Inter}" CaretBrush="White"/>
-
                     <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">Website URL</TextBlock>
                     <TextBox Template="{StaticResource LaunchPadTextBox}" Name="Url" Foreground="White" 
                      FontFamily="{StaticResource Inter}" CaretBrush="White"/>
-
+                    <TextBlock x:Name="UrlError" Foreground="{StaticResource TextError}" FontSize="10" Margin="0,0,0,2" Visibility="Collapsed">URL not valid</TextBlock>
                 </StackPanel>
                 
                 <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">Icon (optional)</TextBlock>
                 <Button Name="IconButton" Template="{StaticResource LaunchPadButton}">Icon location</Button>
+                <TextBlock x:Name="IconError" Foreground="{StaticResource TextError}" FontSize="10" Margin="0,0,0,2" Visibility="Collapsed">Icon is not valid</TextBlock>
                 <Grid Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
