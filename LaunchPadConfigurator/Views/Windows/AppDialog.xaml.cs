@@ -12,8 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LaunchPadCore.Common.Controls;
+using Microsoft.Win32;
+using System.IO;
 
 namespace LaunchPadConfigurator.Views.Windows
 {
@@ -46,12 +47,30 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 LocalFileInput.Visibility = Visibility.Visible;
                 UrlInput.Visibility = Visibility.Collapsed;
+                ExeButton.Click += (s, e) =>
+                {
+                    string result = ShowFileDialog(null);
+                };
             }
             else if (input.AppType == AppShortcut.AppTypes.URL)
             {
                 UrlInput.Visibility = Visibility.Visible;
                 LocalFileInput.Visibility = Visibility.Collapsed;
+                Url.TextChanged += (s, e) =>
+                {
+                    input.ExeUri = Url.Text;
+                };
             }
+
+            IconButton.Click += (s, e) =>
+            {
+                string result = ShowFileDialog("Image files(*.png; *.jpeg; *.jpg; *.ico)| *.png; *.jpeg; *.jpg; *.ico");
+                if (result != String.Empty)
+                {
+                    input.IconFileName = result;
+                    IconButton.Content = Path.GetFileName(result);
+                }
+            };
 
             Add.Click += async (s,e) =>
             {
@@ -63,12 +82,37 @@ namespace LaunchPadConfigurator.Views.Windows
                 completed?.Invoke(this, inp);
             };
         }
+        private static string ShowFileDialog(string? filter)
+        {
+            OpenFileDialog fileDialog = new();
+            if (filter != null) fileDialog.Filter = filter;
+
+            if(fileDialog.ShowDialog()  == true )
+            {
+                return fileDialog.FileName;
+            }
+            else
+            {
+                return String.Empty;
+            }
+        }
         public bool InputsAreValid()
         {
-            if (String.IsNullOrEmpty(AppName.Text)) 
+            if (String.IsNullOrEmpty(AppName.Text)|| String.IsNullOrEmpty(input.Name)) 
             {
                 return false;
             }
+
+            if(String.IsNullOrEmpty(input.IconFileName))
+            {
+                return false;
+            }
+            if(!File.Exists(input.IconFileName))
+            {
+                return false;
+            }
+
+            
             return true;
         }
         private async Task<AppShortcut?> Get()
