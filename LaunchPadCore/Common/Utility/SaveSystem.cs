@@ -53,7 +53,7 @@ namespace LaunchPadCore.Utility
             VerifyPathIntegrity();
             List<AppShortcut> existingApps = LoadApps();
 
-            AppShortcut? existingApp = existingApps.FirstOrDefault(a => a.Name == app.Name);
+            AppShortcut? existingApp = existingApps.FirstOrDefault(a => a.ID == app.ID);
 
             if (existingApp != null)
             {

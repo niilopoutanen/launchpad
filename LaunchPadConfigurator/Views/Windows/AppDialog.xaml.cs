@@ -25,6 +25,7 @@ namespace LaunchPadConfigurator.Views.Windows
 
         public AppDialog(AppShortcut.AppTypes type)
         {
+            input.Initialize();
             this.input.AppType = type;
             InitializeComponent();
             InitializeInput();
@@ -124,7 +125,7 @@ namespace LaunchPadConfigurator.Views.Windows
 
             return true;
         }
-        private void ShowError(TextBlock target, string message)
+        private static void ShowError(TextBlock target, string message)
         {
             target.Visibility = Visibility.Visible;
             target.Text = message;

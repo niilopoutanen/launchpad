@@ -47,7 +47,11 @@ namespace LaunchPadCore.Models
         }
         public AppShortcut() { }
 
-
+        public void Initialize()
+        {
+            ID = GetId();
+            Position = GetPosition();
+        }
         public string GetIconFullPath()
         {
             if (IconFileName == null)
