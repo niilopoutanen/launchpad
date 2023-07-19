@@ -107,9 +107,9 @@ namespace LaunchPadConfigurator.Views.Windows
                 return false;
             }
 
-            if(!File.Exists(input.IconFileName))
+            if(!String.IsNullOrEmpty(input.IconFileName) && !File.Exists(input.IconFileName))
             {
-                ShowError(NameError, "Icon file is not valid");
+                ShowError(IconError, "Icon file is not valid");
                 return false;
             }
 

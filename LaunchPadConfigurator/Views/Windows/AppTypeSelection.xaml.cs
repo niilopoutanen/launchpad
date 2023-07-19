@@ -2,6 +2,7 @@
 using LaunchPadCore.Models;
 using LaunchPadCore.Utility;
 using Microsoft.CodeAnalysis;
+using System;
 using System.Windows;
 
 
@@ -9,7 +10,7 @@ namespace LaunchPadConfigurator.Views.Windows
 {
     public partial class AppTypeSelection : Window
     {
-        public AppTypeSelection()
+        public AppTypeSelection(Action refresher)
         {
             InitializeComponent();
             Option1.MouseLeftButtonUp += (s, e) =>
@@ -28,6 +29,7 @@ namespace LaunchPadConfigurator.Views.Windows
                     if(e != null)
                     {
                         SaveSystem.SaveApp(e);
+                        refresher.Invoke();
                     }
                 };
                 this.Close();
@@ -42,6 +44,7 @@ namespace LaunchPadConfigurator.Views.Windows
                     if (e != null)
                     {
                         SaveSystem.SaveApp(e);
+                        refresher.Invoke();
                     }
                 };
                 this.Close();
