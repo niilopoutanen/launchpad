@@ -21,7 +21,7 @@ namespace LaunchPadConfigurator.Views.Windows
     public partial class AppDialog : BaseWindow
     {
         private readonly AppShortcut input = new();
-        public EventHandler<AppShortcut?>? completed;
+        public EventHandler<AppShortcut?>? onCompleted;
 
         public AppDialog(AppShortcut.AppTypes type)
         {
@@ -67,7 +67,7 @@ namespace LaunchPadConfigurator.Views.Windows
             IconButton.Click += (s, e) =>
             {
                 string result = ShowFileDialog("Image files(*.png; *.jpeg; *.jpg; *.ico)| *.png; *.jpeg; *.jpg; *.ico");
-                if (result != String.Empty)
+                if (result != string.Empty)
                 {
                     input.IconFileName = result;
                     IconButton.Content = Path.GetFileName(result);
@@ -77,11 +77,6 @@ namespace LaunchPadConfigurator.Views.Windows
             Add.Click += async (s,e) =>
             {
                 AppShortcut? inp = await Get();
-                if(inp == null)
-                {
-                    return;
-                }
-                completed?.Invoke(this, inp);
             };
         }
         private static string ShowFileDialog(string? filter)
@@ -95,26 +90,26 @@ namespace LaunchPadConfigurator.Views.Windows
             }
             else
             {
-                return String.Empty;
+                return string.Empty;
             }
         }
         public bool InputsAreValid()
         {
             ClearErrors();
 
-            if (String.IsNullOrEmpty(AppName.Text)|| String.IsNullOrEmpty(input.Name)) 
+            if (string.IsNullOrEmpty(AppName.Text)|| string.IsNullOrEmpty(input.Name)) 
             {
                 ShowError(NameError, "App name cannot be empty.");
                 return false;
             }
 
-            if(!String.IsNullOrEmpty(input.IconFileName) && !File.Exists(input.IconFileName))
+            if(!string.IsNullOrEmpty(input.IconFileName) && !File.Exists(input.IconFileName))
             {
                 ShowError(IconError, "Icon file is not valid");
                 return false;
             }
 
-            if (String.IsNullOrEmpty(input.ExeUri))
+            if (string.IsNullOrEmpty(input.ExeUri))
             {
                 return false;
             }
@@ -122,7 +117,6 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 return false;
             }
-
             return true;
         }
         private static void ShowError(TextBlock target, string message)
@@ -143,6 +137,7 @@ namespace LaunchPadConfigurator.Views.Windows
             {
                 return null;
             }
+            onCompleted?.Invoke(this, input);
             await Complete();
             return input;
         }

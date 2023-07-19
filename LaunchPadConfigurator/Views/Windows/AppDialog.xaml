@@ -33,6 +33,8 @@
                     <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,5,0,2">Website URL</TextBlock>
                     <TextBox Template="{StaticResource LaunchPadTextBox}" Name="Url" Foreground="White" 
                      FontFamily="{StaticResource Inter}" CaretBrush="White"/>
+                    <TextBlock Foreground="{StaticResource TextSecondary}" FontSize="11" Margin="0,2,0,2" 
+                               TextWrapping="Wrap" Text="(Use a full url with www. at the start.)"/>
                     <TextBlock x:Name="UrlError" Foreground="{StaticResource TextError}" FontSize="10" Margin="0,0,0,2" Visibility="Collapsed">URL not valid</TextBlock>
                 </StackPanel>
                 

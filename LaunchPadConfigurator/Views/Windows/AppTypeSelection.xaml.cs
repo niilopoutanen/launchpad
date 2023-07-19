@@ -24,7 +24,7 @@ namespace LaunchPadConfigurator.Views.Windows
                 AppDialog option2 = new(AppShortcut.AppTypes.EXE);
                 option2.Show();
 
-                option2.completed += (s, e) =>
+                option2.onCompleted += (s, e) =>
                 {
                     if(e != null)
                     {
@@ -39,7 +39,7 @@ namespace LaunchPadConfigurator.Views.Windows
                 AppDialog option3 = new(AppShortcut.AppTypes.URL);
                 option3.Show();
 
-                option3.completed += (s, e) =>
+                option3.onCompleted += (s, e) =>
                 {
                     if (e != null)
                     {
