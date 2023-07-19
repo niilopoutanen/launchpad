@@ -98,7 +98,7 @@ namespace LaunchPadCore.Utility
             {
                 if (File.Exists(filePath))
                 {
-                    fileName = Path.GetFileNameWithoutExtension(fileName) + DateTime.Now.ToShortTimeString() + Path.GetExtension(fileName);
+                    fileName = Path.GetFileNameWithoutExtension(fileName) + DateTime.Now.Second + Path.GetExtension(fileName);
                     filePath = Path.Combine(iconsDirectory, fileName);
                 }
             }

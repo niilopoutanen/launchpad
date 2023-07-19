@@ -29,12 +29,12 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <Button Template="{StaticResource LaunchPadButton}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posUp">
+                <Button Template="{StaticResource LaunchPadButton}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posDown">
                     <Path Data="M0.316406 9.63281C0.117188 9.82031 0 10.0898 0 10.3945C0 11.0039 0.457031 11.4609 1.06641 11.4609C1.37109 11.4609 1.65234 11.3555 1.82812 11.1562L10.8047 1.99219H9.55078L18.5273 11.1562C18.7148 11.3555 18.9961 11.4609 19.2891 11.4609C19.8984 11.4609 20.3555 11.0039 20.3555 10.3945C20.3555 10.0898 20.2383 9.82031 20.0391 9.63281L10.9688 0.351562C10.7695 0.128906 10.4766 0 10.1836 0C9.87891 0 9.59766 0.128906 9.38672 0.351562L0.316406 9.63281Z"
                           Fill="White" Stroke="White" StrokeThickness="1"/>
                 </Button>
-            
-                <Button Template="{StaticResource LaunchPadButton}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posDown">
+
+                <Button Template="{StaticResource LaunchPadButton}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="posUp">
                     <Path Data="M10.1836 11.4805C10.4766 11.4805 10.7695 11.3633 10.9688 11.1406L20.0391 1.84766C20.2383 1.64844 20.3555 1.39062 20.3555 1.09766C20.3555 0.488281 19.8984 0.0195312 19.2891 0.0195312C18.9961 0.0195312 18.7266 0.136721 18.5273 0.324221L9.55078 9.5H10.8047L1.82812 0.324221C1.64062 0.136721 1.37109 0.0195312 1.06641 0.0195312C0.457031 0.0195312 0 0.488281 0 1.09766C0 1.39062 0.117188 1.64844 0.316406 1.85938L9.38672 11.1406C9.60938 11.3633 9.87891 11.4805 10.1836 11.4805Z"
                           Fill="White" StrokeThickness="1" Stroke="White"/>
                 </Button>

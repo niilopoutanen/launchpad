@@ -50,6 +50,7 @@ namespace LaunchPadConfigurator.Views.Windows
                 ExeButton.Click += (s, e) =>
                 {
                     string result = ShowFileDialog(null);
+                    input.ExeUri = result;
                 };
             }
             else if (input.AppType == AppShortcut.AppTypes.URL)
@@ -103,16 +104,20 @@ namespace LaunchPadConfigurator.Views.Windows
                 return false;
             }
 
-            if(String.IsNullOrEmpty(input.IconFileName))
-            {
-                return false;
-            }
             if(!File.Exists(input.IconFileName))
             {
                 return false;
             }
 
-            
+            if (String.IsNullOrEmpty(input.ExeUri))
+            {
+                return false;
+            }
+            if (!File.Exists(input.ExeUri))
+            {
+                return false;
+            }
+
             return true;
         }
         private async Task<AppShortcut?> Get()
