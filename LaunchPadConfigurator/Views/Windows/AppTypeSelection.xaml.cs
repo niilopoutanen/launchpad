@@ -15,7 +15,7 @@ namespace LaunchPadConfigurator.Views.Windows
             InitializeComponent();
             Option1.MouseLeftButtonUp += (s, e) =>
             {
-                AppGallery option1 = new();
+                AppGallery option1 = new(refresher);
                 option1.Show();
                 this.Close();
             };

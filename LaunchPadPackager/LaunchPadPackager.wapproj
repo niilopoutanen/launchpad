@@ -57,7 +57,7 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateThumbprint>111D261E8E90A65010296B9F2EECC26A31EDED3B</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>0469758291B8893687AB26E63FDBEFA790E8D347</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
@@ -153,12 +153,14 @@
     <Content Include="Images\Wide310x150Logo.scale-150.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LaunchPadConfigurator\LaunchPadConfigurator.csproj" />
     <ProjectReference Include="..\LaunchPad\LaunchPad.csproj" />
   </ItemGroup>
 </Project>

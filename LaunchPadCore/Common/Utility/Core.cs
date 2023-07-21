@@ -15,8 +15,8 @@ namespace LaunchPadCore.Utility
         public const int APP_LAUNCHPAD = 0;
         public const int APP_LAUNCHPADCONFIG = 1;
 
-        public const string APPID_LAUNCHPAD = "NiiloPoutanen.LaunchPad_16tzdb5rranka!App";
-        public const string APPID_LAUNCHPADCONF = "NiiloPoutanen.LaunchPadConfigurator_g37tm3x42n8em!App";
+        public const string APPID_LAUNCHPAD = "923NiiloPoutanen.364392126B592_5y1c2t4szcgd8!App";
+        public const string APPID_LAUNCHPADCONF = "1ebbc395-73dc-4302-b025-469cfa5bc701_g37tm3x42n8em!App";
         public static void LaunchApp(int appType)
         {
             switch (appType)

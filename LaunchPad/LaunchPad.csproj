@@ -9,7 +9,7 @@
     <Authors>Niilo Poutanen</Authors>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Assets\icon.ico</ApplicationIcon>
-    <Version>1.1</Version>
+    <Version>1.1.2</Version>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>LaunchPad.App</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>

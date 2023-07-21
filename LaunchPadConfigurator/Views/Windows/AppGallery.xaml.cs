@@ -22,8 +22,10 @@ namespace LaunchPadConfiguratorWPF.Views.Windows
 {
     public partial class AppGallery : BaseWindow
     {
-        public AppGallery()
+        private readonly Action refresher;
+        public AppGallery(Action refresher)
         {
+            this.refresher = refresher;
             InitializeComponent();
             Container.MouseLeftButtonDown += (s, e) =>
             {
@@ -60,6 +62,7 @@ namespace LaunchPadConfiguratorWPF.Views.Windows
                         ExeUri = tuple.Item3
                     };
                     SaveSystem.SaveApp(app);
+                    refresher.Invoke();
                     this.Close();
                 };
                 control.Container.Margin = new Thickness(0,10,0,10);
