@@ -16,6 +16,7 @@
     <Description>Settings menu for LaunchPad</Description>
     <PackageIcon>launchpadconf_icon.png</PackageIcon>
     <ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
