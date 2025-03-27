@@ -57,14 +57,16 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateThumbprint>0469758291B8893687AB26E63FDBEFA790E8D347</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>A9997B226B41D9751CA36BCFCC31FE22CDD7F7FD</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
-    <EntryPointProjectUniqueName>..\LaunchPad\LaunchPad.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\LaunchPadConfigurator\LaunchPadConfigurator.csproj</EntryPointProjectUniqueName>
+    <AppxPackageDir>C:\Users\Poutanen\Desktop\</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <AppxBundle>Always</AppxBundle>
