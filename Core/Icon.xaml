@@ -6,7 +6,17 @@
              xmlns:local="clr-namespace:Core"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80" Margin="10">
-    <Border Width="80" Height="80" Background="Gray" CornerRadius="15">
-        
+    <Border Width="80" Height="80" Background="Gray" CornerRadius="15" 
+            MouseEnter="MouseEnter" MouseLeave="MouseLeave" MouseDown="MouseDown" MouseUp="MouseUp"
+            Name="root">
+        <Border.RenderTransform>
+            <ScaleTransform/>
+        </Border.RenderTransform>
+
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            </Style>
+        </Border.Style>
     </Border>
 </UserControl>
