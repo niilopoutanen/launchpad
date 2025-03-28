@@ -1,0 +1,19 @@
+﻿<Window x:Class="LaunchPad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LaunchPad" xmlns:Core="clr-namespace:Core;assembly=Core"
+        mc:Ignorable="d"
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None"
+        Height="100" Width="600" WindowStartupLocation="CenterScreen">
+    <Border MinWidth="100" MinHeight="100" Background="White" CornerRadius="20">
+        <WrapPanel >
+            <Core:Icon></Core:Icon>
+            <Core:Icon></Core:Icon>
+            
+        </WrapPanel>
+
+
+    </Border>
+</Window>
