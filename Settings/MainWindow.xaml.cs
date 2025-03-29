@@ -1,6 +1,4 @@
-﻿using Core;
-using Core.Models;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,21 +9,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LaunchPad
+namespace Settings
 {
-    public partial class Main : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public Main()
+        public MainWindow()
         {
             InitializeComponent();
-            LoadTheme();
-        }
-
-
-        private void LoadTheme()
-        {
-            Theme theme = DbManager.LoadTheme();
-
         }
     }
 }
