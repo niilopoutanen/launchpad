@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None"
         Height="100" Width="600" WindowStartupLocation="CenterScreen">
-    <Border MinWidth="100" MinHeight="100" Background="White" CornerRadius="20">
+    <Border MinWidth="100" MinHeight="100" Background="{StaticResource LaunchPadBackground}" CornerRadius="20" x:Name="root">
         <WrapPanel >
             <Core:Icon></Core:Icon>
             <Core:Icon></Core:Icon>

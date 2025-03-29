@@ -6,11 +6,57 @@
              xmlns:local="clr-namespace:Core"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80" Margin="10">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="MouseEnterAnimation">
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleX"
+                             To="1.1" Duration="0:0:0.1" />
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleY"
+                             To="1.1" Duration="0:0:0.1" />
+        </Storyboard>
+
+        <Storyboard x:Key="MouseLeaveAnimation">
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleX"
+                             To="1" Duration="0:0:0.1" />
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleY"
+                             To="1" Duration="0:0:0.1" />
+        </Storyboard>
+
+        <Storyboard x:Key="MouseDownAnimation">
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleX"
+                             To="0.95" Duration="0:0:0.1" />
+            <DoubleAnimation Storyboard.TargetName="ScaleTransformControl"
+                             Storyboard.TargetProperty="ScaleY"
+                             To="0.95" Duration="0:0:0.1" />
+        </Storyboard>
+
+        <Storyboard x:Key="MouseUpAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransformControl"
+                                   Storyboard.TargetProperty="ScaleX">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.95"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransformControl"
+                                   Storyboard.TargetProperty="ScaleY">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.95"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
     <Border Width="80" Height="80" Background="Gray" CornerRadius="15" 
             MouseEnter="MouseEnter" MouseLeave="MouseLeave" MouseDown="MouseDown" MouseUp="MouseUp"
             Name="root">
         <Border.RenderTransform>
-            <ScaleTransform/>
+            <ScaleTransform x:Name="ScaleTransformControl" ScaleX="1" ScaleY="1" />
         </Border.RenderTransform>
 
         <Border.Style>

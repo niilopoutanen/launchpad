@@ -13,6 +13,9 @@ namespace Core
 
         public AppDbContext()
         {
+#if DEBUG
+            Database.EnsureDeleted();
+#endif
             Database.EnsureCreated();
         }
 

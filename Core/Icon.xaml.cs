@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -45,25 +46,33 @@ namespace Core
 
 
 
-        private new void MouseEnter(object sender, MouseEventArgs e)
+        private void MouseEnter(object sender, MouseEventArgs e)
         {
-            root.RenderTransform = new ScaleTransform(1.1, 1.1, 0.5, 0.5);
+            Storyboard sb = (Storyboard)FindResource("MouseEnterAnimation");
+            sb.Begin();
         }
 
-        private new void MouseLeave(object sender, MouseEventArgs e)
+        private void MouseLeave(object sender, MouseEventArgs e)
         {
-            root.RenderTransform = new ScaleTransform(1, 1, 0.5, 0.5);
+            Storyboard sb = (Storyboard)FindResource("MouseLeaveAnimation");
+            sb.Begin();
         }
 
         private void MouseDown(object sender, MouseButtonEventArgs e)
         {
-            root.RenderTransform = new ScaleTransform(0.95, 0.95, 0.5, 0.5);
+            Storyboard sb = (Storyboard)FindResource("MouseDownAnimation");
+            sb.Begin();
         }
 
         private void MouseUp(object sender, MouseButtonEventArgs e)
         {
-            root.RenderTransform = new ScaleTransform(1.1, 1.1, 0.5, 0.5);
-            Click(sender, e);
+            Storyboard sb = (Storyboard)FindResource("MouseUpAnimation");
+            sb.Completed += (s, ev) =>
+            {
+                Click(sender, e);
+            };
+            sb.Begin();
+
         }
     }
 }
